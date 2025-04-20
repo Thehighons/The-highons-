@@ -21,11 +21,7 @@
 <body class="flex flex-col min-h-screen">
 
   <header class="bg-gray-900 text-white py-8 px-5 text-center">
-    <img alt="Beige and Grey Minimalist Modern Bold Typographic Brand
-
-Logo_20250419_133014_0000.png" class="mx-auto max-w-[260px] mb-6" height="80" loading="lazy" src="Beige and Grey Minimalist Modern Bold Typographic Brand
-
-Logo_20250419_133014_0000.png" width="260"/>
+    <img alt="The Highon's Logo" class="mx-auto max-w-[260px] mb-6" height="80" loading="lazy" src="1000022336.png" width="260"/>
     <h1 class="text-5xl tracking-widest leading-tight">The Highon's</h1>
     <p class="mt-2 text-sm tracking-widest">INNOVATING WITH PURPOSE</p>
     <nav class="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm tracking-wide">
@@ -33,11 +29,13 @@ Logo_20250419_133014_0000.png" width="260"/>
       <a class="hover:text-purple-300 transition-colors" href="#vision">Vision</a>
       <a class="hover:text-purple-300 transition-colors" href="#services">Services</a>
       <a class="hover:text-purple-300 transition-colors" href="#gallery">Gallery</a>
+      <a class="hover:text-purple-300 transition-colors" href="#order">Order</a>
       <a class="hover:text-purple-300 transition-colors" href="#contact">Contact</a>
     </nav>
   </header>
 
   <main class="flex-grow">
+
     <section class="py-16 px-5 text-center max-w-3xl mx-auto" id="home">
       <h2 class="text-4xl mb-5">Welcome to The Highon's</h2>
       <p class="text-lg leading-relaxed">Crafting ideas, products, and experiences that redefine possibilities.</p>
@@ -64,13 +62,45 @@ Logo_20250419_133014_0000.png" width="260"/>
 
     <section class="py-16 px-5 text-center max-w-3xl mx-auto" id="gallery">
       <h2 class="text-4xl mb-5">Gallery</h2>
-      <img alt="Beige and Grey Minimalist Modern Bold Typographic Brand
-
-Logo_20250419_133014_0000.png" class="mx-auto max-w-[260px] mb-6" height="80" loading="lazy" src="Beige and Grey Minimalist Modern Bold Typographic Brand
-
-Logo_20250419_133014_0000.png" width="260"/>
+      <img alt="The Highon's Logo" class="mx-auto max-w-[260px] mb-6" height="80" loading="lazy" src="1000022336.png" width="260"/>
       <p class="text-lg leading-relaxed">More visuals coming soon!</p>
     </section>
+
+    <!-- Order Section -->
+    <section class="py-16 px-5 text-center max-w-3xl mx-auto" id="order">
+      <h2 class="text-4xl mb-5">Order Your Essentials</h2>
+      <form action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6">
+
+        <div>
+          <label class="block mb-2 text-lg font-semibold" for="name">Name</label>
+          <input class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400" type="text" id="name" name="name" required />
+        </div>
+
+        <div>
+          <label class="block mb-2 text-lg font-semibold" for="email">Email</label>
+          <input class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400" type="email" id="email" name="email" required />
+        </div>
+
+        <div>
+          <label class="block mb-2 text-lg font-semibold" for="product">Select Product</label>
+          <select class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400" id="product" name="product" required>
+            <option value="">-- Choose an item --</option>
+            <option>Fancy Pen</option>
+            <option>Fancy Pencil</option>
+            <option>Fancy Eraser</option>
+            <option>Designer Diary</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block mb-2 text-lg font-semibold" for="quantity">Quantity</label>
+          <input class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400" type="number" id="quantity" name="quantity" min="1" required />
+        </div>
+
+        <button type="submit" class="bg-purple-600 text-white px-6 py-3 rounded hover:bg-purple-700 transition">Place Order</button>
+      </form>
+    </section>
+    <!-- End Order Section -->
 
     <section class="py-16 px-5 text-center max-w-3xl mx-auto" id="contact">
       <h2 class="text-4xl mb-5">Contact Us</h2>
@@ -81,6 +111,7 @@ Logo_20250419_133014_0000.png" width="260"/>
         Instagram: <a class="text-purple-600 hover:underline" href="https://instagram.com/thehighons" target="_blank" rel="noopener noreferrer">@thehighons</a>
       </p>
     </section>
+
   </main>
 
   <footer class="bg-gray-900 text-white text-center py-6 text-sm tracking-wide">
@@ -89,4 +120,5 @@ Logo_20250419_133014_0000.png" width="260"/>
 
 </body>
 </html>
+
 
