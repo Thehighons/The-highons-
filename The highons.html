@@ -1,142 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Highon's</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Roboto&display=swap');
-
-    body {
-      margin: 0;
-      padding: 0;
-      background: #f4f3f1;
-      color: #1a1a1a;
-      font-family: 'Roboto', sans-serif;
-    }
-
-    header {
-      background: #1a1a1a;
-      color: #fff;
-      padding: 30px 20px;
-      text-align: center;
-    }
-
-    header h1 {
-      font-family: 'Cinzel', serif;
-      font-size: 50px;
-      letter-spacing: 2px;
-      margin: 0;
-    }
-
-    header p {
-      margin: 10px 0 0;
-      font-size: 14px;
-      letter-spacing: 2px;
-    }
-
-    nav {
-      margin-top: 20px;
-    }
-
-    nav a {
-      color: #fff;
-      margin: 0 12px;
-      text-decoration: none;
-      font-size: 15px;
-      letter-spacing: 1px;
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: #e0aaff;
-    }
-
-    section {
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    section h2 {
-      font-family: 'Cinzel', serif;
-      font-size: 36px;
-      margin-bottom: 20px;
-    }
-
-    section p {
-      max-width: 700px;
-      margin: 0 auto;
-      font-size: 18px;
-      line-height: 1.7;
-    }
-
-    .logo {
-      max-width: 260px;
-      margin: 30px auto;
-      display: block;
-    }
-
-    footer {
-      background: #1a1a1a;
-      color: #fff;
-      text-align: center;
-      padding: 25px 10px;
-      margin-top: 40px;
-      font-size: 14px;
-      letter-spacing: 1px;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Highon's</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f6f2;
+    }
+    h1, h2, h3 {
+      font-family: 'Cinzel', serif;
+    }
+    .bg-custom-beige {
+      background-color: #dcd1c1;
+    }
+    .text-custom-grey {
+      color: #4a4a4a;
+    }
+    .product-card:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease-in-out;
+    }
+  </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
 
-<header>
-  <img src="1000022336.png" alt="The Highon's Logo" class="logo">
-  <h1>The Highon's</h1>
-  <p>INNOVATING WITH PURPOSE</p>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#vision">Vision</a>
-    <a href="#services">Services</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+  <!-- Navbar -->
+  <header class="bg-gray-800 text-white">
+    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+      <div class="flex items-center gap-3">
+        <img src="1000022336.png" alt="Logo" class="h-10 w-auto">
+        <span class="text-xl font-bold tracking-wide">The Highon's</span>
+      </div>
+      <nav class="space-x-4 text-sm">
+        <a href="#products" class="hover:text-gray-300">Products</a>
+        <a href="#order" class="hover:text-gray-300">Order</a>
+        <a href="#contact" class="hover:text-gray-300">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-<section id="home">
-  <h2>Welcome to The Highon's</h2>
-  <p>Crafting ideas, products, and experiences that redefine possibilities.</p>
-</section>
+  <!-- Hero Section -->
+  <section class="text-center py-16 bg-custom-beige text-custom-grey">
+    <h2 class="text-4xl font-bold mb-4">Create Bold. Create Bright.</h2>
+    <p class="text-lg mb-6">Welcome to The Highon's — where creativity meets purpose.</p>
+    <a href="#products" class="bg-gray-700 text-white px-6 py-3 rounded hover:bg-gray-800 transition">Explore Products</a>
+  </section>
 
-<section id="about">
-  <h2>About Us</h2>
-  <p>At The Highon's, we believe in fearless innovation. While our journey has just begun, our passion for creativity and purpose-driven ideas is what sets us apart. Stay tuned for the exciting things we’re building.</p>
-</section>
+  <!-- Product Showcase -->
+  <section id="products" class="max-w-7xl mx-auto py-12 px-6">
+    <h2 class="text-3xl font-bold text-center mb-10">Our Products</h2>
+    <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
 
-<section id="vision">
-  <h2>Our Vision</h2>
-  <p>To create a brand that resonates with bold thinkers, creators, and doers — innovating with purpose, inspiring with action.</p>
-</section>
+      <!-- Product Items -->
+      <div class="bg-white shadow rounded-lg p-4 text-center product-card">
+        <img src="1000022336.png" alt="Fancy Pen" class="h-28 mx-auto mb-4">
+        <h3 class="text-lg font-semibold mb-1">Fancy Pen</h3>
+        <p class="text-gray-700 font-bold mb-2">₹149/-</p>
+        <a href="#order" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800 transition">Order Now</a>
+      </div>
 
-<section id="services">
-  <h2>What We Offer</h2>
-  <p>Coming Soon…</p>
-</section>
+      <div class="bg-white shadow rounded-lg p-4 text-center product-card">
+        <img src="1000022336.png" alt="Fancy Pencil" class="h-28 mx-auto mb-4">
+        <h3 class="text-lg font-semibold mb-1">Fancy Pencil</h3>
+        <p class="text-gray-700 font-bold mb-2">₹89/-</p>
+        <a href="#order" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800 transition">Order Now</a>
+      </div>
 
-<section id="gallery">
-  <h2>Gallery</h2>
-  <img src="1000022336.png" alt="The Highon's Logo" class="logo">
-  <p>More visuals coming soon!</p>
-</section>
+      <div class="bg-white shadow rounded-lg p-4 text-center product-card">
+        <img src="1000022336.png" alt="Fancy Eraser" class="h-28 mx-auto mb-4">
+        <h3 class="text-lg font-semibold mb-1">Fancy Eraser</h3>
+        <p class="text-gray-700 font-bold mb-2">₹79/-</p>
+        <a href="#order" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800 transition">Order Now</a>
+      </div>
 
-<section id="contact">
-  <h2>Contact Us</h2>
-  <p>Email: thehighonsofficial@gmail.com</p>
-  <p>Instagram: @thehighons</p>
-</section>
+      <div class="bg-white shadow rounded-lg p-4 text-center product-card">
+        <img src="1000022336.png" alt="Designer Diary" class="h-28 mx-auto mb-4">
+        <h3 class="text-lg font-semibold mb-1">Designer Diary</h3>
+        <p class="text-gray-700 font-bold mb-2">₹249/-</p>
+        <a href="#order" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800 transition">Order Now</a>
+      </div>
 
-<footer>
-  <p>The Highon's</p>
-</footer>
+      <div class="bg-white shadow rounded-lg p-4 text-center product-card">
+        <img src="1000022336.png" alt="Fancy Sharpener" class="h-28 mx-auto mb-4">
+        <h3 class="text-lg font-semibold mb-1">Fancy Sharpener</h3>
+        <p class="text-gray-700 font-bold mb-2">₹49/-</p>
+        <a href="#order" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800 transition">Order Now</a>
+      </div>
+
+      <!-- New Items (shortened for brevity — same format continues...) -->
+      <!-- You can keep appending more product-card divs here -->
+
+    </div>
+  </section>
+
+  <!-- Order Form -->
+  <section id="order" class="py-16 bg-gray-100 px-6">
+    <div class="max-w-xl mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-6">Place Your Order</h2>
+      <form action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
+        <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
+
+        <div>
+          <label class="block mb-1 font-semibold">Full Name</label>
+          <input type="text" name="name" required class="w-full p-3 border rounded">
+        </div>
+
+        <div>
+          <label class="block mb-1 font-semibold">Email</label>
+          <input type="email" name="email" required class="w-full p-3 border rounded">
+        </div>
+
+        <div>
+          <label class="block mb-1 font-semibold">Product</label>
+          <input type="text" name="product" placeholder="Write the product name" required class="w-full p-3 border rounded">
+        </div>
+
+        <div>
+          <label class="block mb-1 font-semibold">Quantity</label>
+          <input type="number" name="quantity" min="1" required class="w-full p-3 border rounded">
+        </div>
+
+        <button type="submit" class="w-full bg-gray-800 text-white py-3 rounded hover:bg-gray-900 transition">Confirm Order</button>
+      </form>
+      <p class="text-sm mt-4 italic text-gray-500">* Orders are only delivered within Navsari - 396445 *</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="bg-white py-12 text-center px-6">
+    <h2 class="text-3xl font-bold mb-4">Contact Us</h2>
+    <p>Email: <a href="mailto:thehighonsofficial@gmail.com" class="text-gray-800 hover:underline">thehighonsofficial@gmail.com</a></p>
+    <p>Instagram: <a href="https://instagram.com/thehighons" target="_blank" class="text-gray-800 hover:underline">@thehighons</a></p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-6 text-center mt-auto">
+    <p>2025 The Highon's.</p>
+  </footer>
 
 </body>
 </html>
