@@ -15,7 +15,7 @@
       font-family: 'Cinzel', serif;
     }
     .hero-section {
-      background-color: #6a4c9c;
+      background-color: #6a4c9c; /* Adjust this color based on your logo */
       color: white;
       text-align: center;
       padding: 6rem 2rem;
@@ -27,6 +27,23 @@
     .product-card:hover {
       transform: scale(1.05);
       transition: transform 0.3s ease-in-out;
+    }
+    .product-card img {
+      object-fit: cover;
+      height: 200px;
+    }
+    .btn-primary {
+      background-color: #6a4c9c;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .btn-primary:hover {
+      background-color: #4e3991; /* A darker shade of the main color */
     }
   </style>
 </head>
@@ -52,7 +69,7 @@
     <section class="hero-section">
       <h2>Create Bold. Create Bright.</h2>
       <p class="text-lg mb-6">Discover creative products designed with passion and purpose.</p>
-      <a href="#products" class="bg-white text-purple-600 px-6 py-3 rounded-full text-lg">Explore Products</a>
+      <a href="#products" class="btn-primary">Explore Products</a>
     </section>
 
     <!-- Product Showcase -->
@@ -60,13 +77,13 @@
       <h2 class="text-3xl font-bold text-center mb-10">Our Products</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
 
-        <!-- Product Item -->
+        <!-- Product Items -->
         <div class="product-card bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition">
           <img src="1000022336.png" alt="Fancy Pen" class="w-full h-48 object-cover">
           <div class="p-4 text-center">
             <h3 class="text-lg font-semibold mb-1">Fancy Pen</h3>
             <p class="text-purple-700 font-bold mb-2">₹149/-</p>
-            <a href="#order" class="bg-purple-600 text-white px-4 py-2 rounded-full inline-block">Order Now</a>
+            <a href="#order" class="btn-primary inline-block">Order Now</a>
           </div>
         </div>
 
@@ -75,7 +92,7 @@
           <div class="p-4 text-center">
             <h3 class="text-lg font-semibold mb-1">Fancy Pencil</h3>
             <p class="text-purple-700 font-bold mb-2">₹89/-</p>
-            <a href="#order" class="bg-purple-600 text-white px-4 py-2 rounded-full inline-block">Order Now</a>
+            <a href="#order" class="btn-primary inline-block">Order Now</a>
           </div>
         </div>
 
@@ -84,7 +101,7 @@
           <div class="p-4 text-center">
             <h3 class="text-lg font-semibold mb-1">Fancy Eraser</h3>
             <p class="text-purple-700 font-bold mb-2">₹79/-</p>
-            <a href="#order" class="bg-purple-600 text-white px-4 py-2 rounded-full inline-block">Order Now</a>
+            <a href="#order" class="btn-primary inline-block">Order Now</a>
           </div>
         </div>
 
@@ -93,7 +110,17 @@
           <div class="p-4 text-center">
             <h3 class="text-lg font-semibold mb-1">Designer Diary</h3>
             <p class="text-purple-700 font-bold mb-2">₹249/-</p>
-            <a href="#order" class="bg-purple-600 text-white px-4 py-2 rounded-full inline-block">Order Now</a>
+            <a href="#order" class="btn-primary inline-block">Order Now</a>
+          </div>
+        </div>
+
+        <!-- New Product: Fancy Sharpener -->
+        <div class="product-card bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition">
+          <img src="1000022336.png" alt="Fancy Sharpener" class="w-full h-48 object-cover">
+          <div class="p-4 text-center">
+            <h3 class="text-lg font-semibold mb-1">Fancy Sharpener</h3>
+            <p class="text-purple-700 font-bold mb-2">₹49/-</p>
+            <a href="#order" class="btn-primary inline-block">Order Now</a>
           </div>
         </div>
 
@@ -121,6 +148,7 @@
             <option value="Fancy Pencil">Fancy Pencil — ₹89</option>
             <option value="Fancy Eraser">Fancy Eraser — ₹79</option>
             <option value="Designer Diary">Designer Diary — ₹249</option>
+            <option value="Fancy Sharpener">Fancy Sharpener — ₹49</option>
           </select>
         </div>
         <div>
@@ -142,8 +170,9 @@
 
   <!-- Footer -->
   <footer class="bg-gray-900 text-white py-6 text-center mt-auto">
-    <p>The Highon's</p>
+    <p>&copy; 2025 The Highon's. All rights reserved.</p>
   </footer>
 
 </body>
 </html>
+
