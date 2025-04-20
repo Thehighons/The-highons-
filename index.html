@@ -43,16 +43,12 @@
 
     <section class="py-16 px-5 text-center max-w-3xl mx-auto" id="about">
       <h2 class="text-4xl mb-5">About Us</h2>
-      <p class="text-lg leading-relaxed">
-        At The Highon's, we believe in fearless innovation. While our journey has just begun, our passion for creativity and purpose-driven ideas is what sets us apart. Stay tuned for the exciting things we’re building.
-      </p>
+      <p class="text-lg leading-relaxed">At The Highon's, we believe in fearless innovation. While our journey has just begun, our passion for creativity and purpose-driven ideas is what sets us apart. Stay tuned for the exciting things we’re building.</p>
     </section>
 
     <section class="py-16 px-5 text-center max-w-3xl mx-auto" id="vision">
       <h2 class="text-4xl mb-5">Our Vision</h2>
-      <p class="text-lg leading-relaxed">
-        To create a brand that resonates with bold thinkers, creators, and doers — innovating with purpose, inspiring with action.
-      </p>
+      <p class="text-lg leading-relaxed">To create a brand that resonates with bold thinkers, creators, and doers — innovating with purpose, inspiring with action.</p>
     </section>
 
     <section class="py-16 px-5 text-center max-w-3xl mx-auto" id="services">
@@ -66,50 +62,50 @@
       <p class="text-lg leading-relaxed">More visuals coming soon!</p>
     </section>
 
-    <!-- Order Section -->
     <section class="py-16 px-5 text-center max-w-3xl mx-auto" id="order">
-      <h2 class="text-4xl mb-5">Order Your Essentials</h2>
+      <h2 class="text-4xl mb-5">Place Your Order</h2>
+      <p class="mb-8 text-lg leading-relaxed text-gray-700">* We currently accept orders exclusively from Navsari - 396445, Gujarat, India *</p>
+
       <form action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6">
 
+        <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
+
         <div>
-          <label class="block mb-2 text-lg font-semibold" for="name">Name</label>
-          <input class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400" type="text" id="name" name="name" required />
+          <label class="block mb-2 text-lg font-semibold" for="name">Full Name</label>
+          <input class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400" type="text" id="name" name="name" placeholder="Your name" required />
         </div>
 
         <div>
-          <label class="block mb-2 text-lg font-semibold" for="email">Email</label>
-          <input class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400" type="email" id="email" name="email" required />
+          <label class="block mb-2 text-lg font-semibold" for="email">Email Address</label>
+          <input class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400" type="email" id="email" name="email" placeholder="your@email.com" required />
         </div>
 
         <div>
           <label class="block mb-2 text-lg font-semibold" for="product">Select Product</label>
           <select class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400" id="product" name="product" required>
             <option value="">-- Choose an item --</option>
-            <option>Fancy Pen</option>
-            <option>Fancy Pencil</option>
-            <option>Fancy Eraser</option>
-            <option>Designer Diary</option>
+            <option value="Fancy Pen">Fancy Pen — ₹149/-</option>
+            <option value="Fancy Pencil">Fancy Pencil — ₹89/-</option>
+            <option value="Fancy Eraser">Fancy Eraser — ₹79/-</option>
+            <option value="Designer Diary">Designer Diary — ₹249/-</option>
           </select>
         </div>
 
         <div>
           <label class="block mb-2 text-lg font-semibold" for="quantity">Quantity</label>
-          <input class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400" type="number" id="quantity" name="quantity" min="1" required />
+          <input class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-purple-400" type="number" id="quantity" name="quantity" min="1" placeholder="1" required />
         </div>
 
-        <button type="submit" class="bg-purple-600 text-white px-6 py-3 rounded hover:bg-purple-700 transition">Place Order</button>
+        <p class="text-sm text-gray-600 italic">* Delivery available only within Navsari - 396445 *</p>
+
+        <button type="submit" class="bg-purple-600 text-white px-6 py-3 rounded hover:bg-purple-700 transition">Confirm Your Order</button>
       </form>
     </section>
-    <!-- End Order Section -->
 
     <section class="py-16 px-5 text-center max-w-3xl mx-auto" id="contact">
       <h2 class="text-4xl mb-5">Contact Us</h2>
-      <p class="text-lg leading-relaxed">
-        Email: <a class="text-purple-600 hover:underline" href="mailto:thehighonsofficial@gmail.com">thehighonsofficial@gmail.com</a>
-      </p>
-      <p class="text-lg leading-relaxed">
-        Instagram: <a class="text-purple-600 hover:underline" href="https://instagram.com/thehighons" target="_blank" rel="noopener noreferrer">@thehighons</a>
-      </p>
+      <p class="text-lg leading-relaxed">Email: <a class="text-purple-600 hover:underline" href="mailto:thehighonsofficial@gmail.com">thehighonsofficial@gmail.com</a></p>
+      <p class="text-lg leading-relaxed">Instagram: <a class="text-purple-600 hover:underline" href="https://instagram.com/thehighons" target="_blank" rel="noopener noreferrer">@thehighons</a></p>
     </section>
 
   </main>
@@ -120,5 +116,3 @@
 
 </body>
 </html>
-
-
