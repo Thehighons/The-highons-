@@ -1,258 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Highon's</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Roboto&display=swap" rel="stylesheet">
-  <style>
-    @font-face {
-      font-family: 'Trajan Pro';
-      src: url('trajan-pro.woff2') format('woff2'), url('trajan-pro.woff') format('woff');
-    }
-    body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f8f6f2;
-    }
-    h1, h2, h3 {
-      font-family: 'Cinzel', serif;
-    }
-    .brand-name {
-      font-family: 'Trajan Pro', serif;
-    }
-    .bg-custom-beige {
-      background-color: #dcd1c1;
-    }
-    .text-custom-grey {
-      color: #4a4a4a;
-    }
-    .product-card:hover {
-      transform: scale(1.05);
-      transition: transform 0.3s ease-in-out;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Highon's</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Trajan Pro';
+      src: url('trajan-pro.woff2') format('woff2'), url('trajan-pro.woff') format('woff');
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f6f2;
+    }
+    h1, h2, h3 {
+      font-family: 'Cinzel', serif;
+    }
+    .brand-name {
+      font-family: 'Trajan Pro', serif;
+    }
+    .bg-custom-beige {
+      background-color: #dcd1c1;
+    }
+    .text-custom-grey {
+      color: #4a4a4a;
+    }
+    .product-card:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease-in-out;
+    }
+  </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-  <!-- Navbar -->
-  <header class="bg-gray-900 text-white shadow-md">
-    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
-      <div class="flex items-center gap-4">
-        <span class="text-2xl font-bold tracking-wide brand-name">The Highon's</span>
-      </div>
-      <nav class="space-x-6 text-sm">
-        <a href="#products" class="hover:text-gray-300">Products</a>
-        <a href="#order" class="hover:text-gray-300">Order</a>
-        <a href="#contact" class="hover:text-gray-300">Contact</a>
-        <button onclick="logout()" class="hover:text-gray-300 text-sm underline ml-4">Logout</button>
-      </nav>
-    </div>
-  </header>
+  <!-- Navbar -->
+  <header class="bg-gray-900 text-white shadow-md">
+    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+      <div class="flex items-center gap-4">
+        <span class="text-2xl font-bold tracking-wide brand-name">The Highon's</span>
+      </div>
+      <nav class="space-x-6 text-sm">
+        <a href="#products" class="hover:text-gray-300">Products</a>
+        <a href="#order" class="hover:text-gray-300">Order</a>
+        <a href="#contact" class="hover:text-gray-300">Contact</a>
+        <button onclick="logout()" class="hover:text-gray-300 text-sm underline ml-4">Logout</button>
+      </nav>
+    </div>
+  </header>
 
-  <!-- Hero Section -->
-  <section class="text-center py-20 bg-custom-beige text-custom-grey">
-    <h2 class="text-5xl font-bold mb-4 tracking-tight">Create Bold. Create Bright.</h2>
-    <p class="text-xl mb-8 max-w-2xl mx-auto">Welcome to The Highon's — where creativity meets purpose.</p>
-    <a href="#products" class="inline-block bg-gray-800 text-white px-8 py-4 rounded-lg shadow hover:bg-gray-900 transition">Explore Products</a>
-  </section>
+  <!-- Hero Section -->
+  <section class="text-center py-20 bg-custom-beige text-custom-grey">
+    <h2 class="text-5xl font-bold mb-4 tracking-tight">Create Bold. Create Bright.</h2>
+    <p class="text-xl mb-8 max-w-2xl mx-auto">Welcome to The Highon's — where creativity meets purpose.</p>
+    <a href="#products" class="inline-block bg-gray-800 text-white px-8 py-4 rounded-lg shadow hover:bg-gray-900 transition">Explore Products</a>
+  </section>
 
-  <!-- Product Section -->
-  <section id="products" class="py-20 bg-white px-6">
-    <div class="max-w-7xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-12">Our Products</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="productList"></div>
-    </div>
-  </section>
+  <!-- Product Section -->
+  <section id="products" class="py-20 bg-white px-6">
+    <div class="max-w-7xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-12">Our Products</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="productList"></div>
+    </div>
+  </section>
 
-  <!-- Order Section -->
-  <section id="order" class="py-20 bg-gray-100 px-6">
-    <div class="max-w-2xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-8">Place Your Order</h2>
+  <!-- Order Section -->
+  <section id="order" class="py-20 bg-gray-100 px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-8">Place Your Order</h2>
 
-      <!-- Login Form -->
-      <div id="loginForm" class="space-y-6 text-left">
-        <h3 class="text-xl font-semibold mb-4">Sign Up / Login</h3>
-        <input type="text" id="name" placeholder="Full Name" class="w-full p-4 border rounded" required>
-        <input type="email" id="email" placeholder="Email" class="w-full p-4 border rounded" required>
-        <input type="text" id="phone" placeholder="Phone (+91)" class="w-full p-4 border rounded" required>
-        <input type="text" id="address" placeholder="Full Address" class="w-full p-4 border rounded" required>
-        <button onclick="saveUser()" class="w-full bg-gray-800 text-white py-3 rounded hover:bg-gray-900 transition">Save & Continue</button>
-      </div>
+      <!-- Login Form -->
+      <div id="loginForm" class="space-y-6 text-left">
+        <h3 class="text-xl font-semibold mb-4">Sign Up / Login</h3>
+        <input type="text" id="name" placeholder="Full Name" class="w-full p-4 border rounded" required>
+        <input type="email" id="email" placeholder="Email" class="w-full p-4 border rounded" required>
+        <input type="text" id="phone" placeholder="Phone (+91)" class="w-full p-4 border rounded" required>
+        <input type="text" id="address" placeholder="Full Address" class="w-full p-4 border rounded" required>
+        <button onclick="saveUser()" class="w-full bg-gray-800 text-white py-3 rounded hover:bg-gray-900 transition">Save & Continue</button>
+      </div>
 
-      <!-- Order Form -->
-      <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left hidden">
-        <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
-        <input type="hidden" name="name" id="formName">
-        <input type="hidden" name="email" id="formEmail">
-        <input type="hidden" name="phone" id="formPhone">
-        <input type="hidden" name="address" id="formAddress">
-        <input type="hidden" name="message" id="orderSummaryText">
+      <!-- Order Form -->
+      <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left hidden">
+        <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
+        <input type="hidden" name="name" id="formName">
+        <input type="hidden" name="email" id="formEmail">
+        <input type="hidden" name="phone" id="formPhone">
+        <input type="hidden" name="address" id="formAddress">
+        <input type="hidden" name="message" id="orderSummaryText">
 
-        <div id="cartSummary" class="bg-white border rounded p-4 mb-4">
-          <h3 class="font-semibold text-lg mb-2">Your Cart</h3>
-          <ul id="cartItems" class="space-y-1"></ul>
-          <p class="mt-2 font-bold">Total: ₹<span id="cartTotal">0</span></p>
-        </div>
+        <!-- Coupon Code -->
+        <div class="mb-4">
+          <label for="coupon" class="font-semibold mb-2 block">Have a coupon code?</label>
+          <input type="text" id="coupon" placeholder="Enter code if you have one" class="w-full p-3 border rounded">
+        </div>
 
-        <button type="submit" onclick="prepareOrder()" class="w-full bg-gray-900 text-white py-4 rounded hover:bg-black transition">Confirm Order</button>
-      </form>
+        <div id="cartSummary" class="bg-white border rounded p-4 mb-4">
+          <h3 class="font-semibold text-lg mb-2">Your Cart</h3>
+          <ul id="cartItems" class="space-y-1"></ul>
+          <p class="mt-2 font-bold">Total: ₹<span id="cartTotal">0</span></p>
+        </div>
 
-      <p class="text-sm mt-4 italic text-gray-500">* Orders are only delivered within Navsari - 396445 *</p>
-    </div>
-  </section>
+        <button type="submit" onclick="prepareOrder()" class="w-full bg-gray-900 text-white py-4 rounded hover:bg-black transition">Confirm Order</button>
+      </form>
 
-  <!-- Contact Section -->
-  <section id="contact" class="bg-white py-16 text-center px-6">
-    <h2 class="text-4xl font-bold mb-6">Contact Us</h2>
-    <p class="text-lg">Email: <a href="mailto:thehighonsofficial@gmail.com" class="text-gray-800 hover:underline">thehighonsofficial@gmail.com</a></p>
-    <p class="text-lg">Instagram: <a href="https://instagram.com/thehighons" target="_blank" class="text-gray-800 hover:underline">@thehighons</a></p>
-  </section>
+      <p class="text-sm mt-4 italic text-gray-500">* Orders are only delivered within Navsari - 396445 *</p>
+    </div>
+  </section>
 
-  <!-- Script -->
-  <script>
-    const products = [
-      { name: "Silicone Mould Diy Jewelry Locket Pendant Drop", price: 100, img: "product1.jpg" },
-      { name: "Shape SMDJ02", price: 100, img: "product2.jpg" },
-      { name: "Whitener", price: 75, img: "product3.jpg" },
-      { name: "Keychain", price: 40, img: "product4.jpg" },
-      { name: "Hot Melt Glue Gun", price: 220, img: "product5.jpg" },
-      { name: "Markers", price: 90, img: "product6.jpg" },
-      { name: "Kit", price: 289, img: "product7.jpg" },
-      { name: "Paint Brush", price: 89, img: "product8.jpg" },
-      { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg" },
-      { name: "Pen", price: 99, img: "product10.jpg" },
-      { name: "Pencil", price: 79, img: "product11.jpg" },
-      { name: "Eraser", price: 49, img: "product12.jpg" },
-      { name: "Dairy", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" }
-    ];
+  <!-- Contact Section -->
+  <section id="contact" class="bg-white py-16 text-center px-6">
+    <h2 class="text-4xl font-bold mb-6">Contact Us</h2>
+    <p class="text-lg">Email: <a href="mailto:thehighonsofficial@gmail.com" class="text-gray-800 hover:underline">thehighonsofficial@gmail.com</a></p>
+    <p class="text-lg">Instagram: <a href="https://instagram.com/thehighons" target="_blank" class="text-gray-800 hover:underline">@thehighons</a></p>
+  </section>
 
-    const cart = [];
+  <!-- Script -->
+  <script>
+    const products = [
+      { name: "Silicone Mould Diy Jewelry Locket Pendant Drop", price: 100, img: "product1.jpg" },
+      { name: "Shape SMDJ02", price: 100, img: "product2.jpg" },
+      { name: "Whitener", price: 75, img: "product3.jpg" },
+      { name: "Keychain", price: 40, img: "product4.jpg" },
+      { name: "Hot Melt Glue Gun", price: 220, img: "product5.jpg" },
+      { name: "Markers", price: 90, img: "product6.jpg" },
+      { name: "Kit", price: 289, img: "product7.jpg" },
+      { name: "Paint Brush", price: 89, img: "product8.jpg" },
+      { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg" },
+      { name: "Pen", price: 99, img: "product10.jpg" },
+      { name: "Pencil", price: 79, img: "product11.jpg" },
+      { name: "Eraser", price: 49, img: "product12.jpg" },
+      { name: "Dairy", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" }
+    ];
 
-    function renderProducts() {
-      const container = document.getElementById("productList");
-      container.innerHTML = '';
-      products.forEach((p, i) => {
-        const card = document.createElement("div");
-        card.className = "bg-custom-beige p-6 rounded-lg shadow-lg product-card";
-        const itemInCart = cart.find(item => item.name === p.name);
-        card.innerHTML = `
-          <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover rounded mb-4">
-          <h3 class="text-xl font-semibold mb-2">${p.name}</h3>
-          <span class="block text-lg font-bold text-gray-900 mb-2">₹${p.price}</span>
-          <div id="controls-${i}">
-            ${itemInCart ? `
-              <div class="flex items-center justify-center gap-2">
-                <button onclick="updateQty(${i}, -1)" class="bg-gray-700 text-white px-3 py-1 rounded">-</button>
-                <span class="font-semibold">${itemInCart.qty}</span>
-                <button onclick="updateQty(${i}, 1)" class="bg-gray-700 text-white px-3 py-1 rounded">+</button>
-              </div>` : `
-              <button onclick="addToCart(${i})" class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-900">Add to Cart</button>`
-            }
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
+    const cart = [];
 
-    function addToCart(index) {
-      const product = products[index];
-      const existing = cart.find(p => p.name === product.name);
-      if (existing) {
-        existing.qty += 1;
-      } else {
-        cart.push({ ...product, qty: 1 });
-      }
-      updateCart();
-      renderProducts();
-    }
+    function renderProducts() {
+      const container = document.getElementById("productList");
+      container.innerHTML = '';
+      products.forEach((p, i) => {
+        const card = document.createElement("div");
+        card.className = "bg-custom-beige p-6 rounded-lg shadow-lg product-card";
+        const itemInCart = cart.find(item => item.name === p.name);
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover rounded mb-4">
+          <h3 class="text-xl font-semibold mb-2">${p.name}</h3>
+          <span class="block text-lg font-bold text-gray-900 mb-2">₹${p.price}</span>
+          <div id="controls-${i}">
+            ${itemInCart ? `
+              <div class="flex items-center justify-center gap-2">
+                <button onclick="updateQty(${i}, -1)" class="bg-gray-700 text-white px-3 py-1 rounded">-</button>
+                <span class="font-semibold">${itemInCart.qty}</span>
+                <button onclick="updateQty(${i}, 1)" class="bg-gray-700 text-white px-3 py-1 rounded">+</button>
+              </div>` : `
+              <button onclick="addToCart(${i})" class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-900">Add to Cart</button>`
+            }
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
 
-    function updateQty(index, change) {
-      const product = products[index];
-      const item = cart.find(p => p.name === product.name);
-      if (item) {
-        item.qty += change;
-        if (item.qty <= 0) {
-          const idx = cart.indexOf(item);
-          cart.splice(idx, 1);
-        }
-      }
-      updateCart();
-      renderProducts();
-    }
+    function addToCart(index) {
+      const product = products[index];
+      const existing = cart.find(p => p.name === product.name);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      updateCart();
+      renderProducts();
+    }
 
-    function updateCart() {
-      const list = document.getElementById("cartItems");
-      const totalEl = document.getElementById("cartTotal");
-      list.innerHTML = '';
-      let total = 0;
-      cart.forEach(item => {
-        total += item.price * item.qty;
-        list.innerHTML += `<li>${item.name} x ${item.qty} = ₹${item.price * item.qty}</li>`;
-      });
-      totalEl.textContent = total;
-    }
+    function updateQty(index, change) {
+      const product = products[index];
+      const item = cart.find(p => p.name === product.name);
+      if (item) {
+        item.qty += change;
+        if (item.qty <= 0) {
+          const idx = cart.indexOf(item);
+          cart.splice(idx, 1);
+        }
+      }
+      updateCart();
+      renderProducts();
+    }
 
-    function prepareOrder() {
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (!user) return;
-      let summary = `Order for ${user.name}\n`;
-      cart.forEach(item => {
-        summary += `${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
-      });
-      const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-      summary += `Total: ₹${total}`;
-      document.getElementById("orderSummaryText").value = summary;
-    }
+    function updateCart() {
+      const list = document.getElementById("cartItems");
+      const totalEl = document.getElementById("cartTotal");
+      list.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        list.innerHTML += `<li>${item.name} x ${item.qty} = ₹${item.price * item.qty}</li>`;
+      });
+      totalEl.textContent = total;
+    }
 
-    function saveUser() {
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const address = document.getElementById('address').value.trim();
-      const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-      const phoneRegex = /^[6-9]\d{9}$/;
+    function prepareOrder() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (!user) return;
 
-      if (!name || !email || !phone || !address) {
-        alert("Please fill all fields.");
-        return;
-      }
+      const coupon = document.getElementById('coupon').value.trim();
+      let summary = `Order for ${user.name}\n`;
+      let total = 0;
 
-      if (!emailRegex.test(email)) {
-        alert("Please enter a valid email address.");
-        return;
-      }
+      cart.forEach(item => {
+        summary += `${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
+        total += item.price * item.qty;
+      });
 
-      if (!phoneRegex.test(phone)) {
-        alert("Please enter a valid 10-digit Indian phone number.");
-        return;
-      }
+      if (coupon === "NSL10%") {
+        const discount = Math.round(total * 0.10);
+        summary += `Discount (NSL10%): -₹${discount}\n`;
+        total -= discount;
+      }
 
-      localStorage.setItem('user', JSON.stringify({ name, email, phone, address }));
-      populateOrderForm();
-    }
+      summary += `Total: ₹${total}`;
+      document.getElementById("orderSummaryText").value = summary;
+    }
 
-    function populateOrderForm() {
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (user) {
-        document.getElementById('formName').value = user.name;
-        document.getElementById('formEmail').value = user.email;
-        document.getElementById('formPhone').value = user.phone;
-        document.getElementById('formAddress').value = user.address;
-        document.getElementById('loginForm').classList.add('hidden');
-        document.getElementById('orderForm').classList.remove('hidden');
-      }
-    }
+    function saveUser() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      const phoneRegex = /^[6-9]\d{9}$/;
 
-    function logout() {
-      localStorage.removeItem('user');
-      location.reload();
-    }
+      if (!name || !email || !phone || !address) {
+        alert("Please fill all fields.");
+        return;
+      }
 
-    window.onload = () => {
-      renderProducts();
-      populateOrderForm();
-    };
-  </script>
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      if (!phoneRegex.test(phone)) {
+        alert("Please enter a valid 10-digit Indian phone number.");
+        return;
+      }
+
+      localStorage.setItem('user', JSON.stringify({ name, email, phone, address }));
+      populateOrderForm();
+    }
+
+    function populateOrderForm() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        document.getElementById('formName').value = user.name;
+        document.getElementById('formEmail').value = user.email;
+        document.getElementById('formPhone').value = user.phone;
+        document.getElementById('formAddress').value = user.address;
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('orderForm').classList.remove('hidden');
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('user');
+      location.reload();
+    }
+
+    window.onload = () => {
+      renderProducts();
+      populateOrderForm();
+    };
+  </script>
 </body>
 </html>
