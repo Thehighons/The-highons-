@@ -8,6 +8,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Roboto&display=swap" rel="stylesheet">
   <style>
+    @font-face {
+      font-family: 'Trajan Pro';
+      src: url('trajan-pro.woff2') format('woff2'),
+           url('trajan-pro.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
     body {
       font-family: 'Roboto', sans-serif;
       background-color: #f8f6f2;
@@ -15,6 +23,10 @@
 
     h1, h2, h3 {
       font-family: 'Cinzel', serif;
+    }
+
+    .brand-name {
+      font-family: 'Trajan Pro', serif;
     }
 
     .bg-custom-beige {
@@ -37,10 +49,7 @@
   <header class="bg-gray-900 text-white shadow-md">
     <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
       <div class="flex items-center gap-4">
-        <img src="Beige and Grey Minimalist Modern Bold Typographic Brand
-
-Logo_20250419_133014_0000.png" alt="Logo" class="h-12 w-auto">
-        <span class="text-2xl font-bold tracking-wide">The Highon's</span>
+        <span class="text-2xl font-bold tracking-wide brand-name">The Highon's</span>
       </div>
       <nav class="space-x-6 text-sm">
         <a href="#products" class="hover:text-gray-300">Products</a>
@@ -63,92 +72,80 @@ Logo_20250419_133014_0000.png" alt="Logo" class="h-12 w-auto">
     <div class="max-w-7xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-12">Our Products</h2>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
-        
-        <!-- Silicone Mould Diy Jewelry Locket Pendant Drop -->
+
+        <!-- Product Cards (all remain the same) -->
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product1.jpg" alt="Silicone Mould Diy Jewelry Locket Pendant Drop" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Silicone Mould Diy Jewelry Locket Pendant Drop</h3>
           <span class="block text-lg font-bold text-gray-900">₹100</span>
         </div>
 
-        <!-- Shape SMDJ02 -->
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product2.jpg" alt="Shape SMDJ02" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Shape SMDJ02</h3>
           <span class="block text-lg font-bold text-gray-900">₹100</span>
         </div>
 
-        <!-- Whitener -->
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product3.jpg" alt="Whitener" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Whitener</h3>
           <span class="block text-lg font-bold text-gray-900">₹75</span>
         </div>
 
-        <!-- Keychain -->
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product4.jpg" alt="Keychain" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Keychain</h3>
           <span class="block text-lg font-bold text-gray-900">₹40</span>
         </div>
 
-        <!-- Hot melt glue gun -->
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product5.jpg" alt="Hot melt glue gun" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Hot Melt Glue Gun</h3>
           <span class="block text-lg font-bold text-gray-900">₹220</span>
         </div>
 
-        <!-- Markers -->
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product6.jpg" alt="Markers" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Markers</h3>
           <span class="block text-lg font-bold text-gray-900">₹90</span>
         </div>
 
-        <!-- Kit -->
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product7.jpg" alt="Kit" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Kit</h3>
           <span class="block text-lg font-bold text-gray-900">₹289</span>
         </div>
 
-        <!-- Paint brush -->
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product8.jpg" alt="Paint Brush" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Paint Brush</h3>
           <span class="block text-lg font-bold text-gray-900">₹89</span>
         </div>
 
-        <!-- Sponge Dabbing Brush 5 Piece Set -->
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="41fvlzAzMWL._AC_.jpg" alt="Sponge Dabbing Brush 5 Piece Set" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Sponge Dabbing Brush 5 Piece Set</h3>
           <span class="block text-lg font-bold text-gray-900">₹90</span>
         </div>
 
-        <!-- Pen -->
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product10.jpg" alt="Pen" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Pen</h3>
           <span class="block text-lg font-bold text-gray-900">₹99</span>
         </div>
 
-        <!-- Pencil -->
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product11.jpg" alt="Pencil" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Pencil</h3>
           <span class="block text-lg font-bold text-gray-900">₹79</span>
         </div>
 
-        <!-- Eraser -->
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product12.jpg" alt="Eraser" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Eraser</h3>
           <span class="block text-lg font-bold text-gray-900">₹49</span>
         </div>
 
-        <!-- Dairy -->
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Dairy" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Dairy</h3>
@@ -175,7 +172,6 @@ Logo_20250419_133014_0000.png" alt="Logo" class="h-12 w-auto">
 
       <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left hidden">
         <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
-
         <input type="hidden" name="name" id="formName">
         <input type="hidden" name="email" id="formEmail">
         <input type="hidden" name="phone" id="formPhone">
@@ -217,7 +213,6 @@ Logo_20250419_133014_0000.png" alt="Logo" class="h-12 w-auto">
         return;
       }
 
-      // Save user data
       localStorage.setItem('user', JSON.stringify({ name, email, phone, address }));
       populateOrderForm();
     }
