@@ -25,6 +25,7 @@
     .product-card:hover {
       transform: scale(1.05);
       transition: transform 0.3s ease-in-out;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -58,12 +59,11 @@
     </div>
   </section>
 
-  <!-- Order -->
+  <!-- Order Section -->
   <section id="order" class="py-20 bg-[#f8f6f2] px-6">
     <div class="max-w-2xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-8">Place Your Order</h2>
 
-      <!-- Login Form -->
       <div id="loginForm" class="space-y-6 text-left">
         <input type="text" id="name" placeholder="Full Name" class="w-full p-4 border rounded" required>
         <input type="email" id="email" placeholder="Email" class="w-full p-4 border rounded" required>
@@ -72,7 +72,6 @@
         <button onclick="saveUser()" class="w-full bg-[#1f1f1f] text-[#bfa76f] py-3 rounded hover:bg-black transition">Save & Continue</button>
       </div>
 
-      <!-- Order Form -->
       <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left hidden">
         <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
         <input type="hidden" name="name" id="formName">
@@ -104,12 +103,22 @@
     <p class="text-lg">Instagram: <a href="https://instagram.com/thehighons" target="_blank" class="text-[#1f1f1f] hover:text-[#bfa76f]">@thehighons</a></p>
   </section>
 
-  <!-- Product + Cart Script -->
+  <!-- Modal -->
+  <div id="productModal" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-xl relative max-w-md w-full">
+      <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl">&times;</button>
+      <img id="modalImg" src="" alt="" class="w-full h-64 object-cover rounded mb-4">
+      <h3 id="modalName" class="text-xl font-bold mb-2"></h3>
+      <p id="modalPrice" class="text-lg font-semibold text-[#1f1f1f]"></p>
+    </div>
+  </div>
+
+  <!-- Script -->
   <script>
     const products = [
       { name: "Silicone Mould Diy Jewelry Locket Pendant Drop", price: 100, img: "product1.jpg" },
       { name: "Shape SMDJ02", price: 100, img: "product2.jpg" },
-      { name: "Whitener", price: 75, img: "5117S8XUYOL.jpg" },
+      { name: "Whitener", price: 75, img: "product3.jpg" },
       { name: "Keychain", price: 40, img: "product4.jpg" },
       { name: "Hot Melt Glue Gun", price: 220, img: "product5.jpg" },
       { name: "Markers", price: 90, img: "product6.jpg" },
@@ -132,7 +141,7 @@
         card.className = "bg-[#f3efe9] p-6 rounded-lg shadow-lg product-card";
         const itemInCart = cart.find(item => item.name === p.name);
         card.innerHTML = `
-          <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover rounded mb-4">
+          <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover rounded mb-4" onclick="showModal('${p.name}', '${p.img}', ${p.price})">
           <h3 class="text-xl font-semibold mb-2">${p.name}</h3>
           <span class="block text-lg font-bold text-[#1f1f1f] mb-2">₹${p.price}</span>
           <div id="controls-${i}">
@@ -252,6 +261,17 @@
     function logout() {
       localStorage.removeItem('user');
       location.reload();
+    }
+
+    function showModal(name, img, price) {
+      document.getElementById('modalImg').src = img;
+      document.getElementById('modalName').textContent = name;
+      document.getElementById('modalPrice').textContent = `₹${price}`;
+      document.getElementById('productModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('productModal').classList.add('hidden');
     }
 
     window.onload = () => {
