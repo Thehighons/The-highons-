@@ -9,41 +9,32 @@
   <style>
     @font-face {
       font-family: 'Trajan Pro';
-      src: url('trajan-pro.woff2') format('woff2'),
-           url('trajan-pro.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
+      src: url('trajan-pro.woff2') format('woff2'), url('trajan-pro.woff') format('woff');
     }
-
     body {
       font-family: 'Roboto', sans-serif;
       background-color: #f8f6f2;
     }
-
     h1, h2, h3 {
       font-family: 'Cinzel', serif;
     }
-
     .brand-name {
       font-family: 'Trajan Pro', serif;
     }
-
     .bg-custom-beige {
       background-color: #dcd1c1;
     }
-
     .text-custom-grey {
       color: #4a4a4a;
     }
-
     .product-card:hover {
       transform: scale(1.05);
       transition: transform 0.3s ease-in-out;
     }
   </style>
 </head>
-
 <body class="flex flex-col min-h-screen">
+
   <!-- Navbar -->
   <header class="bg-gray-900 text-white shadow-md">
     <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
@@ -70,73 +61,8 @@
   <section id="products" class="py-20 bg-white px-6">
     <div class="max-w-7xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-12">Our Products</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
-        <!-- Product Cards -->
-        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
-          <img src="product1.jpg" alt="Silicone Mould Diy Jewelry Locket Pendant Drop" class="w-full h-48 object-cover rounded mb-4">
-          <h3 class="text-xl font-semibold mb-2">Silicone Mould Diy Jewelry Locket Pendant Drop</h3>
-          <span class="block text-lg font-bold text-gray-900">₹100</span>
-        </div>
-        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
-          <img src="product2.jpg" alt="Shape SMDJ02" class="w-full h-48 object-cover rounded mb-4">
-          <h3 class="text-xl font-semibold mb-2">Shape SMDJ02</h3>
-          <span class="block text-lg font-bold text-gray-900">₹100</span>
-        </div>
-        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
-          <img src="product3.jpg" alt="Whitener" class="w-full h-48 object-cover rounded mb-4">
-          <h3 class="text-xl font-semibold mb-2">Whitener</h3>
-          <span class="block text-lg font-bold text-gray-900">₹75</span>
-        </div>
-        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
-          <img src="product4.jpg" alt="Keychain" class="w-full h-48 object-cover rounded mb-4">
-          <h3 class="text-xl font-semibold mb-2">Keychain</h3>
-          <span class="block text-lg font-bold text-gray-900">₹40</span>
-        </div>
-        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
-          <img src="product5.jpg" alt="Hot melt glue gun" class="w-full h-48 object-cover rounded mb-4">
-          <h3 class="text-xl font-semibold mb-2">Hot Melt Glue Gun</h3>
-          <span class="block text-lg font-bold text-gray-900">₹220</span>
-        </div>
-        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
-          <img src="product6.jpg" alt="Markers" class="w-full h-48 object-cover rounded mb-4">
-          <h3 class="text-xl font-semibold mb-2">Markers</h3>
-          <span class="block text-lg font-bold text-gray-900">₹90</span>
-        </div>
-        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
-          <img src="product7.jpg" alt="Kit" class="w-full h-48 object-cover rounded mb-4">
-          <h3 class="text-xl font-semibold mb-2">Kit</h3>
-          <span class="block text-lg font-bold text-gray-900">₹289</span>
-        </div>
-        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
-          <img src="product8.jpg" alt="Paint Brush" class="w-full h-48 object-cover rounded mb-4">
-          <h3 class="text-xl font-semibold mb-2">Paint Brush</h3>
-          <span class="block text-lg font-bold text-gray-900">₹89</span>
-        </div>
-        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
-          <img src="41fvlzAzMWL._AC_.jpg" alt="Sponge Dabbing Brush 5 Piece Set" class="w-full h-48 object-cover rounded mb-4">
-          <h3 class="text-xl font-semibold mb-2">Sponge Dabbing Brush 5 Piece Set</h3>
-          <span class="block text-lg font-bold text-gray-900">₹90</span>
-        </div>
-        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
-          <img src="product10.jpg" alt="Pen" class="w-full h-48 object-cover rounded mb-4">
-          <h3 class="text-xl font-semibold mb-2">Pen</h3>
-          <span class="block text-lg font-bold text-gray-900">₹99</span>
-        </div>
-        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
-          <img src="product11.jpg" alt="Pencil" class="w-full h-48 object-cover rounded mb-4">
-          <h3 class="text-xl font-semibold mb-2">Pencil</h3>
-          <span class="block text-lg font-bold text-gray-900">₹79</span>
-        </div>
-        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
-          <img src="product12.jpg" alt="Eraser" class="w-full h-48 object-cover rounded mb-4">
-          <h3 class="text-xl font-semibold mb-2">Eraser</h3>
-          <span class="block text-lg font-bold text-gray-900">₹49</span>
-        </div>
-        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
-          <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Dairy" class="w-full h-48 object-cover rounded mb-4">
-          <h3 class="text-xl font-semibold mb-2">Dairy</h3>
-          <span class="block text-lg font-bold text-gray-900">₹249</span>
-        </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="productList">
+        <!-- Products will be inserted here by JS -->
       </div>
     </div>
   </section>
@@ -146,6 +72,7 @@
     <div class="max-w-2xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-8">Place Your Order</h2>
 
+      <!-- Login Form -->
       <div id="loginForm" class="space-y-6 text-left">
         <h3 class="text-xl font-semibold mb-4">Sign Up / Login</h3>
         <input type="text" id="name" placeholder="Full Name" class="w-full p-4 border rounded" required>
@@ -155,24 +82,22 @@
         <button onclick="saveUser()" class="w-full bg-gray-800 text-white py-3 rounded hover:bg-gray-900 transition">Save & Continue</button>
       </div>
 
+      <!-- Order Form -->
       <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left hidden">
         <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
         <input type="hidden" name="name" id="formName">
         <input type="hidden" name="email" id="formEmail">
         <input type="hidden" name="phone" id="formPhone">
         <input type="hidden" name="address" id="formAddress">
+        <input type="hidden" name="message" id="orderSummaryText">
 
-        <div>
-          <label class="block mb-2 font-semibold">Product</label>
-          <input type="text" name="product" required class="w-full p-4 border rounded">
+        <div id="cartSummary" class="bg-white border rounded p-4 mb-4">
+          <h3 class="font-semibold text-lg mb-2">Your Cart</h3>
+          <ul id="cartItems" class="space-y-1"></ul>
+          <p class="mt-2 font-bold">Total: ₹<span id="cartTotal">0</span></p>
         </div>
 
-        <div>
-          <label class="block mb-2 font-semibold">Quantity</label>
-          <input type="number" name="quantity" min="1" required class="w-full p-4 border rounded">
-        </div>
-
-        <button type="submit" class="w-full bg-gray-900 text-white py-4 rounded hover:bg-black transition">Confirm Order</button>
+        <button type="submit" onclick="prepareOrder()" class="w-full bg-gray-900 text-white py-4 rounded hover:bg-black transition">Confirm Order</button>
       </form>
 
       <p class="text-sm mt-4 italic text-gray-500">* Orders are only delivered within Navsari - 396445 *</p>
@@ -187,6 +112,76 @@
   </section>
 
   <script>
+    const products = [
+      { name: "Silicone Mould Diy Jewelry Locket Pendant Drop", price: 100, img: "product1.jpg" },
+      { name: "Shape SMDJ02", price: 100, img: "product2.jpg" },
+      { name: "Whitener", price: 75, img: "product3.jpg" },
+      { name: "Keychain", price: 40, img: "product4.jpg" },
+      { name: "Hot Melt Glue Gun", price: 220, img: "product5.jpg" },
+      { name: "Markers", price: 90, img: "product6.jpg" },
+      { name: "Kit", price: 289, img: "product7.jpg" },
+      { name: "Paint Brush", price: 89, img: "product8.jpg" },
+      { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg" },
+      { name: "Pen", price: 99, img: "product10.jpg" },
+      { name: "Pencil", price: 79, img: "product11.jpg" },
+      { name: "Eraser", price: 49, img: "product12.jpg" },
+      { name: "Dairy", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" }
+    ];
+
+    const cart = [];
+
+    function renderProducts() {
+      const container = document.getElementById("productList");
+      products.forEach((p, i) => {
+        const card = document.createElement("div");
+        card.className = "bg-custom-beige p-6 rounded-lg shadow-lg product-card";
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover rounded mb-4">
+          <h3 class="text-xl font-semibold mb-2">${p.name}</h3>
+          <span class="block text-lg font-bold text-gray-900 mb-2">₹${p.price}</span>
+          <button onclick="addToCart(${i})" class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-900">Add to Cart</button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function addToCart(index) {
+      const product = products[index];
+      const existing = cart.find(p => p.name === product.name);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      updateCart();
+    }
+
+    function updateCart() {
+      const list = document.getElementById("cartItems");
+      const totalEl = document.getElementById("cartTotal");
+      list.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        list.innerHTML += `<li>${item.name} x ${item.qty} = ₹${item.price * item.qty}</li>`;
+      });
+      totalEl.textContent = total;
+    }
+
+    function prepareOrder() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (!user) return;
+
+      let summary = `Order for ${user.name}\n`;
+      cart.forEach(item => {
+        summary += `${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
+      });
+      const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      summary += `Total: ₹${total}`;
+
+      document.getElementById("orderSummaryText").value = summary;
+    }
+
     function saveUser() {
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
@@ -232,8 +227,10 @@
       location.reload();
     }
 
-    window.onload = populateOrderForm;
+    window.onload = () => {
+      renderProducts();
+      populateOrderForm();
+    };
   </script>
 </body>
 </html>
-https://thehighons.github.io/The-highons-/
