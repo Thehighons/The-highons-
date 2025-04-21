@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -72,86 +71,72 @@
     <div class="max-w-7xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-12">Our Products</h2>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
-
-        <!-- Product Cards (all remain the same) -->
+        <!-- Product Cards -->
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product1.jpg" alt="Silicone Mould Diy Jewelry Locket Pendant Drop" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Silicone Mould Diy Jewelry Locket Pendant Drop</h3>
           <span class="block text-lg font-bold text-gray-900">₹100</span>
         </div>
-
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product2.jpg" alt="Shape SMDJ02" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Shape SMDJ02</h3>
           <span class="block text-lg font-bold text-gray-900">₹100</span>
         </div>
-
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product3.jpg" alt="Whitener" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Whitener</h3>
           <span class="block text-lg font-bold text-gray-900">₹75</span>
         </div>
-
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product4.jpg" alt="Keychain" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Keychain</h3>
           <span class="block text-lg font-bold text-gray-900">₹40</span>
         </div>
-
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product5.jpg" alt="Hot melt glue gun" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Hot Melt Glue Gun</h3>
           <span class="block text-lg font-bold text-gray-900">₹220</span>
         </div>
-
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product6.jpg" alt="Markers" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Markers</h3>
           <span class="block text-lg font-bold text-gray-900">₹90</span>
         </div>
-
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product7.jpg" alt="Kit" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Kit</h3>
           <span class="block text-lg font-bold text-gray-900">₹289</span>
         </div>
-
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product8.jpg" alt="Paint Brush" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Paint Brush</h3>
           <span class="block text-lg font-bold text-gray-900">₹89</span>
         </div>
-
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="41fvlzAzMWL._AC_.jpg" alt="Sponge Dabbing Brush 5 Piece Set" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Sponge Dabbing Brush 5 Piece Set</h3>
           <span class="block text-lg font-bold text-gray-900">₹90</span>
         </div>
-
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product10.jpg" alt="Pen" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Pen</h3>
           <span class="block text-lg font-bold text-gray-900">₹99</span>
         </div>
-
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product11.jpg" alt="Pencil" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Pencil</h3>
           <span class="block text-lg font-bold text-gray-900">₹79</span>
         </div>
-
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="product12.jpg" alt="Eraser" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Eraser</h3>
           <span class="block text-lg font-bold text-gray-900">₹49</span>
         </div>
-
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
           <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Dairy" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">Dairy</h3>
           <span class="block text-lg font-bold text-gray-900">₹249</span>
         </div>
-
       </div>
     </div>
   </section>
@@ -203,13 +188,26 @@
 
   <script>
     function saveUser() {
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const phone = document.getElementById('phone').value;
-      const address = document.getElementById('address').value;
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+
+      const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      const phoneRegex = /^[6-9]\d{9}$/;
 
       if (!name || !email || !phone || !address) {
-        alert("Please fill all fields");
+        alert("Please fill all fields.");
+        return;
+      }
+
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      if (!phoneRegex.test(phone)) {
+        alert("Please enter a valid 10-digit Indian phone number.");
         return;
       }
 
@@ -237,5 +235,5 @@
     window.onload = populateOrderForm;
   </script>
 </body>
-
 </html>
+https://thehighons.github.io/The-highons-/
