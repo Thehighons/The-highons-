@@ -60,7 +60,7 @@
   <section id="products" class="py-20 bg-white px-6">
     <div class="max-w-7xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-12">Our Products</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
         
         <!-- Silicone Mould Diy Jewelry Locket Pendant Drop -->
         <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
@@ -125,11 +125,39 @@
           <span class="block text-lg font-bold text-gray-900">₹90</span>
         </div>
 
+        <!-- Pen -->
+        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
+          <img src="product10.jpg" alt="Pen" class="w-full h-48 object-cover rounded mb-4">
+          <h3 class="text-xl font-semibold mb-2">Pen</h3>
+          <span class="block text-lg font-bold text-gray-900">₹99</span>
+        </div>
+
+        <!-- Pencil -->
+        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
+          <img src="product11.jpg" alt="Pencil" class="w-full h-48 object-cover rounded mb-4">
+          <h3 class="text-xl font-semibold mb-2">Pencil</h3>
+          <span class="block text-lg font-bold text-gray-900">₹79</span>
+        </div>
+
+        <!-- Eraser -->
+        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
+          <img src="product12.jpg" alt="Eraser" class="w-full h-48 object-cover rounded mb-4">
+          <h3 class="text-xl font-semibold mb-2">Eraser</h3>
+          <span class="block text-lg font-bold text-gray-900">₹49</span>
+        </div>
+
+        <!-- Dairy -->
+        <div class="bg-custom-beige p-6 rounded-lg shadow-lg product-card cursor-pointer">
+          <img src="product13.jpg" alt="Dairy" class="w-full h-48 object-cover rounded mb-4">
+          <h3 class="text-xl font-semibold mb-2">Dairy</h3>
+          <span class="block text-lg font-bold text-gray-900">₹249</span>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Order/Login Form -->
+  <!-- Order Section -->
   <section id="order" class="py-20 bg-gray-100 px-6">
     <div class="max-w-2xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-8">Place Your Order</h2>
@@ -187,6 +215,7 @@
         return;
       }
 
+      // Save user data
       localStorage.setItem('user', JSON.stringify({ name, email, phone, address }));
       populateOrderForm();
     }
