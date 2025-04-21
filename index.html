@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,14 +12,22 @@
       font-family: 'Roboto', sans-serif;
       background-color: #f8f6f2;
     }
+
     h1, h2, h3 {
       font-family: 'Cinzel', serif;
     }
+
     .bg-custom-beige {
       background-color: #dcd1c1;
     }
+
     .text-custom-grey {
       color: #4a4a4a;
+    }
+
+    .product-card:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease-in-out;
     }
   </style>
 </head>
@@ -35,6 +44,7 @@
         <a href="#products" class="hover:text-gray-300">Products</a>
         <a href="#order" class="hover:text-gray-300">Order</a>
         <a href="#contact" class="hover:text-gray-300">Contact</a>
+        <button onclick="logout()" class="hover:text-gray-300 text-sm underline ml-4">Logout</button>
       </nav>
     </div>
   </header>
@@ -46,97 +56,34 @@
     <a href="#products" class="inline-block bg-gray-800 text-white px-8 py-4 rounded-lg shadow hover:bg-gray-900 transition">Explore Products</a>
   </section>
 
-  <!-- Updated Product Showcase -->
-  <section id="products" class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-    <h2 class="text-4xl font-bold text-center mb-16">Our Products</h2>
-    <div class="grid gap-y-16 gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
-      <!-- Product Cards -->
-      <!-- Copy and modify each card for other products -->
-      <!-- Use the same image for demo, update src/alt if you have different images -->
-      <!-- Fancy Pen -->
-      <div class="group relative bg-white shadow-md rounded-2xl p-6 hover:shadow-xl transition duration-300">
-        <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg">
-          <img src="1000022336.png" alt="Fancy Pen" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105">
-        </div>
-        <div class="mt-6 text-center">
-          <h3 class="text-lg font-semibold text-gray-900">Fancy Pen</h3>
-          <p class="mt-2 text-sm text-gray-500 font-bold">₹149/-</p>
-          <a href="#order" class="mt-4 inline-block bg-gray-800 text-white px-6 py-2 rounded-md hover:bg-gray-900 transition">Order Now</a>
-        </div>
-      </div>
+  <!-- Product Showcase (same as before) -->
+  <!-- ... Keep your existing product cards here ... -->
 
-      <!-- Repeat the same card for other products, just changing name and price -->
-      <div class="group relative bg-white shadow-md rounded-2xl p-6 hover:shadow-xl transition duration-300">
-        <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg">
-          <img src="1000022336.png" alt="Fancy Pencil" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105">
-        </div>
-        <div class="mt-6 text-center">
-          <h3 class="text-lg font-semibold text-gray-900">Fancy Pencil</h3>
-          <p class="mt-2 text-sm text-gray-500 font-bold">₹89/-</p>
-          <a href="#order" class="mt-4 inline-block bg-gray-800 text-white px-6 py-2 rounded-md hover:bg-gray-900 transition">Order Now</a>
-        </div>
-      </div>
-
-      <div class="group relative bg-white shadow-md rounded-2xl p-6 hover:shadow-xl transition duration-300">
-        <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg">
-          <img src="1000022336.png" alt="Fancy Eraser" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105">
-        </div>
-        <div class="mt-6 text-center">
-          <h3 class="text-lg font-semibold text-gray-900">Fancy Eraser</h3>
-          <p class="mt-2 text-sm text-gray-500 font-bold">₹79/-</p>
-          <a href="#order" class="mt-4 inline-block bg-gray-800 text-white px-6 py-2 rounded-md hover:bg-gray-900 transition">Order Now</a>
-        </div>
-      </div>
-
-      <div class="group relative bg-white shadow-md rounded-2xl p-6 hover:shadow-xl transition duration-300">
-        <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg">
-          <img src="1000022336.png" alt="Designer Diary" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105">
-        </div>
-        <div class="mt-6 text-center">
-          <h3 class="text-lg font-semibold text-gray-900">Designer Diary</h3>
-          <p class="mt-2 text-sm text-gray-500 font-bold">₹249/-</p>
-          <a href="#order" class="mt-4 inline-block bg-gray-800 text-white px-6 py-2 rounded-md hover:bg-gray-900 transition">Order Now</a>
-        </div>
-      </div>
-
-      <!-- Add more products below using the same structure -->
-      <div class="group relative bg-white shadow-md rounded-2xl p-6 hover:shadow-xl transition duration-300">
-        <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg">
-          <img src="1000022336.png" alt="Silicone Mould" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105">
-        </div>
-        <div class="mt-6 text-center">
-          <h3 class="text-lg font-semibold text-gray-900">Silicone Mould (SMDJ02)</h3>
-          <p class="mt-2 text-sm text-gray-500 font-bold">₹100/-</p>
-          <a href="#order" class="mt-4 inline-block bg-gray-800 text-white px-6 py-2 rounded-md hover:bg-gray-900 transition">Order Now</a>
-        </div>
-      </div>
-
-      <!-- Repeat this block for Whitener, Keychain, Glue Gun, etc. as shown earlier -->
-      <!-- ... Continue with remaining product cards ... -->
-
-    </div>
-  </section>
-
-  <!-- Order Form -->
+  <!-- Order/Login Form -->
   <section id="order" class="py-20 bg-gray-100 px-6">
     <div class="max-w-2xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-8">Place Your Order</h2>
-      <form action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
+
+      <div id="loginForm" class="space-y-6 text-left">
+        <h3 class="text-xl font-semibold mb-4">Sign Up / Login</h3>
+        <input type="text" id="name" placeholder="Full Name" class="w-full p-4 border rounded" required>
+        <input type="email" id="email" placeholder="Email" class="w-full p-4 border rounded" required>
+        <input type="text" id="phone" placeholder="Phone (+91)" class="w-full p-4 border rounded" required>
+        <input type="text" id="address" placeholder="Full Address" class="w-full p-4 border rounded" required>
+        <button onclick="saveUser()" class="w-full bg-gray-800 text-white py-3 rounded hover:bg-gray-900 transition">Save & Continue</button>
+      </div>
+
+      <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left hidden">
         <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
 
-        <div>
-          <label class="block mb-2 font-semibold">Full Name</label>
-          <input type="text" name="name" required class="w-full p-4 border rounded">
-        </div>
-
-        <div>
-          <label class="block mb-2 font-semibold">Email</label>
-          <input type="email" name="email" required class="w-full p-4 border rounded">
-        </div>
+        <input type="hidden" name="name" id="formName">
+        <input type="hidden" name="email" id="formEmail">
+        <input type="hidden" name="phone" id="formPhone">
+        <input type="hidden" name="address" id="formAddress">
 
         <div>
           <label class="block mb-2 font-semibold">Product</label>
-          <input type="text" name="product" placeholder="Write the product name" required class="w-full p-4 border rounded">
+          <input type="text" name="product" required class="w-full p-4 border rounded">
         </div>
 
         <div>
@@ -146,6 +93,7 @@
 
         <button type="submit" class="w-full bg-gray-900 text-white py-4 rounded hover:bg-black transition">Confirm Order</button>
       </form>
+
       <p class="text-sm mt-4 italic text-gray-500">* Orders are only delivered within Navsari - 396445 *</p>
     </div>
   </section>
@@ -156,5 +104,43 @@
     <p class="text-lg">Email: <a href="mailto:thehighonsofficial@gmail.com" class="text-gray-800 hover:underline">thehighonsofficial@gmail.com</a></p>
     <p class="text-lg">Instagram: <a href="https://instagram.com/thehighons" target="_blank" class="text-gray-800 hover:underline">@thehighons</a></p>
   </section>
+
+  <script>
+    function saveUser() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const address = document.getElementById('address').value;
+
+      if (!name || !email || !phone || !address) {
+        alert("Please fill all fields");
+        return;
+      }
+
+      // Save user data
+      localStorage.setItem('user', JSON.stringify({ name, email, phone, address }));
+      populateOrderForm();
+    }
+
+    function populateOrderForm() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        document.getElementById('formName').value = user.name;
+        document.getElementById('formEmail').value = user.email;
+        document.getElementById('formPhone').value = user.phone;
+        document.getElementById('formAddress').value = user.address;
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('orderForm').classList.remove('hidden');
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('user');
+      location.reload();
+    }
+
+    window.onload = populateOrderForm;
+  </script>
 </body>
+
 </html>
