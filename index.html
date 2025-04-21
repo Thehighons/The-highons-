@@ -61,9 +61,7 @@
   <section id="products" class="py-20 bg-white px-6">
     <div class="max-w-7xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-12">Our Products</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="productList">
-        <!-- Products will be inserted here by JS -->
-      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="productList"></div>
     </div>
   </section>
 
@@ -111,6 +109,7 @@
     <p class="text-lg">Instagram: <a href="https://instagram.com/thehighons" target="_blank" class="text-gray-800 hover:underline">@thehighons</a></p>
   </section>
 
+  <!-- Script -->
   <script>
     const products = [
       { name: "Silicone Mould Diy Jewelry Locket Pendant Drop", price: 100, img: "product1.jpg" },
@@ -132,14 +131,25 @@
 
     function renderProducts() {
       const container = document.getElementById("productList");
+      container.innerHTML = '';
       products.forEach((p, i) => {
         const card = document.createElement("div");
         card.className = "bg-custom-beige p-6 rounded-lg shadow-lg product-card";
+        const itemInCart = cart.find(item => item.name === p.name);
         card.innerHTML = `
           <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover rounded mb-4">
           <h3 class="text-xl font-semibold mb-2">${p.name}</h3>
           <span class="block text-lg font-bold text-gray-900 mb-2">₹${p.price}</span>
-          <button onclick="addToCart(${i})" class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-900">Add to Cart</button>
+          <div id="controls-${i}">
+            ${itemInCart ? `
+              <div class="flex items-center justify-center gap-2">
+                <button onclick="updateQty(${i}, -1)" class="bg-gray-700 text-white px-3 py-1 rounded">-</button>
+                <span class="font-semibold">${itemInCart.qty}</span>
+                <button onclick="updateQty(${i}, 1)" class="bg-gray-700 text-white px-3 py-1 rounded">+</button>
+              </div>` : `
+              <button onclick="addToCart(${i})" class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-900">Add to Cart</button>`
+            }
+          </div>
         `;
         container.appendChild(card);
       });
@@ -154,6 +164,21 @@
         cart.push({ ...product, qty: 1 });
       }
       updateCart();
+      renderProducts();
+    }
+
+    function updateQty(index, change) {
+      const product = products[index];
+      const item = cart.find(p => p.name === product.name);
+      if (item) {
+        item.qty += change;
+        if (item.qty <= 0) {
+          const idx = cart.indexOf(item);
+          cart.splice(idx, 1);
+        }
+      }
+      updateCart();
+      renderProducts();
     }
 
     function updateCart() {
@@ -171,14 +196,12 @@
     function prepareOrder() {
       const user = JSON.parse(localStorage.getItem('user'));
       if (!user) return;
-
       let summary = `Order for ${user.name}\n`;
       cart.forEach(item => {
         summary += `${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
       });
       const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
       summary += `Total: ₹${total}`;
-
       document.getElementById("orderSummaryText").value = summary;
     }
 
@@ -187,7 +210,6 @@
       const email = document.getElementById('email').value.trim();
       const phone = document.getElementById('phone').value.trim();
       const address = document.getElementById('address').value.trim();
-
       const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
       const phoneRegex = /^[6-9]\d{9}$/;
 
