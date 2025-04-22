@@ -31,132 +31,125 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-  <!-- Navbar -->
-  <header class="bg-[#1f1f1f] text-white shadow-md">
-    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
-      <span class="text-2xl font-bold tracking-wide brand-name">The Highon's</span>
-      <nav class="space-x-6 text-sm">
-        <a href="#products" class="hover:text-[#bfa76f]">Products</a>
-        <a href="#order" class="hover:text-[#bfa76f]">Order</a>
-        <a href="#contact" class="hover:text-[#bfa76f]">Contact</a>
-        <button onclick="logout()" class="hover:text-[#bfa76f] underline ml-4">Logout</button>
-      </nav>
-    </div>
-  </header>
+  <!-- Reusable product section component -->
+  <script>
+    const groupedProducts = {
+      Keychains: [
+        { name: "Thor Loki Keychain", price: 99, img: "product4.jpg" },
+        { name: "Thor Hammer Keychain", price: 89, img: "product4.jpg" },
+        { name: "Pikachu Keychain", price: 109, img: "product4.jpg" },
+      ],
+      Pens: [
+        { name: "Pen", price: 99, img: "product10.jpg" },
+        { name: "Pencil", price: 79, img: "product11.jpg" },
+        { name: "Eraser", price: 49, img: "product12.jpg" }
+      ],
+      Markers: [
+        { name: "Markers - Set of 12", price: 179, img: "product6.jpg" },
+        { name: "Markers - Set of 24", price: 299, img: "product6.jpg" }
+      ],
+      Diaries: [
+        { name: "Diary - Classic", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" },
+        { name: "Diary - Premium", price: 319, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" },
+        { name: "Diary - Mini", price: 239, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" }
+      ],
+      Others: [
+        { name: "Silicone Mould Diy Jewelry Locket Pendant Drop", price: 100, img: "product1.jpg" },
+        { name: "Shape SMDJ02", price: 100, img: "product2.jpg" },
+        { name: "Whitener", price: 75, img: "product3.jpg" },
+        { name: "Hot Melt Glue Gun", price: 220, img: "product5.jpg" },
+        { name: "Kit", price: 289, img: "product7.jpg" },
+        { name: "Paint Brush", price: 89, img: "product8.jpg" },
+        { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg" }
+      ]
+    };
+  </script>
 
-  <!-- Hero Section -->
-  <section class="text-center py-20 bg-[#f3efe9] text-[#2e2e2e]">
-    <h2 class="text-5xl font-bold mb-4">Create Bold. Create Bright.</h2>
-    <p class="text-xl mb-8 max-w-2xl mx-auto">
-      Welcome to The Highon's — where creativity meets purpose.
-    </p>
-    <a href="#products" class="inline-block bg-[#1f1f1f] text-[#bfa76f] px-8 py-4 rounded-lg shadow hover:bg-black transition">
-      Explore Products
-    </a>
-  </section>
-
-  <!-- Products Section -->
   <section id="products" class="py-20 bg-white px-6">
     <div class="max-w-7xl mx-auto">
-      <h2 class="text-4xl font-bold mb-12 text-center">Our Products</h2>
-      <div class="space-y-16">
-
-        <!-- Pens -->
-        <div>
-          <h3 class="text-2xl font-semibold mb-6">Pens</h3>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="pens"></div>
-        </div>
-
-        <!-- Keychains -->
-        <div>
-          <h3 class="text-2xl font-semibold mb-6">Keychains</h3>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="keychains"></div>
-        </div>
-
-        <!-- Markers -->
-        <div>
-          <h3 class="text-2xl font-semibold mb-6">Markers</h3>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="markers"></div>
-        </div>
-
-        <!-- Diaries -->
-        <div>
-          <h3 class="text-2xl font-semibold mb-6">Diaries</h3>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="diaries"></div>
-        </div>
-
-        <!-- Miscellaneous -->
-        <div>
-          <h3 class="text-2xl font-semibold mb-6">More Items</h3>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="misc"></div>
-        </div>
-
-      </div>
+      <h2 class="text-4xl font-bold text-center mb-12">Our Products</h2>
+      <div id="productSections"></div>
     </div>
   </section>
 
-  <!-- Order Section -->
-  <!-- (Same as current order section, including login form, order form, QR code, cart, etc.) -->
-
-  <!-- Contact Section -->
-  <!-- (Same as current contact section) -->
-
-  <!-- Product Modal -->
-  <!-- (Same as current modal section) -->
-
   <script>
-    const products = [
-      { name: "Pen", price: 99, img: "product10.jpg", category: "pens" },
-      { name: "Thor Loki Keychain", price: 99, img: "product4.jpg", category: "keychains" },
-      { name: "Thor Hammer Keychain", price: 89, img: "product4.jpg", category: "keychains" },
-      { name: "Pikachu Keychain", price: 109, img: "product4.jpg", category: "keychains" },
-      { name: "Markers", price: 90, img: "product6.jpg", category: "markers" },
-      { name: "Diary", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg", category: "diaries" },
-      { name: "Silicone Mould Diy Jewelry Locket Pendant Drop", price: 100, img: "product1.jpg", category: "misc" },
-      { name: "Shape SMDJ02", price: 100, img: "product2.jpg", category: "misc" },
-      { name: "Whitener", price: 75, img: "product3.jpg", category: "misc" },
-      { name: "Hot Melt Glue Gun", price: 220, img: "product5.jpg", category: "misc" },
-      { name: "Kit", price: 289, img: "product7.jpg", category: "misc" },
-      { name: "Paint Brush", price: 89, img: "product8.jpg", category: "misc" },
-      { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg", category: "misc" },
-      { name: "Pencil", price: 79, img: "product11.jpg", category: "misc" },
-      { name: "Eraser", price: 49, img: "product12.jpg", category: "misc" }
-    ];
-
     const cart = [];
 
-    function renderCategoryProducts(category) {
-      const container = document.getElementById(category);
-      container.innerHTML = '';
-      products.filter(p => p.category === category).forEach((p, i) => {
-        const card = document.createElement("div");
-        card.className = "bg-[#f3efe9] p-6 rounded-lg shadow-lg product-card";
-        const itemInCart = cart.find(item => item.name === p.name);
-        card.innerHTML = `
-          <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover rounded mb-4" onclick="showModal('${p.name}', '${p.img}', ${p.price})">
-          <h3 class="text-xl font-semibold mb-2">${p.name}</h3>
-          <span class="block text-lg font-bold text-[#1f1f1f] mb-2">₹${p.price}</span>
-          <div id="controls-${i}">
-            ${itemInCart ? `
-              <div class="flex items-center justify-center gap-2">
-                <button onclick="updateQty(${i}, -1)" class="bg-[#1f1f1f] text-[#bfa76f] px-3 py-1 rounded">-</button>
-                <span class="font-semibold">${itemInCart.qty}</span>
-                <button onclick="updateQty(${i}, 1)" class="bg-[#1f1f1f] text-[#bfa76f] px-3 py-1 rounded">+</button>
-              </div>` : `
-              <button onclick="addToCart(${i})" class="bg-[#1f1f1f] text-[#bfa76f] py-2 px-4 rounded hover:bg-black">Add to Cart</button>`
-            }
-          </div>
-        `;
-        container.appendChild(card);
+    function renderGroupedProducts() {
+      const productSections = document.getElementById("productSections");
+      productSections.innerHTML = '';
+
+      Object.entries(groupedProducts).forEach(([category, products]) => {
+        const section = document.createElement("div");
+        section.className = "mb-16";
+        section.innerHTML = `<h3 class="text-2xl font-bold mb-6">${category}</h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6" id="${category}-products"></div>`;
+
+        const container = section.querySelector(`#${category}-products`);
+
+        products.forEach((p, i) => {
+          const card = document.createElement("div");
+          card.className = "bg-[#f3efe9] p-4 rounded-lg shadow-lg product-card";
+
+          const itemInCart = cart.find(item => item.name === p.name);
+
+          card.innerHTML = `
+            <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover rounded mb-3" onclick="showModal('${p.name}', '${p.img}', ${p.price})">
+            <h4 class="text-lg font-semibold mb-1">${p.name}</h4>
+            <span class="block text-md font-bold text-[#1f1f1f] mb-2">₹${p.price}</span>
+            <div id="controls-${p.name.replace(/\s+/g, '-')}">
+              ${itemInCart ? `
+                <div class="flex items-center justify-center gap-2">
+                  <button onclick="updateQty('${p.name}', -1)" class="bg-[#1f1f1f] text-[#bfa76f] px-3 py-1 rounded">-</button>
+                  <span class="font-semibold">${itemInCart.qty}</span>
+                  <button onclick="updateQty('${p.name}', 1)" class="bg-[#1f1f1f] text-[#bfa76f] px-3 py-1 rounded">+</button>
+                </div>` : `
+                <button onclick="addToCart('${category}', ${i})" class="bg-[#1f1f1f] text-[#bfa76f] py-1 px-4 rounded hover:bg-black">Add to Cart</button>`
+              }
+            </div>`;
+          container.appendChild(card);
+        });
+
+        productSections.appendChild(section);
       });
     }
 
-    function renderAllCategories() {
-      ["pens", "keychains", "markers", "diaries", "misc"].forEach(renderCategoryProducts);
+    function addToCart(category, index) {
+      const product = groupedProducts[category][index];
+      const existing = cart.find(p => p.name === product.name);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      updateCart();
+      renderGroupedProducts();
+    }
+
+    function updateQty(productName, change) {
+      const item = cart.find(p => p.name === productName);
+      if (item) {
+        item.qty += change;
+        if (item.qty <= 0) cart.splice(cart.indexOf(item), 1);
+      }
+      updateCart();
+      renderGroupedProducts();
+    }
+
+    function updateCart() {
+      const list = document.getElementById("cartItems");
+      const totalEl = document.getElementById("cartTotal");
+      list.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        list.innerHTML += `<li>${item.name} x ${item.qty} = ₹${item.price * item.qty}</li>`;
+      });
+      totalEl.textContent = total;
     }
 
     window.onload = () => {
-      renderAllCategories();
+      renderGroupedProducts();
       populateOrderForm();
     };
   </script>
