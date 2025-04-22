@@ -89,6 +89,17 @@
           <p class="mt-2 font-bold">Total: ₹<span id="cartTotal">0</span></p>
         </div>
 
+        <label class="block font-semibold mb-2">Payment Option:</label>
+        <select name="payment" class="w-full p-3 border rounded">
+          <option value="COD">Cash on Delivery</option>
+          <option value="UPI">UPI Payment</option>
+        </select>
+
+        <div class="text-center">
+          <p class="font-semibold mt-4 mb-2">Scan to Pay via UPI:</p>
+          <img src="1000022591.jpg" alt="UPI QR Code" class="w-48 mx-auto border rounded shadow" />
+        </div>
+
         <button type="submit" onclick="prepareOrder()" class="w-full bg-[#1f1f1f] text-[#bfa76f] py-4 rounded hover:bg-black transition">Confirm Order</button>
       </form>
 
@@ -113,22 +124,23 @@
     </div>
   </div>
 
-  <!-- Script -->
   <script>
     const products = [
       { name: "Silicone Mould Diy Jewelry Locket Pendant Drop", price: 100, img: "product1.jpg" },
       { name: "Shape SMDJ02", price: 100, img: "product2.jpg" },
-      { name: "correction tape", price: 75, img: "51l7S8XUY0L.jpg" },
-      { name: "Keychain", price: 40, img: "product4.jpg" },
+      { name: "Whitener", price: 75, img: "product3.jpg" },
+      { name: "Thor Loki Keychain", price: 99, img: "product4.jpg" },
+      { name: "Thor Hammer Keychain", price: 89, img: "product4.jpg" },
+      { name: "Pikachu Keychain", price: 109, img: "product4.jpg" },
       { name: "Hot Melt Glue Gun", price: 220, img: "product5.jpg" },
       { name: "Markers", price: 90, img: "product6.jpg" },
       { name: "Kit", price: 289, img: "product7.jpg" },
       { name: "Paint Brush", price: 89, img: "product8.jpg" },
       { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg" },
-      { name: "luxury Pen", price: 199, img: "Screenshot_20250422_001401.jpg" },
+      { name: "Pen", price: 99, img: "product10.jpg" },
       { name: "Pencil", price: 79, img: "product11.jpg" },
       { name: "Eraser", price: 49, img: "product12.jpg" },
-      { name: "Diary", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" }
+      { name: "Dairy", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" }
     ];
 
     const cart = [];
