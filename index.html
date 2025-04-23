@@ -22,92 +22,93 @@
     .brand-name {
       font-family: 'Trajan Pro', serif;
     }
-    .product-card {
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
     .product-card:hover {
-      transform: translateY(-5px) scale(1.03);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transform: scale(1.05);
+      transition: transform 0.3s ease-in-out;
       cursor: pointer;
-    }
-    .glass {
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: blur(10px);
     }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-  <!-- Header -->
-  <header class="bg-[#1f1f1f] text-white shadow-md sticky top-0 z-40">
+  <!-- Navbar -->
+  <header class="bg-[#1f1f1f] text-white shadow-md">
     <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
       <span class="text-2xl font-bold tracking-wide brand-name">The Highon's</span>
       <nav class="space-x-6 text-sm">
-        <a href="#products" class="hover:text-[#bfa76f] transition">Products</a>
-        <a href="#order" class="hover:text-[#bfa76f] transition">Order</a>
-        <a href="#contact" class="hover:text-[#bfa76f] transition">Contact</a>
-        <button onclick="logout()" class="hover:text-[#bfa76f] underline ml-4 transition">Logout</button>
+        <a href="#products" class="hover:text-[#bfa76f]">Products</a>
+        <a href="#order" class="hover:text-[#bfa76f]">Order</a>
+        <a href="#contact" class="hover:text-[#bfa76f]">Contact</a>
+        <button onclick="logout()" class="hover:text-[#bfa76f] underline ml-4">Logout</button>
       </nav>
     </div>
   </header>
 
   <!-- Hero -->
-  <section class="text-center py-24 bg-gradient-to-r from-[#f3efe9] via-[#eae2d9] to-[#f3efe9] text-[#2e2e2e]">
-    <h2 class="text-6xl font-bold mb-4">Create Bold. Create Bright.</h2>
+  <section class="text-center py-20 bg-[#f3efe9] text-[#2e2e2e]">
+    <h2 class="text-5xl font-bold mb-4">Create Bold. Create Bright.</h2>
     <p class="text-xl mb-8 max-w-2xl mx-auto">Welcome to The Highon's — where creativity meets purpose.</p>
-    <a href="#products" class="inline-block bg-[#1f1f1f] text-[#bfa76f] px-10 py-4 rounded-full shadow-lg hover:bg-black transition-all duration-300">Explore Products</a>
+    <a href="#products" class="inline-block bg-[#1f1f1f] text-[#bfa76f] px-8 py-4 rounded-lg shadow hover:bg-black transition">Explore Products</a>
   </section>
 
-  <!-- Products Section -->
-  <section id="products" class="py-20 bg-[#fffdf8] px-6">
-    <div class="max-w-7xl mx-auto">
-      <h2 class="text-4xl font-bold text-center mb-16">Our Products</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10" id="productList"></div>
+  <!-- Products -->
+  <section id="products" class="py-20 bg-white px-6">
+    <div class="max-w-7xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-12">Our Products</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="productList"></div>
     </div>
   </section>
 
   <!-- Order Section -->
   <section id="order" class="py-20 bg-[#f8f6f2] px-6">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-10">Place Your Order</h2>
-      <div id="loginForm" class="space-y-6 text-left bg-white rounded-lg shadow p-8">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-8">Place Your Order</h2>
+
+      <div id="loginForm" class="space-y-6 text-left">
         <input type="text" id="name" placeholder="Full Name" class="w-full p-4 border rounded" required>
         <input type="email" id="email" placeholder="Email" class="w-full p-4 border rounded" required>
         <input type="text" id="phone" placeholder="Phone (+91)" class="w-full p-4 border rounded" required>
         <input type="text" id="address" placeholder="Full Address" class="w-full p-4 border rounded" required>
         <button onclick="saveUser()" class="w-full bg-[#1f1f1f] text-[#bfa76f] py-3 rounded hover:bg-black transition">Save & Continue</button>
       </div>
-      <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left hidden bg-white rounded-lg shadow p-8 mt-8">
+
+      <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left hidden">
         <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
         <input type="hidden" name="name" id="formName">
         <input type="hidden" name="email" id="formEmail">
         <input type="hidden" name="phone" id="formPhone">
         <input type="hidden" name="address" id="formAddress">
         <input type="hidden" name="message" id="orderSummaryText">
+
         <label class="block font-semibold mb-2">Have a coupon code?</label>
         <input type="text" id="coupon" placeholder="Enter code if you have one" class="w-full p-3 border rounded">
-        <div id="cartSummary" class="glass border rounded p-4 mb-4">
+
+        <div id="cartSummary" class="bg-white border rounded p-4 mb-4">
           <h3 class="font-semibold text-lg mb-2">Your Cart</h3>
           <ul id="cartItems" class="space-y-1"></ul>
           <p class="mt-2 font-bold">Total: ₹<span id="cartTotal">0</span></p>
         </div>
+
         <label class="block font-semibold mb-2">Payment Option:</label>
         <select name="payment" class="w-full p-3 border rounded">
           <option value="COD">Cash on Delivery</option>
           <option value="UPI">UPI Payment</option>
         </select>
+
         <div class="text-center">
           <p class="font-semibold mt-4 mb-2">Scan to Pay via UPI:</p>
           <img src="1000022591.jpg" alt="UPI QR Code" class="w-48 mx-auto border rounded shadow" />
         </div>
+
         <button type="submit" onclick="prepareOrder()" class="w-full bg-[#1f1f1f] text-[#bfa76f] py-4 rounded hover:bg-black transition">Confirm Order</button>
       </form>
+
       <p class="text-sm mt-4 italic text-gray-500">* Orders are only delivered within Navsari - 396445 *</p>
     </div>
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="bg-[#fffdf8] py-16 text-center px-6">
+  <section id="contact" class="bg-white py-16 text-center px-6">
     <h2 class="text-4xl font-bold mb-6">Contact Us</h2>
     <p class="text-lg">Email: <a href="mailto:thehighonsofficial@gmail.com" class="text-[#1f1f1f] hover:text-[#bfa76f]">thehighonsofficial@gmail.com</a></p>
     <p class="text-lg">Instagram: <a href="https://instagram.com/thehighons" target="_blank" class="text-[#1f1f1f] hover:text-[#bfa76f]">@thehighons</a></p>
@@ -123,9 +124,174 @@
     </div>
   </div>
 
-  <!-- Scripts -->
   <script>
-    // Your original JS code is perfectly compatible and will stay as is.
+    const products = [
+      { name: "correction tape", price: 70, img: "51l7S8XUY0L.jpg" },
+      { name: "Thor Loki Keychain", price: 99, img: "Screenshot_20250422_132243_Meesho.jpg" },
+      { name: "Thor Hammer Keychain", price: 89, img: "Screenshot_20250422_131740_Meesho.jpg" },
+      { name: "Pikachu Keychain", price: 109, img: "Screenshot_20250422_131948_Meesho.jpg" },
+      { name: "Hot Melt Glue Gun", price: 220, img: "product5.jpg" },
+      { name: "Marker Set of 48", price: 299, img: "product6.jpg" },
+      { name: "Markers Set of 24", price: 179, img: "81B5uZXhYEL._AC_UF1000,1000_QL80_.jpg" },
+      { name: "Kit", price: 289, img: "product7.jpg" },
+      { name: "Paint Brush 12 sizes", price: 89, img: "product8.jpg" },
+      { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg" },
+      { name: "luxury Pen", price: 199, img: "Screenshot_20250422_001401.jpg" },
+      { name: "Pencil", price: 79, img: "product11.jpg" },
+      { name: "Eraser", price: 49, img: "product12.jpg" },
+      { name: "Diary", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" },
+      { name: "Diary Premium", price: 319, img: "IMG-20250422-WA0005.jpg" },
+      { name: "Diary Mini", price: 219, img: "Screenshot_20250422_215326_Meesho.jpg" }
+    ];
+
+
+    const cart = [];
+
+    function renderProducts() {
+      const container = document.getElementById("productList");
+      container.innerHTML = '';
+      products.forEach((p, i) => {
+        const card = document.createElement("div");
+        card.className = "bg-[#f3efe9] p-6 rounded-lg shadow-lg product-card";
+        const itemInCart = cart.find(item => item.name === p.name);
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover rounded mb-4" onclick="showModal('${p.name}', '${p.img}', ${p.price})">
+          <h3 class="text-xl font-semibold mb-2">${p.name}</h3>
+          <span class="block text-lg font-bold text-[#1f1f1f] mb-2">₹${p.price}</span>
+          <div id="controls-${i}">
+            ${itemInCart ? `
+              <div class="flex items-center justify-center gap-2">
+                <button onclick="updateQty(${i}, -1)" class="bg-[#1f1f1f] text-[#bfa76f] px-3 py-1 rounded">-</button>
+                <span class="font-semibold">${itemInCart.qty}</span>
+                <button onclick="updateQty(${i}, 1)" class="bg-[#1f1f1f] text-[#bfa76f] px-3 py-1 rounded">+</button>
+              </div>` : `
+              <button onclick="addToCart(${i})" class="bg-[#1f1f1f] text-[#bfa76f] py-2 px-4 rounded hover:bg-black">Add to Cart</button>`
+            }
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function addToCart(index) {
+      const product = products[index];
+      const existing = cart.find(p => p.name === product.name);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      updateCart();
+      renderProducts();
+    }
+
+    function updateQty(index, change) {
+      const product = products[index];
+      const item = cart.find(p => p.name === product.name);
+      if (item) {
+        item.qty += change;
+        if (item.qty <= 0) {
+          cart.splice(cart.indexOf(item), 1);
+        }
+      }
+      updateCart();
+      renderProducts();
+    }
+
+    function updateCart() {
+      const list = document.getElementById("cartItems");
+      const totalEl = document.getElementById("cartTotal");
+      list.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        list.innerHTML += `<li>${item.name} x ${item.qty} = ₹${item.price * item.qty}</li>`;
+      });
+      totalEl.textContent = total;
+    }
+
+    function prepareOrder() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (!user) return;
+
+      const coupon = document.getElementById('coupon').value.trim();
+      let summary = `Order for ${user.name}\n`;
+      let total = 0;
+
+      cart.forEach(item => {
+        summary += `${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
+        total += item.price * item.qty;
+      });
+
+      if (coupon === "NSL10%") {
+        const discount = Math.round(total * 0.10);
+        summary += `Discount (NSL10%): -₹${discount}\n`;
+        total -= discount;
+      }
+
+      summary += `Total: ₹${total}`;
+      document.getElementById("orderSummaryText").value = summary;
+    }
+
+    function saveUser() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      const phoneRegex = /^[6-9]\d{9}$/;
+
+      if (!name || !email || !phone || !address) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      if (!phoneRegex.test(phone)) {
+        alert("Please enter a valid 10-digit Indian phone number.");
+        return;
+      }
+
+      localStorage.setItem('user', JSON.stringify({ name, email, phone, address }));
+      populateOrderForm();
+    }
+
+    function populateOrderForm() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        document.getElementById('formName').value = user.name;
+        document.getElementById('formEmail').value = user.email;
+        document.getElementById('formPhone').value = user.phone;
+        document.getElementById('formAddress').value = user.address;
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('orderForm').classList.remove('hidden');
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('user');
+      location.reload();
+    }
+
+    function showModal(name, img, price) {
+      document.getElementById('modalImg').src = img;
+      document.getElementById('modalName').textContent = name;
+      document.getElementById('modalPrice').textContent = `₹${price}`;
+      document.getElementById('productModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('productModal').classList.add('hidden');
+    }
+
+    window.onload = () => {
+      renderProducts();
+      populateOrderForm();
+    };
   </script>
 </body>
 </html>
