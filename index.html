@@ -2,251 +2,301 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Highon's</title>
- <style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #fffaf5;
-    color: #3b2f2f;
-  }
-  header {
-    background-color: #d97706;
-    padding: 1rem;
-    text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
-    color: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  }
-.slogan {
-  margin: 0.5rem 0 0;
-  font-size: 1rem;
-  font-weight: normal;
-  color: #f97316; /* orange tone to match light theme */
-}  
-.container {
-    padding: 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: center;
-  }
-  .product {
-    background-color: #fff6ec;
-    padding: 1rem;
-    border-radius: 12px;
-    width: 240px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
-  }
-  .product:hover {
-    transform: scale(1.03);
-  }
-  .product img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  .product h3 {
-    margin: 0.5rem 0;
-    color: #7c3aed;
-  }
-  .product button {
-    margin-top: 0.5rem;
-    padding: 0.5rem;
-    border: none;
-    background-color: #ea580c;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  .product button:hover {
-    background-color: #c2410c;
-  }
-  .cart, .form-section {
-    margin: 2rem auto;
-    max-width: 600px;
-    background-color: #fff6ec;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
-  .cart h2, .form-section h2 {
-    text-align: center;
-    color: #b45309;
-  }
-  .cart-items {
-    margin-top: 1rem;
-  }
-  .cart-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.4rem 0;
-    border-bottom: 1px solid #e0b089;
-  }
-  input, select, textarea {
-    width: 100%;
-    margin: 0.5rem 0;
-    padding: 0.5rem;
-    border-radius: 6px;
-    border: 1px solid #fcd34d;
-    background-color: #fff7ed;
-    color: #3b2f2f;
-  }
-  .qr {
-    display: none;
-    text-align: center;
-    margin-top: 1rem;
-  }
-  .qr img {
-    width: 200px;
-  }
-  .submit-btn {
-    background-color: #ea580c;
-    color: white;
-    border: none;
-    padding: 0.7rem 1rem;
-    margin-top: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  .submit-btn:hover {
-    background-color: #c2410c;
-  }
-</style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Trajan Pro';
+      src: url('trajan-pro.woff2') format('woff2'), url('trajan-pro.woff') format('woff');
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #EBB866;
+      color: #806333;
+    }
+    h1, h2, h3 {
+      font-family: 'Cinzel', serif;
+    }
+    .brand-name {
+      font-family: 'Trajan Pro', serif;
+    }
+    .product-card:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease-in-out;
+      cursor: pointer;
+    }
+  </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
 
-<header>
-  The Highon's
-  <p class="slogan">Innovating with purpose</p>
-</header>
-
-
-<div class="container" id="products">
-  <!-- Product cards will be inserted here -->
-</div>
-
-<div class="cart" id="cart">
-  <h2>Your Cart</h2>
-  <div class="cart-items" id="cartItems"></div>
-  <div id="total"></div>
-</div>
-
-<div class="form-section">
-  <h2>Place Order</h2>
-  <form id="orderForm">
-    <input type="text" placeholder="Your Name" required />
-    <input type="tel" placeholder="Phone Number" required />
-    <textarea placeholder="Address" rows="3" required></textarea>
-    <select id="paymentMethod" required>
-      <option value="">Select Payment Method</option>
-      <option value="cod">Cash on Delivery</option>
-      <option value="upi">UPI</option>
-    </select>
-    <div class="qr" id="upiQR">
-      <p>Scan this UPI QR to pay:</p>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/QR_code_for_QR_code.svg/1200px-QR_code_for_QR_code.svg.png" alt="UPI QR Code" />
+  <!-- Navbar -->
+  <header class="bg-[#1f1f1f] text-white shadow-md">
+    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+      <span class="text-2xl font-bold tracking-wide brand-name">The Highon's</span>
+      <nav class="space-x-6 text-sm">
+        <a href="#products" class="hover:text-[#bfa76f]">Products</a>
+        <a href="#order" class="hover:text-[#bfa76f]">Order</a>
+        <a href="#contact" class="hover:text-[#bfa76f]">Contact</a>
+        <button onclick="logout()" class="hover:text-[#bfa76f] underline ml-4">Logout</button>
+      </nav>
     </div>
-    <button class="submit-btn" type="submit">Submit Order</button>
-  </form>
-</div>
+  </header>
 
-<script>
-  const products = [
-    { name: "Correction Tape", price: 70, image: "https://via.placeholder.com/240x180?text=Correction+Tape" },
-    { name: "Thor Loki Keychain", price: 99, image: "https://via.placeholder.com/240x180?text=Thor+Loki+Keychain" },
-    { name: "Thor Hammer Keychain", price: 89, image: "https://via.placeholder.com/240x180?text=Thor+Hammer+Keychain" },
-    { name: "Pikachu Keychain", price: 109, image: "https://via.placeholder.com/240x180?text=Pikachu+Keychain" },
-    { name: "Hot Melt Glue Gun", price: 220, image: "https://via.placeholder.com/240x180?text=Hot+Melt+Glue+Gun" },
-    { name: "Marker Set of 48", price: 299, image: "https://via.placeholder.com/240x180?text=Marker+Set+of+48" },
-    { name: "Markers Set of 24", price: 179, image: "https://via.placeholder.com/240x180?text=Markers+Set+of+24" },
-    { name: "Kit", price: 289, image: "https://via.placeholder.com/240x180?text=Kit" },
-    { name: "Paint Brush 12 sizes", price: 89, image: "https://via.placeholder.com/240x180?text=Paint+Brush+12+sizes" },
-    { name: "Sponge Dabbing Brush 5pc", price: 90, image: "https://via.placeholder.com/240x180?text=Sponge+Dabbing+Brush" },
-    { name: "Luxury Pen", price: 199, image: "https://via.placeholder.com/240x180?text=Luxury+Pen" },
-    { name: "Pencil", price: 79, image: "https://via.placeholder.com/240x180?text=Pencil" },
-    { name: "Eraser", price: 49, image: "https://via.placeholder.com/240x180?text=Eraser" },
-    { name: "Diary", price: 249, image: "https://via.placeholder.com/240x180?text=Diary" },
-    { name: "Diary Premium", price: 319, image: "https://via.placeholder.com/240x180?text=Diary+Premium" },
-    { name: "Diary Mini", price: 219, image: "https://via.placeholder.com/240x180?text=Diary+Mini" },
-    { name: "Camel Water Colour Tube", price: 190, image: "https://via.placeholder.com/240x180?text=Camel+Water+Colour+Tube" },
-    { name: "FLAIR Acrylic Marker", price: 99, image: "https://via.placeholder.com/240x180?text=FLAIR+Acrylic+Marker" },
-    { name: "Levin Acrylic Markers", price: 149, image: "https://via.placeholder.com/240x180?text=Levin+Acrylic+Markers" },
-    { name: "Demon Slayer Katana Keychain", price: 129, image: "https://via.placeholder.com/240x180?text=Demon+Slayer+Katana+Keychain" },
-    { name: "Sketch Kit", price: 299, image: "https://via.placeholder.com/240x180?text=Sketch+Kit" },
-    { name: "Sketch Book A5 100pg", price: 159, image: "https://via.placeholder.com/240x180?text=Sketch+Book+A5+100pg" }
-  ];
+  <!-- Hero -->
+  <section class="text-center py-20 bg-[#f3efe9] text-[#2e2e2e]">
+    <h2 class="text-5xl font-bold mb-4">Create Bold. Create Bright.</h2>
+    <p class="text-xl mb-8 max-w-2xl mx-auto">Welcome to The Highon's — where creativity meets purpose.</p>
+    <a href="#products" class="inline-block bg-[#1f1f1f] text-[#bfa76f] px-8 py-4 rounded-lg shadow hover:bg-black transition">Explore Products</a>
+  </section>
 
-  const cart = {};
+  <!-- Products -->
+  <section id="products" class="py-20 bg-white px-6">
+    <div class="max-w-7xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-12">Our Products</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="productList"></div>
+    </div>
+  </section>
 
-  function renderProducts() {
-    const container = document.getElementById("products");
-    products.forEach((p, i) => {
-      const div = document.createElement("div");
-      div.className = "product";
-      div.innerHTML = `
-        <img src="${p.image}" alt="${p.name}" />
-        <h3>${p.name}</h3>
-        <p>₹${p.price}</p>
-        <button onclick="addToCart(${i})">Add to Cart</button>
-      `;
-      container.appendChild(div);
-    });
-  }
+  <!-- Order Section -->
+  <section id="order" class="py-20 bg-[#f8f6f2] px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-8">Place Your Order</h2>
 
-  function addToCart(index) {
-    const product = products[index];
-    if (cart[product.name]) {
-      cart[product.name].qty += 1;
-    } else {
-      cart[product.name] = { price: product.price, qty: 1 };
-    }
-    updateCart();
-  }
+      <div id="loginForm" class="space-y-6 text-left">
+        <input type="text" id="name" placeholder="Full Name" class="w-full p-4 border rounded" required>
+        <input type="email" id="email" placeholder="Email" class="w-full p-4 border rounded" required>
+        <input type="text" id="phone" placeholder="Phone (+91)" class="w-full p-4 border rounded" required>
+        <input type="text" id="address" placeholder="Full Address" class="w-full p-4 border rounded" required>
+        <button onclick="saveUser()" class="w-full bg-[#1f1f1f] text-[#bfa76f] py-3 rounded hover:bg-black transition">Save & Continue</button>
+      </div>
 
-  function updateCart() {
-    const cartItems = document.getElementById("cartItems");
-    cartItems.innerHTML = "";
-    let total = 0;
-    for (const item in cart) {
-      const { price, qty } = cart[item];
-      total += price * qty;
-      cartItems.innerHTML += `
-        <div class="cart-item">
-          <span>${item}</span>
-          <span>₹${price} × ${qty}</span>
+      <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left hidden">
+        <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
+        <input type="hidden" name="name" id="formName">
+        <input type="hidden" name="email" id="formEmail">
+        <input type="hidden" name="phone" id="formPhone">
+        <input type="hidden" name="address" id="formAddress">
+        <input type="hidden" name="message" id="orderSummaryText">
+
+        <label class="block font-semibold mb-2">Have a coupon code?</label>
+        <input type="text" id="coupon" placeholder="Enter code if you have one" class="w-full p-3 border rounded">
+
+        <div id="cartSummary" class="bg-white border rounded p-4 mb-4">
+          <h3 class="font-semibold text-lg mb-2">Your Cart</h3>
+          <ul id="cartItems" class="space-y-1"></ul>
+          <p class="mt-2 font-bold">Total: ₹<span id="cartTotal">0</span></p>
         </div>
-      `;
+
+        <label class="block font-semibold mb-2">Payment Option:</label>
+        <select name="payment" class="w-full p-3 border rounded">
+          <option value="COD">Cash on Delivery</option>
+          <option value="UPI">UPI Payment</option>
+        </select>
+
+        <div class="text-center">
+          <p class="font-semibold mt-4 mb-2">Scan to Pay via UPI:</p>
+          <img src="1000022591.jpg" alt="UPI QR Code" class="w-48 mx-auto border rounded shadow" />
+        </div>
+
+        <button type="submit" onclick="prepareOrder()" class="w-full bg-[#1f1f1f] text-[#bfa76f] py-4 rounded hover:bg-black transition">Confirm Order</button>
+      </form>
+
+      <p class="text-sm mt-4 italic text-gray-500">* Orders are only delivered within Navsari - 396445 *</p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="bg-white py-16 text-center px-6">
+    <h2 class="text-4xl font-bold mb-6">Contact Us</h2>
+    <p class="text-lg">Email: <a href="mailto:thehighonsofficial@gmail.com" class="text-[#1f1f1f] hover:text-[#bfa76f]">thehighonsofficial@gmail.com</a></p>
+    <p class="text-lg">Instagram: <a href="https://instagram.com/thehighons" target="_blank" class="text-[#1f1f1f] hover:text-[#bfa76f]">@thehighons</a></p>
+  </section>
+
+  <!-- Modal -->
+  <div id="productModal" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-xl relative max-w-md w-full">
+      <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl">&times;</button>
+      <img id="modalImg" src="" alt="" class="w-full h-64 object-cover rounded mb-4">
+      <h3 id="modalName" class="text-xl font-bold mb-2"></h3>
+      <p id="modalPrice" class="text-lg font-semibold text-[#1f1f1f]"></p>
+    </div>
+  </div>
+
+  <script>
+    const products = [
+    { name: "Camel water colour tube", price: 169, img:
+"Screenshot_20250424_134214_Meesho.jpg" },
+      { name: "FLAIR Acrylic marker", price:
+359, img: "Screenshot_20250423_144509_Meesho.jpg" },
+      { name: "Levin Acrylic Markers", price: 409, img: "Screenshot_20250423_140558_Meesho.jpg" },
+      { name: "correction tape", price: 70, img: "51l7S8XUY0L.jpg" },
+      { name: "Thor Loki Keychain", price: 99, img: "Screenshot_20250422_132243_Meesho.jpg" },
+      { name: "Thor Hammer Keychain", price: 89, img: "Screenshot_20250422_131740_Meesho.jpg" },
+      { name: "Demon slayer katana keychain", price: 159, img: "Screenshot 20250424_141150_Meesho.jpg" },
+      { name: "Pikachu Keychain", price: 109, img: "Screenshot_20250422_131948_Meesho.jpg" },
+      { name: "Hot Melt Glue Gun", price: 220, img: "71xHhYjWcIL.jpg" },
+      { name: "Marker Set of 48", price: 299, img: "Touch-48-Color-Marker-Pen-Set-Kids-Art-Essentials-Double-Ended-Vibrant-Colors-Non-Bleeding-Wholesale-Discount-.webp" },
+      { name: "Markers Set of 24", price: 179, img: "81B5uZXhYEL._AC_UF1000,1000_QL80_.jpg" },
+      { name: "Sketch Kit", price: 619, img: "Screenshot_20250423_205027_Meesho.jpg" },
+      { name: "Paint Brush 12 sizes", price: 89, img: "Screenshot_20250423_195924_Meesho.jpg" },
+      { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg" },
+      { name: "luxury Pen", price: 199, img: "Screenshot_20250422_001401.jpg" },
+      { name: "Sketch book A5 100pg", price: 119, img: "Screenshot_20250423_204415_Meesho.jpg" },
+      { name: "Diary", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" },
+      { name: "Diary Premium", price: 319, img: "IMG-20250422-WA0005.jpg" },
+      { name: "Diary Mini", price: 219, img: "Screenshot_20250422_215326_Meesho.jpg" }
+    ];
+
+
+    const cart = [];
+
+    function renderProducts() {
+      const container = document.getElementById("productList");
+      container.innerHTML = '';
+      products.forEach((p, i) => {
+        const card = document.createElement("div");
+        card.className = "bg-[#f3efe9] p-6 rounded-lg shadow-lg product-card";
+        const itemInCart = cart.find(item => item.name === p.name);
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover rounded mb-4" onclick="showModal('${p.name}', '${p.img}', ${p.price})">
+          <h3 class="text-xl font-semibold mb-2">${p.name}</h3>
+          <span class="block text-lg font-bold text-[#1f1f1f] mb-2">₹${p.price}</span>
+          <div id="controls-${i}">
+            ${itemInCart ? `
+              <div class="flex items-center justify-center gap-2">
+                <button onclick="updateQty(${i}, -1)" class="bg-[#1f1f1f] text-[#bfa76f] px-3 py-1 rounded">-</button>
+                <span class="font-semibold">${itemInCart.qty}</span>
+                <button onclick="updateQty(${i}, 1)" class="bg-[#1f1f1f] text-[#bfa76f] px-3 py-1 rounded">+</button>
+              </div>` : `
+              <button onclick="addToCart(${i})" class="bg-[#1f1f1f] text-[#bfa76f] py-2 px-4 rounded hover:bg-black">Add to Cart</button>`
+            }
+          </div>
+        `;
+        container.appendChild(card);
+      });
     }
-    document.getElementById("total").innerHTML = `<h3 style="text-align:center; margin-top:1rem;">Total: ₹${total}</h3>`;
-  }
 
-  document.getElementById("paymentMethod").addEventListener("change", function() {
-    const upiQR = document.getElementById("upiQR");
-    if (this.value === "upi") {
-      upiQR.style.display = "block";
-    } else {
-      upiQR.style.display = "none";
+    function addToCart(index) {
+      const product = products[index];
+      const existing = cart.find(p => p.name === product.name);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      updateCart();
+      renderProducts();
     }
-  });
 
-  document.getElementById("orderForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    alert("Order submitted! Thank you for shopping with The Highon's.");
-    cart = {};
-    updateCart();
-    this.reset();
-    document.getElementById("upiQR").style.display = "none";
-  });
+    function updateQty(index, change) {
+      const product = products[index];
+      const item = cart.find(p => p.name === product.name);
+      if (item) {
+        item.qty += change;
+        if (item.qty <= 0) {
+          cart.splice(cart.indexOf(item), 1);
+        }
+      }
+      updateCart();
+      renderProducts();
+    }
 
-  renderProducts();
-</script>
+    function updateCart() {
+      const list = document.getElementById("cartItems");
+      const totalEl = document.getElementById("cartTotal");
+      list.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        list.innerHTML += `<li>${item.name} x ${item.qty} = ₹${item.price * item.qty}</li>`;
+      });
+      totalEl.textContent = total;
+    }
 
+    function prepareOrder() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (!user) return;
+
+      const coupon = document.getElementById('coupon').value.trim();
+      let summary = `Order for ${user.name}\n`;
+      let total = 0;
+
+      cart.forEach(item => {
+        summary += `${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
+        total += item.price * item.qty;
+      });
+
+      if (coupon === "NSL10%") {
+        const discount = Math.round(total * 0.10);
+        summary += `Discount (NSL10%): -₹${discount}\n`;
+        total -= discount;
+      }
+
+      summary += `Total: ₹${total}`;
+      document.getElementById("orderSummaryText").value = summary;
+    }
+
+    function saveUser() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      const phoneRegex = /^[6-9]\d{9}$/;
+
+      if (!name || !email || !phone || !address) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      if (!phoneRegex.test(phone)) {
+        alert("Please enter a valid 10-digit Indian phone number.");
+        return;
+      }
+
+      localStorage.setItem('user', JSON.stringify({ name, email, phone, address }));
+      populateOrderForm();
+    }
+
+    function populateOrderForm() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        document.getElementById('formName').value = user.name;
+        document.getElementById('formEmail').value = user.email;
+        document.getElementById('formPhone').value = user.phone;
+        document.getElementById('formAddress').value = user.address;
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('orderForm').classList.remove('hidden');
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('user');
+      location.reload();
+    }
+
+    function showModal(name, img, price) {
+      document.getElementById('modalImg').src = img;
+      document.getElementById('modalName').textContent = name;
+      document.getElementById('modalPrice').textContent = `₹${price}`;
+      document.getElementById('productModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('productModal').classList.add('hidden');
+    }
+
+    window.onload = () => {
+      renderProducts();
+      populateOrderForm();
+    };
+  </script>
 </body>
 </html>
