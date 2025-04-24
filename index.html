@@ -38,6 +38,12 @@
     .product:hover {
       transform: scale(1.03);
     }
+    .product img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
     .product h3 {
       margin: 0.5rem 0;
       color: #bae6fd;
@@ -150,28 +156,28 @@
 
 <script>
   const products = [
-    { name: "Correction Tape", price: 70 },
-    { name: "Thor Loki Keychain", price: 99 },
-    { name: "Thor Hammer Keychain", price: 89 },
-    { name: "Pikachu Keychain", price: 109 },
-    { name: "Hot Melt Glue Gun", price: 220 },
-    { name: "Marker Set of 48", price: 299 },
-    { name: "Markers Set of 24", price: 179 },
-    { name: "Kit", price: 289 },
-    { name: "Paint Brush 12 sizes", price: 89 },
-    { name: "Sponge Dabbing Brush 5pc", price: 90 },
-    { name: "Luxury Pen", price: 199 },
-    { name: "Pencil", price: 79 },
-    { name: "Eraser", price: 49 },
-    { name: "Diary", price: 249 },
-    { name: "Diary Premium", price: 319 },
-    { name: "Diary Mini", price: 219 },
-    { name: "Camel Water Colour Tube", price: 190 },
-    { name: "FLAIR Acrylic Marker", price: 99 },
-    { name: "Levin Acrylic Markers", price: 149 },
-    { name: "Demon Slayer Katana Keychain", price: 129 },
-    { name: "Sketch Kit", price: 299 },
-    { name: "Sketch Book A5 100pg", price: 159 }
+    { name: "Correction Tape", price: 70, image: "https://via.placeholder.com/240x180?text=Correction+Tape" },
+    { name: "Thor Loki Keychain", price: 99, image: "https://via.placeholder.com/240x180?text=Thor+Loki+Keychain" },
+    { name: "Thor Hammer Keychain", price: 89, image: "https://via.placeholder.com/240x180?text=Thor+Hammer+Keychain" },
+    { name: "Pikachu Keychain", price: 109, image: "https://via.placeholder.com/240x180?text=Pikachu+Keychain" },
+    { name: "Hot Melt Glue Gun", price: 220, image: "https://via.placeholder.com/240x180?text=Hot+Melt+Glue+Gun" },
+    { name: "Marker Set of 48", price: 299, image: "https://via.placeholder.com/240x180?text=Marker+Set+of+48" },
+    { name: "Markers Set of 24", price: 179, image: "https://via.placeholder.com/240x180?text=Markers+Set+of+24" },
+    { name: "Kit", price: 289, image: "https://via.placeholder.com/240x180?text=Kit" },
+    { name: "Paint Brush 12 sizes", price: 89, image: "https://via.placeholder.com/240x180?text=Paint+Brush+12+sizes" },
+    { name: "Sponge Dabbing Brush 5pc", price: 90, image: "https://via.placeholder.com/240x180?text=Sponge+Dabbing+Brush" },
+    { name: "Luxury Pen", price: 199, image: "https://via.placeholder.com/240x180?text=Luxury+Pen" },
+    { name: "Pencil", price: 79, image: "https://via.placeholder.com/240x180?text=Pencil" },
+    { name: "Eraser", price: 49, image: "https://via.placeholder.com/240x180?text=Eraser" },
+    { name: "Diary", price: 249, image: "https://via.placeholder.com/240x180?text=Diary" },
+    { name: "Diary Premium", price: 319, image: "https://via.placeholder.com/240x180?text=Diary+Premium" },
+    { name: "Diary Mini", price: 219, image: "https://via.placeholder.com/240x180?text=Diary+Mini" },
+    { name: "Camel Water Colour Tube", price: 190, image: "https://via.placeholder.com/240x180?text=Camel+Water+Colour+Tube" },
+    { name: "FLAIR Acrylic Marker", price: 99, image: "https://via.placeholder.com/240x180?text=FLAIR+Acrylic+Marker" },
+    { name: "Levin Acrylic Markers", price: 149, image: "https://via.placeholder.com/240x180?text=Levin+Acrylic+Markers" },
+    { name: "Demon Slayer Katana Keychain", price: 129, image: "https://via.placeholder.com/240x180?text=Demon+Slayer+Katana+Keychain" },
+    { name: "Sketch Kit", price: 299, image: "https://via.placeholder.com/240x180?text=Sketch+Kit" },
+    { name: "Sketch Book A5 100pg", price: 159, image: "https://via.placeholder.com/240x180?text=Sketch+Book+A5+100pg" }
   ];
 
   const cart = {};
@@ -182,6 +188,7 @@
       const div = document.createElement("div");
       div.className = "product";
       div.innerHTML = `
+        <img src="${p.image}" alt="${p.name}" />
         <h3>${p.name}</h3>
         <p>₹${p.price}</p>
         <button onclick="addToCart(${i})">Add to Cart</button>
