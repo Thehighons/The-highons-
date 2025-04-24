@@ -27,6 +27,14 @@
       transition: transform 0.3s ease-in-out;
       cursor: pointer;
     }
+    .category-title {
+      background-color: #1f1f1f;
+      color: #bfa76f;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: inline-block;
+      margin: 20px 0;
+    }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -53,9 +61,32 @@
 
   <!-- Products -->
   <section id="products" class="py-20 bg-white px-6">
-    <div class="max-w-7xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-12">Our Products</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="productList"></div>
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-4xl font-bold mb-12 text-center">Our Products</h2>
+      
+      <!-- Keychains Section -->
+      <div class="mb-16">
+        <h3 class="category-title text-xl">Keychains</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="keychainsList"></div>
+      </div>
+      
+      <!-- Art Supplies Section -->
+      <div class="mb-16">
+        <h3 class="category-title text-xl">Art Supplies</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="artSuppliesList"></div>
+      </div>
+      
+      <!-- Stationery Section -->
+      <div class="mb-16">
+        <h3 class="category-title text-xl">Stationery</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="stationeryList"></div>
+      </div>
+      
+      <!-- Diaries Section -->
+      <div class="mb-16">
+        <h3 class="category-title text-xl">Diaries</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="diariesList"></div>
+      </div>
     </div>
   </section>
 
@@ -125,61 +156,98 @@
   </div>
 
   <script>
-    const products = [
-    { name: "Camel water colour tube", price: 169, img:
-"Screenshot_20250424_134214_Meesho.jpg" },
-      { name: "FLAIR Acrylic marker", price:
-359, img: "Screenshot_20250423_144509_Meesho.jpg" },
-      { name: "Levin Acrylic Markers", price: 409, img: "Screenshot_20250423_140558_Meesho.jpg" },
-      { name: "correction tape", price: 70, img: "51l7S8XUY0L.jpg" },
-      { name: "Thor Loki Keychain", price: 99, img: "Screenshot_20250422_132243_Meesho.jpg" },
-      { name: "Thor Hammer Keychain", price: 89, img: "Screenshot_20250422_131740_Meesho.jpg" },
-      { name: "Demon slayer katana keychain", price: 159, img: "Screenshot_20250424_141150_Meesho.jpg" },
-      { name: "Pikachu Keychain", price: 109, img: "Screenshot_20250422_131948_Meesho.jpg" },
-      { name: "Hot Melt Glue Gun", price: 220, img: "71xHhYjWcIL.jpg" },
-      { name: "Marker Set of 48", price: 299, img: "Touch-48-Color-Marker-Pen-Set-Kids-Art-Essentials-Double-Ended-Vibrant-Colors-Non-Bleeding-Wholesale-Discount-.webp" },
-      { name: "Markers Set of 24", price: 179, img: "81B5uZXhYEL._AC_UF1000,1000_QL80_.jpg" },
-      { name: "Sketch Kit", price: 619, img: "Screenshot_20250423_205027_Meesho.jpg" },
-      { name: "Paint Brush 12 sizes", price: 89, img: "Screenshot_20250423_195924_Meesho.jpg" },
-      { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg" },
-      { name: "luxury Pen", price: 199, img: "Screenshot_20250422_001401.jpg" },
-      { name: "Sketch book A5 100pg", price: 119, img: "Screenshot_20250423_204415_Meesho.jpg" },
-      { name: "Diary", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" },
-      { name: "Diary Premium", price: 319, img: "IMG-20250422-WA0005.jpg" },
-      { name: "Diary Mini", price: 219, img: "Screenshot_20250422_215326_Meesho.jpg" }
-    ];
-
+    // Categorized products
+    const products = {
+      keychains: [
+        { name: "Thor Loki Keychain", price: 99, img: "Screenshot_20250422_132243_Meesho.jpg" },
+        { name: "Thor Hammer Keychain", price: 89, img: "Screenshot_20250422_131740_Meesho.jpg" },
+        { name: "Demon slayer katana keychain", price: 159, img: "Screenshot_20250424_141150_Meesho.jpg" },
+        { name: "Pikachu Keychain", price: 109, img: "Screenshot_20250422_131948_Meesho.jpg" }
+      ],
+      artSupplies: [
+        { name: "Camel water colour tube", price: 169, img: "Screenshot_20250424_134214_Meesho.jpg" },
+        { name: "FLAIR Acrylic marker", price: 359, img: "Screenshot_20250423_144509_Meesho.jpg" },
+        { name: "Levin Acrylic Markers", price: 409, img: "Screenshot_20250423_140558_Meesho.jpg" },
+        { name: "Marker Set of 48", price: 299, img: "Touch-48-Color-Marker-Pen-Set-Kids-Art-Essentials-Double-Ended-Vibrant-Colors-Non-Bleeding-Wholesale-Discount-.webp" },
+        { name: "Markers Set of 24", price: 179, img: "81B5uZXhYEL._AC_UF1000,1000_QL80_.jpg" },
+        { name: "Paint Brush 12 sizes", price: 89, img: "Screenshot_20250423_195924_Meesho.jpg" },
+        { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg" }
+      ],
+      stationery: [
+        { name: "correction tape", price: 70, img: "51l7S8XUY0L.jpg" },
+        { name: "Hot Melt Glue Gun", price: 220, img: "71xHhYjWcIL.jpg" },
+        { name: "Sketch Kit", price: 619, img: "Screenshot_20250423_205027_Meesho.jpg" },
+        { name: "luxury Pen", price: 199, img: "Screenshot_20250422_001401.jpg" },
+        { name: "Sketch book A5 100pg", price: 119, img: "Screenshot_20250423_204415_Meesho.jpg" }
+      ],
+      diaries: [
+        { name: "Diary", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" },
+        { name: "Diary Premium", price: 319, img: "IMG-20250422-WA0005.jpg" },
+        { name: "Diary Mini", price: 219, img: "Screenshot_20250422_215326_Meesho.jpg" }
+      ]
+    };
 
     const cart = [];
 
     function renderProducts() {
-      const container = document.getElementById("productList");
-      container.innerHTML = '';
-      products.forEach((p, i) => {
-        const card = document.createElement("div");
-        card.className = "bg-[#f3efe9] p-6 rounded-lg shadow-lg product-card";
-        const itemInCart = cart.find(item => item.name === p.name);
-        card.innerHTML = `
-          <img src="${p.img}" alt="${p.name}" class="w-full h-48 object-cover rounded mb-4" onclick="showModal('${p.name}', '${p.img}', ${p.price})">
-          <h3 class="text-xl font-semibold mb-2">${p.name}</h3>
-          <span class="block text-lg font-bold text-[#1f1f1f] mb-2">₹${p.price}</span>
-          <div id="controls-${i}">
-            ${itemInCart ? `
-              <div class="flex items-center justify-center gap-2">
-                <button onclick="updateQty(${i}, -1)" class="bg-[#1f1f1f] text-[#bfa76f] px-3 py-1 rounded">-</button>
-                <span class="font-semibold">${itemInCart.qty}</span>
-                <button onclick="updateQty(${i}, 1)" class="bg-[#1f1f1f] text-[#bfa76f] px-3 py-1 rounded">+</button>
-              </div>` : `
-              <button onclick="addToCart(${i})" class="bg-[#1f1f1f] text-[#bfa76f] py-2 px-4 rounded hover:bg-black">Add to Cart</button>`
-            }
-          </div>
-        `;
-        container.appendChild(card);
+      // Render keychains
+      const keychainsContainer = document.getElementById("keychainsList");
+      keychainsContainer.innerHTML = '';
+      products.keychains.forEach((p, i) => {
+        const card = createProductCard(p, i, 'keychains');
+        keychainsContainer.appendChild(card);
+      });
+
+      // Render art supplies
+      const artSuppliesContainer = document.getElementById("artSuppliesList");
+      artSuppliesContainer.innerHTML = '';
+      products.artSupplies.forEach((p, i) => {
+        const card = createProductCard(p, i, 'artSupplies');
+        artSuppliesContainer.appendChild(card);
+      });
+
+      // Render stationery
+      const stationeryContainer = document.getElementById("stationeryList");
+      stationeryContainer.innerHTML = '';
+      products.stationery.forEach((p, i) => {
+        const card = createProductCard(p, i, 'stationery');
+        stationeryContainer.appendChild(card);
+      });
+
+      // Render diaries
+      const diariesContainer = document.getElementById("diariesList");
+      diariesContainer.innerHTML = '';
+      products.diaries.forEach((p, i) => {
+        const card = createProductCard(p, i, 'diaries');
+        diariesContainer.appendChild(card);
       });
     }
 
-    function addToCart(index) {
-      const product = products[index];
+    function createProductCard(product, index, category) {
+      const card = document.createElement("div");
+      card.className = "bg-[#f3efe9] p-6 rounded-lg shadow-lg product-card";
+      const itemInCart = cart.find(item => item.name === product.name);
+      
+      card.innerHTML = `
+        <img src="${product.img}" alt="${product.name}" class="w-full h-48 object-cover rounded mb-4" onclick="showModal('${product.name}', '${product.img}', ${product.price})">
+        <h3 class="text-xl font-semibold mb-2">${product.name}</h3>
+        <span class="block text-lg font-bold text-[#1f1f1f] mb-2">₹${product.price}</span>
+        <div id="controls-${category}-${index}">
+          ${itemInCart ? `
+            <div class="flex items-center justify-center gap-2">
+              <button onclick="updateQty('${category}', ${index}, -1)" class="bg-[#1f1f1f] text-[#bfa76f] px-3 py-1 rounded">-</button>
+              <span class="font-semibold">${itemInCart.qty}</span>
+              <button onclick="updateQty('${category}', ${index}, 1)" class="bg-[#1f1f1f] text-[#bfa76f] px-3 py-1 rounded">+</button>
+            </div>` : `
+            <button onclick="addToCart('${category}', ${index})" class="bg-[#1f1f1f] text-[#bfa76f] py-2 px-4 rounded hover:bg-black">Add to Cart</button>`
+          }
+        </div>
+      `;
+      return card;
+    }
+
+    function addToCart(category, index) {
+      const product = products[category][index];
       const existing = cart.find(p => p.name === product.name);
       if (existing) {
         existing.qty += 1;
@@ -190,8 +258,8 @@
       renderProducts();
     }
 
-    function updateQty(index, change) {
-      const product = products[index];
+    function updateQty(category, index, change) {
+      const product = products[category][index];
       const item = cart.find(p => p.name === product.name);
       if (item) {
         item.qty += change;
