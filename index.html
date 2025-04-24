@@ -20,7 +20,13 @@
     color: white;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   }
-  .container {
+.slogan {
+  margin: 0.5rem 0 0;
+  font-size: 1rem;
+  font-weight: normal;
+  color: #f97316; /* orange tone to match light theme */
+}  
+.container {
     padding: 2rem;
     display: flex;
     flex-wrap: wrap;
@@ -116,7 +122,11 @@
 </head>
 <body>
 
-<header>The Highon's</header>
+<header>
+  The Highon's
+  <p class="slogan">Innovating with purpose</p>
+</header>
+
 
 <div class="container" id="products">
   <!-- Product cards will be inserted here -->
