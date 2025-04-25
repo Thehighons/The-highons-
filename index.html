@@ -58,9 +58,10 @@
       width: 100%;
     }
     .hero-gradient {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  padding: 80px 0; /* Reduced from py-24 (96px) to 80px */
-}
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      padding-top: 60px;  /* Reduced from original */
+      padding-bottom: 30px; /* Reduced from original */
+    }
     .btn-primary {
       background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
       transition: all 0.3s ease;
@@ -84,11 +85,8 @@
       animation: float 3s ease-in-out infinite;
     }
     .logo {
-  max-height: 300px;  /* Slightly larger than before but not overwhelming */
-  height: auto;       /* Maintain aspect ratio */
-  width: auto;        /* Prevents distortion */
-  margin: 0 auto;     /* Centers the logo */
-  object-fit: contain; /* Ensures clean scaling */
+      max-height: 120px;
+      margin: 0 auto;
     }
     .category-selector {
       display: flex;
@@ -119,6 +117,25 @@
       max-width: 600px;
       margin: 40px auto;
     }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .hero-gradient {
+        padding-top: 40px;
+        padding-bottom: 20px;
+      }
+      .hero-section h2 {
+        font-size: 2.5rem;
+      }
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .nav-link {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -140,25 +157,26 @@
   </header>
 
   <!-- Hero -->
-<section class="text-center hero-gradient">
-  <div class="max-w-4xl mx-auto px-6 py-12"> <!-- Added py-12 here -->
-    <img src="GridArt_20250425_064014157.png" alt="The Highon's Logo" class="logo mb-6 animate__animated animate__fadeIn">
-    <h2 class="text-5xl font-bold mb-6 text-gray-800 animate__animated animate__fadeInDown">Create Bold. Create Bright.</h2>
-    <p class="text-xl mb-10 text-gray-600 max-w-2xl mx-auto animate__animated animate__fadeIn animate__delay-1s">Welcome to The Highon's — where creativity meets purpose through premium supplies.</p>
-    <a href="#products" class="inline-block btn-primary text-white px-10 py-4 rounded-full shadow-lg font-medium animate__animated animate__fadeIn animate__delay-2s">Explore Our Collection</a>
-  </div>
-  <div class="pb-12 flex justify-center space-x-8"> <!-- Added pb-12 here -->
-    <div class="floating animate__animated animate__fadeIn animate__delay-3s">
-      <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-32 h-32 rounded-lg object-cover shadow-xl">
+  <section class="text-center hero-gradient">
+    <div class="max-w-4xl mx-auto px-6">
+      <img src="GridArt_20250425_064014157.png" alt="The Highon's Logo" class="logo mb-6 animate__animated animate__fadeIn">
+      <h2 class="text-5xl font-bold mb-6 text-gray-800 animate__animated animate__fadeInDown">Create Bold. Create Bright.</h2>
+      <p class="text-xl mb-10 text-gray-600 max-w-2xl mx-auto animate__animated animate__fadeIn animate__delay-1s">Welcome to The Highon's — where creativity meets purpose through premium supplies.</p>
+      <a href="#products" class="inline-block btn-primary text-white px-10 py-4 rounded-full shadow-lg font-medium animate__animated animate__fadeIn animate__delay-2s">Explore Our Collection</a>
     </div>
-    <div class="floating animate__animated animate__fadeIn animate__delay-4s" style="animation-delay: 0.5s">
-      <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-32 h-32 rounded-lg object-cover shadow-xl">
+    <div class="mt-12 flex justify-center space-x-8">
+      <div class="floating animate__animated animate__fadeIn animate__delay-3s">
+        <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-32 h-32 rounded-lg object-cover shadow-xl">
+      </div>
+      <div class="floating animate__animated animate__fadeIn animate__delay-4s" style="animation-delay: 0.5s">
+        <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-32 h-32 rounded-lg object-cover shadow-xl">
+      </div>
+      <div class="floating animate__animated animate__fadeIn animate__delay-5s" style="animation-delay: 1s">
+        <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-32 h-32 rounded-lg object-cover shadow-xl">
+      </div>
     </div>
-    <div class="floating animate__animated animate__fadeIn animate__delay-5s" style="animation-delay: 1s">
-      <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-32 h-32 rounded-lg object-cover shadow-xl">
-    </div>
-  </div>
-</section>
+  </section>
+
   <!-- Products -->
   <section id="products" class="py-20 bg-white px-6">
     <div class="max-w-7xl mx-auto">
@@ -328,7 +346,6 @@
         { name: "Pikachu Keychain", price: 109, img: "Screenshot_20250422_131948_Meesho.jpg" }
       ],
       artSupplies: [
-        { name: "Fevicryl 10 shades Acrylic colur Bottle", price: 199, img: "Screenshot_20250425_140531_Meesho.jpg" },
         { name: "Camel water colour tube", price: 169, img: "Screenshot_20250424_134214_Meesho.jpg" },
         { name: "FLAIR Acrylic marker", price: 359, img: "Screenshot_20250423_144509_Meesho.jpg" },
         { name: "Levin Acrylic Markers", price: 409, img: "Screenshot_20250423_140558_Meesho.jpg" },
