@@ -83,8 +83,37 @@
       animation: float 3s ease-in-out infinite;
     }
     .logo {
-      max-height: 80px;
+      max-height: 120px;
       margin: 0 auto;
+    }
+    .category-selector {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    .category-btn {
+      padding: 10px 20px;
+      border-radius: 30px;
+      background: white;
+      border: 2px solid #6a11cb;
+      color: #6a11cb;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .category-btn.active, .category-btn:hover {
+      background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+    }
+    .product-request-form {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 40px auto;
     }
   </style>
 </head>
@@ -94,12 +123,12 @@
   <header class="bg-white shadow-sm sticky top-0 z-50">
     <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
       <div class="flex items-center">
-
         <span class="text-2xl font-bold tracking-wide brand-name text-gray-800">THE HIGHON'S</span>
       </div>
       <nav class="flex items-center space-x-8">
         <a href="#products" class="nav-link text-gray-700 hover:text-gray-900">Products</a>
         <a href="#order" class="nav-link text-gray-700 hover:text-gray-900">Order</a>
+        <a href="#request" class="nav-link text-gray-700 hover:text-gray-900">Request Product</a>
         <a href="#contact" class="nav-link text-gray-700 hover:text-gray-900">Contact</a>
         <button onclick="logout()" class="ml-4 text-sm bg-gradient-to-r from-purple-600 to-blue-500 text-white px-4 py-2 rounded-full hover:shadow-md transition-all">Logout</button>
       </nav>
@@ -132,28 +161,49 @@
     <div class="max-w-7xl mx-auto">
       <h2 class="text-4xl font-bold mb-12 text-center text-gray-800">Our Premium Collection</h2>
       
-      <!-- Keychains Section -->
-      <div class="mb-16">
-        <h3 class="category-title text-xl">Keychains</h3>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="keychainsList"></div>
+      <div class="category-selector">
+        <button class="category-btn active" onclick="showCategory('all')">All Products</button>
+        <button class="category-btn" onclick="showCategory('keychains')">Keychains</button>
+        <button class="category-btn" onclick="showCategory('artSupplies')">Art Supplies</button>
+        <button class="category-btn" onclick="showCategory('stationery')">Stationery</button>
+        <button class="category-btn" onclick="showCategory('diaries')">Diaries</button>
       </div>
       
-      <!-- Art Supplies Section -->
-      <div class="mb-16">
-        <h3 class="category-title text-xl">Art Supplies</h3>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="artSuppliesList"></div>
+      <div id="productsContainer">
+        <!-- Products will be loaded here based on category selection -->
       </div>
+    </div>
+  </section>
+
+  <!-- Product Request Section -->
+  <section id="request" class="py-20 bg-gray-50 px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-8 text-gray-800">Request a Product</h2>
       
-      <!-- Stationery Section -->
-      <div class="mb-16">
-        <h3 class="category-title text-xl">Stationery</h3>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="stationeryList"></div>
-      </div>
-      
-      <!-- Diaries Section -->
-      <div class="mb-16">
-        <h3 class="category-title text-xl">Diaries</h3>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="diariesList"></div>
+      <div class="product-request-form">
+        <p class="mb-6 text-gray-700">Can't find what you're looking for? Let us know and we'll try to get it for you!</p>
+        
+        <form id="requestForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
+          <input type="hidden" name="_subject" value="New Product Request">
+          <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
+          
+          <div>
+            <label for="requestName" class="block font-semibold mb-2 text-gray-700">Product Name</label>
+            <input type="text" id="requestName" name="product" placeholder="What product are you looking for?" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+          </div>
+          
+          <div>
+            <label for="requestDetails" class="block font-semibold mb-2 text-gray-700">Additional Details</label>
+            <textarea id="requestDetails" name="details" rows="4" placeholder="Any specific brand, color, size or other details?" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"></textarea>
+          </div>
+          
+          <div>
+            <label for="requestEmail" class="block font-semibold mb-2 text-gray-700">Your Email</label>
+            <input type="email" id="requestEmail" name="email" placeholder="Your email address" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+          </div>
+          
+          <button type="submit" class="w-full btn-primary text-white py-4 rounded-lg font-medium">Submit Request</button>
+        </form>
       </div>
     </div>
   </section>
@@ -245,6 +295,7 @@
         <div class="flex space-x-6">
           <a href="#products" class="text-gray-300 hover:text-white transition">Products</a>
           <a href="#order" class="text-gray-300 hover:text-white transition">Order</a>
+          <a href="#request" class="text-gray-300 hover:text-white transition">Request</a>
           <a href="#contact" class="text-gray-300 hover:text-white transition">Contact</a>
         </div>
       </div>
@@ -298,38 +349,59 @@
 
     const cart = [];
 
-    function renderProducts() {
-      // Render keychains
-      const keychainsContainer = document.getElementById("keychainsList");
-      keychainsContainer.innerHTML = '';
-      products.keychains.forEach((p, i) => {
-        const card = createProductCard(p, i, 'keychains');
-        keychainsContainer.appendChild(card);
-      });
+    function renderProducts(category = 'all') {
+      const container = document.getElementById("productsContainer");
+      container.innerHTML = '';
+      
+      if (category === 'all') {
+        // Show all categories
+        for (const [cat, items] of Object.entries(products)) {
+          const section = document.createElement('div');
+          section.className = 'mb-16';
+          
+          const title = document.createElement('h3');
+          title.className = 'category-title text-xl';
+          title.textContent = cat.charAt(0).toUpperCase() + cat.slice(1).replace(/([A-Z])/g, ' $1');
+          
+          const grid = document.createElement('div');
+          grid.className = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8';
+          grid.id = `${cat}List`;
+          
+          section.appendChild(title);
+          section.appendChild(grid);
+          container.appendChild(section);
+          
+          // Render products for this category
+          items.forEach((p, i) => {
+            const card = createProductCard(p, i, cat);
+            grid.appendChild(card);
+          });
+        }
+      } else {
+        // Show specific category
+        const grid = document.createElement('div');
+        grid.className = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8';
+        
+        products[category].forEach((p, i) => {
+          const card = createProductCard(p, i, category);
+          grid.appendChild(card);
+        });
+        
+        container.appendChild(grid);
+      }
+    }
 
-      // Render art supplies
-      const artSuppliesContainer = document.getElementById("artSuppliesList");
-      artSuppliesContainer.innerHTML = '';
-      products.artSupplies.forEach((p, i) => {
-        const card = createProductCard(p, i, 'artSupplies');
-        artSuppliesContainer.appendChild(card);
+    function showCategory(category) {
+      // Update active button
+      document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.classList.remove('active');
       });
-
-      // Render stationery
-      const stationeryContainer = document.getElementById("stationeryList");
-      stationeryContainer.innerHTML = '';
-      products.stationery.forEach((p, i) => {
-        const card = createProductCard(p, i, 'stationery');
-        stationeryContainer.appendChild(card);
-      });
-
-      // Render diaries
-      const diariesContainer = document.getElementById("diariesList");
-      diariesContainer.innerHTML = '';
-      products.diaries.forEach((p, i) => {
-        const card = createProductCard(p, i, 'diaries');
-        diariesContainer.appendChild(card);
-      });
+      event.target.classList.add('active');
+      
+      renderProducts(category);
+      
+      // Smooth scroll to products
+      document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
     }
 
     function createProductCard(product, index, category) {
@@ -366,7 +438,7 @@
         cart.push({ ...product, qty: 1 });
       }
       updateCart();
-      renderProducts();
+      renderProducts(document.querySelector('.category-btn.active').getAttribute('onclick').replace("showCategory('", "").replace("')", ""));
       
       // Add animation to cart icon
       const cartTotal = document.getElementById('cartTotal');
@@ -386,7 +458,7 @@
         }
       }
       updateCart();
-      renderProducts();
+      renderProducts(document.querySelector('.category-btn.active').getAttribute('onclick').replace("showCategory('", "").replace("')", ""));
     }
 
     function updateCart() {
