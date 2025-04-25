@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Highon's - Creative Supplies</title>
+  <meta name="description" content="The Highon's - Premium creative supplies including keychains, art supplies, stationery, and diaries. Shop now for high-quality products.">
+  <title>The Highon's - Creative Supplies | Premium Keychains, Art Materials & Stationery</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     @font-face {
       font-family: 'Trajan Pro';
@@ -59,8 +61,8 @@
     }
     .hero-gradient {
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      padding-top: 60px;  /* Reduced from original */
-      padding-bottom: 30px; /* Reduced from original */
+      padding-top: 60px;
+      padding-bottom: 30px;
     }
     .btn-primary {
       background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
@@ -117,6 +119,75 @@
       max-width: 600px;
       margin: 40px auto;
     }
+    .testimonial-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .newsletter-form {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      border-radius: 15px;
+      padding: 30px;
+      color: white;
+    }
+    .cart-panel {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      height: 100vh;
+      background: white;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+      transition: right 0.3s ease;
+      z-index: 100;
+      overflow-y: auto;
+    }
+    .cart-panel.open {
+      right: 0;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 99;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #6a11cb;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .search-bar {
+      transition: all 0.3s ease;
+      max-width: 500px;
+      margin: 0 auto 30px;
+    }
+    .search-bar:focus-within {
+      transform: scale(1.02);
+    }
 
     /* Mobile responsiveness */
     @media (max-width: 768px) {
@@ -135,6 +206,17 @@
         padding: 8px 12px;
         font-size: 14px;
       }
+      .cart-panel {
+        width: 100%;
+        right: -100%;
+      }
+      .floating {
+        animation: none;
+      }
+      .category-selector {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
@@ -146,41 +228,122 @@
       <div class="flex items-center">
         <span class="text-2xl font-bold tracking-wide brand-name text-gray-800">THE HIGHON'S</span>
       </div>
-      <nav class="flex items-center space-x-8">
+      <nav class="hidden md:flex items-center space-x-8">
         <a href="#products" class="nav-link text-gray-700 hover:text-gray-900">Products</a>
+        <a href="#testimonials" class="nav-link text-gray-700 hover:text-gray-900">Reviews</a>
         <a href="#order" class="nav-link text-gray-700 hover:text-gray-900">Order</a>
         <a href="#request" class="nav-link text-gray-700 hover:text-gray-900">Request Product</a>
         <a href="#contact" class="nav-link text-gray-700 hover:text-gray-900">Contact</a>
+        <div class="relative ml-4">
+          <button onclick="toggleCart()" class="flex items-center relative">
+            <i class="fas fa-shopping-cart text-xl text-gray-700"></i>
+            <span id="cartCounter" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+          </button>
+        </div>
         <button onclick="logout()" class="ml-4 text-sm bg-gradient-to-r from-purple-600 to-blue-500 text-white px-4 py-2 rounded-full hover:shadow-md transition-all">Logout</button>
       </nav>
+      <div class="md:hidden flex items-center space-x-4">
+        <button onclick="toggleCart()" class="flex items-center relative">
+          <i class="fas fa-shopping-cart text-xl text-gray-700"></i>
+          <span id="cartCounterMobile" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+        </button>
+        <button onclick="toggleMobileMenu()" class="text-gray-700">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-200 p-4">
+      <div class="flex flex-col space-y-4">
+        <a href="#products" class="nav-link text-gray-700 hover:text-gray-900" onclick="toggleMobileMenu()">Products</a>
+        <a href="#testimonials" class="nav-link text-gray-700 hover:text-gray-900" onclick="toggleMobileMenu()">Reviews</a>
+        <a href="#order" class="nav-link text-gray-700 hover:text-gray-900" onclick="toggleMobileMenu()">Order</a>
+        <a href="#request" class="nav-link text-gray-700 hover:text-gray-900" onclick="toggleMobileMenu()">Request Product</a>
+        <a href="#contact" class="nav-link text-gray-700 hover:text-gray-900" onclick="toggleMobileMenu()">Contact</a>
+        <button onclick="logout()" class="text-sm bg-gradient-to-r from-purple-600 to-blue-500 text-white px-4 py-2 rounded-full hover:shadow-md transition-all w-full">Logout</button>
+      </div>
     </div>
   </header>
+
+  <!-- Cart Panel -->
+  <div class="overlay" id="cartOverlay"></div>
+  <div class="cart-panel" id="cartPanel">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-2xl font-bold text-gray-800">Your Cart</h3>
+        <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+      </div>
+      <div id="cartPanelItems" class="space-y-4 mb-6"></div>
+      <div class="border-t border-gray-200 pt-4 mb-6">
+        <div class="flex justify-between mb-2">
+          <span class="font-semibold">Subtotal:</span>
+          <span class="font-semibold">₹<span id="cartPanelSubtotal">0</span></span>
+        </div>
+        <div id="discountRow" class="flex justify-between mb-2 hidden">
+          <span class="font-semibold">Discount:</span>
+          <span class="font-semibold text-green-600">-₹<span id="cartPanelDiscount">0</span></span>
+        </div>
+        <div class="flex justify-between text-lg font-bold">
+          <span>Total:</span>
+          <span>₹<span id="cartPanelTotal">0</span></span>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="block font-semibold mb-2 text-gray-700">Coupon Code:</label>
+        <div class="flex">
+          <input type="text" id="cartCoupon" placeholder="Enter coupon code" class="flex-1 p-3 border border-gray-200 rounded-l-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+          <button onclick="applyCoupon()" class="bg-purple-600 text-white px-4 py-3 rounded-r-lg hover:bg-purple-700 transition">Apply</button>
+        </div>
+      </div>
+      <a href="#order" onclick="toggleCart()" class="block w-full btn-primary text-white py-3 rounded-lg font-medium text-center">Proceed to Checkout</a>
+    </div>
+  </div>
 
   <!-- Hero -->
   <section class="text-center hero-gradient">
     <div class="max-w-4xl mx-auto px-6">
-      <img src="GridArt_20250425_064014157.png" alt="The Highon's Logo" class="logo mb-6 animate__animated animate__fadeIn">
+      <img src="GridArt_20250425_064014157.png" alt="The Highon's Logo" class="logo mb-6 animate__animated animate__fadeIn" loading="lazy">
       <h2 class="text-5xl font-bold mb-6 text-gray-800 animate__animated animate__fadeInDown">Create Bold. Create Bright.</h2>
       <p class="text-xl mb-10 text-gray-600 max-w-2xl mx-auto animate__animated animate__fadeIn animate__delay-1s">Welcome to The Highon's — where creativity meets purpose through premium supplies.</p>
       <a href="#products" class="inline-block btn-primary text-white px-10 py-4 rounded-full shadow-lg font-medium animate__animated animate__fadeIn animate__delay-2s">Explore Our Collection</a>
     </div>
     <div class="mt-12 flex justify-center space-x-8">
       <div class="floating animate__animated animate__fadeIn animate__delay-3s">
-        <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-32 h-32 rounded-lg object-cover shadow-xl">
+        <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-32 h-32 rounded-lg object-cover shadow-xl" loading="lazy">
       </div>
       <div class="floating animate__animated animate__fadeIn animate__delay-4s" style="animation-delay: 0.5s">
-        <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-32 h-32 rounded-lg object-cover shadow-xl">
+        <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-32 h-32 rounded-lg object-cover shadow-xl" loading="lazy">
       </div>
       <div class="floating animate__animated animate__fadeIn animate__delay-5s" style="animation-delay: 1s">
-        <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-32 h-32 rounded-lg object-cover shadow-xl">
+        <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-32 h-32 rounded-lg object-cover shadow-xl" loading="lazy">
       </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="py-12 bg-white px-6">
+    <div class="max-w-2xl mx-auto newsletter-form rounded-xl shadow-lg">
+      <h3 class="text-2xl font-bold mb-2">Join Our Creative Community</h3>
+      <p class="mb-6 opacity-90">Subscribe to get exclusive offers, new product alerts, and creative inspiration.</p>
+      <form id="newsletterForm" class="flex flex-col sm:flex-row gap-3">
+        <input type="email" placeholder="Your email address" class="flex-1 p-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-white">
+        <button type="submit" class="bg-white text-purple-600 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition">Subscribe</button>
+      </form>
+      <p class="text-xs mt-3 opacity-75">We respect your privacy. Unsubscribe at any time.</p>
     </div>
   </section>
 
   <!-- Products -->
   <section id="products" class="py-20 bg-white px-6">
     <div class="max-w-7xl mx-auto">
-      <h2 class="text-4xl font-bold mb-12 text-center text-gray-800">Our Premium Collection</h2>
+      <h2 class="text-4xl font-bold mb-6 text-center text-gray-800">Our Premium Collection</h2>
+      
+      <div class="search-bar">
+        <div class="relative">
+          <input type="text" id="productSearch" placeholder="Search products..." class="w-full p-4 pl-12 border border-gray-200 rounded-full shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+          <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+        </div>
+      </div>
       
       <div class="category-selector">
         <button class="category-btn active" onclick="showCategory('all')">All Products</button>
@@ -190,7 +353,8 @@
         <button class="category-btn" onclick="showCategory('diaries')">Diaries</button>
       </div>
       
-      <div id="productsContainer">
+      <div id="productsContainer" class="relative">
+        <div id="productsLoader" class="loader hidden"></div>
         <!-- Products will be loaded here based on category selection -->
       </div>
     </div>
@@ -207,6 +371,7 @@
         <form id="requestForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
           <input type="hidden" name="_subject" value="New Product Request">
           <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
+          <input type="hidden" name="_captcha" value="false">
           
           <div>
             <label for="requestName" class="block font-semibold mb-2 text-gray-700">Product Name</label>
@@ -230,9 +395,9 @@
   </section>
 
   <!-- Order Section -->
-  <section id="order" class="py-20 bg-gray-50 px-6">
+  <section id="order" class="py-20 bg-white px-6">
     <div class="max-w-2xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-8 text-gray-800">Place Your Order</h2>
+      <h2 class="text-4xl font-bold mb-8 text-gray-800">Place Your Order</h3>
 
       <div id="loginForm" class="space-y-6 text-left bg-white p-8 rounded-xl shadow-md">
         <h3 class="text-2xl font-semibold mb-6 text-gray-700">Your Information</h3>
@@ -245,6 +410,7 @@
 
       <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left bg-white p-8 rounded-xl shadow-md hidden">
         <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
+        <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="name" id="formName">
         <input type="hidden" name="email" id="formEmail">
         <input type="hidden" name="phone" id="formPhone">
@@ -276,7 +442,8 @@
 
         <div class="text-center bg-gray-50 p-4 rounded-lg mb-6">
           <p class="font-semibold mb-3 text-gray-700">Scan to Pay via UPI:</p>
-          <img src="1000022591.jpg" alt="UPI QR Code" class="w-48 mx-auto rounded-lg shadow" />
+          <img src="1000022591.jpg" alt="UPI QR Code" class="w-48 mx-auto rounded-lg shadow" loading="lazy">
+          <p class="text-sm mt-2 text-gray-600">UPI ID: thehighonsofficial@upi</p>
         </div>
 
         <button type="submit" onclick="prepareOrder()" class="w-full btn-primary text-white py-4 rounded-lg font-medium">Confirm Order</button>
@@ -294,12 +461,30 @@
         <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
           <h3 class="text-xl font-semibold mb-4 text-gray-800">Contact Information</h3>
           <p class="text-lg mb-2"><span class="font-medium">Email:</span> <a href="mailto:thehighonsofficial@gmail.com" class="text-blue-600 hover:text-blue-800">thehighonsofficial@gmail.com</a></p>
+          <p class="text-lg mb-2"><span class="font-medium">Phone:</span> <a href="tel:+919999999999" class="text-blue-600 hover:text-blue-800">+91 99999 99999</a></p>
           <p class="text-lg"><span class="font-medium">Instagram:</span> <a href="https://instagram.com/thehighons" target="_blank" class="text-blue-600 hover:text-blue-800">@thehighons</a></p>
+          
+          <div class="flex space-x-4 mt-6">
+            <a href="#" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-facebook-f text-xl"></i></a>
+            <a href="#" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-twitter text-xl"></i></a>
+            <a href="#" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-instagram text-xl"></i></a>
+            <a href="#" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-pinterest text-xl"></i></a>
+          </div>
         </div>
         <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
           <h3 class="text-xl font-semibold mb-4 text-gray-800">Business Hours</h3>
           <p class="text-lg mb-2"><span class="font-medium">Monday - Friday:</span> 10AM - 7PM</p>
-          <p class="text-lg"><span class="font-medium">Saturday - Sunday:</span> 11AM - 5PM</p>
+          <p class="text-lg mb-6"><span class="font-medium">Saturday - Sunday:</span> 11AM - 5PM</p>
+          
+          <h3 class="text-xl font-semibold mb-4 text-gray-800">Location</h3>
+          <p class="text-lg mb-4">Navsari, Gujarat - 396445</p>
+          <div class="aspect-w-16 aspect-h-9 bg-gray-200 rounded-lg overflow-hidden">
+            <!-- Map placeholder - replace with actual map embed -->
+            <div class="w-full h-48 flex items-center justify-center text-gray-500">
+              <i class="fas fa-map-marker-alt text-4xl"></i>
+              <p class="ml-2">Map Location</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -313,15 +498,18 @@
           <span class="text-2xl font-bold tracking-wide brand-name">THE HIGHON'S</span>
           <p class="mt-2 text-gray-400">Innovating with Purpose</p>
         </div>
-        <div class="flex space-x-6">
+        <div class="flex flex-wrap justify-center gap-6">
           <a href="#products" class="text-gray-300 hover:text-white transition">Products</a>
+          <a href="#testimonials" class="text-gray-300 hover:text-white transition">Reviews</a>
           <a href="#order" class="text-gray-300 hover:text-white transition">Order</a>
           <a href="#request" class="text-gray-300 hover:text-white transition">Request</a>
           <a href="#contact" class="text-gray-300 hover:text-white transition">Contact</a>
+          <a href="#" class="text-gray-300 hover:text-white transition">Privacy Policy</a>
+          <a href="#" class="text-gray-300 hover:text-white transition">Terms</a>
         </div>
       </div>
       <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
-        <p>The Highon's.</p>
+        <p>&copy; 2023 The Highon's. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -330,9 +518,22 @@
   <div id="productModal" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center hidden">
     <div class="bg-white p-8 rounded-xl shadow-2xl relative max-w-md w-full mx-4 animate__animated animate__zoomIn">
       <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
-      <img id="modalImg" src="" alt="" class="w-full h-64 object-contain rounded-lg mb-6">
+      <img id="modalImg" src="" alt="" class="w-full h-64 object-contain rounded-lg mb-6" loading="lazy">
       <h3 id="modalName" class="text-2xl font-bold mb-2 text-gray-800"></h3>
-      <p id="modalPrice" class="text-xl font-semibold text-purple-600"></p>
+      <p id="modalPrice" class="text-xl font-semibold text-purple-600 mb-6"></p>
+      <button id="modalAddToCart" class="w-full btn-primary text-white py-3 rounded-lg font-medium">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- Order Confirmation Modal -->
+  <div id="orderConfirmation" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-8 rounded-xl shadow-2xl relative max-w-md w-full mx-4 text-center animate__animated animate__zoomIn">
+      <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+        <i class="fas fa-check text-green-500 text-3xl"></i>
+      </div>
+      <h3 class="text-2xl font-bold mb-4 text-gray-800">Order Confirmed!</h3>
+      <p class="text-gray-600 mb-6">Thank you for your purchase. We've sent a confirmation to your email.</p>
+      <button onclick="closeOrderConfirmation()" class="btn-primary text-white px-8 py-3 rounded-lg font-medium">Continue Shopping</button>
     </div>
   </div>
 
@@ -340,76 +541,129 @@
     // Categorized products
     const products = {
       keychains: [
-        { name: "Thor Loki Keychain", price: 99, img: "Screenshot_20250422_132243_Meesho.jpg" },
-        { name: "Thor Hammer Keychain", price: 89, img: "Screenshot_20250422_131740_Meesho.jpg" },
-        { name: "Demon slayer katana keychain", price: 159, img: "Screenshot_20250424_141150_Meesho.jpg" },
-        { name: "Pikachu Keychain", price: 109, img: "Screenshot_20250422_131948_Meesho.jpg" }
+        { name: "Thor Loki Keychain", price: 99, img: "Screenshot_20250422_132243_Meesho.jpg", desc: "High-quality metal keychain featuring Thor and Loki designs" },
+        { name: "Thor Hammer Keychain", price: 89, img: "Screenshot_20250422_131740_Meesho.jpg", desc: "Durable Mjolnir keychain with detailed engraving" },
+        { name: "Demon slayer katana keychain", price: 159, img: "Screenshot_20250424_141150_Meesho.jpg", desc: "Miniature katana keychain from Demon Slayer anime" },
+        { name: "Pikachu Keychain", price: 109, img: "Screenshot_20250422_131948_Meesho.jpg", desc: "Cute Pikachu keychain with enamel finish" }
       ],
       artSupplies: [
-        { name: "Camel water colour tube", price: 169, img: "Screenshot_20250424_134214_Meesho.jpg" },
-        { name: "FLAIR Acrylic marker", price: 359, img: "Screenshot_20250423_144509_Meesho.jpg" },
-        { name: "Levin Acrylic Markers", price: 409, img: "Screenshot_20250423_140558_Meesho.jpg" },
-        { name: "Marker Set of 48", price: 299, img: "Touch-48-Color-Marker-Pen-Set-Kids-Art-Essentials-Double-Ended-Vibrant-Colors-Non-Bleeding-Wholesale-Discount-.webp" },
-        { name: "Markers Set of 24", price: 179, img: "81B5uZXhYEL._AC_UF1000,1000_QL80_.jpg" },
-        { name: "Paint Brush 12 sizes", price: 89, img: "Screenshot_20250423_195924_Meesho.jpg" },
-        { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg" }
+        { name: "Camel water colour tube", price: 169, img: "Screenshot_20250424_134214_Meesho.jpg", desc: "Professional-grade watercolor tubes, set of 12 vibrant colors" },
+        { name: "FLAIR Acrylic marker", price: 359, img: "Screenshot_20250423_144509_Meesho.jpg", desc: "Premium acrylic paint markers, fine tip for detailed work" },
+        { name: "Levin Acrylic Markers", price: 409, img: "Screenshot_20250423_140558_Meesho.jpg", desc: "Dual-tip acrylic markers with broad and fine tips" },
+        { name: "Marker Set of 48", price: 299, img: "Touch-48-Color-Marker-Pen-Set-Kids-Art-Essentials-Double-Ended-Vibrant-Colors-Non-Bleeding-Wholesale-Discount-.webp", desc: "48-color marker set with dual tips for versatility" },
+        { name: "Markers Set of 24", price: 179, img: "81B5uZXhYEL._AC_UF1000,1000_QL80_.jpg", desc: "24-color marker set, perfect for beginners" },
+        { name: "Paint Brush 12 sizes", price: 89, img: "Screenshot_20250423_195924_Meesho.jpg", desc: "Professional paint brush set with 12 different sizes" },
+        { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg", desc: "Sponge brush set for texture painting and special effects" }
       ],
       stationery: [
-        { name: "correction tape", price: 70, img: "51l7S8XUY0L.jpg" },
-        { name: "Hot Melt Glue Gun", price: 220, img: "71xHhYjWcIL.jpg" },
-        { name: "Sketch Kit", price: 619, img: "Screenshot_20250423_205027_Meesho.jpg" },
-        { name: "luxury Pen", price: 199, img: "Screenshot_20250422_001401.jpg" },
-        { name: "Sketch book A5 100pg", price: 119, img: "Screenshot_20250423_204415_Meesho.jpg" }
+        { name: "correction tape", price: 70, img: "51l7S8XUY0L.jpg", desc: "Smooth correction tape for error-free writing" },
+        { name: "Hot Melt Glue Gun", price: 220, img: "71xHhYjWcIL.jpg", desc: "20W glue gun with 5 glue sticks included" },
+        { name: "Sketch Kit", price: 619, img: "Screenshot_20250423_205027_Meesho.jpg", desc: "Complete sketching kit with pencils, erasers and sharpeners" },
+        { name: "luxury Pen", price: 199, img: "Screenshot_20250422_001401.jpg", desc: "Premium metal body pen with smooth ink flow" },
+        { name: "Sketch book A5 100pg", price: 119, img: "Screenshot_20250423_204415_Meesho.jpg", desc: "A5 size sketchbook with 100gsm paper, 100 pages" }
       ],
       diaries: [
-        { name: "Diary", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" },
-        { name: "Diary Premium", price: 319, img: "IMG-20250422-WA0005.jpg" },
-        { name: "Diary Mini", price: 219, img: "Screenshot_20250422_215326_Meesho.jpg" }
+        { name: "Diary", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg", desc: "Hardcover diary with premium paper and ribbon marker" },
+        { name: "Diary Premium", price: 319, img: "IMG-20250422-WA0005.jpg", desc: "Premium leather-bound diary with lock and key" },
+        { name: "Diary Mini", price: 219, img: "Screenshot_20250422_215326_Meesho.jpg", desc: "Compact pocket diary with elastic closure" }
       ]
     };
 
     const cart = [];
+    let currentModalProduct = null;
 
-    function renderProducts(category = 'all') {
+    // DOM Elements
+    const cartPanel = document.getElementById('cartPanel');
+    const cartOverlay = document.getElementById('cartOverlay');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const productSearch = document.getElementById('productSearch');
+
+    // Toggle cart panel
+    function toggleCart() {
+      cartPanel.classList.toggle('open');
+      cartOverlay.classList.toggle('active');
+      document.body.classList.toggle('overflow-hidden');
+      updateCartPanel();
+    }
+
+    // Toggle mobile menu
+    function toggleMobileMenu() {
+      mobileMenu.classList.toggle('hidden');
+    }
+
+    // Close cart panel when clicking overlay
+    cartOverlay.addEventListener('click', toggleCart);
+
+    function renderProducts(category = 'all', searchTerm = '') {
       const container = document.getElementById("productsContainer");
-      container.innerHTML = '';
+      const loader = document.getElementById("productsLoader");
       
-      if (category === 'all') {
-        // Show all categories
-        for (const [cat, items] of Object.entries(products)) {
-          const section = document.createElement('div');
-          section.className = 'mb-16';
+      // Show loader
+      container.innerHTML = '';
+      loader.classList.remove('hidden');
+      
+      // Simulate loading delay
+      setTimeout(() => {
+        loader.classList.add('hidden');
+        
+        if (category === 'all') {
+          // Show all categories
+          for (const [cat, items] of Object.entries(products)) {
+            const filteredItems = items.filter(item => 
+              item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+              item.desc.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            
+            if (filteredItems.length === 0) continue;
+            
+            const section = document.createElement('div');
+            section.className = 'mb-16 animate__animated animate__fadeIn';
+            
+            const title = document.createElement('h3');
+            title.className = 'category-title text-xl';
+            title.textContent = cat.charAt(0).toUpperCase() + cat.slice(1).replace(/([A-Z])/g, ' $1');
+            
+            const grid = document.createElement('div');
+            grid.className = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8';
+            grid.id = `${cat}List`;
+            
+            section.appendChild(title);
+            section.appendChild(grid);
+            container.appendChild(section);
+            
+            // Render products for this category
+            filteredItems.forEach((p, i) => {
+              const card = createProductCard(p, i, cat);
+              grid.appendChild(card);
+            });
+          }
           
-          const title = document.createElement('h3');
-          title.className = 'category-title text-xl';
-          title.textContent = cat.charAt(0).toUpperCase() + cat.slice(1).replace(/([A-Z])/g, ' $1');
-          
+          if (container.children.length === 0) {
+            container.innerHTML = '<p class="text-center text-gray-500 py-12">No products found matching your search.</p>';
+          }
+        } else {
+          // Show specific category
           const grid = document.createElement('div');
-          grid.className = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8';
-          grid.id = `${cat}List`;
+          grid.className = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 animate__animated animate__fadeIn';
           
-          section.appendChild(title);
-          section.appendChild(grid);
-          container.appendChild(section);
+          const filteredItems = products[category].filter(item => 
+            item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+            item.desc.toLowerCase().includes(searchTerm.toLowerCase())
+          );
           
-          // Render products for this category
-          items.forEach((p, i) => {
-            const card = createProductCard(p, i, cat);
+          if (filteredItems.length === 0) {
+            container.innerHTML = '<p class="text-center text-gray-500 py-12">No products found in this category matching your search.</p>';
+            return;
+          }
+          
+          filteredItems.forEach((p, i) => {
+            const card = createProductCard(p, i, category);
             grid.appendChild(card);
           });
+          
+          container.appendChild(grid);
         }
-      } else {
-        // Show specific category
-        const grid = document.createElement('div');
-        grid.className = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8';
-        
-        products[category].forEach((p, i) => {
-          const card = createProductCard(p, i, category);
-          grid.appendChild(card);
-        });
-        
-        container.appendChild(grid);
-      }
+      }, 500);
     }
 
     function showCategory(category) {
@@ -419,7 +673,7 @@
       });
       event.target.classList.add('active');
       
-      renderProducts(category);
+      renderProducts(category, productSearch.value);
       
       // Smooth scroll to products
       document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
@@ -432,7 +686,7 @@
       
       card.innerHTML = `
         <div class="relative overflow-hidden rounded-lg mb-4 h-48 bg-gray-100 flex items-center justify-center">
-          <img src="${product.img}" alt="${product.name}" class="w-full h-full object-contain transition duration-300 hover:scale-105" onclick="showModal('${product.name}', '${product.img}', ${product.price})">
+          <img src="${product.img}" alt="${product.name}" class="w-full h-full object-contain transition duration-300 hover:scale-105 cursor-pointer" onclick="showModal('${category}', ${index})" loading="lazy">
         </div>
         <h3 class="text-lg font-semibold mb-2 text-gray-800">${product.name}</h3>
         <span class="block text-xl font-bold text-purple-600 mb-4">₹${product.price}</span>
@@ -450,6 +704,41 @@
       return card;
     }
 
+    function showModal(category, index) {
+      const product = products[category][index];
+      currentModalProduct = { category, index };
+      
+      document.getElementById('modalImg').src = product.img;
+      document.getElementById('modalName').textContent = product.name;
+      document.getElementById('modalPrice').textContent = `₹${product.price}`;
+      document.getElementById('productModal').classList.remove('hidden');
+      
+      // Update add to cart button based on cart status
+      const modalBtn = document.getElementById('modalAddToCart');
+      const itemInCart = cart.find(item => item.name === product.name);
+      
+      if (itemInCart) {
+        modalBtn.textContent = `Added (${itemInCart.qty})`;
+        modalBtn.classList.add('bg-gray-600');
+        modalBtn.classList.remove('btn-primary');
+      } else {
+        modalBtn.textContent = 'Add to Cart';
+        modalBtn.classList.remove('bg-gray-600');
+        modalBtn.classList.add('btn-primary');
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('productModal').classList.add('hidden');
+    }
+
+    function addToCartFromModal() {
+      if (currentModalProduct) {
+        addToCart(currentModalProduct.category, currentModalProduct.index);
+        closeModal();
+      }
+    }
+
     function addToCart(category, index) {
       const product = products[category][index];
       const existing = cart.find(p => p.name === product.name);
@@ -459,13 +748,13 @@
         cart.push({ ...product, qty: 1 });
       }
       updateCart();
-      renderProducts(document.querySelector('.category-btn.active').getAttribute('onclick').replace("showCategory('", "").replace("')", ""));
+      renderProducts(document.querySelector('.category-btn.active').getAttribute('onclick').replace("showCategory('", "").replace("')", ""), productSearch.value);
       
       // Add animation to cart icon
-      const cartTotal = document.getElementById('cartTotal');
-      cartTotal.classList.add('animate__animated', 'animate__bounce');
+      const cartCounter = document.getElementById('cartCounter');
+      cartCounter.classList.add('animate__animated', 'animate__bounce');
       setTimeout(() => {
-        cartTotal.classList.remove('animate__animated', 'animate__bounce');
+        cartCounter.classList.remove('animate__animated', 'animate__bounce');
       }, 1000);
     }
 
@@ -479,7 +768,7 @@
         }
       }
       updateCart();
-      renderProducts(document.querySelector('.category-btn.active').getAttribute('onclick').replace("showCategory('", "").replace("')", ""));
+      renderProducts(document.querySelector('.category-btn.active').getAttribute('onclick').replace("showCategory('", "").replace("')", ""), productSearch.value);
     }
 
     function updateCart() {
@@ -497,6 +786,88 @@
         `;
       });
       totalEl.textContent = total;
+      updateCartCounter();
+    }
+
+    function updateCartPanel() {
+      const panelItems = document.getElementById("cartPanelItems");
+      const subtotalEl = document.getElementById("cartPanelSubtotal");
+      const totalEl = document.getElementById("cartPanelTotal");
+      panelItems.innerHTML = '';
+      let subtotal = 0;
+      cart.forEach(item => {
+        subtotal += item.price * item.qty;
+        panelItems.innerHTML += `
+          <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+            <div class="flex items-center">
+              <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-contain mr-4" loading="lazy">
+              <div>
+                <h4 class="font-medium">${item.name}</h4>
+                <p class="text-sm text-gray-600">₹${item.price}</p>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <button onclick="updatePanelQty('${item.name}', -1)" class="bg-gray-200 text-gray-700 w-6 h-6 rounded-full flex items-center justify-center hover:bg-gray-300 transition">-</button>
+              <span class="mx-2 font-medium">${item.qty}</span>
+              <button onclick="updatePanelQty('${item.name}', 1)" class="bg-gray-200 text-gray-700 w-6 h-6 rounded-full flex items-center justify-center hover:bg-gray-300 transition">+</button>
+            </div>
+          </div>
+        `;
+      });
+      subtotalEl.textContent = subtotal;
+      totalEl.textContent = subtotal;
+      
+      // Hide discount row if no coupon applied
+      document.getElementById('discountRow').classList.add('hidden');
+    }
+
+    function updatePanelQty(name, change) {
+      const item = cart.find(p => p.name === name);
+      if (item) {
+        item.qty += change;
+        if (item.qty <= 0) {
+          cart.splice(cart.indexOf(item), 1);
+        }
+      }
+      updateCart();
+      updateCartPanel();
+    }
+
+    function applyCoupon() {
+      const coupon = document.getElementById('cartCoupon').value.trim();
+      const discountRow = document.getElementById('discountRow');
+      const discountEl = document.getElementById('cartPanelDiscount');
+      const totalEl = document.getElementById('cartPanelTotal');
+      const subtotal = parseInt(document.getElementById('cartPanelSubtotal').textContent);
+      
+      if (coupon === "NSL10%") {
+        const discount = Math.round(subtotal * 0.10);
+        const total = subtotal - discount;
+        
+        discountEl.textContent = discount;
+        totalEl.textContent = total;
+        discountRow.classList.remove('hidden');
+        
+        // Show success message
+        alert('Coupon applied successfully! 10% discount added.');
+      } else if (coupon) {
+        alert('Invalid coupon code. Please try again.');
+      } else {
+        discountRow.classList.add('hidden');
+        totalEl.textContent = subtotal;
+      }
+    }
+
+    function updateCartCounter() {
+      const counter = document.getElementById('cartCounter');
+      const mobileCounter = document.getElementById('cartCounterMobile');
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      
+      counter.textContent = totalItems;
+      mobileCounter.textContent = totalItems;
+      
+      counter.classList.toggle('hidden', totalItems === 0);
+      mobileCounter.classList.toggle('hidden', totalItems === 0);
     }
 
     function prepareOrder() {
@@ -504,7 +875,7 @@
       if (!user) return;
 
       const coupon = document.getElementById('coupon').value.trim();
-      let summary = `Order for ${user.name}\n`;
+      let summary = `Order for ${user.name}\nEmail: ${user.email}\nPhone: ${user.phone}\nAddress: ${user.address}\n\nOrder Details:\n`;
       let total = 0;
 
       cart.forEach(item => {
@@ -514,12 +885,25 @@
 
       if (coupon === "NSL10%") {
         const discount = Math.round(total * 0.10);
-        summary += `Discount (NSL10%): -₹${discount}\n`;
+        summary += `\nDiscount (NSL10%): -₹${discount}\n`;
         total -= discount;
       }
 
-      summary += `Total: ₹${total}`;
+      summary += `\nTotal: ₹${total}\n\nPayment Method: ${document.querySelector('select[name="payment"]').value}`;
       document.getElementById("orderSummaryText").value = summary;
+      
+      // Show confirmation modal
+      setTimeout(() => {
+        document.getElementById('orderConfirmation').classList.remove('hidden');
+        cart.length = 0; // Clear cart
+        updateCart();
+        updateCartCounter();
+        updateCartPanel();
+      }, 1000);
+    }
+
+    function closeOrderConfirmation() {
+      document.getElementById('orderConfirmation').classList.add('hidden');
     }
 
     function saveUser() {
@@ -566,16 +950,25 @@
       location.reload();
     }
 
-    function showModal(name, img, price) {
-      document.getElementById('modalImg').src = img;
-      document.getElementById('modalName').textContent = name;
-      document.getElementById('modalPrice').textContent = `₹${price}`;
-      document.getElementById('productModal').classList.remove('hidden');
-    }
+    // Search functionality
+    productSearch.addEventListener('input', function() {
+      const activeCategory = document.querySelector('.category-btn.active');
+      const category = activeCategory ? activeCategory.getAttribute('onclick').replace("showCategory('", "").replace("')", "") : 'all';
+      renderProducts(category, this.value);
+    });
 
-    function closeModal() {
-      document.getElementById('productModal').classList.add('hidden');
-    }
+    // Newsletter form
+    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = this.querySelector('input[type="email"]').value;
+      if (email) {
+        alert('Thank you for subscribing to our newsletter!');
+        this.reset();
+      }
+    });
+
+    // Initialize modal add to cart button
+    document.getElementById('modalAddToCart').addEventListener('click', addToCartFromModal);
 
     window.onload = () => {
       renderProducts();
@@ -590,7 +983,7 @@
         });
       }, { threshold: 0.1 });
 
-      document.querySelectorAll('#products .category-title, #products .product-card, #orderForm, #loginForm, #contact > div').forEach(el => {
+      document.querySelectorAll('#products .category-title, #products .product-card, #orderForm, #loginForm, #contact > div, .testimonial-card').forEach(el => {
         observer.observe(el);
       });
     };
