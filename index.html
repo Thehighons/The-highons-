@@ -58,8 +58,9 @@
       width: 100%;
     }
     .hero-gradient {
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    }
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 80px 0; /* Reduced from py-24 (96px) to 80px */
+}
     .btn-primary {
       background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
       transition: all 0.3s ease;
@@ -139,26 +140,25 @@
   </header>
 
   <!-- Hero -->
-  <section class="text-center py-24 hero-gradient">
-    <div class="max-w-4xl mx-auto px-6">
-      <img src="GridArt_20250425_064014157.png" alt="The Highon's Logo" class="logo mb-6 animate__animated animate__fadeIn">
-      <h2 class="text-5xl font-bold mb-6 text-gray-800 animate__animated animate__fadeInDown">Create Bold. Create Bright.</h2>
-      <p class="text-xl mb-10 text-gray-600 max-w-2xl mx-auto animate__animated animate__fadeIn animate__delay-1s">Welcome to The Highon's — where creativity meets purpose through premium supplies.</p>
-      <a href="#products" class="inline-block btn-primary text-white px-10 py-4 rounded-full shadow-lg font-medium animate__animated animate__fadeIn animate__delay-2s">Explore Our Collection</a>
+<section class="text-center hero-gradient">
+  <div class="max-w-4xl mx-auto px-6 py-12"> <!-- Added py-12 here -->
+    <img src="GridArt_20250425_064014157.png" alt="The Highon's Logo" class="logo mb-6 animate__animated animate__fadeIn">
+    <h2 class="text-5xl font-bold mb-6 text-gray-800 animate__animated animate__fadeInDown">Create Bold. Create Bright.</h2>
+    <p class="text-xl mb-10 text-gray-600 max-w-2xl mx-auto animate__animated animate__fadeIn animate__delay-1s">Welcome to The Highon's — where creativity meets purpose through premium supplies.</p>
+    <a href="#products" class="inline-block btn-primary text-white px-10 py-4 rounded-full shadow-lg font-medium animate__animated animate__fadeIn animate__delay-2s">Explore Our Collection</a>
+  </div>
+  <div class="pb-12 flex justify-center space-x-8"> <!-- Added pb-12 here -->
+    <div class="floating animate__animated animate__fadeIn animate__delay-3s">
+      <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-32 h-32 rounded-lg object-cover shadow-xl">
     </div>
-    <div class="mt-16 flex justify-center space-x-8">
-      <div class="floating animate__animated animate__fadeIn animate__delay-3s">
-        <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-32 h-32 rounded-lg object-cover shadow-xl">
-      </div>
-      <div class="floating animate__animated animate__fadeIn animate__delay-4s" style="animation-delay: 0.5s">
-        <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-32 h-32 rounded-lg object-cover shadow-xl">
-      </div>
-      <div class="floating animate__animated animate__fadeIn animate__delay-5s" style="animation-delay: 1s">
-        <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-32 h-32 rounded-lg object-cover shadow-xl">
-      </div>
+    <div class="floating animate__animated animate__fadeIn animate__delay-4s" style="animation-delay: 0.5s">
+      <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-32 h-32 rounded-lg object-cover shadow-xl">
     </div>
-  </section>
-
+    <div class="floating animate__animated animate__fadeIn animate__delay-5s" style="animation-delay: 1s">
+      <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-32 h-32 rounded-lg object-cover shadow-xl">
+    </div>
+  </div>
+</section>
   <!-- Products -->
   <section id="products" class="py-20 bg-white px-6">
     <div class="max-w-7xl mx-auto">
