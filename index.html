@@ -188,6 +188,26 @@
     .search-bar:focus-within {
       transform: scale(1.02);
     }
+    .feature-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
 
     /* Mobile responsiveness */
     @media (max-width: 768px) {
@@ -230,7 +250,7 @@
       </div>
       <nav class="hidden md:flex items-center space-x-8">
         <a href="#products" class="nav-link text-gray-700 hover:text-gray-900">Products</a>
-        <a href="#testimonials" class="nav-link text-gray-700 hover:text-gray-900">Reviews</a>
+        <a href="#features" class="nav-link text-gray-700 hover:text-gray-900">Why Choose Us</a>
         <a href="#order" class="nav-link text-gray-700 hover:text-gray-900">Order</a>
         <a href="#request" class="nav-link text-gray-700 hover:text-gray-900">Request Product</a>
         <a href="#contact" class="nav-link text-gray-700 hover:text-gray-900">Contact</a>
@@ -256,7 +276,7 @@
     <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-200 p-4">
       <div class="flex flex-col space-y-4">
         <a href="#products" class="nav-link text-gray-700 hover:text-gray-900" onclick="toggleMobileMenu()">Products</a>
-        <a href="#testimonials" class="nav-link text-gray-700 hover:text-gray-900" onclick="toggleMobileMenu()">Reviews</a>
+        <a href="#features" class="nav-link text-gray-700 hover:text-gray-900" onclick="toggleMobileMenu()">Why Choose Us</a>
         <a href="#order" class="nav-link text-gray-700 hover:text-gray-900" onclick="toggleMobileMenu()">Order</a>
         <a href="#request" class="nav-link text-gray-700 hover:text-gray-900" onclick="toggleMobileMenu()">Request Product</a>
         <a href="#contact" class="nav-link text-gray-700 hover:text-gray-900" onclick="toggleMobileMenu()">Contact</a>
@@ -273,7 +293,9 @@
         <h3 class="text-2xl font-bold text-gray-800">Your Cart</h3>
         <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
       </div>
-      <div id="cartPanelItems" class="space-y-4 mb-6"></div>
+      <div id="cartPanelItems" class="space-y-4 mb-6">
+        <!-- Cart items will be loaded here -->
+      </div>
       <div class="border-t border-gray-200 pt-4 mb-6">
         <div class="flex justify-between mb-2">
           <span class="font-semibold">Subtotal:</span>
@@ -295,7 +317,7 @@
           <button onclick="applyCoupon()" class="bg-purple-600 text-white px-4 py-3 rounded-r-lg hover:bg-purple-700 transition">Apply</button>
         </div>
       </div>
-      <a href="#order" onclick="toggleCart()" class="block w-full btn-primary text-white py-3 rounded-lg font-medium text-center">Proceed to Checkout</a>
+      <button onclick="proceedToCheckout()" class="block w-full btn-primary text-white py-3 rounded-lg font-medium text-center">Proceed to Checkout</button>
     </div>
   </div>
 
@@ -320,16 +342,36 @@
     </div>
   </section>
 
-  <!-- Newsletter -->
-  <section class="py-12 bg-white px-6">
-    <div class="max-w-2xl mx-auto newsletter-form rounded-xl shadow-lg">
-      <h3 class="text-2xl font-bold mb-2">Join Our Creative Community</h3>
-      <p class="mb-6 opacity-90">Subscribe to get exclusive offers, new product alerts, and creative inspiration.</p>
-      <form id="newsletterForm" class="flex flex-col sm:flex-row gap-3">
-        <input type="email" placeholder="Your email address" class="flex-1 p-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-white">
-        <button type="submit" class="bg-white text-purple-600 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition">Subscribe</button>
-      </form>
-      <p class="text-xs mt-3 opacity-75">We respect your privacy. Unsubscribe at any time.</p>
+  <!-- Features -->
+  <section id="features" class="py-20 bg-gray-50 px-6">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-4xl font-bold mb-12 text-center text-gray-800">Why Choose The Highon's</h2>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="feature-card animate__animated">
+          <div class="feature-icon">
+            <i class="fas fa-award"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">Premium Quality</h3>
+          <p class="text-gray-600">We source only the highest quality materials to ensure your creative projects shine.</p>
+        </div>
+        
+        <div class="feature-card animate__animated">
+          <div class="feature-icon">
+            <i class="fas fa-truck"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">Local Delivery only</h3>
+          <p class="text-gray-600">delivery within Navsari with careful packaging to protect your items.</p>
+        </div>
+        
+        <div class="feature-card animate__animated">
+          <div class="feature-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">Dedicated Support</h3>
+          <p class="text-gray-600">Our team is always ready to help with any questions about our products.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -397,7 +439,7 @@
   <!-- Order Section -->
   <section id="order" class="py-20 bg-white px-6">
     <div class="max-w-2xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-8 text-gray-800">Place Your Order</h3>
+      <h2 class="text-4xl font-bold mb-8 text-gray-800">Place Your Order</h2>
 
       <div id="loginForm" class="space-y-6 text-left bg-white p-8 rounded-xl shadow-md">
         <h3 class="text-2xl font-semibold mb-6 text-gray-700">Your Information</h3>
@@ -443,7 +485,6 @@
         <div class="text-center bg-gray-50 p-4 rounded-lg mb-6">
           <p class="font-semibold mb-3 text-gray-700">Scan to Pay via UPI:</p>
           <img src="1000022591.jpg" alt="UPI QR Code" class="w-48 mx-auto rounded-lg shadow" loading="lazy">
-          <p class="text-sm mt-2 text-gray-600">UPI ID: thehighonsofficial@upi</p>
         </div>
 
         <button type="submit" onclick="prepareOrder()" class="w-full btn-primary text-white py-4 rounded-lg font-medium">Confirm Order</button>
@@ -461,13 +502,13 @@
         <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
           <h3 class="text-xl font-semibold mb-4 text-gray-800">Contact Information</h3>
           <p class="text-lg mb-2"><span class="font-medium">Email:</span> <a href="mailto:thehighonsofficial@gmail.com" class="text-blue-600 hover:text-blue-800">thehighonsofficial@gmail.com</a></p>
-          <p class="text-lg mb-2"><span class="font-medium">Phone:</span> <a href="tel:+919999999999" class="text-blue-600 hover:text-blue-800">+91 99999 99999</a></p>
+          <p class="text-lg mb-2"><span class="font-medium">Phone:</span> <a href="None" class="text-blue-600 hover:text-blue-800">+91 99999 99999</a></p>
           <p class="text-lg"><span class="font-medium">Instagram:</span> <a href="https://instagram.com/thehighons" target="_blank" class="text-blue-600 hover:text-blue-800">@thehighons</a></p>
           
           <div class="flex space-x-4 mt-6">
             <a href="#" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-facebook-f text-xl"></i></a>
             <a href="#" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-twitter text-xl"></i></a>
-            <a href="#" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-instagram text-xl"></i></a>
+            <a href="https://instagram.com/thehighons" target="_blank" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-instagram text-xl"></i></a>
             <a href="#" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-pinterest text-xl"></i></a>
           </div>
         </div>
@@ -500,7 +541,7 @@
         </div>
         <div class="flex flex-wrap justify-center gap-6">
           <a href="#products" class="text-gray-300 hover:text-white transition">Products</a>
-          <a href="#testimonials" class="text-gray-300 hover:text-white transition">Reviews</a>
+          <a href="#features" class="text-gray-300 hover:text-white transition">Why Choose Us</a>
           <a href="#order" class="text-gray-300 hover:text-white transition">Order</a>
           <a href="#request" class="text-gray-300 hover:text-white transition">Request</a>
           <a href="#contact" class="text-gray-300 hover:text-white transition">Contact</a>
@@ -509,7 +550,7 @@
         </div>
       </div>
       <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
-        <p>&copy; 2023 The Highon's. All rights reserved.</p>
+        <p>The Highon's.</p>
       </div>
     </div>
   </footer>
@@ -520,6 +561,7 @@
       <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
       <img id="modalImg" src="" alt="" class="w-full h-64 object-contain rounded-lg mb-6" loading="lazy">
       <h3 id="modalName" class="text-2xl font-bold mb-2 text-gray-800"></h3>
+      <p id="modalDesc" class="text-gray-600 mb-4"></p>
       <p id="modalPrice" class="text-xl font-semibold text-purple-600 mb-6"></p>
       <button id="modalAddToCart" class="w-full btn-primary text-white py-3 rounded-lg font-medium">Add to Cart</button>
     </div>
@@ -710,6 +752,7 @@
       
       document.getElementById('modalImg').src = product.img;
       document.getElementById('modalName').textContent = product.name;
+      document.getElementById('modalDesc').textContent = product.desc;
       document.getElementById('modalPrice').textContent = `₹${product.price}`;
       document.getElementById('productModal').classList.remove('hidden');
       
@@ -870,6 +913,11 @@
       mobileCounter.classList.toggle('hidden', totalItems === 0);
     }
 
+    function proceedToCheckout() {
+      toggleCart();
+      document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+    }
+
     function prepareOrder() {
       const user = JSON.parse(localStorage.getItem('user'));
       if (!user) return;
@@ -904,6 +952,7 @@
 
     function closeOrderConfirmation() {
       document.getElementById('orderConfirmation').classList.add('hidden');
+      window.location.href = '#products';
     }
 
     function saveUser() {
@@ -957,16 +1006,6 @@
       renderProducts(category, this.value);
     });
 
-    // Newsletter form
-    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const email = this.querySelector('input[type="email"]').value;
-      if (email) {
-        alert('Thank you for subscribing to our newsletter!');
-        this.reset();
-      }
-    });
-
     // Initialize modal add to cart button
     document.getElementById('modalAddToCart').addEventListener('click', addToCartFromModal);
 
@@ -983,7 +1022,7 @@
         });
       }, { threshold: 0.1 });
 
-      document.querySelectorAll('#products .category-title, #products .product-card, #orderForm, #loginForm, #contact > div, .testimonial-card').forEach(el => {
+      document.querySelectorAll('#products .category-title, #products .product-card, #orderForm, #loginForm, #contact > div, .feature-card').forEach(el => {
         observer.observe(el);
       });
     };
