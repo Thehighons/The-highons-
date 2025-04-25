@@ -83,8 +83,11 @@
       animation: float 3s ease-in-out infinite;
     }
     .logo {
-      max-height: 120px;
-      margin: 0 auto;
+  max-height: 180px;  /* Slightly larger than before but not overwhelming */
+  height: auto;       /* Maintain aspect ratio */
+  width: auto;        /* Prevents distortion */
+  margin: 0 auto;     /* Centers the logo */
+  object-fit: contain; /* Ensures clean scaling */
     }
     .category-selector {
       display: flex;
