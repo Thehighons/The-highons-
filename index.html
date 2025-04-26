@@ -403,7 +403,7 @@
   </div>
 
   <script>
-    // Products data and core functionality
+    // Products data with new additions
     const products = {
       keychains: [
         { name: "Thor Loki Keychain", price: 99, img: "Screenshot_20250422_132243_Meesho.jpg", desc: "High-quality metal keychain featuring Thor and Loki designs" },
@@ -418,7 +418,8 @@
         { name: "Marker Set of 48", price: 299, img: "Touch-48-Color-Marker-Pen-Set-Kids-Art-Essentials-Double-Ended-Vibrant-Colors-Non-Bleeding-Wholesale-Discount-.webp", desc: "48-color marker set with dual tips for versatility" },
         { name: "Markers Set of 24", price: 179, img: "81B5uZXhYEL._AC_UF1000,1000_QL80_.jpg", desc: "24-color marker set, perfect for beginners" },
         { name: "Paint Brush 12 sizes", price: 89, img: "Screenshot_20250423_195924_Meesho.jpg", desc: "Professional paint brush set with 12 different sizes" },
-        { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg", desc: "Sponge brush set for texture painting and special effects" }
+        { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg", desc: "Sponge brush set for texture painting and special effects" },
+        { name: "Camel artist gesso 100ml + Decor varnish combo", price: 259, img: "camel-combo.jpg", desc: "Premium gesso and varnish combo for professional art projects" }
       ],
       stationery: [
         { name: "correction tape", price: 70, img: "51l7S8XUY0L.jpg", desc: "Smooth correction tape for error-free writing" },
@@ -430,7 +431,8 @@
       diaries: [
         { name: "Diary", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg", desc: "Hardcover diary with premium paper and ribbon marker" },
         { name: "Diary Premium", price: 319, img: "IMG-20250422-WA0005.jpg", desc: "Premium leather-bound diary with lock and key" },
-        { name: "Diary Mini", price: 219, img: "Screenshot_20250422_215326_Meesho.jpg", desc: "Compact pocket diary with elastic closure" }
+        { name: "Diary Mini", price: 219, img: "Screenshot_20250422_215326_Meesho.jpg", desc: "Compact pocket diary with elastic closure" },
+        { name: "Vintage Handmade Genuine Leather Journal", price: 499, img: "vintage-journal.jpg", desc: "Premium handcrafted leather diary with handmade paper" }
       ]
     };
 
@@ -533,6 +535,8 @@
       
       updateProductCard(category, index);
       updateCartCounter();
+      updateCart();
+      updateCartPanel();
     }
 
     function updateQty(category, index, change) {
@@ -546,17 +550,284 @@
         }
         updateProductCard(category, index);
         updateCartCounter();
+        updateCart();
+        updateCartPanel();
       }
     }
 
-    // Remaining cart and utility functions remain same as previous versions
-    // [Include all other JavaScript functions from previous answer here]
+    function updateCart() {
+      const list = document.getElementById("cartItems");
+      const totalEl = document.getElementById("cartTotal");
+      list.innerHTML = '';
+      let total = 0;
+      
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        list.innerHTML += `
+            <li class="cart-item flex justify-between items-center p-3 rounded-lg">
+                <span>${item.name} x ${item.qty}</span>
+                <span class="font-semibold">₹${item.price * item.qty}</span>
+            </li>
+        `;
+      });
+      
+      totalEl.textContent = total;
+      updateCartCounter();
+    }
+
+    function updateCartPanel() {
+      const panelItems = document.getElementById("cartPanelItems");
+      const subtotalEl = document.getElementById("cartPanelSubtotal");
+      const totalEl = document.getElementById("cartPanelTotal");
+      
+      panelItems.innerHTML = '';
+      let subtotal = 0;
+      
+      cart.forEach(item => {
+        subtotal += item.price * item.qty;
+        panelItems.innerHTML += `
+            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                <div class="flex items-center">
+                    <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-contain mr-4">
+                    <div>
+                        <h4 class="font-medium">${item.name}</h4>
+                        <p class="text-sm text-gray-600">₹${item.price}</p>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <button onclick="updatePanelQty('${item.name}', -1)" 
+                            class="bg-gray-200 text-gray-700 w-6 h-6 rounded-full flex items-center justify-center hover:bg-gray-300 transition">-</button>
+                    <span class="mx-2 font-medium">${item.qty}</span>
+                    <button onclick="updatePanelQty('${item.name}', 1)" 
+                            class="bg-gray-200 text-gray-700 w-6 h-6 rounded-full flex items-center justify-center hover:bg-gray-300 transition">+</button>
+                </div>
+            </div>
+        `;
+      });
+      
+      subtotalEl.textContent = subtotal;
+      totalEl.textContent = subtotal;
+      document.getElementById('discountRow').classList.add('hidden');
+    }
+
+    function updatePanelQty(name, change) {
+      const item = cart.find(p => p.name === name);
+      if (item) {
+        item.qty += change;
+        if (item.qty <= 0) {
+          cart.splice(cart.indexOf(item), 1);
+        }
+        updateCart();
+        updateCartPanel();
+        updateCartCounter();
+        
+        Object.entries(products).forEach(([category, items]) => {
+          const index = items.findIndex(p => p.name === name);
+          if (index !== -1) {
+            updateProductCard(category, index);
+          }
+        });
+      }
+    }
+
+    function updateProductCard(category, index) {
+      const product = products[category][index];
+      const cardId = `product-${category}-${index}`;
+      const card = document.getElementById(cardId);
+      if (!card) return;
+      
+      const itemInCart = cart.find(item => item.name === product.name);
+      const controlsDiv = card.querySelector('.product-controls');
+      
+      if (controlsDiv) {
+        controlsDiv.innerHTML = itemInCart ? `
+          <div class="flex items-center justify-center gap-3">
+            <button onclick="updateQty('${category}', ${index}, -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-300 transition">-</button>
+            <span class="font-semibold text-gray-700">${itemInCart.qty}</span>
+            <button onclick="updateQty('${category}', ${index}, 1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-300 transition">+</button>
+          </div>` : `
+          <button onclick="addToCart('${category}', ${index})" class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition">Add to Cart</button>`;
+      }
+    }
+
+    // Remaining functions
+    function updateCartCounter() {
+      const counter = document.getElementById('cartCounter');
+      const mobileCounter = document.getElementById('cartCounterMobile');
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      
+      counter.textContent = totalItems;
+      mobileCounter.textContent = totalItems;
+      
+      counter.classList.toggle('hidden', totalItems === 0);
+      mobileCounter.classList.toggle('hidden', totalItems === 0);
+    }
+
+    function toggleCart() {
+      const cartPanel = document.getElementById('cartPanel');
+      const overlay = document.getElementById('cartOverlay');
+      cartPanel.classList.toggle('open');
+      overlay.classList.toggle('active');
+      document.body.classList.toggle('overflow-hidden');
+      updateCartPanel();
+    }
+
+    function proceedToCheckout() {
+      toggleCart();
+      document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function applyCoupon() {
+      const coupon = document.getElementById('cartCoupon').value.trim();
+      const discountRow = document.getElementById('discountRow');
+      const discountEl = document.getElementById('cartPanelDiscount');
+      const totalEl = document.getElementById('cartPanelTotal');
+      const subtotal = parseInt(document.getElementById('cartPanelSubtotal').textContent);
+      
+      if (coupon === "NSL10%") {
+        const discount = Math.round(subtotal * 0.10);
+        const total = subtotal - discount;
+        discountEl.textContent = discount;
+        totalEl.textContent = total;
+        discountRow.classList.remove('hidden');
+      } else if (coupon) {
+        alert('Invalid coupon code. Please try again.');
+      } else {
+        discountRow.classList.add('hidden');
+        totalEl.textContent = subtotal;
+      }
+    }
+
+    function showModal(category, index) {
+      const product = products[category][index];
+      currentModalProduct = { category, index };
+      
+      document.getElementById('modalImg').src = product.img;
+      document.getElementById('modalName').textContent = product.name;
+      document.getElementById('modalDesc').textContent = product.desc;
+      document.getElementById('modalPrice').textContent = `₹${product.price}`;
+      document.getElementById('productModal').classList.remove('hidden');
+      
+      const modalBtn = document.getElementById('modalAddToCart');
+      const itemInCart = cart.find(item => item.name === product.name);
+      
+      if (itemInCart) {
+        modalBtn.textContent = `Added (${itemInCart.qty})`;
+        modalBtn.classList.add('bg-gray-600');
+        modalBtn.classList.remove('btn-primary');
+      } else {
+        modalBtn.textContent = 'Add to Cart';
+        modalBtn.classList.remove('bg-gray-600');
+        modalBtn.classList.add('btn-primary');
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('productModal').classList.add('hidden');
+    }
+
+    function addToCartFromModal() {
+      if (currentModalProduct) {
+        addToCart(currentModalProduct.category, currentModalProduct.index);
+        closeModal();
+      }
+    }
+
+    // Order processing functions
+    function prepareOrder() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (!user) return;
+
+      const coupon = document.getElementById('coupon').value.trim();
+      let summary = `Order for ${user.name}\nEmail: ${user.email}\nPhone: ${user.phone}\nAddress: ${user.address}\n\nOrder Details:\n`;
+      let total = 0;
+
+      cart.forEach(item => {
+        summary += `${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
+        total += item.price * item.qty;
+      });
+
+      if (coupon === "NSL10%") {
+        const discount = Math.round(total * 0.10);
+        summary += `\nDiscount (NSL10%): -₹${discount}\n`;
+        total -= discount;
+      }
+
+      summary += `\nTotal: ₹${total}\n\nPayment Method: ${document.querySelector('select[name="payment"]').value}`;
+      document.getElementById("orderSummaryText").value = summary;
+      
+      setTimeout(() => {
+        document.getElementById('orderConfirmation').classList.remove('hidden');
+        cart.length = 0;
+        updateCart();
+        updateCartCounter();
+        updateCartPanel();
+      }, 1000);
+    }
+
+    function closeOrderConfirmation() {
+      document.getElementById('orderConfirmation').classList.add('hidden');
+      window.location.href = '#products';
+    }
+
+    function saveUser() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      const phoneRegex = /^[6-9]\d{9}$/;
+
+      if (!name || !email || !phone || !address) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      if (!phoneRegex.test(phone)) {
+        alert("Please enter a valid 10-digit Indian phone number.");
+        return;
+      }
+
+      localStorage.setItem('user', JSON.stringify({ name, email, phone, address }));
+      populateOrderForm();
+    }
+
+    function populateOrderForm() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        document.getElementById('formName').value = user.name;
+        document.getElementById('formEmail').value = user.email;
+        document.getElementById('formPhone').value = user.phone;
+        document.getElementById('formAddress').value = user.address;
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('orderForm').classList.remove('hidden');
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('user');
+      location.reload();
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
 
     // Initialization
     window.onload = () => {
       renderProducts();
       populateOrderForm();
-      animateCards();
+      document.getElementById('modalAddToCart').addEventListener('click', addToCartFromModal);
+      document.getElementById('productSearch').addEventListener('input', function() {
+        const activeCategory = document.querySelector('.category-btn.active');
+        const category = activeCategory ? activeCategory.getAttribute('onclick').replace("showCategory('", "").replace("')", "") : 'all';
+        renderProducts(category, this.value);
+      });
     };
 
     function animateCards() {
