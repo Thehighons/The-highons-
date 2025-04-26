@@ -388,11 +388,11 @@
       </div>
       
       <div class="category-selector">
-        <button class="category-btn active" onclick="showCategory('all')">All Products</button>
-        <button class="category-btn" onclick="showCategory('keychains')">Keychains</button>
-        <button class="category-btn" onclick="showCategory('artSupplies')">Art Supplies</button>
-        <button class="category-btn" onclick="showCategory('stationery')">Stationery</button>
-        <button class="category-btn" onclick="showCategory('diaries')">Diaries</button>
+        <button class="category-btn active" onclick="showCategory('all', event)">All Products</button>
+        <button class="category-btn" onclick="showCategory('keychains', event)">Keychains</button>
+        <button class="category-btn" onclick="showCategory('artSupplies', event)">Art Supplies</button>
+        <button class="category-btn" onclick="showCategory('stationery', event)">Stationery</button>
+        <button class="category-btn" onclick="showCategory('diaries', event)">Diaries</button>
       </div>
       
       <div id="productsContainer" class="relative">
@@ -498,33 +498,13 @@
   <section id="contact" class="bg-white py-20 text-center px-6">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-4xl font-bold mb-8 text-gray-800">Get In Touch</h2>
-      <div class="grid md:grid-cols-2 gap-8 text-left">
+      <div class="grid md:grid-cols-1 gap-8 text-left">
         <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
           <h3 class="text-xl font-semibold mb-4 text-gray-800">Contact Information</h3>
           <p class="text-lg mb-2"><span class="font-medium">Email:</span> <a href="mailto:thehighonsofficial@gmail.com" class="text-blue-600 hover:text-blue-800">thehighonsofficial@gmail.com</a></p>
-          <p class="text-lg mb-2"><span class="font-medium">Phone:</span> <a href="None" class="text-blue-600 hover:text-blue-800">+91 99999 99999</a></p>
-          <p class="text-lg"><span class="font-medium">Instagram:</span> <a href="https://instagram.com/thehighons" target="_blank" class="text-blue-600 hover:text-blue-800">@thehighons</a></p>
           
           <div class="flex space-x-4 mt-6">
-            <a href="#" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-facebook-f text-xl"></i></a>
-            <a href="#" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-twitter text-xl"></i></a>
             <a href="https://instagram.com/thehighons" target="_blank" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-instagram text-xl"></i></a>
-            <a href="#" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-pinterest text-xl"></i></a>
-          </div>
-        </div>
-        <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
-          <h3 class="text-xl font-semibold mb-4 text-gray-800">Business Hours</h3>
-          <p class="text-lg mb-2"><span class="font-medium">Monday - Friday:</span> 10AM - 7PM</p>
-          <p class="text-lg mb-6"><span class="font-medium">Saturday - Sunday:</span> 11AM - 5PM</p>
-          
-          <h3 class="text-xl font-semibold mb-4 text-gray-800">Location</h3>
-          <p class="text-lg mb-4">Navsari, Gujarat - 396445</p>
-          <div class="aspect-w-16 aspect-h-9 bg-gray-200 rounded-lg overflow-hidden">
-            <!-- Map placeholder - replace with actual map embed -->
-            <div class="w-full h-48 flex items-center justify-center text-gray-500">
-              <i class="fas fa-map-marker-alt text-4xl"></i>
-              <p class="ml-2">Map Location</p>
-            </div>
           </div>
         </div>
       </div>
@@ -709,13 +689,15 @@
       }, 500);
     }
 
-    function showCategory(category) {
-      currentCategory = category; // Update current category
+    function showCategory(category, event) {
+      currentCategory = category;
       // Update active button
       document.querySelectorAll('.category-btn').forEach(btn => {
         btn.classList.remove('active');
       });
-      event.target.classList.add('active');
+      if (event) {
+        event.target.classList.add('active');
+      }
       
       renderProducts(category, productSearch.value);
       
@@ -726,7 +708,7 @@
     function createProductCard(product, index, category) {
       const card = document.createElement("div");
       card.className = "bg-white p-6 rounded-xl product-card";
-      card.id = `product-${category}-${index}`; // Unique ID for each card
+      card.id = `product-${category}-${index}`;
 
       const itemInCart = cart.find(item => item.name === product.name);
       
