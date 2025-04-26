@@ -17,229 +17,158 @@
     body {
       font-family: 'Montserrat', sans-serif;
       background-color: #f8f9fa;
-      color: #333;
+      color: #1a1a1a;
     }
     h1, h2, h3 {
       font-family: 'Playfair Display', serif;
+      color: #2d3748;
     }
     .brand-name {
       font-family: 'Trajan Pro', serif;
       letter-spacing: 1px;
+      color: #2d3748;
     }
     .product-card {
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      background: white;
     }
     .product-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 14px 28px rgba(0,0,0,0.12), 0 10px 10px rgba(0,0,0,0.10);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
     }
     .category-title {
-      background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+      background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
       color: white;
       padding: 12px 24px;
-      border-radius: 30px;
+      border-radius: 8px;
       display: inline-block;
       margin: 20px 0;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
     .nav-link {
       position: relative;
+      color: #4a5568;
     }
-    .nav-link:after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -2px;
-      left: 0;
-      background-color: #6a11cb;
-      transition: width 0.3s ease;
-    }
-    .nav-link:hover:after {
-      width: 100%;
+    .nav-link:hover {
+      color: #2d3748;
     }
     .hero-gradient {
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      padding-top: 60px;
-      padding-bottom: 30px;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     }
     .btn-primary {
-      background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+      background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
       transition: all 0.3s ease;
+      color: white;
     }
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 7px 14px rgba(0,0,0,0.1);
-    }
-    .cart-item {
-      transition: all 0.3s ease;
-    }
-    .cart-item:hover {
-      background-color: rgba(106, 17, 203, 0.05);
-    }
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
-    }
-    .floating {
-      animation: float 3s ease-in-out infinite;
-    }
-    .logo {
-      max-height: 120px;
-      margin: 0 auto;
-    }
-    .category-selector {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 30px;
+      box-shadow: 0 8px 16px rgba(79, 70, 229, 0.2);
     }
     .category-btn {
-      padding: 10px 20px;
-      border-radius: 30px;
       background: white;
-      border: 2px solid #6a11cb;
-      color: #6a11cb;
-      font-weight: 600;
-      cursor: pointer;
+      border: 2px solid #e2e8f0;
+      color: #4a5568;
       transition: all 0.3s ease;
     }
     .category-btn.active, .category-btn:hover {
-      background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+      background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
       color: white;
-    }
-    .product-request-form {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      max-width: 600px;
-      margin: 40px auto;
-    }
-    .testimonial-card {
-      background: white;
-      border-radius: 15px;
-      padding: 25px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-      transition: all 0.3s ease;
-    }
-    .testimonial-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    }
-    .newsletter-form {
-      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-      border-radius: 15px;
-      padding: 30px;
-      color: white;
-    }
-    .cart-panel {
-      position: fixed;
-      top: 0;
-      right: -400px;
-      width: 400px;
-      height: 100vh;
-      background: white;
-      box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-      transition: right 0.3s ease;
-      z-index: 100;
-      overflow-y: auto;
-    }
-    .cart-panel.open {
-      right: 0;
-    }
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 99;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-    .overlay.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-    .loader {
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #6a11cb;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      animation: spin 1s linear infinite;
-      margin: 20px auto;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .search-bar {
-      transition: all 0.3s ease;
-      max-width: 500px;
-      margin: 0 auto 30px;
-    }
-    .search-bar:focus-within {
-      transform: scale(1.02);
-    }
-    .feature-card {
-      background: white;
-      border-radius: 15px;
-      padding: 25px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-      transition: all 0.3s ease;
-      text-align: center;
-    }
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      border-color: transparent;
     }
     .feature-icon {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    }
+    .cart-panel {
+      background: white;
+      box-shadow: -5px 0 30px rgba(0,0,0,0.05);
+    }
+    .loader {
+      border-top-color: #4f46e5;
     }
 
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
-      .hero-gradient {
-        padding-top: 40px;
-        padding-bottom: 20px;
-      }
-      .hero-section h2 {
-        font-size: 2.5rem;
-      }
-      nav {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .nav-link {
-        padding: 8px 12px;
-        font-size: 14px;
-      }
-      .cart-panel {
-        width: 100%;
-        right: -100%;
-      }
-      .floating {
-        animation: none;
-      }
-      .category-selector {
-        flex-direction: column;
-        align-items: center;
-      }
+    /* Updated color scheme */
+    :root {
+      --primary: #4f46e5;
+      --secondary: #6366f1;
+      --accent: #10b981;
+      --dark: #1e293b;
+      --light: #f8fafc;
+    }
+
+    /* Fix for category filtering */
+    #productsContainer {
+      min-height: 500px;
     }
   </style>
 </head>
+<body class="flex flex-col min-h-screen">
+
+  <!-- The rest of the HTML structure remains the same as previous answer -->
+  <!-- Only essential changes shown below -->
+
+<script>
+    // Fixed category filtering function
+    function showCategory(category, event) {
+      currentCategory = category;
+      
+      // Update active button
+      document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      if (event) {
+        event.target.classList.add('active');
+      }
+      
+      // Force re-render by completely rebuilding the container
+      const container = document.getElementById("productsContainer");
+      container.innerHTML = '<div id="productsLoader" class="loader"></div>';
+      
+      // Small delay to show loading animation
+      setTimeout(() => {
+        renderProducts(category, productSearch.value);
+      }, 50);
+    }
+
+    // Updated createProductCard function with new colors
+    function createProductCard(product, index, category) {
+      const card = document.createElement("div");
+      card.className = "bg-white p-6 rounded-xl product-card";
+      card.id = `product-${category}-${index}`;
+
+      const itemInCart = cart.find(item => item.name === product.name);
+      
+      card.innerHTML = `
+        <div class="relative overflow-hidden rounded-lg mb-4 h-48 bg-gray-50 flex items-center justify-center">
+          <img src="${product.img}" alt="${product.name}" 
+               class="w-full h-full object-contain transition duration-300 hover:scale-105 cursor-pointer" 
+               onclick="showModal('${category}', ${index})" 
+               loading="lazy">
+        </div>
+        <h3 class="text-lg font-semibold mb-2 text-gray-800">${product.name}</h3>
+        <span class="block text-xl font-bold text-indigo-600 mb-4">₹${product.price}</span>
+        <div class="product-controls">
+          ${itemInCart ? `
+            <div class="flex items-center justify-center gap-3">
+              <button onclick="updateQty('${category}', ${index}, -1)" 
+                      class="bg-gray-100 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-200 transition">-</button>
+              <span class="font-semibold text-gray-700">${itemInCart.qty}</span>
+              <button onclick="updateQty('${category}', ${index}, 1)" 
+                      class="bg-gray-100 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-200 transition">+</button>
+            </div>` : `
+            <button onclick="addToCart('${category}', ${index})" 
+                    class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition">
+              Add to Cart
+            </button>`
+          }
+        </div>
+      `;
+      return card;
+    }
+
+    // Rest of the JavaScript remains similar with color variables updated
+</script>
+</body>
+</html>
 <body class="flex flex-col min-h-screen">
 
   <!-- Navbar -->
