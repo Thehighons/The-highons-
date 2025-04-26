@@ -483,6 +483,132 @@
     let currentModalProduct = null;
     let currentCategory = 'all';
 
+    // Cart functions
+    function toggleCart() {
+      const cartPanel = document.getElementById('cartPanel');
+      const overlay = document.getElementById('cartOverlay');
+      cartPanel.classList.toggle('open');
+      overlay.classList.toggle('active');
+      document.body.classList.toggle('overflow-hidden');
+      updateCartPanel();
+    }
+
+    function addToCart(category, index) {
+      const product = products[category][index];
+      const existing = cart.find(p => p.name === product.name);
+      
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      
+      updateProductCard(category, index);
+      updateCartCounter();
+      updateCart();
+      updateCartPanel();
+    }
+
+    function updateQty(category, index, change) {
+      const product = products[category][index];
+      const itemIndex = cart.findIndex(p => p.name === product.name);
+      
+      if (itemIndex > -1) {
+        cart[itemIndex].qty += change;
+        
+        if (cart[itemIndex].qty < 1) {
+          cart.splice(itemIndex, 1);
+        }
+        
+        renderProducts(currentCategory, document.getElementById('productSearch').value);
+        updateCartCounter();
+        updateCart();
+        updateCartPanel();
+      }
+    }
+
+    function updatePanelQty(name, change) {
+      const itemIndex = cart.findIndex(p => p.name === name);
+      
+      if (itemIndex > -1) {
+        cart[itemIndex].qty += change;
+        
+        if (cart[itemIndex].qty < 1) {
+          cart.splice(itemIndex, 1);
+        }
+        
+        renderProducts(currentCategory, document.getElementById('productSearch').value);
+        updateCartCounter();
+        updateCart();
+        updateCartPanel();
+      }
+    }
+
+    function updateCartCounter() {
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      const counters = document.querySelectorAll('[id^="cartCounter"]');
+      
+      counters.forEach(counter => {
+        counter.textContent = totalItems;
+        counter.classList.toggle('hidden', totalItems === 0);
+      });
+    }
+
+    function updateCart() {
+      const list = document.getElementById("cartItems");
+      const totalEl = document.getElementById("cartTotal");
+      list.innerHTML = '';
+      let total = 0;
+      
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        list.innerHTML += `
+            <li class="cart-item flex justify-between items-center p-3 rounded-lg">
+                <span>${item.name} x ${item.qty}</span>
+                <span class="font-semibold">₹${item.price * item.qty}</span>
+            </li>
+        `;
+      });
+      
+      totalEl.textContent = total;
+    }
+
+    function updateCartPanel() {
+      const panelItems = document.getElementById("cartPanelItems");
+      const subtotalEl = document.getElementById("cartPanelSubtotal");
+      const totalEl = document.getElementById("cartPanelTotal");
+      
+      panelItems.innerHTML = '';
+      let subtotal = 0;
+      
+      cart.forEach(item => {
+        subtotal += item.price * item.qty;
+        panelItems.innerHTML += `
+            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                <div class="flex items-center">
+                    <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-contain mr-4">
+                    <div>
+                        <h4 class="font-medium">${item.name}</h4>
+                        <p class="text-sm text-gray-600">₹${item.price}</p>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <button onclick="updatePanelQty('${item.name}', -1)" 
+                            class="quantity-btn">-</button>
+                    <span class="quantity-display">${item.qty}</span>
+                    <button onclick="updatePanelQty('${item.name}', 1)" 
+                            class="quantity-btn">+</button>
+                </div>
+            </div>
+        `;
+      });
+      
+      subtotalEl.textContent = subtotal;
+      totalEl.textContent = subtotal;
+      document.getElementById('discountRow').classList.add('hidden');
+    }
+
+    // Product display functions
     function showCategory(category) {
       currentCategory = category;
       renderProducts(category, document.getElementById('productSearch').value);
@@ -556,154 +682,58 @@
       return card;
     }
 
-    function addToCart(category, index) {
-      const product = products[category][index];
-      const existing = cart.find(p => p.name === product.name);
-      
-      if (existing) {
-        existing.qty++;
-      } else {
-        cart.push({ ...product, qty: 1 });
-      }
-      
-      updateProductCard(category, index);
-      updateCartCounter();
-      updateCart();
-      updateCartPanel();
-    }
+    // Order functions
+    function prepareOrder() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (!user) return;
 
-    function updateQty(category, index, change) {
-      const product = products[category][index];
-      const itemIndex = cart.findIndex(p => p.name === product.name);
-      
-      if (itemIndex > -1) {
-        cart[itemIndex].qty += change;
-        
-        if (cart[itemIndex].qty < 1) {
-          cart.splice(itemIndex, 1);
-        }
-        
-        // Re-render relevant product cards
-        if (currentCategory === 'all' || currentCategory === category) {
-          renderProducts(currentCategory, document.getElementById('productSearch').value);
-        }
-        
-        updateCartCounter();
-        updateCart();
-        updateCartPanel();
-      }
-    }
-
-    function updateCartCounter() {
-      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-      const counters = document.querySelectorAll('[id^="cartCounter"]');
-      
-      counters.forEach(counter => {
-        counter.textContent = totalItems;
-        counter.classList.toggle('hidden', totalItems === 0);
-      });
-    }
-
-    function updateCart() {
-      const list = document.getElementById("cartItems");
-      const totalEl = document.getElementById("cartTotal");
-      list.innerHTML = '';
+      const coupon = document.getElementById('coupon').value.trim();
+      let summary = `Order for ${user.name}\nEmail: ${user.email}\nPhone: ${user.phone}\nAddress: ${user.address}\n\nOrder Details:\n`;
       let total = 0;
-      
+
       cart.forEach(item => {
+        summary += `${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
         total += item.price * item.qty;
-        list.innerHTML += `
-            <li class="cart-item flex justify-between items-center p-3 rounded-lg">
-                <span>${item.name} x ${item.qty}</span>
-                <span class="font-semibold">₹${item.price * item.qty}</span>
-            </li>
-        `;
       });
-      
-      totalEl.textContent = total;
-    }
 
-    function updateCartPanel() {
-      const panelItems = document.getElementById("cartPanelItems");
-      const subtotalEl = document.getElementById("cartPanelSubtotal");
-      const totalEl = document.getElementById("cartPanelTotal");
-      
-      panelItems.innerHTML = '';
-      let subtotal = 0;
-      
-      cart.forEach(item => {
-        subtotal += item.price * item.qty;
-        panelItems.innerHTML += `
-            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <div class="flex items-center">
-                    <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-contain mr-4">
-                    <div>
-                        <h4 class="font-medium">${item.name}</h4>
-                        <p class="text-sm text-gray-600">₹${item.price}</p>
-                    </div>
-                </div>
-                <div class="flex items-center">
-                    <button onclick="updatePanelQty('${item.name}', -1)" 
-                            class="quantity-btn">-</button>
-                    <span class="quantity-display">${item.qty}</span>
-                    <button onclick="updatePanelQty('${item.name}', 1)" 
-                            class="quantity-btn">+</button>
-                </div>
-            </div>
-        `;
-      });
-      
-      subtotalEl.textContent = subtotal;
-      totalEl.textContent = subtotal;
-      document.getElementById('discountRow').classList.add('hidden');
-    }
-
-    function updatePanelQty(name, change) {
-      const itemIndex = cart.findIndex(p => p.name === name);
-      
-      if (itemIndex > -1) {
-        cart[itemIndex].qty += change;
-        
-        if (cart[itemIndex].qty < 1) {
-          cart.splice(itemIndex, 1);
-        }
-        
-        updateCartCounter();
-        updateCart();
-        updateCartPanel();
-        
-        // Update product cards
-        Object.entries(products).forEach(([category, items]) => {
-          const productIndex = items.findIndex(p => p.name === name);
-          if (productIndex > -1) {
-            const card = document.querySelector(`#${category}List > div:nth-child(${productIndex + 1})`);
-            if (card) {
-              card.replaceWith(createProductCard(items[productIndex], productIndex, category);
-            }
-          }
-        });
+      if (coupon === "NSL10%") {
+        const discount = Math.round(total * 0.10);
+        summary += `\nDiscount (NSL10%): -₹${discount}\n`;
+        total -= discount;
       }
+
+      summary += `\nTotal: ₹${total}\n\nPayment Method: ${document.querySelector('select[name="payment"]').value}`;
+      document.getElementById("orderSummaryText").value = summary;
+      
+      setTimeout(() => {
+        document.getElementById('orderConfirmation').classList.remove('hidden');
+        cart.length = 0;
+        updateCart();
+        updateCartCounter();
+        updateCartPanel();
+      }, 1000);
     }
 
-    function toggleCart() {
-      const cartPanel = document.getElementById('cartPanel');
-      const overlay = document.getElementById('cartOverlay');
-      cartPanel.classList.toggle('open');
-      overlay.classList.toggle('active');
-      document.body.classList.toggle('overflow-hidden');
-      updateCartPanel();
-    }
-
-    // Remaining functions (applyCoupon, prepareOrder, saveUser, etc.) remain same as previous version
-    // Full code continues with all original functionality preserved...
-
+    // Initialization
     window.onload = () => {
       renderProducts();
-      populateOrderForm();
       document.getElementById('productSearch').addEventListener('input', function() {
         renderProducts(currentCategory, this.value);
       });
+      populateOrderForm();
     };
+
+    function populateOrderForm() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        document.getElementById('formName').value = user.name;
+        document.getElementById('formEmail').value = user.email;
+        document.getElementById('formPhone').value = user.phone;
+        document.getElementById('formAddress').value = user.address;
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('orderForm').classList.remove('hidden');
+      }
+    }
 
     function animateCards() {
       document.querySelectorAll('.product-card').forEach((card, index) => {
@@ -711,6 +741,97 @@
           card.classList.add('animate__fadeInUp');
         }, index * 50);
       });
+    }
+
+    // Utility functions
+    function logout() {
+      localStorage.removeItem('user');
+      location.reload();
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+
+    function closeOrderConfirmation() {
+      document.getElementById('orderConfirmation').classList.add('hidden');
+      window.location.href = '#products';
+    }
+
+    function applyCoupon() {
+      const coupon = document.getElementById('cartCoupon').value.trim();
+      const discountRow = document.getElementById('discountRow');
+      const discountEl = document.getElementById('cartPanelDiscount');
+      const totalEl = document.getElementById('cartPanelTotal');
+      const subtotal = parseInt(document.getElementById('cartPanelSubtotal').textContent);
+      
+      if (coupon === "NSL10%") {
+        const discount = Math.round(subtotal * 0.10);
+        const total = subtotal - discount;
+        discountEl.textContent = discount;
+        totalEl.textContent = total;
+        discountRow.classList.remove('hidden');
+      } else if (coupon) {
+        alert('Invalid coupon code. Please try again.');
+      } else {
+        discountRow.classList.add('hidden');
+        totalEl.textContent = subtotal;
+      }
+    }
+
+    function showModal(category, index) {
+      const product = products[category][index];
+      currentModalProduct = { category, index };
+      
+      document.getElementById('modalImg').src = product.img;
+      document.getElementById('modalName').textContent = product.name;
+      document.getElementById('modalDesc').textContent = product.desc;
+      document.getElementById('modalPrice').textContent = `₹${product.price}`;
+      document.getElementById('productModal').classList.remove('hidden');
+      
+      const modalBtn = document.getElementById('modalAddToCart');
+      const itemInCart = cart.find(item => item.name === product.name);
+      
+      if (itemInCart) {
+        modalBtn.textContent = `Added (${itemInCart.qty})`;
+        modalBtn.classList.add('bg-gray-600');
+        modalBtn.classList.remove('btn-primary');
+      } else {
+        modalBtn.textContent = 'Add to Cart';
+        modalBtn.classList.remove('bg-gray-600');
+        modalBtn.classList.add('btn-primary');
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('productModal').classList.add('hidden');
+    }
+
+    function saveUser() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      const phoneRegex = /^[6-9]\d{9}$/;
+
+      if (!name || !email || !phone || !address) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      if (!phoneRegex.test(phone)) {
+        alert("Please enter a valid 10-digit Indian phone number.");
+        return;
+      }
+
+      localStorage.setItem('user', JSON.stringify({ name, email, phone, address }));
+      populateOrderForm();
     }
   </script>
 </body>
