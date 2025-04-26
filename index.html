@@ -613,6 +613,7 @@
 
     const cart = [];
     let currentModalProduct = null;
+    let currentCategory = 'all'; // Track current category
 
     // DOM Elements
     const cartPanel = document.getElementById('cartPanel');
@@ -709,6 +710,7 @@
     }
 
     function showCategory(category) {
+      currentCategory = category; // Update current category
       // Update active button
       document.querySelectorAll('.category-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -724,6 +726,8 @@
     function createProductCard(product, index, category) {
       const card = document.createElement("div");
       card.className = "bg-white p-6 rounded-xl product-card";
+      card.id = `product-${category}-${index}`; // Unique ID for each card
+
       const itemInCart = cart.find(item => item.name === product.name);
       
       card.innerHTML = `
@@ -732,7 +736,7 @@
         </div>
         <h3 class="text-lg font-semibold mb-2 text-gray-800">${product.name}</h3>
         <span class="block text-xl font-bold text-purple-600 mb-4">₹${product.price}</span>
-        <div id="controls-${category}-${index}">
+        <div class="product-controls">
           ${itemInCart ? `
             <div class="flex items-center justify-center gap-3">
               <button onclick="updateQty('${category}', ${index}, -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-300 transition">-</button>
@@ -744,6 +748,27 @@
         </div>
       `;
       return card;
+    }
+
+    function updateProductCard(category, index) {
+      const product = products[category][index];
+      const cardId = `product-${category}-${index}`;
+      const card = document.getElementById(cardId);
+      
+      if (!card) return; // Exit if card doesn't exist
+      
+      const itemInCart = cart.find(item => item.name === product.name);
+      const controlsDiv = card.querySelector('.product-controls');
+      
+      if (controlsDiv) {
+        controlsDiv.innerHTML = itemInCart ? `
+          <div class="flex items-center justify-center gap-3">
+            <button onclick="updateQty('${category}', ${index}, -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-300 transition">-</button>
+            <span class="font-semibold text-gray-700">${itemInCart.qty}</span>
+            <button onclick="updateQty('${category}', ${index}, 1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-300 transition">+</button>
+          </div>` : `
+          <button onclick="addToCart('${category}', ${index})" class="w-full bg-gradient-to-r from-purple-600 to-blue-500 text-white py-2 px-4 rounded-lg hover:shadow-md transition">Add to Cart</button>`;
+      }
     }
 
     function showModal(category, index) {
@@ -785,13 +810,15 @@
     function addToCart(category, index) {
       const product = products[category][index];
       const existing = cart.find(p => p.name === product.name);
+      
       if (existing) {
         existing.qty += 1;
       } else {
         cart.push({ ...product, qty: 1 });
       }
-      updateCart();
-      renderProducts(document.querySelector('.category-btn.active').getAttribute('onclick').replace("showCategory('", "").replace("')", ""), productSearch.value);
+      
+      updateProductCard(category, index);
+      updateCartCounter();
       
       // Add animation to cart icon
       const cartCounter = document.getElementById('cartCounter');
@@ -804,14 +831,15 @@
     function updateQty(category, index, change) {
       const product = products[category][index];
       const item = cart.find(p => p.name === product.name);
+      
       if (item) {
         item.qty += change;
         if (item.qty <= 0) {
           cart.splice(cart.indexOf(item), 1);
         }
+        updateProductCard(category, index);
+        updateCartCounter();
       }
-      updateCart();
-      renderProducts(document.querySelector('.category-btn.active').getAttribute('onclick').replace("showCategory('", "").replace("')", ""), productSearch.value);
     }
 
     function updateCart() {
