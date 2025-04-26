@@ -574,14 +574,20 @@
 
     function updateQty(category, index, change) {
       const product = products[category][index];
-      const item = cart.find(p => p.name === product.name);
+      const itemIndex = cart.findIndex(p => p.name === product.name);
       
-      if (item) {
-        item.qty += change;
-        if (item.qty <= 0) {
-          cart.splice(cart.indexOf(item), 1);
+      if (itemIndex > -1) {
+        cart[itemIndex].qty += change;
+        
+        if (cart[itemIndex].qty < 1) {
+          cart.splice(itemIndex, 1);
         }
-        updateProductCard(category, index);
+        
+        // Re-render relevant product cards
+        if (currentCategory === 'all' || currentCategory === category) {
+          renderProducts(currentCategory, document.getElementById('productSearch').value);
+        }
+        
         updateCartCounter();
         updateCart();
         updateCartPanel();
@@ -589,24 +595,32 @@
     }
 
     function updateCartCounter() {
-      const counter = document.getElementById('cartCounter');
-      const mobileCounter = document.getElementById('cartCounterMobile');
       const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      const counters = document.querySelectorAll('[id^="cartCounter"]');
       
-      counter.textContent = totalItems;
-      mobileCounter.textContent = totalItems;
-      
-      counter.classList.toggle('hidden', totalItems === 0);
-      mobileCounter.classList.toggle('hidden', totalItems === 0);
+      counters.forEach(counter => {
+        counter.textContent = totalItems;
+        counter.classList.toggle('hidden', totalItems === 0);
+      });
     }
 
-    function toggleCart() {
-      const cartPanel = document.getElementById('cartPanel');
-      const overlay = document.getElementById('cartOverlay');
-      cartPanel.classList.toggle('open');
-      overlay.classList.toggle('active');
-      document.body.classList.toggle('overflow-hidden');
-      updateCartPanel();
+    function updateCart() {
+      const list = document.getElementById("cartItems");
+      const totalEl = document.getElementById("cartTotal");
+      list.innerHTML = '';
+      let total = 0;
+      
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        list.innerHTML += `
+            <li class="cart-item flex justify-between items-center p-3 rounded-lg">
+                <span>${item.name} x ${item.qty}</span>
+                <span class="font-semibold">₹${item.price * item.qty}</span>
+            </li>
+        `;
+      });
+      
+      totalEl.textContent = total;
     }
 
     function updateCartPanel() {
@@ -644,6 +658,45 @@
       document.getElementById('discountRow').classList.add('hidden');
     }
 
+    function updatePanelQty(name, change) {
+      const itemIndex = cart.findIndex(p => p.name === name);
+      
+      if (itemIndex > -1) {
+        cart[itemIndex].qty += change;
+        
+        if (cart[itemIndex].qty < 1) {
+          cart.splice(itemIndex, 1);
+        }
+        
+        updateCartCounter();
+        updateCart();
+        updateCartPanel();
+        
+        // Update product cards
+        Object.entries(products).forEach(([category, items]) => {
+          const productIndex = items.findIndex(p => p.name === name);
+          if (productIndex > -1) {
+            const card = document.querySelector(`#${category}List > div:nth-child(${productIndex + 1})`);
+            if (card) {
+              card.replaceWith(createProductCard(items[productIndex], productIndex, category);
+            }
+          }
+        });
+      }
+    }
+
+    function toggleCart() {
+      const cartPanel = document.getElementById('cartPanel');
+      const overlay = document.getElementById('cartOverlay');
+      cartPanel.classList.toggle('open');
+      overlay.classList.toggle('active');
+      document.body.classList.toggle('overflow-hidden');
+      updateCartPanel();
+    }
+
+    // Remaining functions (applyCoupon, prepareOrder, saveUser, etc.) remain same as previous version
+    // Full code continues with all original functionality preserved...
+
     window.onload = () => {
       renderProducts();
       populateOrderForm();
@@ -652,8 +705,13 @@
       });
     };
 
-    // Remaining functions (updatePanelQty, applyCoupon, showModal, etc.) remain same as original
-    // Full code continues with all original functionality preserved...
+    function animateCards() {
+      document.querySelectorAll('.product-card').forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('animate__fadeInUp');
+        }, index * 50);
+      });
+    }
   </script>
 </body>
 </html>
