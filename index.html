@@ -47,9 +47,60 @@
       transform: translateY(-8px);
       box-shadow: 0 12px 24px rgba(0,0,0,0.1);
     }
+    .category-title {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      padding: 12px 32px;
+      border-radius: 8px;
+      display: inline-block;
+      margin: 20px 0;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .nav-link {
+      position: relative;
+      color: var(--secondary);
+      transition: all 0.3s ease;
+    }
+    .nav-link:hover {
+      color: var(--primary);
+    }
+    .hero-gradient {
+      background: linear-gradient(135deg, var(--light) 0%, #e2e8f0 100%);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      transition: all 0.3s ease;
+      color: white;
+      border: none;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(42, 45, 52, 0.2);
+    }
+    .category-filter {
+      position: relative;
+      max-width: 300px;
+      margin: 20px auto;
+    }
+    .category-select {
+      appearance: none;
+      width: 100%;
+      padding: 12px 48px 12px 16px;
+      border: 2px solid var(--secondary);
+      border-radius: 8px;
+      background-color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      color: var(--primary);
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235C6B73' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1em;
+    }
     .quantity-controls {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
     }
     .quantity-btn {
@@ -66,6 +117,12 @@
     .quantity-btn:hover {
       background: var(--secondary);
       color: white;
+    }
+    .quantity-display {
+      min-width: 36px;
+      text-align: center;
+      font-weight: 600;
+      color: var(--primary);
     }
     .cart-panel {
       transform: translateX(100%);
@@ -84,6 +141,19 @@
     .cart-panel.open {
       transform: translateX(0);
     }
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+    }
+    .overlay.active {
+      display: block;
+    }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -91,204 +161,427 @@
   <!-- Navbar -->
   <header class="bg-white shadow-sm sticky top-0 z-50">
     <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
-      <span class="text-2xl font-bold tracking-wide brand-name">THE HIGHON'S</span>
+      <div class="flex items-center">
+        <span class="text-2xl font-bold tracking-wide brand-name">THE HIGHON'S</span>
+      </div>
       <nav class="hidden md:flex items-center space-x-8">
         <a href="#products" class="nav-link">Products</a>
         <a href="#features" class="nav-link">Why Choose Us</a>
+        <a href="#order" class="nav-link">Order</a>
+        <a href="#request" class="nav-link">Request Product</a>
         <a href="#contact" class="nav-link">Contact</a>
+        <div class="relative ml-4">
+          <button onclick="toggleCart()" class="flex items-center relative">
+            <i class="fas fa-shopping-cart text-xl"></i>
+            <span id="cartCounter" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+          </button>
+        </div>
+        <button onclick="logout()" class="ml-4 text-sm btn-primary px-4 py-2 rounded-full">Logout</button>
+      </nav>
+      <div class="md:hidden flex items-center space-x-4">
         <button onclick="toggleCart()" class="flex items-center relative">
           <i class="fas fa-shopping-cart text-xl"></i>
-          <span id="cartCounter" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+          <span id="cartCounterMobile" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
         </button>
-      </nav>
+        <button onclick="toggleMobileMenu()" class="text-gray-700">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-200 p-4">
+      <div class="flex flex-col space-y-4">
+        <a href="#products" class="nav-link" onclick="toggleMobileMenu()">Products</a>
+        <a href="#features" class="nav-link" onclick="toggleMobileMenu()">Why Choose Us</a>
+        <a href="#order" class="nav-link" onclick="toggleMobileMenu()">Order</a>
+        <a href="#request" class="nav-link" onclick="toggleMobileMenu()">Request Product</a>
+        <a href="#contact" class="nav-link" onclick="toggleMobileMenu()">Contact</a>
+        <button onclick="logout()" class="text-sm btn-primary px-4 py-2 rounded-full w-full">Logout</button>
+      </div>
     </div>
   </header>
 
   <!-- Cart Panel -->
+  <div class="overlay" id="cartOverlay" onclick="toggleCart()"></div>
   <div class="cart-panel" id="cartPanel">
     <div class="p-6">
       <div class="flex justify-between items-center mb-6">
-        <h3 class="text-2xl font-bold">Your Cart</h3>
+        <h3 class="text-2xl font-bold text-gray-800">Your Cart</h3>
         <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
       </div>
       <div id="cartPanelItems" class="space-y-4 mb-6"></div>
       <div class="border-t border-gray-200 pt-4 mb-6">
+        <div class="flex justify-between mb-2">
+          <span class="font-semibold">Subtotal:</span>
+          <span class="font-semibold">₹<span id="cartPanelSubtotal">0</span></span>
+        </div>
+        <div id="discountRow" class="flex justify-between mb-2 hidden">
+          <span class="font-semibold">Discount:</span>
+          <span class="font-semibold text-green-600">-₹<span id="cartPanelDiscount">0</span></span>
+        </div>
         <div class="flex justify-between text-lg font-bold">
           <span>Total:</span>
           <span>₹<span id="cartPanelTotal">0</span></span>
         </div>
       </div>
-      <button onclick="proceedToCheckout()" class="block w-full bg-purple-600 text-white py-3 rounded-lg font-medium">Proceed to Checkout</button>
+      <div class="mb-4">
+        <label class="block font-semibold mb-2 text-gray-700">Coupon Code:</label>
+        <div class="flex">
+          <input type="text" id="cartCoupon" placeholder="Enter coupon code" class="flex-1 p-3 border border-gray-200 rounded-l-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+          <button onclick="applyCoupon()" class="bg-purple-600 text-white px-4 py-3 rounded-r-lg hover:bg-purple-700 transition">Apply</button>
+        </div>
+      </div>
+      <button onclick="proceedToCheckout()" class="block w-full btn-primary text-white py-3 rounded-lg font-medium text-center">Proceed to Checkout</button>
     </div>
   </div>
 
-  <!-- Products -->
-  <section id="products" class="py-20 bg-white px-6">
-    <div class="max-w-7xl mx-auto">
-      <h2 class="text-4xl font-bold mb-6 text-center">Our Premium Collection</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="productsContainer">
-        <!-- Product cards will be inserted here -->
+  <!-- Hero Section -->
+  <section class="text-center hero-gradient pt-20 pb-12">
+    <div class="max-w-4xl mx-auto px-6">
+      <img src="GridArt_20250425_064014157.png" alt="The Highon's Logo" class="logo mb-6 animate__animated animate__fadeIn w-48 mx-auto" loading="lazy">
+      <h2 class="text-5xl font-bold mb-6 text-gray-800 animate__animated animate__fadeInDown">Create Bold. Create Bright.</h2>
+      <p class="text-xl mb-10 text-gray-600 max-w-2xl mx-auto animate__animated animate__fadeIn animate__delay-1s">Welcome to The Highon's — where creativity meets purpose through premium supplies.</p>
+      <a href="#products" class="inline-block btn-primary text-white px-10 py-4 rounded-full shadow-lg font-medium animate__animated animate__fadeIn animate__delay-2s">Explore Our Collection</a>
+    </div>
+    <div class="mt-12 flex justify-center space-x-8">
+      <div class="floating animate__animated animate__fadeIn animate__delay-3s">
+        <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-32 h-32 rounded-lg object-cover shadow-xl image-scale" loading="lazy">
+      </div>
+      <div class="floating animate__animated animate__fadeIn animate__delay-4s" style="animation-delay: 0.5s">
+        <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-32 h-32 rounded-lg object-cover shadow-xl image-scale" loading="lazy">
+      </div>
+      <div class="floating animate__animated animate__fadeIn animate__delay-5s" style="animation-delay: 1s">
+        <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-32 h-32 rounded-lg object-cover shadow-xl image-scale" loading="lazy">
       </div>
     </div>
   </section>
 
-<script>
-  // Product Data
-  const products = [
-    {
-      id: '1',
-      name: 'Designer Keychain',
-      price: 199,
-      image: 'keychain.jpg',
-      description: 'Premium metal keychain with enamel finish',
-      stock: 15
-    },
-    {
-      id: '2',
-      name: 'Artists Watercolor Set',
-      price: 899,
-      image: 'watercolors.jpg',
-      description: '24 premium colors with brushes',
-      stock: 10
-    },
-    {
-      id: '3',
-      name: 'Leather Journal',
-      price: 599,
-      image: 'journal.jpg',
-      description: 'Handcrafted genuine leather diary',
-      stock: 8
-    }
-  ];
+  <!-- Features -->
+  <section id="features" class="py-20 bg-gray-50 px-6">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-4xl font-bold mb-12 text-center text-gray-800">Why Choose The Highon's</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="feature-card animate__animated">
+          <div class="feature-icon">
+            <i class="fas fa-award"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">Premium Quality</h3>
+          <p class="text-gray-600">We source only the highest quality materials to ensure your creative projects shine.</p>
+        </div>
+        <div class="feature-card animate__animated">
+          <div class="feature-icon">
+            <i class="fas fa-truck"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">Local Delivery only</h3>
+          <p class="text-gray-600">delivery within Navsari with careful packaging to protect your items.</p>
+        </div>
+        <div class="feature-card animate__animated">
+          <div class="feature-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">Dedicated Support</h3>
+          <p class="text-gray-600">Our team is always ready to help with any questions about our products.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  let cart = [];
+  <!-- Products -->
+  <section id="products" class="py-20 bg-white px-6">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-4xl font-bold mb-6 text-center text-gray-800">Our Premium Collection</h2>
+      <div class="search-bar">
+        <div class="relative">
+          <input type="text" id="productSearch" placeholder="Search products..." class="w-full p-4 pl-12 border border-gray-200 rounded-full shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+          <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+        </div>
+      </div>
+      <div class="category-filter">
+        <select id="categorySelect" class="category-select" onchange="showCategory(this.value)">
+          <option value="all">All Products</option>
+          <option value="keychains">Keychains</option>
+          <option value="artSupplies">Art Supplies</option>
+          <option value="stationery">Stationery</option>
+          <option value="diaries">Diaries</option>
+        </select>
+      </div>
+      <div id="productsContainer" class="relative"></div>
+    </div>
+  </section>
 
-  // Render Products
-  function renderProducts() {
-    const container = document.getElementById('productsContainer');
-    container.innerHTML = '';
-    
-    products.forEach(product => {
-      const cartItem = cart.find(item => item.id === product.id);
-      const card = document.createElement('div');
-      card.className = 'product-card p-6';
-      card.innerHTML = `
-        <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover mb-4 rounded-lg">
-        <h3 class="text-xl font-bold mb-2">${product.name}</h3>
-        <p class="text-gray-600 mb-4">${product.description}</p>
-        <div class="flex justify-between items-center">
-          <span class="text-lg font-bold">₹${product.price}</span>
-          <div class="product-controls-${product.id}">
-            ${cartItem ? `
-              <div class="quantity-controls">
-                <button onclick="adjustQuantity('${product.id}', -1)" class="quantity-btn">-</button>
-                <span class="quantity-display">${cartItem.quantity}</span>
-                <button onclick="adjustQuantity('${product.id}', 1)" class="quantity-btn">+</button>
-              </div>
-            ` : `
-              <button onclick="addToCart('${product.id}')" class="bg-purple-600 text-white px-4 py-2 rounded-full">
-                Add to Cart
-              </button>
-            `}
+  <!-- Product Request Section -->
+  <section id="request" class="py-20 bg-gray-50 px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-8 text-gray-800">Request a Product</h2>
+      <div class="product-request-form">
+        <form id="requestForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
+          <input type="hidden" name="_subject" value="New Product Request">
+          <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
+          <input type="hidden" name="_captcha" value="false">
+          <div>
+            <label for="requestName" class="block font-semibold mb-2 text-gray-700">Product Name</label>
+            <input type="text" id="requestName" name="product" placeholder="What product are you looking for?" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+          </div>
+          <div>
+            <label for="requestDetails" class="block font-semibold mb-2 text-gray-700">Additional Details</label>
+            <textarea id="requestDetails" name="details" rows="4" placeholder="Any specific brand, color, size or other details?" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"></textarea>
+          </div>
+          <div>
+            <label for="requestEmail" class="block font-semibold mb-2 text-gray-700">Your Email</label>
+            <input type="email" id="requestEmail" name="email" placeholder="Your email address" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+          </div>
+          <button type="submit" class="w-full btn-primary text-white py-4 rounded-lg font-medium">Submit Request</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Order Section -->
+  <section id="order" class="py-20 bg-white px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-8 text-gray-800">Place Your Order</h2>
+      <div id="loginForm" class="space-y-6 text-left bg-white p-8 rounded-xl shadow-md">
+        <h3 class="text-2xl font-semibold mb-6 text-gray-700">Your Information</h3>
+        <input type="text" id="name" placeholder="Full Name" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+        <input type="email" id="email" placeholder="Email" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+        <input type="text" id="phone" placeholder="Phone (+91)" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+        <input type="text" id="address" placeholder="Full Address" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+        <button onclick="saveUser()" class="w-full btn-primary text-white py-4 rounded-lg font-medium mt-4">Save & Continue</button>
+      </div>
+      <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left bg-white p-8 rounded-xl shadow-md hidden">
+        <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="name" id="formName">
+        <input type="hidden" name="email" id="formEmail">
+        <input type="hidden" name="phone" id="formPhone">
+        <input type="hidden" name="address" id="formAddress">
+        <input type="hidden" name="message" id="orderSummaryText">
+        <h3 class="text-2xl font-semibold mb-6 text-gray-700">Order Summary</h3>
+        <div class="mb-6">
+          <label class="block font-semibold mb-2 text-gray-700">Have a coupon code?</label>
+          <input type="text" id="coupon" placeholder="Enter code if you have one" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+        </div>
+        <div id="cartSummary" class="bg-gray-50 border border-gray-200 rounded-xl p-6 mb-6">
+          <h3 class="font-semibold text-lg mb-4 text-gray-800">Your Cart</h3>
+          <ul id="cartItems" class="space-y-3"></ul>
+          <div class="border-t border-gray-200 mt-4 pt-4">
+            <p class="text-lg font-bold text-gray-800">Total: ₹<span id="cartTotal">0</span></p>
           </div>
         </div>
-      `;
-      container.appendChild(card);
-    });
-  }
+        <div class="mb-6">
+          <label class="block font-semibold mb-2 text-gray-700">Payment Option:</label>
+          <select name="payment" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+            <option value="COD">Cash on Delivery</option>
+            <option value="UPI">UPI Payment</option>
+          </select>
+        </div>
+        <div class="text-center bg-gray-50 p-4 rounded-lg mb-6">
+          <p class="font-semibold mb-3 text-gray-700">Scan to Pay via UPI:</p>
+          <img src="1000022591.jpg" alt="UPI QR Code" class="w-48 mx-auto rounded-lg shadow" loading="lazy">
+        </div>
+        <button type="submit" onclick="prepareOrder()" class="w-full btn-primary text-white py-4 rounded-lg font-medium">Confirm Order</button>
+      </form>
+      <p class="text-sm mt-6 text-gray-500">* Orders are only delivered within Navsari - 396445 *</p>
+    </div>
+  </section>
 
-  // Cart Functions
-  function addToCart(productId) {
-    const product = products.find(p => p.id === productId);
-    const existingItem = cart.find(item => item.id === productId);
-
-    if (existingItem) {
-      existingItem.quantity++;
-    } else {
-      cart.push({ ...product, quantity: 1 });
-    }
-
-    updateCartUI();
-    updateProductControls(productId);
-  }
-
-  function adjustQuantity(productId, change) {
-    const item = cart.find(item => item.id === productId);
-    if (!item) return;
-
-    item.quantity += change;
-    
-    if (item.quantity < 1) {
-      cart = cart.filter(item => item.id !== productId);
-    }
-
-    updateCartUI();
-    updateProductControls(productId);
-  }
-
-  function updateProductControls(productId) {
-    const controlsDiv = document.querySelector(`.product-controls-${productId}`);
-    if (!controlsDiv) return;
-
-    const item = cart.find(item => item.id === productId);
-    controlsDiv.innerHTML = item ? `
-      <div class="quantity-controls">
-        <button onclick="adjustQuantity('${productId}', -1)" class="quantity-btn">-</button>
-        <span class="quantity-display">${item.quantity}</span>
-        <button onclick="adjustQuantity('${productId}', 1)" class="quantity-btn">+</button>
+  <!-- Contact -->
+  <section id="contact" class="bg-white py-20 text-center px-6">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-4xl font-bold mb-8 text-gray-800">Get In Touch</h2>
+      <div class="grid md:grid-cols-1 gap-8 text-left">
+        <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800">Contact Information</h3>
+          <p class="text-lg mb-2"><span class="font-medium">Email:</span> <a href="mailto:thehighonsofficial@gmail.com" class="text-blue-600 hover:text-blue-800">thehighonsofficial@gmail.com</a></p>
+          <div class="flex space-x-4 mt-6">
+            <a href="https://instagram.com/thehighons" target="_blank" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-instagram text-xl"></i></a>
+          </div>
+        </div>
       </div>
-    ` : `
-      <button onclick="addToCart('${productId}')" class="bg-purple-600 text-white px-4 py-2 rounded-full">
-        Add to Cart
-      </button>
-    `;
-  }
+    </div>
+  </section>
 
-  function updateCartUI() {
-    const cartItemsDiv = document.getElementById('cartPanelItems');
-    const cartCounter = document.getElementById('cartCounter');
-    const totalSpan = document.getElementById('cartPanelTotal');
-    
-    // Update cart items
-    cartItemsDiv.innerHTML = '';
-    let total = 0;
-    
-    cart.forEach(item => {
-      total += item.price * item.quantity;
-      const itemDiv = document.createElement('div');
-      itemDiv.className = 'flex justify-between items-center bg-gray-100 p-4 rounded-lg';
-      itemDiv.innerHTML = `
-        <div>
-          <h4 class="font-semibold">${item.name}</h4>
-          <p class="text-gray-600">₹${item.price} x ${item.quantity}</p>
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <span class="text-2xl font-bold tracking-wide brand-name">THE HIGHON'S</span>
+          <p class="mt-2 text-gray-400">Innovating with Purpose</p>
         </div>
-        <div class="quantity-controls">
-          <button onclick="adjustQuantity('${item.id}', -1)" class="quantity-btn">-</button>
-          <span class="quantity-display">${item.quantity}</span>
-          <button onclick="adjustQuantity('${item.id}', 1)" class="quantity-btn">+</button>
+        <div class="flex flex-wrap justify-center gap-6">
+          <a href="#products" class="text-gray-300 hover:text-white transition">Products</a>
+          <a href="#features" class="text-gray-300 hover:text-white transition">Why Choose Us</a>
+          <a href="#order" class="text-gray-300 hover:text-white transition">Order</a>
+          <a href="#request" class="text-gray-300 hover:text-white transition">Request</a>
+          <a href="#contact" class="text-gray-300 hover:text-white transition">Contact</a>
         </div>
-      `;
-      cartItemsDiv.appendChild(itemDiv);
-    });
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+        <p>© 2024 The Highon's. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
-    // Update counter and total
-    const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCounter.textContent = itemCount;
-    cartCounter.classList.toggle('hidden', itemCount === 0);
-    totalSpan.textContent = total.toFixed(2);
-  }
+  <!-- Modals -->
+  <div id="productModal" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-8 rounded-xl shadow-2xl relative max-w-md w-full mx-4 animate__animated animate__zoomIn">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+      <img id="modalImg" src="" alt="" class="w-full h-64 object-contain rounded-lg mb-6" loading="lazy">
+      <h3 id="modalName" class="text-2xl font-bold mb-2 text-gray-800"></h3>
+      <p id="modalDesc" class="text-gray-600 mb-4"></p>
+      <p id="modalPrice" class="text-xl font-semibold text-purple-600 mb-6"></p>
+      <button id="modalAddToCart" class="w-full btn-primary text-white py-3 rounded-lg font-medium">Add to Cart</button>
+    </div>
+  </div>
 
-  function toggleCart() {
-    document.getElementById('cartPanel').classList.toggle('open');
-  }
+  <div id="orderConfirmation" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-8 rounded-xl shadow-2xl relative max-w-md w-full mx-4 text-center animate__animated animate__zoomIn">
+      <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+        <i class="fas fa-check text-green-500 text-3xl"></i>
+      </div>
+      <h3 class="text-2xl font-bold mb-4 text-gray-800">Order Confirmed!</h3>
+      <p class="text-gray-600 mb-6">Thank you for your purchase. We've sent a confirmation to your email.</p>
+      <button onclick="closeOrderConfirmation()" class="btn-primary text-white px-8 py-3 rounded-lg font-medium">Continue Shopping</button>
+    </div>
+  </div>
 
-  function proceedToCheckout() {
-    alert('Proceeding to checkout...');
-    // Add checkout logic here
-  }
+  <script>
+    const products = {
+      keychains: [
+        { name: "Thor Loki Keychain", price: 99, img: "Screenshot_20250422_132243_Meesho.jpg", desc: "High-quality metal keychain featuring Thor and Loki designs" },
+        { name: "Thor Hammer Keychain", price: 89, img: "Screenshot_20250422_131740_Meesho.jpg", desc: "Durable Mjolnir keychain with detailed engraving" },
+        { name: "Demon slayer katana keychain", price: 159, img: "Screenshot_20250424_141150_Meesho.jpg", desc: "Miniature katana keychain from Demon Slayer anime" },
+        { name: "Pikachu Keychain", price: 109, img: "Screenshot_20250422_131948_Meesho.jpg", desc: "Cute Pikachu keychain with enamel finish" }
+      ],
+      artSupplies: [
+        { name: "Camel water colour tube", price: 169, img: "Screenshot_20250424_134214_Meesho.jpg", desc: "Professional-grade watercolor tubes, set of 12 vibrant colors" },
+        { name: "FLAIR Acrylic marker", price: 359, img: "Screenshot_20250423_144509_Meesho.jpg", desc: "Premium acrylic paint markers, fine tip for detailed work" },
+        { name: "Levin Acrylic Markers", price: 409, img: "Screenshot_20250423_140558_Meesho.jpg", desc: "Dual-tip acrylic markers with broad and fine tips" },
+        { name: "Marker Set of 48", price: 299, img: "Touch-48-Color-Marker-Pen-Set-Kids-Art-Essentials-Double-Ended-Vibrant-Colors-Non-Bleeding-Wholesale-Discount-.webp", desc: "48-color marker set with dual tips for versatility" },
+        { name: "Markers Set of 24", price: 179, img: "81B5uZXhYEL._AC_UF1000,1000_QL80_.jpg", desc: "24-color marker set, perfect for beginners" },
+        { name: "Paint Brush 12 sizes", price: 89, img: "Screenshot_20250423_195924_Meesho.jpg", desc: "Professional paint brush set with 12 different sizes" },
+        { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg", desc: "Sponge brush set for texture painting and special effects" },
+        { name: "Camel artist gesso 100ml + Decor varnish combo", price: 259, img: "camel-combo.jpg", desc: "Premium gesso and varnish combo for professional art projects" }
+      ],
+      stationery: [
+        { name: "correction tape", price: 70, img: "51l7S8XUY0L.jpg", desc: "Smooth correction tape for error-free writing" },
+        { name: "Hot Melt Glue Gun", price: 220, img: "71xHhYjWcIL.jpg", desc: "20W glue gun with 5 glue sticks included" },
+        { name: "Sketch Kit", price: 619, img: "Screenshot_20250423_205027_Meesho.jpg", desc: "Complete sketching kit with pencils, erasers and sharpeners" },
+        { name: "luxury Pen", price: 199, img: "Screenshot_20250422_001401.jpg", desc: "Premium metal body pen with smooth ink flow" },
+        { name: "Sketch book A5 100pg", price: 119, img: "Screenshot_20250423_204415_Meesho.jpg", desc: "A5 size sketchbook with 100gsm paper, 100 pages" }
+      ],
+      diaries: [
+        { name: "Diary", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg", desc: "Hardcover diary with premium paper and ribbon marker" },
+        { name: "Diary Premium", price: 319, img: "IMG-20250422-WA0005.jpg", desc: "Premium leather-bound diary with lock and key" },
+        { name: "Diary Mini", price: 219, img: "Screenshot_20250422_215326_Meesho.jpg", desc: "Compact pocket diary with elastic closure" },
+        { name: "Vintage Handmade Genuine Leather Journal", price: 499, img: "vintage-journal.jpg", desc: "Premium handcrafted leather diary with handmade paper" }
+      ]
+    };
 
-  // Initial render
-  renderProducts();
-</script>
-</body>
-</html>
+    const cart = [];
+    let currentModalProduct = null;
+    let currentCategory = 'all';
+
+    // Cart functions
+    function toggleCart() {
+      const cartPanel = document.getElementById('cartPanel');
+      const overlay = document.getElementById('cartOverlay');
+      cartPanel.classList.toggle('open');
+      overlay.classList.toggle('active');
+      document.body.classList.toggle('overflow-hidden');
+      updateCartPanel();
+    }
+
+    function addToCart(category, index) {
+      const product = products[category][index];
+      const existing = cart.find(p => p.name === product.name);
+      
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      
+      updateProductCard(category, index);
+      updateCartCounter();
+      updateCart();
+      updateCartPanel();
+    }
+
+    function updateQty(category, index, change) {
+      const product = products[category][index];
+      const itemIndex = cart.findIndex(p => p.name === product.name);
+      
+      if (itemIndex > -1) {
+        cart[itemIndex].qty += change;
+        
+        if (cart[itemIndex].qty < 1) {
+          cart.splice(itemIndex, 1);
+        }
+        
+        renderProducts(currentCategory, document.getElementById('productSearch').value);
+        updateCartCounter();
+        updateCart();
+        updateCartPanel();
+      }
+    }
+
+    function updatePanelQty(name, change) {
+      const itemIndex = cart.findIndex(p => p.name === name);
+      
+      if (itemIndex > -1) {
+        cart[itemIndex].qty += change;
+        
+        if (cart[itemIndex].qty < 1) {
+          cart.splice(itemIndex, 1);
+        }
+        
+        renderProducts(currentCategory, document.getElementById('productSearch').value);
+        updateCartCounter();
+        updateCart();
+        updateCartPanel();
+      }
+    }
+
+    function updateCartCounter() {
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      const counters = document.querySelectorAll('[id^="cartCounter"]');
+      
+      counters.forEach(counter => {
+        counter.textContent = totalItems;
+        counter.classList.toggle('hidden', totalItems === 0);
+      });
+    }
+
+    function updateCart() {
+      const list = document.getElementById("cartItems");
+      const totalEl = document.getElementById("cartTotal");
+      list.innerHTML = '';
+      let total = 0;
+      
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        list.innerHTML += `
+            <li class="cart-item flex justify-between items-center p-3 rounded-lg">
+                <span>${item.name} x ${item.qty}</span>
+                <span class="font-semibold">₹${item.price * item.qty}</span>
+            </li>
+        `;
+      });
+      
+      totalEl.textContent = total;
+    }
+
+    function updateCartPanel() {
+      const panelItems = document.getElementById("cartPanelItems");
+      const subtotalEl = document.getElementById("cartPanelSubtotal");
+      const totalEl = document.getElementById("cartPanelTotal");
+      
+      panelItems.innerHTML = '';
+      let subtotal = 0;
+      
+      cart.forEach(item => {
+        subtotal += item.price * item.qty;
+        panelItems.innerHTML += `
+            <div class="flex
