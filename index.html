@@ -15,11 +15,11 @@
       src: url('trajan-pro.woff2') format('woff2'), url('trajan-pro.woff') format('woff');
     }
     :root {
-      --primary: #2A2D34;
-      --secondary: #5C6B73;
-      --accent: #D4A373;
-      --dark: #1A1A1A;
-      --light: #F8F9FA;
+      --primary: #2A2D34;    /* Deep Navy */
+      --secondary: #5C6B73;  /* Steel Blue */
+      --accent: #D4A373;     /* Warm Gold */
+      --dark: #1A1A1A;       /* Dark Text */
+      --light: #F8F9FA;      /* Light Background */
     }
 
     body {
@@ -77,82 +77,40 @@
       transform: translateY(-3px);
       box-shadow: 0 8px 16px rgba(42, 45, 52, 0.2);
     }
-    .category-filter {
-      position: relative;
-      max-width: 300px;
-      margin: 20px auto;
-    }
-    .category-select {
-      appearance: none;
-      width: 100%;
-      padding: 12px 48px 12px 16px;
-      border: 2px solid var(--secondary);
-      border-radius: 8px;
-      background-color: white;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 16px;
-      color: var(--primary);
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235C6B73' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-      background-repeat: no-repeat;
-      background-position: right 1rem center;
-      background-size: 1em;
-    }
-    .quantity-controls {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    .quantity-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: 1px solid var(--secondary);
+    .category-btn {
       background: white;
+      border: 2px solid var(--secondary);
       color: var(--secondary);
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
     }
-    .quantity-btn:hover {
-      background: var(--secondary);
+    .category-btn.active, .category-btn:hover {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       color: white;
+      border-color: transparent;
     }
-    .quantity-display {
-      min-width: 36px;
-      text-align: center;
-      font-weight: 600;
-      color: var(--primary);
+    .feature-icon {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     }
     .cart-panel {
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-      width: 100%;
-      max-width: 400px;
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      right: 0;
       background: white;
       box-shadow: -8px 0 32px rgba(0,0,0,0.05);
-      overflow-y: auto;
-      z-index: 1000;
     }
-    .cart-panel.open {
-      transform: translateX(0);
+    .loader {
+      border-top-color: var(--primary);
     }
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 999;
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(-2deg); }
+      50% { transform: translateY(-15px) rotate(2deg); }
+      100% { transform: translateY(0px) rotate(-2deg); }
     }
-    .overlay.active {
-      display: block;
+    .floating {
+      animation: float 4s ease-in-out infinite;
+    }
+    .image-scale {
+      transition: transform 0.4s ease;
+    }
+    .image-scale:hover {
+      transform: scale(1.08);
     }
   </style>
 </head>
@@ -202,7 +160,7 @@
   </header>
 
   <!-- Cart Panel -->
-  <div class="overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <div class="overlay" id="cartOverlay"></div>
   <div class="cart-panel" id="cartPanel">
     <div class="p-6">
       <div class="flex justify-between items-center mb-6">
@@ -296,14 +254,12 @@
           <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
         </div>
       </div>
-      <div class="category-filter">
-        <select id="categorySelect" class="category-select" onchange="showCategory(this.value)">
-          <option value="all">All Products</option>
-          <option value="keychains">Keychains</option>
-          <option value="artSupplies">Art Supplies</option>
-          <option value="stationery">Stationery</option>
-          <option value="diaries">Diaries</option>
-        </select>
+      <div class="category-selector">
+        <button class="category-btn active" onclick="showCategory('all', event)">All Products</button>
+        <button class="category-btn" onclick="showCategory('keychains', event)">Keychains</button>
+        <button class="category-btn" onclick="showCategory('artSupplies', event)">Art Supplies</button>
+        <button class="category-btn" onclick="showCategory('stationery', event)">Stationery</button>
+        <button class="category-btn" onclick="showCategory('diaries', event)">Diaries</button>
       </div>
       <div id="productsContainer" class="relative"></div>
     </div>
@@ -447,6 +403,7 @@
   </div>
 
   <script>
+    // Products data with new additions
     const products = {
       keychains: [
         { name: "Thor Loki Keychain", price: 99, img: "Screenshot_20250422_132243_Meesho.jpg", desc: "High-quality metal keychain featuring Thor and Loki designs" },
@@ -483,136 +440,19 @@
     let currentModalProduct = null;
     let currentCategory = 'all';
 
-    // Cart functions
-    function toggleCart() {
-      const cartPanel = document.getElementById('cartPanel');
-      const overlay = document.getElementById('cartOverlay');
-      cartPanel.classList.toggle('open');
-      overlay.classList.toggle('active');
-      document.body.classList.toggle('overflow-hidden');
-      updateCartPanel();
-    }
-
-    function addToCart(category, index) {
-      const product = products[category][index];
-      const existing = cart.find(p => p.name === product.name);
-      
-      if (existing) {
-        existing.qty++;
-      } else {
-        cart.push({ ...product, qty: 1 });
-      }
-      
-      updateProductCard(category, index);
-      updateCartCounter();
-      updateCart();
-      updateCartPanel();
-    }
-
-    function updateQty(category, index, change) {
-      const product = products[category][index];
-      const itemIndex = cart.findIndex(p => p.name === product.name);
-      
-      if (itemIndex > -1) {
-        cart[itemIndex].qty += change;
-        
-        if (cart[itemIndex].qty < 1) {
-          cart.splice(itemIndex, 1);
-        }
-        
-        renderProducts(currentCategory, document.getElementById('productSearch').value);
-        updateCartCounter();
-        updateCart();
-        updateCartPanel();
-      }
-    }
-
-    function updatePanelQty(name, change) {
-      const itemIndex = cart.findIndex(p => p.name === name);
-      
-      if (itemIndex > -1) {
-        cart[itemIndex].qty += change;
-        
-        if (cart[itemIndex].qty < 1) {
-          cart.splice(itemIndex, 1);
-        }
-        
-        renderProducts(currentCategory, document.getElementById('productSearch').value);
-        updateCartCounter();
-        updateCart();
-        updateCartPanel();
-      }
-    }
-
-    function updateCartCounter() {
-      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-      const counters = document.querySelectorAll('[id^="cartCounter"]');
-      
-      counters.forEach(counter => {
-        counter.textContent = totalItems;
-        counter.classList.toggle('hidden', totalItems === 0);
-      });
-    }
-
-    function updateCart() {
-      const list = document.getElementById("cartItems");
-      const totalEl = document.getElementById("cartTotal");
-      list.innerHTML = '';
-      let total = 0;
-      
-      cart.forEach(item => {
-        total += item.price * item.qty;
-        list.innerHTML += `
-            <li class="cart-item flex justify-between items-center p-3 rounded-lg">
-                <span>${item.name} x ${item.qty}</span>
-                <span class="font-semibold">₹${item.price * item.qty}</span>
-            </li>
-        `;
-      });
-      
-      totalEl.textContent = total;
-    }
-
-    function updateCartPanel() {
-      const panelItems = document.getElementById("cartPanelItems");
-      const subtotalEl = document.getElementById("cartPanelSubtotal");
-      const totalEl = document.getElementById("cartPanelTotal");
-      
-      panelItems.innerHTML = '';
-      let subtotal = 0;
-      
-      cart.forEach(item => {
-        subtotal += item.price * item.qty;
-        panelItems.innerHTML += `
-            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <div class="flex items-center">
-                    <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-contain mr-4">
-                    <div>
-                        <h4 class="font-medium">${item.name}</h4>
-                        <p class="text-sm text-gray-600">₹${item.price}</p>
-                    </div>
-                </div>
-                <div class="flex items-center">
-                    <button onclick="updatePanelQty('${item.name}', -1)" 
-                            class="quantity-btn">-</button>
-                    <span class="quantity-display">${item.qty}</span>
-                    <button onclick="updatePanelQty('${item.name}', 1)" 
-                            class="quantity-btn">+</button>
-                </div>
-            </div>
-        `;
-      });
-      
-      subtotalEl.textContent = subtotal;
-      totalEl.textContent = subtotal;
-      document.getElementById('discountRow').classList.add('hidden');
-    }
-
-    // Product display functions
-    function showCategory(category) {
+    // Core functions
+    function showCategory(category, event) {
       currentCategory = category;
-      renderProducts(category, document.getElementById('productSearch').value);
-      animateCards();
+      document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      const container = document.getElementById("productsContainer");
+      container.innerHTML = '<div class="loader"></div>';
+      
+      setTimeout(() => {
+        renderProducts(category, document.getElementById('productSearch').value);
+        animateCards();
+      }, 50);
     }
 
     function renderProducts(category = 'all', searchTerm = '') {
@@ -670,10 +510,10 @@
         <span class="block text-xl font-bold text-indigo-600 mb-4 px-4">₹${product.price}</span>
         <div class="px-4 pb-4">
           ${inCart ? `
-            <div class="quantity-controls">
-              <button onclick="updateQty('${category}', ${index}, -1)" class="quantity-btn">-</button>
-              <span class="quantity-display">${inCart.qty}</span>
-              <button onclick="updateQty('${category}', ${index}, 1)" class="quantity-btn">+</button>
+            <div class="flex items-center justify-center gap-3">
+              <button onclick="updateQty('${category}', ${index}, -1)" class="bg-gray-100 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-200 transition">-</button>
+              <span class="font-semibold text-gray-700">${inCart.qty}</span>
+              <button onclick="updateQty('${category}', ${index}, 1)" class="bg-gray-100 text-gray-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-200 transition">+</button>
             </div>` : `
             <button onclick="addToCart('${category}', ${index})" class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition">Add to Cart</button>`
           }
@@ -682,80 +522,159 @@
       return card;
     }
 
-    // Order functions
-    function prepareOrder() {
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (!user) return;
-
-      const coupon = document.getElementById('coupon').value.trim();
-      let summary = `Order for ${user.name}\nEmail: ${user.email}\nPhone: ${user.phone}\nAddress: ${user.address}\n\nOrder Details:\n`;
-      let total = 0;
-
-      cart.forEach(item => {
-        summary += `${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
-        total += item.price * item.qty;
-      });
-
-      if (coupon === "NSL10%") {
-        const discount = Math.round(total * 0.10);
-        summary += `\nDiscount (NSL10%): -₹${discount}\n`;
-        total -= discount;
-      }
-
-      summary += `\nTotal: ₹${total}\n\nPayment Method: ${document.querySelector('select[name="payment"]').value}`;
-      document.getElementById("orderSummaryText").value = summary;
+    // Cart functionality
+    function addToCart(category, index) {
+      const product = products[category][index];
+      const existing = cart.find(p => p.name === product.name);
       
-      setTimeout(() => {
-        document.getElementById('orderConfirmation').classList.remove('hidden');
-        cart.length = 0;
-        updateCart();
-        updateCartCounter();
-        updateCartPanel();
-      }, 1000);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      
+      updateProductCard(category, index);
+      updateCartCounter();
+      updateCart();
+      updateCartPanel();
     }
 
-    // Initialization
-    window.onload = () => {
-      renderProducts();
-      document.getElementById('productSearch').addEventListener('input', function() {
-        renderProducts(currentCategory, this.value);
-      });
-      populateOrderForm();
-    };
-
-    function populateOrderForm() {
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (user) {
-        document.getElementById('formName').value = user.name;
-        document.getElementById('formEmail').value = user.email;
-        document.getElementById('formPhone').value = user.phone;
-        document.getElementById('formAddress').value = user.address;
-        document.getElementById('loginForm').classList.add('hidden');
-        document.getElementById('orderForm').classList.remove('hidden');
+    function updateQty(category, index, change) {
+      const product = products[category][index];
+      const item = cart.find(p => p.name === product.name);
+      
+      if (item) {
+        item.qty += change;
+        if (item.qty <= 0) {
+          cart.splice(cart.indexOf(item), 1);
+        }
+        updateProductCard(category, index);
+        updateCartCounter();
+        updateCart();
+        updateCartPanel();
       }
     }
 
-    function animateCards() {
-      document.querySelectorAll('.product-card').forEach((card, index) => {
-        setTimeout(() => {
-          card.classList.add('animate__fadeInUp');
-        }, index * 50);
+    function updateCart() {
+      const list = document.getElementById("cartItems");
+      const totalEl = document.getElementById("cartTotal");
+      list.innerHTML = '';
+      let total = 0;
+      
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        list.innerHTML += `
+            <li class="cart-item flex justify-between items-center p-3 rounded-lg">
+                <span>${item.name} x ${item.qty}</span>
+                <span class="font-semibold">₹${item.price * item.qty}</span>
+            </li>
+        `;
       });
+      
+      totalEl.textContent = total;
+      updateCartCounter();
     }
 
-    // Utility functions
-    function logout() {
-      localStorage.removeItem('user');
-      location.reload();
+    function updateCartPanel() {
+      const panelItems = document.getElementById("cartPanelItems");
+      const subtotalEl = document.getElementById("cartPanelSubtotal");
+      const totalEl = document.getElementById("cartPanelTotal");
+      
+      panelItems.innerHTML = '';
+      let subtotal = 0;
+      
+      cart.forEach(item => {
+        subtotal += item.price * item.qty;
+        panelItems.innerHTML += `
+            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                <div class="flex items-center">
+                    <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-contain mr-4">
+                    <div>
+                        <h4 class="font-medium">${item.name}</h4>
+                        <p class="text-sm text-gray-600">₹${item.price}</p>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <button onclick="updatePanelQty('${item.name}', -1)" 
+                            class="bg-gray-200 text-gray-700 w-6 h-6 rounded-full flex items-center justify-center hover:bg-gray-300 transition">-</button>
+                    <span class="mx-2 font-medium">${item.qty}</span>
+                    <button onclick="updatePanelQty('${item.name}', 1)" 
+                            class="bg-gray-200 text-gray-700 w-6 h-6 rounded-full flex items-center justify-center hover:bg-gray-300 transition">+</button>
+                </div>
+            </div>
+        `;
+      });
+      
+      subtotalEl.textContent = subtotal;
+      totalEl.textContent = subtotal;
+      document.getElementById('discountRow').classList.add('hidden');
     }
 
-    function toggleMobileMenu() {
-      document.getElementById('mobileMenu').classList.toggle('hidden');
+    function updatePanelQty(name, change) {
+      const item = cart.find(p => p.name === name);
+      if (item) {
+        item.qty += change;
+        if (item.qty <= 0) {
+          cart.splice(cart.indexOf(item), 1);
+        }
+        updateCart();
+        updateCartPanel();
+        updateCartCounter();
+        
+        Object.entries(products).forEach(([category, items]) => {
+          const index = items.findIndex(p => p.name === name);
+          if (index !== -1) {
+            updateProductCard(category, index);
+          }
+        });
+      }
     }
 
-    function closeOrderConfirmation() {
-      document.getElementById('orderConfirmation').classList.add('hidden');
-      window.location.href = '#products';
+    function updateProductCard(category, index) {
+      const product = products[category][index];
+      const cardId = `product-${category}-${index}`;
+      const card = document.getElementById(cardId);
+      if (!card) return;
+      
+      const itemInCart = cart.find(item => item.name === product.name);
+      const controlsDiv = card.querySelector('.product-controls');
+      
+      if (controlsDiv) {
+        controlsDiv.innerHTML = itemInCart ? `
+          <div class="flex items-center justify-center gap-3">
+            <button onclick="updateQty('${category}', ${index}, -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-300 transition">-</button>
+            <span class="font-semibold text-gray-700">${itemInCart.qty}</span>
+            <button onclick="updateQty('${category}', ${index}, 1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-300 transition">+</button>
+          </div>` : `
+          <button onclick="addToCart('${category}', ${index})" class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition">Add to Cart</button>`;
+      }
+    }
+
+    // Remaining functions
+    function updateCartCounter() {
+      const counter = document.getElementById('cartCounter');
+      const mobileCounter = document.getElementById('cartCounterMobile');
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      
+      counter.textContent = totalItems;
+      mobileCounter.textContent = totalItems;
+      
+      counter.classList.toggle('hidden', totalItems === 0);
+      mobileCounter.classList.toggle('hidden', totalItems === 0);
+    }
+
+    function toggleCart() {
+      const cartPanel = document.getElementById('cartPanel');
+      const overlay = document.getElementById('cartOverlay');
+      cartPanel.classList.toggle('open');
+      overlay.classList.toggle('active');
+      document.body.classList.toggle('overflow-hidden');
+      updateCartPanel();
+    }
+
+    function proceedToCheckout() {
+      toggleCart();
+      document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
     }
 
     function applyCoupon() {
@@ -807,6 +726,50 @@
       document.getElementById('productModal').classList.add('hidden');
     }
 
+    function addToCartFromModal() {
+      if (currentModalProduct) {
+        addToCart(currentModalProduct.category, currentModalProduct.index);
+        closeModal();
+      }
+    }
+
+    // Order processing functions
+    function prepareOrder() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (!user) return;
+
+      const coupon = document.getElementById('coupon').value.trim();
+      let summary = `Order for ${user.name}\nEmail: ${user.email}\nPhone: ${user.phone}\nAddress: ${user.address}\n\nOrder Details:\n`;
+      let total = 0;
+
+      cart.forEach(item => {
+        summary += `${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
+        total += item.price * item.qty;
+      });
+
+      if (coupon === "NSL10%") {
+        const discount = Math.round(total * 0.10);
+        summary += `\nDiscount (NSL10%): -₹${discount}\n`;
+        total -= discount;
+      }
+
+      summary += `\nTotal: ₹${total}\n\nPayment Method: ${document.querySelector('select[name="payment"]').value}`;
+      document.getElementById("orderSummaryText").value = summary;
+      
+      setTimeout(() => {
+        document.getElementById('orderConfirmation').classList.remove('hidden');
+        cart.length = 0;
+        updateCart();
+        updateCartCounter();
+        updateCartPanel();
+      }, 1000);
+    }
+
+    function closeOrderConfirmation() {
+      document.getElementById('orderConfirmation').classList.add('hidden');
+      window.location.href = '#products';
+    }
+
     function saveUser() {
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
@@ -833,6 +796,47 @@
       localStorage.setItem('user', JSON.stringify({ name, email, phone, address }));
       populateOrderForm();
     }
+
+    function populateOrderForm() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        document.getElementById('formName').value = user.name;
+        document.getElementById('formEmail').value = user.email;
+        document.getElementById('formPhone').value = user.phone;
+        document.getElementById('formAddress').value = user.address;
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('orderForm').classList.remove('hidden');
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('user');
+      location.reload();
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+
+    // Initialization
+    window.onload = () => {
+      renderProducts();
+      populateOrderForm();
+      document.getElementById('modalAddToCart').addEventListener('click', addToCartFromModal);
+      document.getElementById('productSearch').addEventListener('input', function() {
+        const activeCategory = document.querySelector('.category-btn.active');
+        const category = activeCategory ? activeCategory.getAttribute('onclick').replace("showCategory('", "").replace("')", "") : 'all';
+        renderProducts(category, this.value);
+      });
+    };
+
+    function animateCards() {
+      document.querySelectorAll('.product-card').forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('animate__fadeInUp');
+        }, index * 50);
+      });
+    }
   </script>
 </body>
-</html>
+</html> 
