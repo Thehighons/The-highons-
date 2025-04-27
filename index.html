@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="The Highon's - Premium creative supplies including keychains, art supplies, stationery, and diaries. Shop now for high-quality products.">
   <title>The Highon's - Creative Supplies | Premium Keychains, Art Materials & Stationery</title>
-  <!-- External Libraries -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Inline Styles -->
   <style>
     @font-face {
       font-family: 'Trajan Pro';
@@ -20,10 +18,10 @@
     }
     :root {
       --primary: #2A2D34;    /* Deep Navy */
-      --secondary: #5C6B73;  /* Steel Blue */
-      --accent: #D4A373;     /* Warm Gold */
-      --dark: #1A1A1A;       /* Dark Text */
-      --light: #F8F9FA;      /* Light Background */
+      --secondary: #5C6B73; /* Steel Blue */
+      --accent: #D4A373;    /* Warm Gold */
+      --dark: #1A1A1A;      /* Dark Text */
+      --light: #F8F9FA;     /* Light Background */
     }
 
     body {
@@ -283,7 +281,6 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-  <!-- Navbar -->
   <header class="bg-white shadow-sm sticky top-0 z-50">
     <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
       <div class="flex items-center">
@@ -296,7 +293,6 @@
         <a href="#request" class="nav-link">Request Product</a>
         <a href="#contact" class="nav-link">Contact</a>
         <div class="relative ml-4">
-          <!-- DESKTOP CART BUTTON -->
           <button onclick="toggleCart()" class="flex items-center relative text-gray-600 hover:text-gray-800">
             <i class="fas fa-shopping-cart text-xl"></i>
             <span id="cartCounter" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold hidden">0</span>
@@ -305,9 +301,8 @@
         <button id="logoutButtonDesktop" onclick="logout()" class="ml-4 text-sm btn-primary px-4 py-2 rounded-full hidden">Logout</button>
       </nav>
       <div class="md:hidden flex items-center space-x-4">
-        <!-- MOBILE CART BUTTON -->
         <button onclick="toggleCart()" class="flex items-center relative text-gray-600 hover:text-gray-800">
-          <i class="fas fa-shopping-cart text-xl"></i>
+           <i class="fas fa-shopping-cart text-xl"></i>
           <span id="cartCounterMobile" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold hidden">0</span>
         </button>
         <button onclick="toggleMobileMenu()" class="text-gray-700">
@@ -315,9 +310,8 @@
         </button>
       </div>
     </div>
-    <!-- Mobile Menu -->
     <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-200 p-4">
-      <div class="flex flex-col space-y-4">
+       <div class="flex flex-col space-y-4">
         <a href="#products" class="nav-link block py-2" onclick="toggleMobileMenu()">Products</a>
         <a href="#features" class="nav-link block py-2" onclick="toggleMobileMenu()">Why Choose Us</a>
         <a href="#order" class="nav-link block py-2" onclick="toggleMobileMenu()">Order</a>
@@ -325,10 +319,9 @@
         <a href="#contact" class="nav-link block py-2" onclick="toggleMobileMenu()">Contact</a>
         <button id="logoutButtonMobile" onclick="logout()" class="text-sm btn-primary px-4 py-2 rounded-full w-full mt-4 hidden">Logout</button>
       </div>
-    </div>
+     </div>
   </header>
 
-  <!-- Cart Panel -->
   <div class="overlay" id="cartOverlay" onclick="toggleCart()"></div>
   <div class="cart-panel" id="cartPanel">
       <div class="cart-panel-content">
@@ -337,25 +330,23 @@
               <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700 text-2xl leading-none align-middle">×</button>
           </div>
           <div id="cartPanelItems" class="space-y-4 mb-6">
-            <!-- Cart items will be loaded here -->
-            <p id="emptyCartMessage" class="text-center text-gray-500">Your cart is empty.</p>
+             <p id="emptyCartMessage" class="text-center text-gray-500">Your cart is empty.</p>
           </div>
       </div>
-      <div id="cartPanelFooter" class="cart-panel-footer hidden"> <!-- Initially hidden -->
-          <div class="border-t border-gray-200 pt-4 mb-6">
+      <div id="cartPanelFooter" class="cart-panel-footer hidden"> <div class="border-t border-gray-200 pt-4 mb-6">
               <div class="flex justify-between mb-2">
-                  <span class="font-semibold">Subtotal:</span>
+                 <span class="font-semibold">Subtotal:</span>
                   <span class="font-semibold">₹<span id="cartPanelSubtotal">0</span></span>
               </div>
               <div id="discountRow" class="flex justify-between mb-2 hidden">
                   <span class="font-semibold">Discount:</span>
-                  <span class="font-semibold text-green-600">-₹<span id="cartPanelDiscount">0</span></span>
+                   <span class="font-semibold text-green-600">-₹<span id="cartPanelDiscount">0</span></span>
               </div>
               <div class="flex justify-between text-lg font-bold">
                   <span>Total:</span>
                   <span>₹<span id="cartPanelTotal">0</span></span>
               </div>
-          </div>
+           </div>
           <div class="mb-4">
               <label for="cartCoupon" class="block font-semibold mb-2 text-gray-700">Coupon Code:</label>
               <div class="flex">
@@ -367,7 +358,6 @@
       </div>
   </div>
 
-  <!-- Hero Section -->
   <section class="text-center hero-gradient pt-20 pb-12">
     <div class="max-w-4xl mx-auto px-6">
       <img src="GridArt_20250425_064014157.png" alt="The Highon's Logo" class="logo mb-6 animate__animated animate__fadeIn w-48 mx-auto" loading="lazy">
@@ -379,7 +369,7 @@
       <div class="floating animate__animated animate__fadeIn animate__delay-3s">
         <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-32 h-32 rounded-lg object-cover shadow-xl image-scale" loading="lazy">
       </div>
-      <div class="floating animate__animated animate__fadeIn animate__delay-4s" style="animation-delay: 0.5s">
+       <div class="floating animate__animated animate__fadeIn animate__delay-4s" style="animation-delay: 0.5s">
         <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-32 h-32 rounded-lg object-cover shadow-xl image-scale" loading="lazy">
       </div>
       <div class="floating animate__animated animate__fadeIn animate__delay-5s" style="animation-delay: 1s">
@@ -388,7 +378,6 @@
     </div>
   </section>
 
-  <!-- Features -->
   <section id="features" class="py-20 bg-gray-50 px-6">
     <div class="max-w-7xl mx-auto">
       <h2 class="text-4xl font-bold mb-12 text-center text-gray-800">Why Choose The Highon's</h2>
@@ -399,7 +388,7 @@
           </div>
           <h3 class="text-xl font-bold mb-3 text-gray-800">Premium Quality</h3>
           <p class="text-gray-600">We source only the highest quality materials to ensure your creative projects shine.</p>
-        </div>
+         </div>
         <div class="feature-card animate__animated">
           <div class="feature-icon">
             <i class="fas fa-truck"></i>
@@ -407,7 +396,7 @@
           <h3 class="text-xl font-bold mb-3 text-gray-800">Local Delivery Only</h3>
           <p class="text-gray-600">Delivery within Navsari with careful packaging to protect your items.</p>
         </div>
-        <div class="feature-card animate__animated">
+         <div class="feature-card animate__animated">
           <div class="feature-icon">
             <i class="fas fa-headset"></i>
           </div>
@@ -418,7 +407,6 @@
     </div>
   </section>
 
-  <!-- Products -->
   <section id="products" class="py-20 bg-white px-6">
     <div class="max-w-7xl mx-auto">
       <h2 class="text-4xl font-bold mb-6 text-center text-gray-800">Our Premium Collection</h2>
@@ -432,32 +420,26 @@
             <select id="categoryFilter" class="p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white">
               <option value="all">All Products</option>
               <option value="keychains">Keychains</option>
-              <option value="artSupplies">Art Supplies</option>
+               <option value="artSupplies">Art Supplies</option>
               <option value="stationery">Stationery</option>
               <option value="diaries">Diaries</option>
             </select>
           </div>
       </div>
       <div id="productsContainer" class="relative">
-          <!-- Product cards will be loaded here -->
-          <div class="loader"></div> <!-- Initial loader -->
-      </div>
+          <div class="loader"></div> </div>
     </div>
   </section>
 
-  <!-- Product Request Section -->
   <section id="request" class="py-20 bg-gray-50 px-6">
     <div class="max-w-2xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-8 text-gray-800">Request a Product</h2>
       <div class="product-request-form bg-white p-8 rounded-xl shadow-md">
         <form id="requestForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
-          <!-- !! UPDATE THIS URL if you have a thank you page -->
-          <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-request.html"> <!-- Replace with your actual thank you page URL -->
-          <input type="hidden" name="_subject" value="New Product Request from The Highon's Site">
-          <input type="hidden" name="_captcha" value="false"> <!-- Consider enabling reCAPTCHA later -->
-          <div>
+          <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-request.html"> <input type="hidden" name="_subject" value="New Product Request from The Highon's Site">
+          <input type="hidden" name="_captcha" value="false"> <div>
             <label for="requestName" class="block font-semibold mb-2 text-gray-700">Product Name</label>
-            <input type="text" id="requestName" name="product" placeholder="What product are you looking for?" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+             <input type="text" id="requestName" name="product" placeholder="What product are you looking for?" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
           </div>
           <div>
             <label for="requestDetails" class="block font-semibold mb-2 text-gray-700">Additional Details</label>
@@ -473,31 +455,22 @@
     </div>
   </section>
 
-  <!-- Order Section -->
   <section id="order" class="py-20 bg-white px-6">
     <div class="max-w-2xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-8 text-gray-800">Place Your Order</h2>
-      <!-- Login/User Info Form -->
       <div id="loginForm" class="space-y-6 text-left bg-white p-8 rounded-xl shadow-md">
         <h3 class="text-2xl font-semibold mb-6 text-gray-700">Your Information</h3>
         <input type="text" id="name" placeholder="Full Name" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
         <input type="email" id="email" placeholder="Email" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
-        <input type="tel" id="phone" placeholder="Phone (+91)" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required pattern="[6-9]\d{9}"> <!-- Added pattern for basic validation -->
-        <input type="text" id="address" placeholder="Full Address (Navsari)" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+        <input type="tel" id="phone" placeholder="Phone (+91)" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required pattern="[6-9]\d{9}"> <input type="text" id="address" placeholder="Full Address (Navsari)" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
         <button onclick="saveUser()" class="w-full btn-primary text-white py-4 rounded-lg font-medium mt-4">Save & Continue</button>
-      </div>
-      <!-- Order Form (Initially Hidden) -->
+       </div>
       <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left bg-white p-8 rounded-xl shadow-md hidden">
-        <!-- !! UPDATE THIS URL if you have a thank you page -->
-        <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-order.html"> <!-- Replace with your actual thank you page URL -->
-        <input type="hidden" name="_captcha" value="false"> <!-- Consider enabling reCAPTCHA later -->
-        <input type="hidden" name="_subject" value="New Order from The Highon's Site!">
-        <!-- User details will be added here by JS -->
+        <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-order.html"> <input type="hidden" name="_captcha" value="false"> <input type="hidden" name="_subject" value="New Order from The Highon's Site!">
         <input type="hidden" name="name" id="formName">
-        <input type="hidden" name="email" id="formEmail">
+         <input type="hidden" name="email" id="formEmail">
         <input type="hidden" name="phone" id="formPhone">
         <input type="hidden" name="address" id="formAddress">
-        <!-- The detailed order summary will be put here -->
         <input type="hidden" name="message" id="orderSummaryText">
 
         <h3 class="text-2xl font-semibold mb-6 text-gray-700">Order Summary</h3>
@@ -509,16 +482,14 @@
           <h3 class="font-semibold text-lg mb-4 text-gray-800">Your Cart Items</h3>
           <ul id="cartItems" class="space-y-3 mb-4"></ul>
           <div class="border-t border-gray-200 pt-4">
-              <div id="summarySubtotalRow" class="flex justify-between mb-2"> <!-- Added Subtotal explicitly -->
-                  <span class="font-semibold">Subtotal:</span>
+              <div id="summarySubtotalRow" class="flex justify-between mb-2"> <span class="font-semibold">Subtotal:</span>
                   <span class="font-semibold">₹<span id="summarySubtotal">0</span></span>
               </div>
               <div id="summaryDiscountRow" class="flex justify-between mb-2 hidden">
                   <span class="font-semibold">Discount:</span>
-                  <span class="font-semibold text-green-600">-₹<span id="summaryDiscount">0</span></span>
+                   <span class="font-semibold text-green-600">-₹<span id="summaryDiscount">0</span></span>
               </div>
-              <p class="text-lg font-bold text-gray-800 flex justify-between"> <!-- Made total a flex row -->
-                <span>Total:</span>
+              <p class="text-lg font-bold text-gray-800 flex justify-between"> <span>Total:</span>
                 <span>₹<span id="cartTotal">0</span></span>
               </p>
           </div>
@@ -528,7 +499,7 @@
           <select id="payment" name="payment" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white">
             <option value="COD">Cash on Delivery</option>
             <option value="UPI">UPI Payment</option>
-          </select>
+           </select>
         </div>
         <div class="text-center bg-gray-50 p-4 rounded-lg mb-6">
           <p class="font-semibold mb-3 text-gray-700">Scan to Pay via UPI:</p>
@@ -536,11 +507,10 @@
         </div>
         <button type="submit" onclick="return prepareOrder()" class="w-full btn-primary text-white py-4 rounded-lg font-medium">Confirm Order</button>
       </form>
-      <p class="text-sm mt-6 text-gray-500">* Orders are only delivered within Navsari - 396445 *</p>
+       <p class="text-sm mt-6 text-gray-500">* Orders are only delivered within Navsari - 396445 *</p>
     </div>
   </section>
 
-  <!-- Contact -->
   <section id="contact" class="bg-gray-50 py-20 text-center px-6">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-4xl font-bold mb-8 text-gray-800">Get In Touch</h2>
@@ -550,14 +520,12 @@
           <p class="text-lg mb-2"><span class="font-medium">Email:</span> <a href="mailto:thehighonsofficial@gmail.com" class="text-purple-600 hover:text-purple-800">thehighonsofficial@gmail.com</a></p>
           <div class="flex space-x-4 mt-6">
             <a href="https://instagram.com/thehighons" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-instagram text-2xl"></i></a>
-            <!-- Add other social links here if needed -->
-          </div>
+            </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="bg-gray-900 text-white py-12 mt-auto">
     <div class="max-w-7xl mx-auto px-6">
       <div class="flex flex-col md:flex-row justify-between items-center">
@@ -579,7 +547,6 @@
     </div>
   </footer>
 
-  <!-- Modals -->
   <div id="productModal" class="fixed inset-0 z-[70] bg-black bg-opacity-50 flex items-center justify-center hidden p-4">
     <div class="bg-white p-8 rounded-xl shadow-2xl relative max-w-md w-full mx-auto animate__animated animate__zoomIn animate__faster">
       <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl leading-none">×</button>
@@ -602,7 +569,6 @@
     </div>
   </div>
 
-  <!-- JavaScript -->
   <script>
     // --- Product Data ---
     const products = {
@@ -636,24 +602,23 @@
             { name: "Vintage Handmade Genuine Leather Journal", price: 499, img: "vintage-journal.jpg", desc: "Premium handcrafted leather diary with handmade paper" }
         ]
     };
-
     // --- State Variables ---
     let cart = []; // Initialized later from localStorage
     let currentModalProduct = null;
     let currentCategory = 'all';
     let appliedCoupon = null;
-
     // --- Core Functions ---
 
     function renderProducts(category = 'all', searchTerm = '') {
         const container = document.getElementById("productsContainer");
         if (!container) { console.error("productsContainer not found!"); return; }
-        container.innerHTML = '<div class="loader"></div>'; // Show loader
+        // Removed initial loader setting from here
 
         // Use requestAnimationFrame for smoother rendering start
         requestAnimationFrame(() => {
+            container.innerHTML = '<div class="loader"></div>'; // ADDED: Show loader just before processing
             try {
-                container.innerHTML = ''; // Clear loader/previous content
+                container.innerHTML = ''; // Clear loader/previous content IMMEDIATELY INSIDE TRY
                 let hasProducts = false;
                 const searchTermLower = searchTerm.toLowerCase().trim();
 
@@ -706,17 +671,17 @@
                 }
             } catch (error) {
                 console.error("Error rendering products:", error);
-                container.innerHTML = '<p class="text-center text-red-500 py-12 text-lg">Error loading products. Please try again later.</p>';
+                container.innerHTML = '<p class="text-center text-red-500 py-12 text-lg">Error loading products. Please try again later.</p>'; // Error message replaces loader/content
             }
         }); // End requestAnimationFrame
     }
+
 
     function createProductCard(product, index, category) {
         const card = document.createElement("div");
         card.id = `product-${category}-${index}`;
         // Add animate__animated here, specific animation added by animateCards()
         card.className = "product-card animate__animated";
-
         const itemInCart = cart.find(item => item.name === product.name);
         const productNameSafe = escapeHtml(product.name); // Sanitize name
 
@@ -726,20 +691,18 @@
                 <img src="${escapeHtml(product.img)}" alt="${productNameSafe}" class="max-w-full max-h-full object-contain transition duration-300 hover:scale-105" loading="lazy">
             </div>
             <div class="product-card-content">
-                 <div> <!-- Top content wrapper -->
-                    <h3 class="text-lg font-semibold mb-1 text-gray-800">${productNameSafe}</h3>
+                 <div> <h3 class="text-lg font-semibold mb-1 text-gray-800">${productNameSafe}</h3>
                     <p class="text-sm text-gray-500 mb-3 min-h-[40px]">${escapeHtml(product.desc.substring(0, 50))}${product.desc.length > 50 ? '...' : ''}</p>
                     <span class="block text-xl font-bold text-purple-600 mb-4">₹${product.price}</span>
                 </div>
-                <div class="product-card-controls mt-auto"> <!-- Controls wrapper -->
-                    ${itemInCart ? `
+                <div class="product-card-controls mt-auto"> ${itemInCart ? `
                         <div class="quantity-controls">
                             <button onclick="event.stopPropagation(); updateQty('${category}', ${index}, -1)" class="quantity-btn" aria-label="Decrease quantity of ${productNameSafe}">-</button>
                             <span class="quantity-display">${itemInCart.qty}</span>
                             <button onclick="event.stopPropagation(); updateQty('${category}', ${index}, 1)" class="quantity-btn" aria-label="Increase quantity of ${productNameSafe}">+</button>
                         </div>` : `
                         <button onclick="event.stopPropagation(); addToCart('${category}', ${index})" class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition">Add to Cart</button>`
-                    }
+                     }
                 </div>
             </div>
         `;
@@ -747,7 +710,6 @@
         // Added aria-labels for accessibility
         return card;
     }
-
 
     // --- Cart Functionality ---
 
@@ -759,7 +721,6 @@
                 return;
             }
             const existingIndex = cart.findIndex(p => p.name === product.name);
-
             if (existingIndex > -1) {
                 cart[existingIndex].qty++;
             } else {
@@ -783,7 +744,6 @@
                 return;
             }
             const itemIndex = cart.findIndex(p => p.name === product.name);
-
             if (itemIndex > -1) {
                 const newQty = cart[itemIndex].qty + change;
                 if (newQty <= 0) {
@@ -830,7 +790,7 @@
                      <button onclick="event.stopPropagation(); updateQty('${category}', ${index}, -1)" class="quantity-btn" aria-label="Decrease quantity of ${productNameSafe}">-</button>
                      <span class="quantity-display">${itemInCart.qty}</span>
                      <button onclick="event.stopPropagation(); updateQty('${category}', ${index}, 1)" class="quantity-btn" aria-label="Increase quantity of ${productNameSafe}">+</button>
-                </div>` : `
+                 </div>` : `
                 <button onclick="event.stopPropagation(); addToCart('${category}', ${index})" class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition">Add to Cart</button>`;
         } catch (error) {
             console.error(`Error updating product card controls for ${category}-${index}:`, error);
@@ -867,7 +827,8 @@
                 cart = [];
                 saveCart();
             }
-            cart = cart.filter(item => item && typeof item.name === 'string' && typeof item.price === 'number' && typeof item.qty === 'number' && item.qty > 0);
+            // Clean cart data: ensure required fields exist and qty is positive
+            cart = cart.filter(item => item && typeof item.name === 'string' && typeof item.price === 'number' && typeof item.qty === 'number' && item.qty > 0 && item.category !== undefined && item.index !== undefined);
         } catch (error) {
             console.error("Error loading cart from localStorage:", error);
             cart = []; // Reset to empty cart on error
@@ -911,8 +872,10 @@
                     const itemTotal = itemPrice * itemQty;
                     subtotal += itemTotal;
 
-                     const safeItemName = escapeHtml(itemName); // Use already escaped name
-                     const safeItemNameForAttr = itemName.replace(/'/g, "\\'").replace(/"/g, '\\"'); // Escape for JS string in attribute
+                    const safeItemName = escapeHtml(itemName);
+                    // Need to escape quotes for the onclick attribute string itself
+                    const safeItemNameForAttr = itemName.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"');
+
 
                     panelItems.innerHTML += `
                         <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg shadow-sm">
@@ -928,7 +891,7 @@
                                 <span class="quantity-display">${itemQty}</span>
                                 <button onclick="updateQtyFromPanel('${safeItemNameForAttr}', 1)" class="quantity-btn" aria-label="Increase quantity of ${safeItemName}">+</button>
                             </div>
-                        </div>
+                         </div>
                     `;
                 });
 
@@ -956,19 +919,16 @@
     }
 
     function updateQtyFromPanel(name, change) {
-        // console.log(`updateQtyFromPanel called for: ${name}, change: ${change}`); // Debug
         try {
             const itemIndex = cart.findIndex(p => p.name === name);
             if (itemIndex > -1) {
                  const item = cart[itemIndex];
-                 const category = item.category;
-                 const index = item.index;
-
-                 if (category !== undefined && index !== undefined && products[category]?.[index]?.name === name) {
-                    //  console.log(`Using updateQty for ${category}[${index}]`); // Debug
-                     updateQty(category, index, change);
+                 // Ensure category and index are present from when item was added
+                 if (item.category !== undefined && item.index !== undefined) {
+                     updateQty(item.category, item.index, change);
                  } else {
-                     console.warn(`Fallback: Could not find original product info for ${name}. Updating cart directly.`);
+                     // Fallback if category/index somehow missing (should not happen with loadCart checks)
+                     console.warn(`Fallback: Could not find original product info for ${name} in cart item. Updating cart directly.`);
                      const newQty = cart[itemIndex].qty + change;
                      if (newQty <= 0) {
                          cart.splice(itemIndex, 1);
@@ -977,6 +937,8 @@
                      }
                      saveCart();
                      updateCartUI(); // Refresh everything
+                     // We can't reliably update the product card without category/index
+                     console.warn(`Could not update product card for ${name} due to missing category/index in cart item.`);
                  }
             } else {
                  console.warn("Item not found in cart for panel update:", name);
@@ -986,6 +948,7 @@
         }
     }
 
+
     function updateOrderSummary() {
         const list = document.getElementById("cartItems");
         const subtotalEl = document.getElementById("summarySubtotal"); // Get subtotal element
@@ -994,7 +957,7 @@
         const summaryDiscountRow = document.getElementById("summaryDiscountRow");
         const summaryDiscountEl = document.getElementById("summaryDiscount");
         const orderForm = document.getElementById("orderForm");
-        const couponInput = document.getElementById('coupon');
+        const couponInput = document.getElementById('coupon'); // Coupon input in ORDER FORM
 
         if (!list || !subtotalEl || !totalEl || !summarySubtotalRow || !summaryDiscountRow || !summaryDiscountEl || !orderForm || !couponInput) {
             console.error("One or more order summary elements not found! Cannot update.");
@@ -1010,7 +973,7 @@
                 subtotalEl.textContent = 0; // Set subtotal to 0
                 totalEl.textContent = 0;    // Set total to 0
                 summarySubtotalRow.classList.add('hidden'); // Hide subtotal row if empty
-                summaryDiscountRow.classList.add('hidden');
+                summaryDiscountRow.classList.add('hidden'); // Hide discount row
             } else {
                 summarySubtotalRow.classList.remove('hidden'); // Show subtotal row if cart has items
                 cart.forEach(item => {
@@ -1025,13 +988,12 @@
                         </li>
                     `;
                 });
-
-                 subtotalEl.textContent = subtotal; // Update subtotal display
+                subtotalEl.textContent = subtotal; // Update subtotal display
 
                  // Apply coupon discount
                 let finalTotal = subtotal;
                 let discount = 0;
-                const couponCode = couponInput.value.trim().toUpperCase();
+                const couponCode = couponInput.value.trim().toUpperCase(); // Use order form input value
 
                 // Check coupon from order form OR globally applied one
                 const effectiveCoupon = couponCode === "NSL10%" ? "NSL10%" : (appliedCoupon === "NSL10%" && couponCode === "" ? "NSL10%" : null);
@@ -1041,16 +1003,17 @@
                     finalTotal = subtotal - discount;
                     summaryDiscountEl.textContent = discount;
                     summaryDiscountRow.classList.remove('hidden');
-                    // Optionally sync order form input if coupon came from global state
+                    // Sync order form input if coupon came from global state and input is empty
                     if (couponCode === "" && appliedCoupon === "NSL10%") {
                         couponInput.value = appliedCoupon;
                     }
                 } else {
                     summaryDiscountRow.classList.add('hidden');
-                     // If user cleared coupon input, ensure global state reflects that
+                    // If user cleared coupon input, ensure global state reflects that
                     if (couponCode === "" && appliedCoupon) {
-                        appliedCoupon = null;
-                        updateCartPanel(); // Update panel as well
+                        appliedCoupon = null; // Clear global state only if input is explicitly cleared
+                        // Need to update cart panel too if global state changed here
+                        updateCartPanel();
                     }
                 }
                 totalEl.textContent = finalTotal;
@@ -1095,6 +1058,7 @@
             return;
         }
         const isOpen = cartPanel.classList.contains('open');
+
         try {
             if (isOpen) {
                 cartPanel.classList.remove('open');
@@ -1108,6 +1072,7 @@
             }
         } catch (error) {
             console.error("Error toggling cart visibility:", error);
+            // Attempt to reset to closed state on error
             cartPanel.classList.remove('open');
             overlay.classList.remove('active');
             body.classList.remove('overflow-hidden');
@@ -1121,15 +1086,18 @@
         }
         toggleCart(); // Close cart if open
 
+        // Delay scrolling slightly to allow cart closing animation
         setTimeout(() => {
              const orderSection = document.getElementById('order');
              if (orderSection) {
                 const user = localStorage.getItem('user');
-                const targetElement = user ? document.getElementById('orderForm') : document.getElementById('loginForm');
-                const elementToScrollTo = targetElement && !targetElement.classList.contains('hidden') ? targetElement : orderSection; // Scroll to section if form hidden
+                const loginForm = document.getElementById('loginForm');
+                const orderForm = document.getElementById('orderForm');
+                // Determine which form is currently visible or should be targeted
+                const targetElement = (user && orderForm && !orderForm.classList.contains('hidden')) ? orderForm : (loginForm && !loginForm.classList.contains('hidden') ? loginForm : orderSection);
 
-                elementToScrollTo.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                updateOrderSummary();
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                updateOrderSummary(); // Ensure summary is up-to-date when scrolling
              } else {
                  console.error("Order section (#order) not found!");
              }
@@ -1148,17 +1116,16 @@
             appliedCoupon = "NSL10%";
             alert('Coupon "NSL10%" applied successfully!');
         } else if (couponCode === "") {
-             appliedCoupon = null;
+             appliedCoupon = null; // Explicitly remove coupon
              alert('Coupon removed.');
         } else {
-            // Don't reset appliedCoupon if invalid, just clear input
+            // Invalid code entered, don't change appliedCoupon state, maybe clear input
             alert('Invalid coupon code.');
-            couponInput.value = '';
+            // couponInput.value = ''; // Optionally clear the input field on invalid
         }
         updateCartPanel();
         updateOrderSummary(); // Reflect change in order form too
     }
-
 
     function showModal(category, index) {
        try {
@@ -1167,7 +1134,7 @@
                 console.error("Product not found for modal:", category, index);
                 return;
             }
-            currentModalProduct = { category, index, name: product.name };
+            currentModalProduct = { category, index, name: product.name }; // Store reference
 
             const modalImg = document.getElementById('modalImg');
             const modalName = document.getElementById('modalName');
@@ -1187,6 +1154,7 @@
             modalDesc.textContent = escapeHtml(product.desc);
             modalPrice.textContent = `₹${product.price}`;
 
+            // Update button based on current cart state
             const itemInCart = cart.find(item => item.name === product.name);
             modalBtn.textContent = itemInCart ? `Add One More (Qty: ${itemInCart.qty})` : 'Add to Cart';
 
@@ -1195,12 +1163,12 @@
             modalBtn.parentNode.replaceChild(newBtn, modalBtn);
             newBtn.addEventListener('click', addToCartFromModal);
 
-            productModal.classList.remove('hidden');
+            productModal.classList.remove('hidden'); // Show the modal
 
        } catch (error) {
             console.error("Error showing modal:", error);
-             const productModal = document.getElementById('productModal');
-             if(productModal) productModal.classList.add('hidden');
+            const productModal = document.getElementById('productModal');
+            if(productModal) productModal.classList.add('hidden'); // Ensure modal is hidden on error
        }
     }
 
@@ -1209,24 +1177,29 @@
       if (productModal) {
         productModal.classList.add('hidden');
       }
-      currentModalProduct = null;
+      currentModalProduct = null; // Clear reference
     }
 
     function addToCartFromModal() {
         if (currentModalProduct) {
             const { category, index } = currentModalProduct;
+            // Double check product exists before adding
             if (category !== undefined && index !== undefined && products[category]?.[index]) {
-                addToCart(category, index);
-                 const modalBtn = document.getElementById('modalAddToCart'); // Get the potentially replaced button
+                addToCart(category, index); // Add the item
+
+                // Update modal button briefly
+                const modalBtn = document.getElementById('modalAddToCart'); // Get the (potentially replaced) button
                  if (modalBtn) {
                      modalBtn.textContent = 'Added!';
                      modalBtn.disabled = true; // Briefly disable
                      setTimeout(() => {
                          closeModal();
-                         modalBtn.disabled = false; // Re-enable after closing
+                         // Re-enable button after closing, ready for next modal open
+                         // The button text will be reset by showModal next time it's called
+                         modalBtn.disabled = false;
                      }, 800);
                  } else {
-                     closeModal();
+                     closeModal(); // Close even if button somehow missing
                  }
             } else {
                  console.error("Invalid category/index in currentModalProduct:", currentModalProduct);
@@ -1234,7 +1207,7 @@
             }
         } else {
              console.warn("Add to cart from modal called with no current product selected.");
-             closeModal();
+             closeModal(); // Close modal if state is inconsistent
         }
     }
 
@@ -1270,6 +1243,7 @@
         const emailRegex = /^\S+@\S+\.\S+$/;
         const phoneRegex = /^[6-9]\d{9}$/;
 
+        // Reset previous errors
         [nameInput, emailInput, phoneInput, addressInput].forEach(input => input.classList.remove('border-red-500'));
 
         if (!name) { isValid = false; nameInput.classList.add('border-red-500'); errorMessage += "- Full Name is required.\n"; }
@@ -1285,9 +1259,10 @@
         try {
             localStorage.setItem('user', JSON.stringify({ name, email, phone, address }));
             alert("Information saved successfully!");
-            populateOrderForm();
+            populateOrderForm(); // Show order form, hide login form
             const orderForm = document.getElementById('orderForm');
             if (orderForm) {
+                 // Scroll smoothly to the order form after saving info
                 orderForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         } catch (error) {
@@ -1309,37 +1284,43 @@
             const userString = localStorage.getItem('user');
             if (userString) {
                 const user = JSON.parse(userString);
-                 if (user && user.name && user.email && user.phone && user.address) {
+                // Ensure all required user fields are present
+                if (user && user.name && user.email && user.phone && user.address) {
                     const formName = document.getElementById('formName');
                     const formEmail = document.getElementById('formEmail');
                     const formPhone = document.getElementById('formPhone');
                     const formAddress = document.getElementById('formAddress');
 
+                    // Populate hidden fields in the order form
                     if (formName) formName.value = user.name;
                     if (formEmail) formEmail.value = user.email;
                     if (formPhone) formPhone.value = user.phone;
                     if (formAddress) formAddress.value = user.address;
 
+                    // Hide login form, show order form
                     loginForm.classList.add('hidden');
                     orderForm.classList.remove('hidden');
-                    updateOrderSummary();
+                    updateOrderSummary(); // Update the summary displayed in the order form
                 } else {
-                    console.warn("User data in localStorage is incomplete. Clearing.");
+                    // If user data is incomplete/invalid, remove it and show login form
+                    console.warn("User data in localStorage is incomplete or invalid. Clearing.");
                     localStorage.removeItem('user');
                     loginForm.classList.remove('hidden');
                     orderForm.classList.add('hidden');
                 }
             } else {
+                // No user data found, ensure login form is shown
                 loginForm.classList.remove('hidden');
                 orderForm.classList.add('hidden');
             }
         } catch (error) {
+             // Error parsing data, clear potentially corrupted data and show login form
              console.error("Error parsing user data or populating order form:", error);
-             localStorage.removeItem('user');
+             localStorage.removeItem('user'); // Attempt to clear bad data
              loginForm.classList.remove('hidden');
              orderForm.classList.add('hidden');
         }
-        updateLogoutButtonVisibility();
+        updateLogoutButtonVisibility(); // Update based on final login status
     }
 
     function logout() {
@@ -1348,38 +1329,41 @@
         }
         try {
             localStorage.removeItem('user');
-            localStorage.removeItem('cart');
-            cart = [];
-            appliedCoupon = null;
+            localStorage.removeItem('cart'); // Clear cart on logout too
+            cart = []; // Reset in-memory cart
+            appliedCoupon = null; // Reset coupon
             alert("You have been logged out.");
 
+            // Reset UI elements
             const loginForm = document.getElementById('loginForm');
             const orderForm = document.getElementById('orderForm');
             if (loginForm) loginForm.classList.remove('hidden');
             if (orderForm) orderForm.classList.add('hidden');
 
-            // Clear login form inputs
+            // Clear login form inputs visually
             ['name', 'email', 'phone', 'address'].forEach(id => {
                 const input = document.getElementById(id);
                 if (input) input.value = '';
             });
-            // Clear coupon inputs
+            // Clear coupon inputs visually
             ['cartCoupon', 'coupon'].forEach(id => {
                 const input = document.getElementById(id);
                 if(input) input.value = '';
             });
 
             updateLogoutButtonVisibility();
-            updateCartUI();
-            renderProducts(currentCategory, document.getElementById('productSearch')?.value || ''); // Re-render to reset cards
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
+            updateCartUI(); // Update counters, panels, summaries
+            // Re-render products to reset 'Add to Cart' buttons state
+            renderProducts(currentCategory, document.getElementById('productSearch')?.value || '');
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top
         } catch (error) {
             console.error("Error during logout:", error);
             alert("An error occurred during logout.");
-            // Attempt partial cleanup
-            cart = []; appliedCoupon = null;
-            updateCartUI(); updateLogoutButtonVisibility();
+            // Attempt partial cleanup even on error
+            cart = [];
+            appliedCoupon = null;
+            updateCartUI();
+            updateLogoutButtonVisibility();
         }
     }
 
@@ -1392,9 +1376,11 @@
         }
         try {
             const user = localStorage.getItem('user');
+            // Show logout buttons only if user data exists in localStorage
             logoutDesktop.classList.toggle('hidden', !user);
             logoutMobile.classList.toggle('hidden', !user);
         } catch (error) {
+             // Hide buttons if localStorage access fails
              console.error("Error checking user status for logout button:", error);
              logoutDesktop.classList.add('hidden');
              logoutMobile.classList.add('hidden');
@@ -1407,21 +1393,21 @@
             if (!userString) {
                 alert("Please save your information before placing the order.");
                 document.getElementById('loginForm')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                return false;
+                return false; // Prevent form submission
             }
-            const user = JSON.parse(userString);
+            const user = JSON.parse(userString); // Assume valid if userString exists (checked by populateOrderForm)
 
             if (cart.length === 0) {
                 alert("Your cart is empty. Cannot place order.");
-                toggleCart();
-                return false;
+                toggleCart(); // Show cart maybe? Or just prevent submission.
+                return false; // Prevent form submission
             }
 
-            updateOrderSummary(); // Ensure summary is fresh
+            updateOrderSummary(); // Ensure summary is absolutely fresh before generating text
 
             const couponInput = document.getElementById('coupon');
             const paymentSelect = document.querySelector('select[name="payment"]');
-            const orderSummaryText = document.getElementById("orderSummaryText");
+            const orderSummaryText = document.getElementById("orderSummaryText"); // Hidden input for summary
             const formName = document.getElementById('formName');
             const formEmail = document.getElementById('formEmail');
             const formPhone = document.getElementById('formPhone');
@@ -1429,15 +1415,18 @@
 
             if (!couponInput || !paymentSelect || !orderSummaryText || !formName || !formEmail || !formPhone || !formAddress) {
                  console.error("Essential order form elements missing!");
-                 alert("Error: Order form is incomplete.");
-                 return false;
+                 alert("Error: Order form is incomplete. Cannot proceed.");
+                 return false; // Prevent submission
             }
 
-            // Sync hidden fields just in case
-            formName.value = user.name; formEmail.value = user.email; formPhone.value = user.phone; formAddress.value = user.address;
+            // Re-populate hidden fields from validated user object just to be safe
+            formName.value = user.name;
+            formEmail.value = user.email;
+            formPhone.value = user.phone;
+            formAddress.value = user.address;
 
-            // Generate summary text
-            const coupon = couponInput.value.trim().toUpperCase();
+            // Generate summary text for the hidden input field
+            const coupon = couponInput.value.trim().toUpperCase(); // Use coupon from order form
             let summary = `ORDER CONFIRMATION - The Highon's\n===============================\n`;
             summary += `CUSTOMER DETAILS:\n`;
             summary += `  Name:    ${user.name}\n  Email:   ${user.email}\n  Phone:   ${user.phone}\n  Address: ${user.address}\n`;
@@ -1449,13 +1438,12 @@
                 summary += `  - ${item.name || 'Unknown Item'} (x${item.qty || 0})`.padEnd(40) + `₹${itemTotal}\n`;
                 subtotal += itemTotal;
             });
-
             summary += `-------------------------------\n`;
             summary += `  Subtotal:`.padEnd(40) + `₹${subtotal}\n`;
 
             let total = subtotal;
             let discount = 0;
-             // Use coupon from order form for final calculation
+            // Use coupon from order form for final calculation in summary text
             if (coupon === "NSL10%") {
                 discount = Math.round(subtotal * 0.10);
                 summary += `  Discount (NSL10%):`.padEnd(40) + `-₹${discount}\n`;
@@ -1468,32 +1456,37 @@
             summary += `PAYMENT METHOD: ${paymentSelect.value}\n`;
             summary += `===============================\nThank you!\n`;
 
+            // Set the hidden input's value
             orderSummaryText.value = summary;
 
-            console.log("Order prepared. Summary set. Allowing form submission.");
-            // console.log("Order Summary:\n", summary); // Optional: Log summary for debugging
+            // console.log("Order prepared. Summary set. Allowing form submission.");
+            // console.log("Order Summary Text:\n", summary); // Optional: Log summary for debugging
 
-            // Clear cart *after* successful submission confirmation (via _next page or AJAX)
-            // For this example using FormSubmit's redirect, we clear it optimistically after a delay.
-            // A more robust solution would involve checking on the thank-you page.
+            // Clear cart *after* successful submission confirmation (via _next page or AJAX response)
+            // Since we're using FormSubmit's redirect, we clear optimistically after a short delay.
+            // A more robust solution checks on the thank-you page or uses AJAX for submission.
             setTimeout(() => {
                 const orderConfirmation = document.getElementById('orderConfirmation');
-                if (orderConfirmation) orderConfirmation.classList.remove('hidden');
+                if (orderConfirmation) orderConfirmation.classList.remove('hidden'); // Show confirmation modal
 
+                // Clear cart and related state
                 cart = [];
-                saveCart();
-                appliedCoupon = null;
-                updateCartUI();
-                renderProducts(currentCategory, document.getElementById('productSearch')?.value || '');
-                // Clear coupon inputs
+                saveCart(); // Persist empty cart
+                appliedCoupon = null; // Reset coupon state
+
+                // Reset UI
+                updateCartUI(); // Update counters, panels, summaries to reflect empty cart
+                renderProducts(currentCategory, document.getElementById('productSearch')?.value || ''); // Reset product cards
+
+                // Clear coupon inputs visually
                 ['cartCoupon', 'coupon'].forEach(id => {
                     const input = document.getElementById(id);
                     if(input) input.value = '';
                 });
 
-            }, 300); // Delay before showing confirmation modal
+            }, 300); // Delay before showing confirmation modal & clearing state
 
-            return true; // Allow native form submission
+            return true; // Allow native form submission to proceed
 
         } catch (error) {
             console.error("Error preparing order:", error);
@@ -1502,111 +1495,119 @@
         }
     }
 
-
     function closeOrderConfirmation() {
       const orderConfirmation = document.getElementById('orderConfirmation');
       if (orderConfirmation) orderConfirmation.classList.add('hidden');
-      // Scroll to top or products section
+      // Optionally scroll to top or products section
       document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
     }
 
     // --- Helper Functions ---
 
     function escapeHtml(unsafe) {
-        if (typeof unsafe !== 'string') return unsafe;
+        if (typeof unsafe !== 'string') return unsafe; // Return non-strings as-is
         return unsafe
-             .replace(/&/g, "&") // Use & for ampersand
-             .replace(/</g, "<")
-             .replace(/>/g, ">")
-             .replace(/"/g, """)
-             .replace(/'/g, "'"); // Use HTML entity for single quote
+             .replace(/&/g, "&amp;") // Must be first
+             .replace(/</g, "&lt;")
+             .replace(/>/g, "&gt;")
+             .replace(/"/g, "&quot;")
+             .replace(/'/g, "&#039;"); // Use HTML entity for single quote
     }
-
 
     function animateCards() {
         try {
-            const cards = document.querySelectorAll('#productsContainer .product-card.animate__animated'); // Target cards with base class
+            // Select only cards within the products container that have the base animated class
+            const cards = document.querySelectorAll('#productsContainer .product-card.animate__animated');
             cards.forEach((card, index) => {
-                // Ensure clean state before animation
+                // Ensure clean state before (re)applying animation
                 card.style.opacity = '0';
-                card.classList.remove('animate__fadeInUp');
+                card.classList.remove('animate__fadeInUp'); // Remove existing animation class if present
 
                 // Apply animation with stagger
                 card.style.animationDelay = `${index * 60}ms`; // Stagger delay
 
-                // Use setTimeout to ensure styles are applied before adding class
-                // Or use requestAnimationFrame for potentially smoother start
+                // Use requestAnimationFrame to ensure styles are applied before adding class
                 requestAnimationFrame(() => {
-                    setTimeout(() => { // Small delay helps ensure transition starts correctly
-                        card.style.opacity = '1';
-                        card.classList.add('animate__fadeInUp');
-                         // **REMOVED** the animationend listener that removes the class.
-                         // Let the class persist. The animation only runs once per class addition.
-                         // Since elements are recreated on filter/search, new elements get animated.
+                    // Use a tiny setTimeout delay to help ensure the transition starts correctly
+                    setTimeout(() => {
+                        card.style.opacity = '1'; // Make visible
+                        card.classList.add('animate__fadeInUp'); // Add animation class
+                        // NOTE: The animation class ('animate__fadeInUp') remains on the element.
+                        // The 'animate.css' library typically only runs the animation once when
+                        // the class is added. Since elements are recreated on filter/search,
+                        // new elements will get the animation when they are first rendered.
                     }, 10);
                 });
             });
         } catch (error) {
             console.error("Error animating product cards:", error);
+            // Fallback: ensure cards are visible even if animation fails
+             const cards = document.querySelectorAll('#productsContainer .product-card.animate__animated');
+             cards.forEach(card => card.style.opacity = '1');
         }
     }
 
+
     // --- Initialization ---
     window.onload = () => {
-      // console.log("Window loaded. Initializing..."); // DEBUG
       try {
+          // Set footer year
           const footerYear = document.getElementById('footerYear');
           if (footerYear) footerYear.textContent = new Date().getFullYear();
 
-          loadCart();
-          populateOrderForm();
-          renderProducts();     // Initial render
-          updateCartUI();
-          // updateLogoutButtonVisibility is called within populateOrderForm
+          // Load state
+          loadCart();          // Load cart from localStorage
+          populateOrderForm(); // Check for saved user info and set up forms accordingly
+          renderProducts();    // Initial render of all products
+          updateCartUI();      // Update counters, cart panel, and order summary based on loaded cart
+          // updateLogoutButtonVisibility() is called within populateOrderForm
 
-          // Event Listeners
+          // Event Listeners Setup
           const productSearchInput = document.getElementById('productSearch');
           if (productSearchInput) {
               productSearchInput.addEventListener('input', function() {
-                  renderProducts(currentCategory, this.value);
+                  renderProducts(currentCategory, this.value); // Re-render on search input
               });
           } else { console.error("Product search input not found."); }
 
           const categoryFilterSelect = document.getElementById('categoryFilter');
           if (categoryFilterSelect) {
                categoryFilterSelect.addEventListener('change', function() {
-                  currentCategory = this.value;
+                  currentCategory = this.value; // Update current category state
                   const searchVal = document.getElementById('productSearch')?.value || '';
-                  renderProducts(currentCategory, searchVal);
+                  renderProducts(currentCategory, searchVal); // Re-render on category change
               });
           } else { console.error("Category filter select not found."); }
 
-          const couponInput = document.getElementById('coupon');
-          if (couponInput) {
-              // Update summary on 'input' for immediate feedback, or 'change' if preferred
-              couponInput.addEventListener('input', updateOrderSummary);
-          } else { console.error("Order form coupon input not found."); }
+          // Listener for the coupon input within the ORDER FORM
+          const couponInputOrderForm = document.getElementById('coupon');
+          if (couponInputOrderForm) {
+              // Update summary whenever the order form coupon input changes
+              couponInputOrderForm.addEventListener('input', updateOrderSummary);
+          } else { console.error("Order form coupon input ('#coupon') not found."); }
 
-          // Feature card Intersection Observer
+          // Intersection Observer for Feature Cards Animation
           const featureCards = document.querySelectorAll('.feature-card');
           if ('IntersectionObserver' in window && featureCards.length > 0) {
               const observer = new IntersectionObserver((entries, obs) => {
                   entries.forEach(entry => {
                       if (entry.isIntersecting) {
-                          entry.target.classList.add('animate__fadeInUp');
-                          obs.unobserve(entry.target);
+                          entry.target.classList.add('animate__fadeInUp'); // Add animation class when visible
+                          obs.unobserve(entry.target); // Stop observing once animated
                       }
                   });
-              }, { threshold: 0.1 });
+              }, { threshold: 0.1 }); // Trigger when 10% visible
               featureCards.forEach(card => observer.observe(card));
           } else {
-              featureCards.forEach(card => card.style.opacity = '1'); // Fallback
+              // Fallback for browsers without IntersectionObserver
+              featureCards.forEach(card => card.style.opacity = '1');
           }
 
-          // console.log("Initialization complete."); // DEBUG
       } catch (error) {
+           // Catch critical errors during initialization
            console.error("Critical error during window.onload initialization:", error);
            alert("There was a significant error loading the page. Some features might be unavailable or broken. Please try refreshing.");
+           // Optionally display a user-friendly error message overlay
            document.body.innerHTML = `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h1>Oops!</h1><p>Something went wrong while loading the page. Please <a href="javascript:location.reload();">refresh</a> and try again.</p><p style="font-size: 0.8em; color: grey;">Error: ${escapeHtml(error.message)}</p></div>`;
       }
     };
