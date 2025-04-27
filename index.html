@@ -145,7 +145,7 @@
       max-width: 90vw;
       height: 100vh;
       overflow-y: auto;
-      z-index: 60; /* Above overlay */
+      z-index: 60; /* Above overlay, below modal */
       transition: right 0.4s ease-in-out;
       display: flex;
       flex-direction: column; /* Allow header/footer */
@@ -174,13 +174,13 @@
       background-color: rgba(0, 0, 0, 0.5);
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.4s ease-in-out, visibility 0s 0.4s linear;
+      transition: opacity 0.4s ease-in-out, visibility 0.4s; /* Match opacity duration */
       z-index: 55; /* Below cart, above content */
     }
     .overlay.active {
       opacity: 1;
       visibility: visible;
-      transition: opacity 0.4s ease-in-out;
+      transition: opacity 0.4s ease-in-out; /* Only transition opacity */
     }
 
     .loader {
@@ -227,6 +227,7 @@
         <a href="#request" class="nav-link">Request Product</a>
         <a href="#contact" class="nav-link">Contact</a>
         <div class="relative ml-4">
+          <!-- DESKTOP CART BUTTON -->
           <button onclick="toggleCart()" class="flex items-center relative text-gray-600 hover:text-gray-800">
             <i class="fas fa-shopping-cart text-xl"></i>
             <span id="cartCounter" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold hidden">0</span>
@@ -235,6 +236,7 @@
         <button id="logoutButtonDesktop" onclick="logout()" class="ml-4 text-sm btn-primary px-4 py-2 rounded-full hidden">Logout</button>
       </nav>
       <div class="md:hidden flex items-center space-x-4">
+        <!-- MOBILE CART BUTTON -->
         <button onclick="toggleCart()" class="flex items-center relative text-gray-600 hover:text-gray-800">
           <i class="fas fa-shopping-cart text-xl"></i>
           <span id="cartCounterMobile" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold hidden">0</span>
@@ -263,14 +265,14 @@
       <div class="cart-panel-content">
           <div class="flex justify-between items-center mb-6">
               <h3 class="text-2xl font-bold text-gray-800">Your Cart</h3>
-              <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700 text-2xl">×</button>
+              <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700 text-2xl">×</button> <!-- Consistent close button -->
           </div>
           <div id="cartPanelItems" class="space-y-4 mb-6">
             <!-- Cart items will be loaded here -->
             <p id="emptyCartMessage" class="text-center text-gray-500">Your cart is empty.</p>
           </div>
       </div>
-      <div id="cartPanelFooter" class="cart-panel-footer hidden">
+      <div id="cartPanelFooter" class="cart-panel-footer hidden"> <!-- Initially hidden -->
           <div class="border-t border-gray-200 pt-4 mb-6">
               <div class="flex justify-between mb-2">
                   <span class="font-semibold">Subtotal:</span>
@@ -448,7 +450,7 @@
           <p class="font-semibold mb-3 text-gray-700">Scan to Pay via UPI:</p>
           <img src="1000022591.jpg" alt="UPI QR Code" class="w-48 mx-auto rounded-lg shadow" loading="lazy">
         </div>
-        <button type="submit" onclick="prepareOrder()" class="w-full btn-primary text-white py-4 rounded-lg font-medium">Confirm Order</button>
+        <button type="submit" onclick="return prepareOrder()" class="w-full btn-primary text-white py-4 rounded-lg font-medium">Confirm Order</button> <!-- Added return here -->
       </form>
       <p class="text-sm mt-6 text-gray-500">* Orders are only delivered within Navsari - 396445 *</p>
     </div>
@@ -496,7 +498,7 @@
   <!-- Modals -->
   <div id="productModal" class="fixed inset-0 z-[70] bg-black bg-opacity-50 flex items-center justify-center hidden p-4">
     <div class="bg-white p-8 rounded-xl shadow-2xl relative max-w-md w-full mx-auto animate__animated animate__zoomIn">
-      <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl">×</button>
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl">×</button> <!-- Consistent close button -->
       <img id="modalImg" src="" alt="" class="w-full h-64 object-contain rounded-lg mb-6" loading="lazy">
       <h3 id="modalName" class="text-2xl font-bold mb-2 text-gray-800"></h3>
       <p id="modalDesc" class="text-gray-600 mb-4"></p>
@@ -517,9 +519,8 @@
   </div>
 
   <script>
-    // Products data
+    // Products data (Ensure this is exactly as you had it)
     const products = {
-        // ... (Keep the exact same product data as in your original code)
          keychains: [
             { name: "Thor Loki Keychain", price: 99, img: "Screenshot_20250422_132243_Meesho.jpg", desc: "High-quality metal keychain featuring Thor and Loki designs" },
             { name: "Thor Hammer Keychain", price: 89, img: "Screenshot_20250422_131740_Meesho.jpg", desc: "Durable Mjolnir keychain with detailed engraving" },
@@ -563,67 +564,68 @@
 
         // Use setTimeout to allow loader to display before heavy computation
         setTimeout(() => {
-            container.innerHTML = ''; // Clear loader/previous content
-            let productsToRender = [];
-            let hasProducts = false;
+            try {
+                container.innerHTML = ''; // Clear loader/previous content
+                let productsToRender = [];
+                let hasProducts = false;
 
-            const searchTermLower = searchTerm.toLowerCase();
+                const searchTermLower = searchTerm.toLowerCase();
 
-            if (category === 'all') {
-                Object.entries(products).forEach(([catKey, items]) => {
-                    const filtered = items.filter(item =>
+                if (category === 'all') {
+                    Object.entries(products).forEach(([catKey, items]) => {
+                        const filtered = items.filter(item =>
+                            item.name.toLowerCase().includes(searchTermLower) ||
+                            item.desc.toLowerCase().includes(searchTermLower)
+                        );
+                        if (filtered.length > 0) {
+                            hasProducts = true;
+                            const section = document.createElement('div');
+                            section.className = 'mb-16';
+                            const title = catKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                            section.innerHTML = `
+                                <h3 class="category-title">${title}</h3>
+                                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8" id="${catKey}List"></div>
+                            `;
+                            container.appendChild(section); // Append section first
+                            const grid = section.querySelector(`#${catKey}List`);
+                            filtered.forEach((product) => {
+                                const originalIndex = products[catKey].findIndex(p => p.name === product.name);
+                                grid.appendChild(createProductCard(product, originalIndex, catKey));
+                            });
+                        }
+                    });
+                } else if (products[category]) {
+                    const grid = document.createElement('div');
+                    grid.className = 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8';
+                    const filtered = products[category].filter(item =>
                         item.name.toLowerCase().includes(searchTermLower) ||
                         item.desc.toLowerCase().includes(searchTermLower)
                     );
+
                     if (filtered.length > 0) {
                         hasProducts = true;
-                        const section = document.createElement('div');
-                        section.className = 'mb-16';
-                        // Convert camelCase to Title Case for display
-                        const title = catKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-                        section.innerHTML = `
-                            <h3 class="category-title">${title}</h3>
-                            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8" id="${catKey}List"></div>
-                        `;
-                        container.appendChild(section); // Append section first
-                        const grid = section.querySelector(`#${catKey}List`);
-                        filtered.forEach((product, index) => {
-                            // Find the original index within the full category list for stable IDs
-                            const originalIndex = products[catKey].findIndex(p => p.name === product.name);
-                            grid.appendChild(createProductCard(product, originalIndex, catKey));
+                        filtered.forEach((product) => {
+                            const originalIndex = products[category].findIndex(p => p.name === product.name);
+                            grid.appendChild(createProductCard(product, originalIndex, category));
                         });
+                        container.appendChild(grid);
                     }
-                });
-            } else if (products[category]) {
-                const grid = document.createElement('div');
-                grid.className = 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8';
-                const filtered = products[category].filter(item =>
-                    item.name.toLowerCase().includes(searchTermLower) ||
-                    item.desc.toLowerCase().includes(searchTermLower)
-                );
-
-                if (filtered.length > 0) {
-                    hasProducts = true;
-                    filtered.forEach((product, index) => {
-                        // Find the original index within the full category list
-                        const originalIndex = products[category].findIndex(p => p.name === product.name);
-                        grid.appendChild(createProductCard(product, originalIndex, category));
-                    });
-                    container.appendChild(grid);
                 }
-            }
 
-            if (!hasProducts) {
-                container.innerHTML = '<p class="text-center text-gray-500 py-12 text-lg">No products found matching your criteria.</p>';
-            } else {
-                 animateCards(); // Animate cards after they are added
+                if (!hasProducts) {
+                    container.innerHTML = '<p class="text-center text-gray-500 py-12 text-lg">No products found matching your criteria.</p>';
+                } else {
+                     animateCards(); // Animate cards after they are added
+                }
+            } catch (error) {
+                console.error("Error rendering products:", error);
+                container.innerHTML = '<p class="text-center text-red-500 py-12 text-lg">Error loading products. Please try again later.</p>';
             }
         }, 50); // Short delay
     }
 
     function createProductCard(product, index, category) {
         const card = document.createElement("div");
-        // Use a stable ID based on category and original index
         card.id = `product-${category}-${index}`;
         card.className = "product-card animate__animated"; // Add base class for animation trigger
 
@@ -656,66 +658,97 @@
 
     // Cart functionality
     function addToCart(category, index) {
-        const product = products[category][index];
-        const existing = cart.find(p => p.name === product.name);
+        try {
+            const product = products[category][index];
+            if (!product) {
+                console.error("Product not found for:", category, index);
+                return;
+            }
+            const existing = cart.find(p => p.name === product.name);
 
-        if (existing) {
-            existing.qty++;
-        } else {
-            // Add category and index to the item for easier reference later
-            cart.push({ ...product, qty: 1, category: category, index: index });
+            if (existing) {
+                existing.qty++;
+            } else {
+                // Add category and index to the item for easier reference later
+                cart.push({ ...product, qty: 1, category: category, index: index });
+            }
+
+            saveCart();
+            updateProductCard(category, index);
+            updateCartUI();
+        } catch (error) {
+            console.error("Error adding to cart:", error);
         }
-
-        saveCart();
-        updateProductCard(category, index);
-        updateCartUI();
     }
 
     function updateQty(category, index, change) {
-        const product = products[category][index];
-        const itemIndex = cart.findIndex(p => p.name === product.name);
-
-        if (itemIndex > -1) {
-            cart[itemIndex].qty += change;
-            if (cart[itemIndex].qty <= 0) {
-                cart.splice(itemIndex, 1); // Remove item if quantity is zero or less
+       try {
+            const product = products[category]?.[index]; // Optional chaining
+            if (!product) {
+                console.error("Cannot update quantity, product not found for:", category, index);
+                return;
             }
-            saveCart();
-            updateProductCard(category, index); // Update the specific product card
-            updateCartUI(); // Update cart panel and counters
-        }
+            const itemIndex = cart.findIndex(p => p.name === product.name);
+
+            if (itemIndex > -1) {
+                cart[itemIndex].qty += change;
+                if (cart[itemIndex].qty <= 0) {
+                    cart.splice(itemIndex, 1); // Remove item if quantity is zero or less
+                }
+                saveCart();
+                updateProductCard(category, index); // Update the specific product card
+                updateCartUI(); // Update cart panel and counters
+            }
+       } catch (error) {
+            console.error("Error updating quantity:", error);
+       }
     }
 
     // Update Product Card display (Add to cart vs +/- controls)
     function updateProductCard(category, index) {
-        const product = products[category][index];
-        const cardId = `product-${category}-${index}`;
-        const card = document.getElementById(cardId);
-        if (!card) return; // Card might not be visible due to filtering
+        try {
+            const product = products[category]?.[index];
+            if (!product) return; // Product might not exist
 
-        const controlsContainer = card.querySelector('.product-card-controls');
-        if (!controlsContainer) return;
+            const cardId = `product-${category}-${index}`;
+            const card = document.getElementById(cardId);
+            if (!card) return; // Card might not be visible due to filtering
 
-        const itemInCart = cart.find(item => item.name === product.name);
+            const controlsContainer = card.querySelector('.product-card-controls');
+            if (!controlsContainer) return;
 
-        controlsContainer.innerHTML = itemInCart ? `
-            <div class="flex items-center justify-between gap-2">
-                <button onclick="updateQty('${category}', ${index}, -1)" class="bg-gray-200 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-300 transition text-lg font-bold">-</button>
-                <span class="font-semibold text-gray-800 text-lg">${itemInCart.qty}</span>
-                <button onclick="updateQty('${category}', ${index}, 1)" class="bg-gray-200 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-300 transition text-lg font-bold">+</button>
-            </div>` : `
-            <button onclick="addToCart('${category}', ${index})" class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition">Add to Cart</button>`;
+            const itemInCart = cart.find(item => item.name === product.name);
+
+            controlsContainer.innerHTML = itemInCart ? `
+                <div class="flex items-center justify-between gap-2">
+                    <button onclick="updateQty('${category}', ${index}, -1)" class="bg-gray-200 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-300 transition text-lg font-bold">-</button>
+                    <span class="font-semibold text-gray-800 text-lg">${itemInCart.qty}</span>
+                    <button onclick="updateQty('${category}', ${index}, 1)" class="bg-gray-200 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-300 transition text-lg font-bold">+</button>
+                </div>` : `
+                <button onclick="addToCart('${category}', ${index})" class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition">Add to Cart</button>`;
+        } catch (error) {
+            console.error(`Error updating product card for ${category}-${index}:`, error);
+        }
     }
 
     // Combined function to update all cart-related UI elements
     function updateCartUI() {
-        updateCartCounter();
-        updateCartPanel();
-        updateOrderSummary(); // Update the order form summary as well
+        try {
+            updateCartCounter();
+            updateCartPanel();
+            updateOrderSummary(); // Update the order form summary as well
+        } catch(error) {
+            console.error("Error updating cart UI:", error);
+        }
     }
 
     function saveCart() {
-        localStorage.setItem('cart', JSON.stringify(cart));
+        try {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        } catch (error) {
+            console.error("Error saving cart to localStorage:", error);
+            // Optionally inform the user cart cannot be saved
+        }
     }
 
     // Update Cart Panel (Side Panel)
@@ -728,84 +761,118 @@
         const emptyCartMsg = document.getElementById("emptyCartMessage");
         const cartFooter = document.getElementById("cartPanelFooter");
 
+        if (!panelItems || !subtotalEl || !totalEl || !discountRow || !discountEl || !emptyCartMsg || !cartFooter) {
+            console.error("One or more cart panel elements not found!");
+            return;
+        }
+
         panelItems.innerHTML = ''; // Clear previous items
         let subtotal = 0;
 
-        if (cart.length === 0) {
-            emptyCartMsg.classList.remove('hidden');
-            cartFooter.classList.add('hidden');
-            discountRow.classList.add('hidden');
-            appliedCoupon = null; // Reset coupon if cart is empty
-            document.getElementById('cartCoupon').value = ''; // Clear coupon input
-        } else {
-            emptyCartMsg.classList.add('hidden');
-            cartFooter.classList.remove('hidden');
+        try {
+            if (cart.length === 0) {
+                emptyCartMsg.classList.remove('hidden');
+                cartFooter.classList.add('hidden');
+                discountRow.classList.add('hidden');
+                appliedCoupon = null; // Reset coupon if cart is empty
+                const cartCouponInput = document.getElementById('cartCoupon');
+                 if (cartCouponInput) cartCouponInput.value = ''; // Clear coupon input
+            } else {
+                emptyCartMsg.classList.add('hidden');
+                cartFooter.classList.remove('hidden');
 
-            cart.forEach(item => {
-                subtotal += item.price * item.qty;
-                // Find original category and index if available
-                const category = item.category || Object.keys(products).find(cat => products[cat].some(p => p.name === item.name));
-                const index = item.index ?? products[category]?.findIndex(p => p.name === item.name);
+                cart.forEach(item => {
+                    subtotal += item.price * item.qty;
+                    // Minimal error checking for properties used in template
+                    const itemName = item.name || 'Unknown Item';
+                    const itemImg = item.img || 'placeholder.jpg'; // Provide a fallback image?
+                    const itemPrice = item.price || 0;
+                    const itemQty = item.qty || 0;
 
-                panelItems.innerHTML += `
-                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg shadow-sm">
-                        <div class="flex items-center space-x-3">
-                            <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-contain rounded border border-gray-200">
-                            <div>
-                                <h4 class="font-medium text-sm">${item.name}</h4>
-                                <p class="text-xs text-gray-600">₹${item.price} x ${item.qty} = ₹${item.price * item.qty}</p>
+                    panelItems.innerHTML += `
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg shadow-sm">
+                            <div class="flex items-center space-x-3">
+                                <img src="${itemImg}" alt="${itemName}" class="w-16 h-16 object-contain rounded border border-gray-200">
+                                <div>
+                                    <h4 class="font-medium text-sm">${itemName}</h4>
+                                    <p class="text-xs text-gray-600">₹${itemPrice} x ${itemQty} = ₹${itemPrice * itemQty}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button onclick="updateQtyFromPanel('${itemName}', -1)"
+                                        class="bg-gray-200 text-gray-700 w-7 h-7 rounded-full flex items-center justify-center hover:bg-gray-300 transition text-md font-bold">-</button>
+                                <span class="mx-1 font-medium w-5 text-center">${itemQty}</span>
+                                <button onclick="updateQtyFromPanel('${itemName}', 1)"
+                                        class="bg-gray-200 text-gray-700 w-7 h-7 rounded-full flex items-center justify-center hover:bg-gray-300 transition text-md font-bold">+</button>
                             </div>
                         </div>
-                        <div class="flex items-center space-x-2">
-                            <button onclick="updateQtyFromPanel('${item.name}', -1)"
-                                    class="bg-gray-200 text-gray-700 w-7 h-7 rounded-full flex items-center justify-center hover:bg-gray-300 transition text-md font-bold">-</button>
-                            <span class="mx-1 font-medium w-5 text-center">${item.qty}</span>
-                            <button onclick="updateQtyFromPanel('${item.name}', 1)"
-                                    class="bg-gray-200 text-gray-700 w-7 h-7 rounded-full flex items-center justify-center hover:bg-gray-300 transition text-md font-bold">+</button>
-                        </div>
-                    </div>
-                `;
-            });
+                    `;
+                });
 
-            subtotalEl.textContent = subtotal;
+                subtotalEl.textContent = subtotal;
 
-            // Recalculate total with coupon if applied
-            let total = subtotal;
-            let discount = 0;
-            if (appliedCoupon === "NSL10%") {
-                discount = Math.round(subtotal * 0.10);
-                total = subtotal - discount;
-                discountEl.textContent = discount;
-                discountRow.classList.remove('hidden');
-            } else {
-                discountRow.classList.add('hidden');
+                // Recalculate total with coupon if applied
+                let total = subtotal;
+                let discount = 0;
+                if (appliedCoupon === "NSL10%") {
+                    discount = Math.round(subtotal * 0.10);
+                    total = subtotal - discount;
+                    discountEl.textContent = discount;
+                    discountRow.classList.remove('hidden');
+                } else {
+                    discountRow.classList.add('hidden');
+                }
+                totalEl.textContent = total;
             }
-            totalEl.textContent = total;
+        } catch (error) {
+             console.error("Error updating cart panel content:", error);
+             panelItems.innerHTML = '<p class="text-red-500">Error loading cart items.</p>';
+             cartFooter.classList.add('hidden'); // Hide footer on error
         }
     }
 
     // Update quantity directly from Cart Panel
     function updateQtyFromPanel(name, change) {
-        const item = cart.find(p => p.name === name);
-        if (item) {
-            // Find original category and index to call updateQty
-             const category = item.category || Object.keys(products).find(cat => products[cat].some(p => p.name === item.name));
-             const index = item.index ?? products[category]?.findIndex(p => p.name === item.name);
-             if(category !== undefined && index !== undefined) {
-                updateQty(category, index, change);
-             } else {
-                 console.error("Could not find original product category/index for:", name);
-                 // Fallback: update cart directly and refresh UI (less efficient)
-                 const itemIndex = cart.findIndex(p => p.name === name);
-                 if (itemIndex > -1) {
-                    cart[itemIndex].qty += change;
-                    if (cart[itemIndex].qty <= 0) {
-                        cart.splice(itemIndex, 1);
-                    }
-                    saveCart();
-                    updateCartUI();
+        try {
+            const item = cart.find(p => p.name === name);
+            if (item) {
+                // Prefer stored category/index if available
+                 const category = item.category;
+                 const index = item.index;
+
+                 if(category !== undefined && index !== undefined && products[category]?.[index]?.name === name) {
+                    // Use the more efficient updateQty if possible
+                    updateQty(category, index, change);
+                 } else {
+                     // Fallback: find product category/index again (less efficient but robust)
+                     let found = false;
+                     for (const catKey in products) {
+                         const originalIndex = products[catKey].findIndex(p => p.name === name);
+                         if (originalIndex !== -1) {
+                             updateQty(catKey, originalIndex, change);
+                             found = true;
+                             break;
+                         }
+                     }
+                     if (!found) {
+                         console.error("Could not find original product info for:", name, "during panel update.");
+                         // If truly lost, update cart array directly as a last resort
+                         const itemIndex = cart.findIndex(p => p.name === name);
+                         if (itemIndex > -1) {
+                             cart[itemIndex].qty += change;
+                             if (cart[itemIndex].qty <= 0) {
+                                 cart.splice(itemIndex, 1);
+                             }
+                             saveCart();
+                             updateCartUI(); // Refresh everything
+                         }
+                     }
                  }
-             }
+            } else {
+                 console.warn("Item not found in cart for panel update:", name);
+            }
+        } catch (error) {
+            console.error("Error in updateQtyFromPanel:", error);
         }
     }
 
@@ -816,72 +883,108 @@
       const summaryDiscountRow = document.getElementById("summaryDiscountRow");
       const summaryDiscountEl = document.getElementById("summaryDiscount");
       const orderForm = document.getElementById("orderForm");
+      const couponInput = document.getElementById('coupon');
+
+      if (!list || !totalEl || !summaryDiscountRow || !summaryDiscountEl || !orderForm || !couponInput) {
+          console.error("One or more order summary elements not found!");
+          return;
+      }
 
       list.innerHTML = '';
       let total = 0;
 
-      if (cart.length === 0) {
-          list.innerHTML = '<li class="text-gray-500">Your cart is empty.</li>';
-          totalEl.textContent = 0;
-          summaryDiscountRow.classList.add('hidden');
-          // Optionally disable order form if cart is empty
-          // orderForm.classList.add('opacity-50', 'pointer-events-none');
-      } else {
-          // orderForm.classList.remove('opacity-50', 'pointer-events-none');
-          cart.forEach(item => {
-              total += item.price * item.qty;
-              list.innerHTML += `
-                  <li class="cart-item flex justify-between items-center text-sm">
-                      <span>${item.name} (x${item.qty})</span>
-                      <span class="font-semibold">₹${item.price * item.qty}</span>
-                  </li>
-              `;
-          });
+       try {
+            if (cart.length === 0) {
+                list.innerHTML = '<li class="text-gray-500">Your cart is empty.</li>';
+                totalEl.textContent = 0;
+                summaryDiscountRow.classList.add('hidden');
+            } else {
+                cart.forEach(item => {
+                    const itemPrice = item.price || 0;
+                    const itemQty = item.qty || 0;
+                    total += itemPrice * itemQty;
+                    list.innerHTML += `
+                        <li class="cart-item flex justify-between items-center text-sm">
+                            <span>${item.name || 'Unknown Item'} (x${itemQty})</span>
+                            <span class="font-semibold">₹${itemPrice * itemQty}</span>
+                        </li>
+                    `;
+                });
 
-           // Apply coupon discount if active
-          let finalTotal = total;
-          let discount = 0;
-          const coupon = document.getElementById('coupon').value.trim().toUpperCase(); // Use coupon from order form
-          if (coupon === "NSL10%") { // Check order form coupon
-              discount = Math.round(total * 0.10);
-              finalTotal = total - discount;
-              summaryDiscountEl.textContent = discount;
-              summaryDiscountRow.classList.remove('hidden');
-          } else {
-              summaryDiscountRow.classList.add('hidden');
-          }
-          totalEl.textContent = finalTotal;
-      }
+                 // Apply coupon discount if active
+                let finalTotal = total;
+                let discount = 0;
+                const coupon = couponInput.value.trim().toUpperCase(); // Use coupon from order form
+                if (coupon === "NSL10%") { // Check order form coupon
+                    discount = Math.round(total * 0.10);
+                    finalTotal = total - discount;
+                    summaryDiscountEl.textContent = discount;
+                    summaryDiscountRow.classList.remove('hidden');
+                } else {
+                    summaryDiscountRow.classList.add('hidden');
+                }
+                totalEl.textContent = finalTotal;
+            }
+       } catch (error) {
+            console.error("Error updating order summary:", error);
+            list.innerHTML = '<li class="text-red-500">Error loading summary.</li>';
+       }
     }
 
 
-    // Remaining functions
+    // Update cart counters in header
     function updateCartCounter() {
       const counter = document.getElementById('cartCounter');
       const mobileCounter = document.getElementById('cartCounterMobile');
-      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      if (!counter || !mobileCounter) return;
 
-      counter.textContent = totalItems;
-      mobileCounter.textContent = totalItems;
+      try {
+          const totalItems = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
 
-      counter.classList.toggle('hidden', totalItems === 0);
-      mobileCounter.classList.toggle('hidden', totalItems === 0);
+          counter.textContent = totalItems;
+          mobileCounter.textContent = totalItems;
+
+          counter.classList.toggle('hidden', totalItems === 0);
+          mobileCounter.classList.toggle('hidden', totalItems === 0);
+      } catch (error) {
+          console.error("Error updating cart counter:", error);
+      }
     }
 
+    // ** THE KEY FUNCTION FOR OPENING/CLOSING **
     function toggleCart() {
+      console.log("toggleCart called"); // DEBUG: Check if function executes
       const cartPanel = document.getElementById('cartPanel');
       const overlay = document.getElementById('cartOverlay');
+      const body = document.body;
+
+      if (!cartPanel || !overlay || !body) {
+          console.error("Cart panel, overlay, or body element not found!");
+          return;
+      }
+
       const isOpen = cartPanel.classList.contains('open');
 
-      if (isOpen) {
-          cartPanel.classList.remove('open');
-          overlay.classList.remove('active');
-          document.body.classList.remove('overflow-hidden');
-      } else {
-          updateCartPanel(); // Update content before showing
-          cartPanel.classList.add('open');
-          overlay.classList.add('active');
-          document.body.classList.add('overflow-hidden');
+      try {
+          if (isOpen) {
+              console.log("Closing cart"); // DEBUG
+              cartPanel.classList.remove('open');
+              overlay.classList.remove('active');
+              body.classList.remove('overflow-hidden');
+          } else {
+              console.log("Opening cart"); // DEBUG
+              updateCartPanel(); // Update content *before* showing
+              // Ensure updateCartPanel didn't fail silently before adding classes
+              cartPanel.classList.add('open');
+              overlay.classList.add('active');
+              body.classList.add('overflow-hidden');
+          }
+      } catch (error) {
+            console.error("Error toggling cart visibility:", error);
+            // Attempt to reset state if error occurs during toggle
+            cartPanel.classList.remove('open');
+            overlay.classList.remove('active');
+            body.classList.remove('overflow-hidden');
       }
     }
 
@@ -891,13 +994,27 @@
             alert("Your cart is empty. Please add items before proceeding to checkout.");
             return;
         }
-        toggleCart(); // Close cart panel
-        document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
-        updateOrderSummary(); // Ensure summary is up-to-date when scrolling
+        // Check if cart is open and close it first
+        const cartPanel = document.getElementById('cartPanel');
+        if (cartPanel && cartPanel.classList.contains('open')) {
+            toggleCart();
+        }
+        // Use timeout to allow cart closing animation before scrolling
+        setTimeout(() => {
+             const orderSection = document.getElementById('order');
+             if (orderSection) {
+                orderSection.scrollIntoView({ behavior: 'smooth' });
+                updateOrderSummary(); // Ensure summary is up-to-date when scrolling
+             } else {
+                 console.error("Order section not found!");
+             }
+        }, 450); // Slightly longer than CSS transition
     }
 
     function applyCoupon() {
         const couponInput = document.getElementById('cartCoupon');
+        if (!couponInput) return;
+
         const couponCode = couponInput.value.trim().toUpperCase();
 
         if (couponCode === "NSL10%") {
@@ -915,109 +1032,150 @@
     }
 
     function showModal(category, index) {
-        // Ensure product exists at the index for the category
-        if (!products[category] || !products[category][index]) {
-            console.error("Product not found for modal:", category, index);
-            return;
-        }
-        const product = products[category][index];
-        currentModalProduct = { category, index, name: product.name }; // Store name for easier lookup
+       try {
+            if (!products[category] || !products[category][index]) {
+                console.error("Product not found for modal:", category, index);
+                return;
+            }
+            const product = products[category][index];
+            currentModalProduct = { category, index, name: product.name };
 
-        document.getElementById('modalImg').src = product.img;
-        document.getElementById('modalName').textContent = product.name;
-        document.getElementById('modalDesc').textContent = product.desc;
-        document.getElementById('modalPrice').textContent = `₹${product.price}`;
-        document.getElementById('productModal').classList.remove('hidden');
+            const modalImg = document.getElementById('modalImg');
+            const modalName = document.getElementById('modalName');
+            const modalDesc = document.getElementById('modalDesc');
+            const modalPrice = document.getElementById('modalPrice');
+            const productModal = document.getElementById('productModal');
+            const modalBtn = document.getElementById('modalAddToCart');
 
-        const modalBtn = document.getElementById('modalAddToCart');
-        const itemInCart = cart.find(item => item.name === product.name);
+            if (!modalImg || !modalName || !modalDesc || !modalPrice || !productModal || !modalBtn) {
+                 console.error("One or more modal elements not found!");
+                 return;
+            }
 
-        if (itemInCart) {
-            modalBtn.textContent = `Update Quantity in Cart`; // Or keep 'Add to Cart'
-            modalBtn.classList.add('bg-purple-700'); // Indicate it's already added/different action
-            modalBtn.classList.remove('btn-primary');
-        } else {
-            modalBtn.textContent = 'Add to Cart';
-            modalBtn.classList.remove('bg-purple-700');
-            modalBtn.classList.add('btn-primary');
-        }
+            modalImg.src = product.img;
+            modalName.textContent = product.name;
+            modalDesc.textContent = product.desc;
+            modalPrice.textContent = `₹${product.price}`;
+            productModal.classList.remove('hidden');
+
+            const itemInCart = cart.find(item => item.name === product.name);
+
+            if (itemInCart) {
+                modalBtn.textContent = `Update Quantity in Cart`; // Or keep 'Add to Cart'
+                modalBtn.classList.add('bg-purple-700'); // Indicate it's already added/different action
+                modalBtn.classList.remove('btn-primary'); // Use default btn-primary styles? Check CSS
+            } else {
+                modalBtn.textContent = 'Add to Cart';
+                modalBtn.classList.remove('bg-purple-700');
+                // Ensure btn-primary class is present if needed
+                if (!modalBtn.classList.contains('btn-primary')) {
+                     modalBtn.classList.add('btn-primary');
+                }
+            }
+       } catch (error) {
+            console.error("Error showing modal:", error);
+       }
     }
 
     function closeModal() {
-      document.getElementById('productModal').classList.add('hidden');
+      const productModal = document.getElementById('productModal');
+      if (productModal) {
+        productModal.classList.add('hidden');
+      }
       currentModalProduct = null; // Clear stored product
     }
 
     function addToCartFromModal() {
         if (currentModalProduct) {
             const { category, index } = currentModalProduct;
-             // Double check category and index are valid before calling addToCart
-            if (category !== undefined && index !== undefined) {
+            if (category !== undefined && index !== undefined && products[category]?.[index]) {
                 addToCart(category, index);
             } else {
                  console.error("Invalid category/index in currentModalProduct:", currentModalProduct);
             }
+        } else {
+             console.warn("Add to cart from modal called with no current product selected.");
         }
         closeModal(); // Close modal regardless
     }
 
     // Order processing functions
     function prepareOrder() {
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (!user) {
-            alert("Please save your information before placing the order.");
-            document.getElementById('loginForm').scrollIntoView({ behavior: 'smooth' });
-            return false; // Prevent form submission
+        try {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user) {
+                alert("Please save your information before placing the order.");
+                const loginForm = document.getElementById('loginForm');
+                if (loginForm) loginForm.scrollIntoView({ behavior: 'smooth' });
+                return false; // Prevent form submission
+            }
+            if (cart.length === 0) {
+                alert("Your cart is empty. Cannot place order.");
+                return false; // Prevent form submission
+            }
+
+            updateOrderSummary(); // Ensure totals are correct before generating summary
+
+            const couponInput = document.getElementById('coupon');
+            const paymentSelect = document.querySelector('select[name="payment"]');
+            const orderSummaryText = document.getElementById("orderSummaryText");
+
+            if (!couponInput || !paymentSelect || !orderSummaryText) {
+                 console.error("Order form elements (coupon, payment, summary) missing!");
+                 return false; // Prevent submission if essential fields are missing
+            }
+
+            const coupon = couponInput.value.trim().toUpperCase();
+            let summary = `Order for: ${user.name}\nEmail: ${user.email}\nPhone: ${user.phone}\nAddress: ${user.address}\n\n--- Order Details ---\n`;
+            let subtotal = 0;
+
+            cart.forEach(item => {
+                const itemPrice = item.price || 0;
+                const itemQty = item.qty || 0;
+                summary += `- ${item.name || 'Unknown Item'} (x${itemQty}): ₹${itemPrice * itemQty}\n`;
+                subtotal += itemPrice * itemQty;
+            });
+
+            summary += `\nSubtotal: ₹${subtotal}\n`;
+            let total = subtotal;
+
+            if (coupon === "NSL10%") {
+                const discount = Math.round(subtotal * 0.10);
+                summary += `Discount (NSL10%): -₹${discount}\n`;
+                total -= discount;
+            }
+
+            summary += `\n--- Total: ₹${total} ---\n`;
+            summary += `Payment Method: ${paymentSelect.value}`;
+
+            orderSummaryText.value = summary;
+
+            // Simulate submission success for demo - IN PRODUCTION, RELY ON FORM ACTION RESPONSE
+            setTimeout(() => {
+                const orderConfirmation = document.getElementById('orderConfirmation');
+                if (orderConfirmation) orderConfirmation.classList.remove('hidden');
+
+                cart = []; // Clear the cart array
+                saveCart(); // Save the empty cart to localStorage
+                updateCartUI(); // Update all cart displays
+                // Reset product cards to "Add to Cart" state
+                 Object.keys(products).forEach(catKey => {
+                     products[catKey].forEach((prod, idx) => updateProductCard(catKey, idx));
+                 });
+            }, 500); // Short delay before showing confirmation
+
+            return true; // Allow form submission
+        } catch (error) {
+            console.error("Error preparing order:", error);
+            alert("An error occurred while preparing your order. Please try again.");
+            return false; // Prevent submission on error
         }
-        if (cart.length === 0) {
-            alert("Your cart is empty. Cannot place order.");
-            return false; // Prevent form submission
-        }
-
-        updateOrderSummary(); // Ensure totals are correct before generating summary
-
-        const coupon = document.getElementById('coupon').value.trim().toUpperCase();
-        let summary = `Order for: ${user.name}\nEmail: ${user.email}\nPhone: ${user.phone}\nAddress: ${user.address}\n\n--- Order Details ---\n`;
-        let subtotal = 0;
-
-        cart.forEach(item => {
-            summary += `- ${item.name} (x${item.qty}): ₹${item.price * item.qty}\n`;
-            subtotal += item.price * item.qty;
-        });
-
-        summary += `\nSubtotal: ₹${subtotal}\n`;
-        let total = subtotal;
-
-        if (coupon === "NSL10%") {
-            const discount = Math.round(subtotal * 0.10);
-            summary += `Discount (NSL10%): -₹${discount}\n`;
-            total -= discount;
-        }
-
-        summary += `\n--- Total: ₹${total} ---\n`;
-        summary += `Payment Method: ${document.querySelector('select[name="payment"]').value}`;
-
-        document.getElementById("orderSummaryText").value = summary;
-
-        // Simulate submission success for demo - IN PRODUCTION, RELY ON FORM ACTION RESPONSE
-        // Clear cart after successful submission simulation
-        setTimeout(() => {
-            document.getElementById('orderConfirmation').classList.remove('hidden');
-            cart = []; // Clear the cart array
-            saveCart(); // Save the empty cart to localStorage
-            updateCartUI(); // Update all cart displays
-            // Reset product cards to "Add to Cart" state
-             Object.keys(products).forEach(catKey => {
-                 products[catKey].forEach((prod, idx) => updateProductCard(catKey, idx));
-             });
-        }, 500); // Short delay before showing confirmation
-
-        return true; // Allow form submission
     }
 
 
     function closeOrderConfirmation() {
-      document.getElementById('orderConfirmation').classList.add('hidden');
+      const orderConfirmation = document.getElementById('orderConfirmation');
+      if (orderConfirmation) orderConfirmation.classList.add('hidden');
       // Optional: Redirect or scroll
       // window.location.href = '#products';
     }
@@ -1028,6 +1186,11 @@
       const phoneInput = document.getElementById('phone');
       const addressInput = document.getElementById('address');
 
+      if (!nameInput || !emailInput || !phoneInput || !addressInput) {
+           console.error("User info input fields not found!");
+           return;
+      }
+
       const name = nameInput.value.trim();
       const email = emailInput.value.trim();
       const phone = phoneInput.value.trim();
@@ -1035,134 +1198,223 @@
 
       // Basic validation
       let isValid = true;
-      if (!name) { nameInput.classList.add('border-red-500'); isValid = false; } else { nameInput.classList.remove('border-red-500'); }
-      if (!email || !/^\S+@\S+\.\S+$/.test(email)) { emailInput.classList.add('border-red-500'); isValid = false; } else { emailInput.classList.remove('border-red-500'); }
-      if (!phone || !/^[6-9]\d{9}$/.test(phone)) { phoneInput.classList.add('border-red-500'); isValid = false; } else { phoneInput.classList.remove('border-red-500'); }
-      if (!address) { addressInput.classList.add('border-red-500'); isValid = false; } else { addressInput.classList.remove('border-red-500'); }
+      const emailRegex = /^\S+@\S+\.\S+$/;
+      const phoneRegex = /^[6-9]\d{9}$/; // Simple Indian mobile regex
+
+      nameInput.classList.toggle('border-red-500', !name);
+      emailInput.classList.toggle('border-red-500', !email || !emailRegex.test(email));
+      phoneInput.classList.toggle('border-red-500', !phone || !phoneRegex.test(phone));
+      addressInput.classList.toggle('border-red-500', !address);
+
+      isValid = name && email && emailRegex.test(email) && phone && phoneRegex.test(phone) && address;
 
       if (!isValid) {
-        alert("Please fill all fields correctly.");
+        alert("Please fill all fields correctly. Ensure email is valid and phone is a 10-digit Indian number starting with 6-9.");
         return;
       }
 
-      localStorage.setItem('user', JSON.stringify({ name, email, phone, address }));
-      alert("Information saved!");
-      populateOrderForm(); // Show order form and hide login form
-      updateLogoutButtonVisibility(); // Show logout button
+      try {
+          localStorage.setItem('user', JSON.stringify({ name, email, phone, address }));
+          alert("Information saved!");
+          populateOrderForm(); // Show order form and hide login form
+          updateLogoutButtonVisibility(); // Show logout button
+      } catch (error) {
+          console.error("Error saving user data to localStorage:", error);
+          alert("Could not save your information. Please try again.");
+      }
     }
 
     function populateOrderForm() {
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (user) {
-            // Pre-fill hidden fields in the order form
-            document.getElementById('formName').value = user.name;
-            document.getElementById('formEmail').value = user.email;
-            document.getElementById('formPhone').value = user.phone;
-            document.getElementById('formAddress').value = user.address;
+        const loginForm = document.getElementById('loginForm');
+        const orderForm = document.getElementById('orderForm');
 
-            // Hide login form, show order form
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('orderForm').classList.remove('hidden');
+        if (!loginForm || !orderForm) {
+            console.error("Login or Order form not found!");
+            return;
+        }
 
-            // Update the cart summary within the order form
-            updateOrderSummary();
-        } else {
-            // Ensure login form is shown and order form is hidden if no user data
-            document.getElementById('loginForm').classList.remove('hidden');
-            document.getElementById('orderForm').classList.add('hidden');
+        try {
+            const userString = localStorage.getItem('user');
+            if (userString) {
+                const user = JSON.parse(userString);
+                // Pre-fill hidden fields in the order form
+                const formName = document.getElementById('formName');
+                const formEmail = document.getElementById('formEmail');
+                const formPhone = document.getElementById('formPhone');
+                const formAddress = document.getElementById('formAddress');
+
+                if (formName) formName.value = user.name;
+                if (formEmail) formEmail.value = user.email;
+                if (formPhone) formPhone.value = user.phone;
+                if (formAddress) formAddress.value = user.address;
+
+                // Hide login form, show order form
+                loginForm.classList.add('hidden');
+                orderForm.classList.remove('hidden');
+
+                // Update the cart summary within the order form
+                updateOrderSummary();
+            } else {
+                // Ensure login form is shown and order form is hidden if no user data
+                loginForm.classList.remove('hidden');
+                orderForm.classList.add('hidden');
+            }
+        } catch (error) {
+             console.error("Error parsing user data or populating order form:", error);
+             // Default to showing login form if error occurs
+             loginForm.classList.remove('hidden');
+             orderForm.classList.add('hidden');
         }
         updateLogoutButtonVisibility(); // Update logout button status
     }
 
     function logout() {
-        localStorage.removeItem('user');
-        localStorage.removeItem('cart'); // Also clear cart on logout
-        cart = []; // Clear in-memory cart
-        alert("You have been logged out.");
-        // Reset forms and UI
-        document.getElementById('loginForm').classList.remove('hidden');
-        document.getElementById('orderForm').classList.add('hidden');
-        document.getElementById('name').value = '';
-        document.getElementById('email').value = '';
-        document.getElementById('phone').value = '';
-        document.getElementById('address').value = '';
-        updateLogoutButtonVisibility();
-        updateCartUI(); // Clear cart display
-         // Reset all product cards
-        Object.keys(products).forEach(catKey => {
-            products[catKey].forEach((prod, idx) => updateProductCard(catKey, idx));
-        });
+        try {
+            localStorage.removeItem('user');
+            localStorage.removeItem('cart'); // Also clear cart on logout
+            cart = []; // Clear in-memory cart
+            appliedCoupon = null; // Reset coupon
+            alert("You have been logged out.");
+
+            // Reset forms and UI
+            const loginForm = document.getElementById('loginForm');
+            const orderForm = document.getElementById('orderForm');
+            if (loginForm) loginForm.classList.remove('hidden');
+            if (orderForm) orderForm.classList.add('hidden');
+
+            // Clear input fields
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const phoneInput = document.getElementById('phone');
+            const addressInput = document.getElementById('address');
+            if (nameInput) nameInput.value = '';
+            if (emailInput) emailInput.value = '';
+            if (phoneInput) phoneInput.value = '';
+            if (addressInput) addressInput.value = '';
+
+            updateLogoutButtonVisibility();
+            updateCartUI(); // Clear cart display
+             // Reset all product cards
+            Object.keys(products).forEach(catKey => {
+                products[catKey].forEach((prod, idx) => updateProductCard(catKey, idx));
+            });
+        } catch (error) {
+            console.error("Error during logout:", error);
+            // Still attempt to clear UI elements even if storage fails
+            cart = [];
+            updateCartUI();
+            // etc.
+        }
     }
 
     function updateLogoutButtonVisibility() {
-        const user = localStorage.getItem('user');
         const logoutDesktop = document.getElementById('logoutButtonDesktop');
         const logoutMobile = document.getElementById('logoutButtonMobile');
-        if (user) {
-            logoutDesktop.classList.remove('hidden');
-            logoutMobile.classList.remove('hidden');
-        } else {
-            logoutDesktop.classList.add('hidden');
-            logoutMobile.classList.add('hidden');
+        if (!logoutDesktop || !logoutMobile) return;
+
+        try {
+            const user = localStorage.getItem('user');
+            logoutDesktop.classList.toggle('hidden', !user);
+            logoutMobile.classList.toggle('hidden', !user);
+        } catch (error) {
+             console.error("Error checking user status for logout button:", error);
+             // Default to hidden if error
+             logoutDesktop.classList.add('hidden');
+             logoutMobile.classList.add('hidden');
         }
     }
 
     function toggleMobileMenu() {
-      document.getElementById('mobileMenu').classList.toggle('hidden');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (mobileMenu) {
+        mobileMenu.classList.toggle('hidden');
+      }
     }
 
     // Initialization
     window.onload = () => {
-      renderProducts(); // Initial render
-      populateOrderForm(); // Check for existing user data
-      updateCartUI(); // Load cart display
-      updateLogoutButtonVisibility(); // Set initial logout button state
+      console.log("Window loaded. Initializing..."); // DEBUG
+      try {
+          renderProducts(); // Initial render
+          populateOrderForm(); // Check for existing user data
+          updateCartUI(); // Load cart display
+          updateLogoutButtonVisibility(); // Set initial logout button state
 
-      // Add event listeners
-      document.getElementById('modalAddToCart').addEventListener('click', addToCartFromModal);
+          // Add event listeners
+          const modalAddToCartButton = document.getElementById('modalAddToCart');
+          if (modalAddToCartButton) {
+              modalAddToCartButton.addEventListener('click', addToCartFromModal);
+          } else {
+              console.error("Modal AddToCart button not found on load.");
+          }
 
-      document.getElementById('productSearch').addEventListener('input', function() {
-          renderProducts(currentCategory, this.value);
-      });
+          const productSearchInput = document.getElementById('productSearch');
+          if (productSearchInput) {
+              productSearchInput.addEventListener('input', function() {
+                  renderProducts(currentCategory, this.value);
+              });
+          }
 
-       document.getElementById('categoryFilter').addEventListener('change', function() {
-          currentCategory = this.value;
-          renderProducts(currentCategory, document.getElementById('productSearch').value);
-      });
+          const categoryFilterSelect = document.getElementById('categoryFilter');
+          if (categoryFilterSelect) {
+               categoryFilterSelect.addEventListener('change', function() {
+                  currentCategory = this.value;
+                  const searchVal = document.getElementById('productSearch')?.value || '';
+                  renderProducts(currentCategory, searchVal);
+              });
+          }
 
-      // Add listener for order form coupon input to update summary dynamically
-      document.getElementById('coupon').addEventListener('input', updateOrderSummary);
+          // Add listener for order form coupon input to update summary dynamically
+          const couponInput = document.getElementById('coupon');
+          if (couponInput) {
+            couponInput.addEventListener('input', updateOrderSummary);
+          }
 
-      // Animate feature cards on scroll (simple example)
-      const featureCards = document.querySelectorAll('.feature-card');
-      const observerOptions = { threshold: 0.1 };
-      const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                  entry.target.classList.add('animate__fadeInUp');
-                  observer.unobserve(entry.target); // Animate only once
-              }
-          });
-      }, observerOptions);
-      featureCards.forEach(card => observer.observe(card));
+          // Animate feature cards on scroll (simple example)
+          const featureCards = document.querySelectorAll('.feature-card');
+          if ('IntersectionObserver' in window) {
+              const observerOptions = { threshold: 0.1 };
+              const observer = new IntersectionObserver((entries, observer) => { // Pass observer to unobserve
+                  entries.forEach(entry => {
+                      if (entry.isIntersecting) {
+                          entry.target.classList.add('animate__fadeInUp');
+                          observer.unobserve(entry.target); // Animate only once
+                      }
+                  });
+              }, observerOptions);
+              featureCards.forEach(card => observer.observe(card));
+          } else {
+              // Fallback for older browsers: maybe just show them directly
+              featureCards.forEach(card => card.classList.add('animate__fadeInUp'));
+          }
+          console.log("Initialization complete."); // DEBUG
+      } catch (error) {
+           console.error("Error during window.onload initialization:", error);
+           alert("There was an error loading the page. Some features might not work correctly.");
+      }
     };
 
     // Function to trigger card animations after rendering
     function animateCards() {
         // Use a staggered delay for entry animation
-        document.querySelectorAll('#productsContainer .product-card').forEach((card, index) => {
-            card.style.opacity = '0'; // Start invisible
-            card.style.animationDelay = `${index * 50}ms`;
-            // Ensure animation class is added *after* potential re-renders
-            setTimeout(() => {
-                 card.style.opacity = '1';
-                 card.classList.add('animate__fadeInUp');
-                 // Optional: Remove animation class after it finishes to allow re-animation if needed
-                 card.addEventListener('animationend', () => {
-                     card.classList.remove('animate__fadeInUp');
-                 }, { once: true });
-            }, 20); // Small delay to ensure element is in DOM
-        });
+        try {
+            const cards = document.querySelectorAll('#productsContainer .product-card');
+             cards.forEach((card, index) => {
+                card.style.opacity = '0'; // Start invisible
+                card.style.animationDelay = `${index * 50}ms`;
+                // Ensure animation class is added *after* potential re-renders
+                setTimeout(() => {
+                     card.style.opacity = '1';
+                     card.classList.add('animate__fadeInUp');
+                     // Optional: Remove animation class after it finishes to allow re-animation if needed
+                     card.addEventListener('animationend', () => {
+                         card.classList.remove('animate__fadeInUp');
+                     }, { once: true });
+                }, 20); // Small delay to ensure element is in DOM
+            });
+        } catch (error) {
+            console.error("Error animating product cards:", error);
+        }
     }
 
   </script>
