@@ -293,7 +293,7 @@
         <a href="#request" class="nav-link">Request Product</a>
         <a href="#contact" class="nav-link">Contact</a>
         <div class="relative ml-4">
-          <button onclick="toggleCart()" class="flex items-center relative text-gray-600 hover:text-gray-800">
+          <button onclick="toggleCart()" class="flex items-center relative text-gray-600 hover:text-gray-800" aria-label="View Shopping Cart">
             <i class="fas fa-shopping-cart text-xl"></i>
             <span id="cartCounter" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold hidden">0</span>
           </button>
@@ -301,11 +301,11 @@
         <button id="logoutButtonDesktop" onclick="logout()" class="ml-4 text-sm btn-primary px-4 py-2 rounded-full hidden">Logout</button>
       </nav>
       <div class="md:hidden flex items-center space-x-4">
-        <button onclick="toggleCart()" class="flex items-center relative text-gray-600 hover:text-gray-800">
+        <button onclick="toggleCart()" class="flex items-center relative text-gray-600 hover:text-gray-800" aria-label="View Shopping Cart">
            <i class="fas fa-shopping-cart text-xl"></i>
           <span id="cartCounterMobile" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold hidden">0</span>
         </button>
-        <button onclick="toggleMobileMenu()" class="text-gray-700">
+        <button onclick="toggleMobileMenu()" class="text-gray-700" aria-label="Toggle mobile menu">
           <i class="fas fa-bars text-2xl"></i>
         </button>
       </div>
@@ -327,7 +327,7 @@
       <div class="cart-panel-content">
           <div class="flex justify-between items-center mb-6">
               <h3 class="text-2xl font-bold text-gray-800">Your Cart</h3>
-              <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700 text-2xl leading-none align-middle">×</button>
+              <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700 text-2xl leading-none align-middle" aria-label="Close Cart">&times;</button>
           </div>
           <div id="cartPanelItems" class="space-y-4 mb-6">
              <p id="emptyCartMessage" class="text-center text-gray-500">Your cart is empty.</p>
@@ -340,7 +340,7 @@
                   <span class="font-semibold">Subtotal:</span>
                   <span class="font-semibold">₹<span id="cartPanelSubtotal">0</span></span>
               </div>
-              <div id="discountRow" class="flex justify-between mb-2 hidden">
+              <div id="cartDiscountRow" class="flex justify-between mb-2 hidden">
                   <span class="font-semibold">Discount:</span>
                   <span class="font-semibold text-green-600">-₹<span id="cartPanelDiscount">0</span></span>
               </div>
@@ -414,12 +414,12 @@
       <h2 class="text-4xl font-bold mb-6 text-center text-gray-800">Our Premium Collection</h2>
       <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
           <div class="relative w-full md:w-1/2 lg:w-1/3">
-            <input type="text" id="productSearch" placeholder="Search products..." class="w-full p-4 pl-12 border border-gray-200 rounded-full shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+            <input type="text" id="productSearch" placeholder="Search products..." class="w-full p-4 pl-12 border border-gray-200 rounded-full shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent" aria-label="Search products">
             <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
           </div>
           <div class="filter-selector text-center md:text-left">
             <label for="categoryFilter" class="mr-2 font-semibold text-gray-700">Filter by Category:</label>
-            <select id="categoryFilter" class="p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white">
+            <select id="categoryFilter" class="p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white" aria-label="Select product category">
               <option value="all">All Products</option>
               <option value="keychains">Keychains</option>
               <option value="artSupplies">Art Supplies</option>
@@ -428,8 +428,7 @@
             </select>
           </div>
       </div>
-      <div id="productsContainer" class="relative">
-          <div class="loader"></div>
+      <div id="productsContainer" class="relative min-h-[300px]"> <div class="loader"></div>
           </div>
     </div>
   </section>
@@ -439,20 +438,19 @@
       <h2 class="text-4xl font-bold mb-8 text-gray-800">Request a Product</h2>
       <div class="product-request-form bg-white p-8 rounded-xl shadow-md">
         <form id="requestForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
-          <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-request.html">
-          <input type="hidden" name="_subject" value="New Product Request from The Highon's Site">
+          <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-request.html"> <input type="hidden" name="_subject" value="New Product Request from The Highon's Site">
           <input type="hidden" name="_captcha" value="false">
           <div>
             <label for="requestName" class="block font-semibold mb-2 text-gray-700">Product Name</label>
-            <input type="text" id="requestName" name="product" placeholder="What product are you looking for?" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+            <input type="text" id="requestName" name="product" placeholder="What product are you looking for?" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required aria-label="Product name for request">
           </div>
           <div>
             <label for="requestDetails" class="block font-semibold mb-2 text-gray-700">Additional Details</label>
-            <textarea id="requestDetails" name="details" rows="4" placeholder="Any specific brand, color, size or other details?" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"></textarea>
+            <textarea id="requestDetails" name="details" rows="4" placeholder="Any specific brand, color, size or other details?" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" aria-label="Additional details for product request"></textarea>
           </div>
           <div>
             <label for="requestEmail" class="block font-semibold mb-2 text-gray-700">Your Email</label>
-            <input type="email" id="requestEmail" name="email" placeholder="Your email address" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+            <input type="email" id="requestEmail" name="email" placeholder="Your email address" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required aria-label="Your email address for request">
           </div>
           <button type="submit" class="w-full btn-primary text-white py-4 rounded-lg font-medium">Submit Request</button>
         </form>
@@ -465,15 +463,14 @@
       <h2 class="text-4xl font-bold mb-8 text-gray-800">Place Your Order</h2>
       <div id="loginForm" class="space-y-6 text-left bg-white p-8 rounded-xl shadow-md">
         <h3 class="text-2xl font-semibold mb-6 text-gray-700">Your Information</h3>
-        <input type="text" id="name" placeholder="Full Name" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
-        <input type="email" id="email" placeholder="Email" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
-        <input type="tel" id="phone" placeholder="Phone (+91)" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required pattern="[6-9]\d{9}">
-        <input type="text" id="address" placeholder="Full Address (Navsari)" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+        <input type="text" id="name" placeholder="Full Name" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required aria-label="Full Name">
+        <input type="email" id="email" placeholder="Email" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required aria-label="Email Address">
+        <input type="tel" id="phone" placeholder="Phone (+91)" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required pattern="[6-9]\d{9}" aria-label="Phone number (starts with 6-9, 10 digits)">
+        <input type="text" id="address" placeholder="Full Address (Navsari)" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required aria-label="Full Address">
         <button onclick="saveUser()" class="w-full btn-primary text-white py-4 rounded-lg font-medium mt-4">Save & Continue</button>
       </div>
       <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left bg-white p-8 rounded-xl shadow-md hidden">
-        <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-order.html">
-        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-order.html"> <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_subject" value="New Order from The Highon's Site!">
         <input type="hidden" name="name" id="formName">
         <input type="hidden" name="email" id="formEmail">
@@ -484,7 +481,7 @@
         <h3 class="text-2xl font-semibold mb-6 text-gray-700">Order Summary</h3>
         <div class="mb-6">
           <label for="coupon" class="block font-semibold mb-2 text-gray-700">Have a coupon code?</label>
-          <input type="text" id="coupon" placeholder="Enter code if you have one" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+          <input type="text" id="coupon" placeholder="Enter code if you have one" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" aria-label="Coupon code">
         </div>
         <div id="cartSummary" class="bg-gray-50 border border-gray-200 rounded-xl p-6 mb-6">
           <h3 class="font-semibold text-lg mb-4 text-gray-800">Your Cart Items</h3>
@@ -508,14 +505,14 @@
 
         <div class="mb-6">
           <label for="payment" class="block font-semibold mb-2 text-gray-700">Payment Option:</label>
-          <select id="payment" name="payment" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white">
+          <select id="payment" name="payment" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white" aria-label="Payment option">
             <option value="COD">Cash on Delivery</option>
             <option value="UPI">UPI Payment</option>
           </select>
         </div>
         <div class="text-center bg-gray-50 p-4 rounded-lg mb-6">
           <p class="font-semibold mb-3 text-gray-700">Scan to Pay via UPI:</p>
-          <img src="1000022591.jpg" alt="UPI QR Code" class="w-48 mx-auto rounded-lg shadow" loading="lazy">
+          <img src="1000022591.jpg" alt="UPI QR Code for Payment" class="w-48 mx-auto rounded-lg shadow" loading="lazy">
         </div>
         <button type="submit" onclick="return prepareOrder()" class="w-full btn-primary text-white py-4 rounded-lg font-medium">Confirm Order</button>
       </form>
@@ -532,7 +529,7 @@
           <h3 class="text-xl font-semibold mb-4 text-gray-800">Contact Information</h3>
           <p class="text-lg mb-2"><span class="font-medium">Email:</span> <a href="mailto:thehighonsofficial@gmail.com" class="text-purple-600 hover:text-purple-800">thehighonsofficial@gmail.com</a></p>
           <div class="flex space-x-4 mt-6">
-            <a href="https://instagram.com/thehighons" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-instagram text-2xl"></i></a>
+            <a href="https://instagram.com/thehighons" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-purple-600 transition" aria-label="Follow us on Instagram"><i class="fab fa-instagram text-2xl"></i></a>
           </div>
         </div>
       </div>
@@ -562,7 +559,7 @@
 
   <div id="productModal" class="fixed inset-0 z-[70] bg-black bg-opacity-50 flex items-center justify-center hidden p-4">
     <div class="bg-white p-8 rounded-xl shadow-2xl relative max-w-md w-full mx-auto animate__animated animate__zoomIn animate__faster">
-      <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl leading-none">×</button>
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl leading-none" aria-label="Close product details modal">&times;</button>
       <img id="modalImg" src="" alt="" class="w-full h-64 object-contain rounded-lg mb-6" loading="lazy">
       <h3 id="modalName" class="text-2xl font-bold mb-2 text-gray-800"></h3>
       <p id="modalDesc" class="text-gray-600 mb-4"></p>
@@ -619,20 +616,31 @@
     let cart = []; // Initialized later from localStorage
     let currentModalProduct = null;
     let currentCategory = 'all';
-    let appliedCoupon = null;
+    // Removed appliedCoupon state variable as coupon is now tied to input fields
+
 
     // --- Core Functions ---
+
+    function escapeHtml(unsafe) {
+        if (typeof unsafe !== 'string') return unsafe; // Return non-strings as-is
+        return unsafe
+             .replace(/&/g, "&amp;") // Must be first
+             .replace(/</g, "&lt;")
+             .replace(/>/g, "&gt;")
+             .replace(/"/g, "&quot;")
+             .replace(/'/g, "&#039;"); // Use HTML entity for single quote
+    }
 
     function renderProducts(category = 'all', searchTerm = '') {
         const container = document.getElementById("productsContainer");
         if (!container) { console.error("productsContainer not found!"); return; }
-        // Removed initial loader setting from here
 
-        // Use requestAnimationFrame for smoother rendering start
+        container.innerHTML = '<div class="loader"></div>'; // Show loader
+
         requestAnimationFrame(() => {
-            container.innerHTML = '<div class="loader"></div>'; // ADDED: Show loader just before processing
             try {
-                container.innerHTML = ''; // Clear loader/previous content IMMEDIATELY INSIDE TRY
+                container.innerHTML = ''; // Clear loader
+
                 let hasProducts = false;
                 const searchTermLower = searchTerm.toLowerCase().trim();
 
@@ -649,9 +657,9 @@
                         const section = document.createElement('div');
                         section.className = 'mb-16';
                         const title = catKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-                        // Only show title if filtering by 'all' or if it's the single category being shown
+                         // Only show title if filtering by 'all' or if it's the single category being shown
                         if (category === 'all' || category === catKey) {
-                            section.innerHTML = `<h3 class="category-title">${title}</h3>`;
+                             section.innerHTML = `<h3 class="category-title">${title}</h3>`;
                         }
                         const grid = document.createElement('div');
                         grid.className = 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8';
@@ -661,7 +669,7 @@
 
                         filtered.forEach((product) => {
                             const originalIndex = products[catKey].findIndex(p => p.name === product.name);
-                            if (originalIndex !== -1) { // Ensure index is found
+                             if (originalIndex !== -1) { // Ensure index is found
                                 grid.appendChild(createProductCard(product, originalIndex, catKey));
                             } else {
                                 console.warn(`Product ${product.name} not found in original ${catKey} list for indexing.`);
@@ -693,12 +701,10 @@
     function createProductCard(product, index, category) {
         const card = document.createElement("div");
         card.id = `product-${category}-${index}`;
-        // Add animate__animated here, specific animation added by animateCards()
-        card.className = "product-card animate__animated";
+        card.className = "product-card animate__animated"; // Add animate__animated here
         const itemInCart = cart.find(item => item.name === product.name);
         const productNameSafe = escapeHtml(product.name); // Sanitize name
 
-        // Use template literals and structure for clarity
         card.innerHTML = `
             <div class="relative overflow-hidden rounded-t-lg h-56 bg-gray-100 flex items-center justify-center p-2 cursor-pointer" onclick="showModal('${category}', ${index})">
                 <img src="${escapeHtml(product.img)}" alt="${productNameSafe}" class="max-w-full max-h-full object-contain transition duration-300 hover:scale-105" loading="lazy">
@@ -706,7 +712,7 @@
             <div class="product-card-content">
                  <div>
                     <h3 class="text-lg font-semibold mb-1 text-gray-800">${productNameSafe}</h3>
-                    <p class="text-sm text-gray-500 mb-3 min-h-[40px]">${escapeHtml(product.desc.substring(0, 50))}${product.desc.length > 50 ? '...' : ''}</p>
+                    <p class="text-sm text-gray-500 mb-3 min-h-[40px]">${escapeHtml(product.desc ? product.desc.substring(0, 50) + (product.desc.length > 50 ? '...' : '') : '')}</p>
                     <span class="block text-xl font-bold text-purple-600 mb-4">₹${product.price}</span>
                 </div>
                 <div class="product-card-controls mt-auto">
@@ -721,8 +727,6 @@
                 </div>
             </div>
         `;
-        // Added event.stopPropagation() to buttons to prevent triggering showModal
-        // Added aria-labels for accessibility
         return card;
     }
 
@@ -735,16 +739,16 @@
                 console.error("Product not found for:", category, index);
                 return;
             }
-            const existingIndex = cart.findIndex(p => p.name === product.name);
-            if (existingIndex > -1) {
-                cart[existingIndex].qty++;
+            const existingItemIndex = cart.findIndex(item => item.name === product.name);
+            if (existingItemIndex > -1) {
+                cart[existingItemIndex].qty++;
             } else {
                 // Add category and index to the item for easier reference later
                 cart.push({ ...product, qty: 1, category: category, index: index });
             }
 
             saveCart();
-            updateProductCard(category, index);
+            updateProductCard(category, index); // Update the specific product card
             updateCartUI(); // Update all UI elements related to cart
         } catch (error) {
             console.error("Error adding to cart:", error);
@@ -758,7 +762,7 @@
                 console.error("Cannot update quantity, product info not found for:", category, index);
                 return;
             }
-            const itemIndex = cart.findIndex(p => p.name === product.name);
+            const itemIndex = cart.findIndex(item => item.name === product.name);
             if (itemIndex > -1) {
                 const newQty = cart[itemIndex].qty + change;
                 if (newQty <= 0) {
@@ -770,13 +774,39 @@
                 updateProductCard(category, index); // Update the specific product card
                 updateCartUI(); // Update cart panel and counters
             } else if (change > 0) {
-                // If item not found and change is positive, treat as adding the first item
+                // If item not found and change is positive (e.g., clicked '+' when not in cart), add it
                 addToCart(category, index);
             } else {
                  console.warn(`Attempted to decrease quantity for item not in cart: ${product.name}`);
             }
        } catch (error) {
             console.error("Error updating quantity:", error);
+        }
+    }
+
+    // Called from cart panel buttons
+    function updateQtyFromPanel(name, change) {
+        try {
+            const item = cart.find(p => p.name === name);
+            if (item && item.category !== undefined && item.index !== undefined) {
+                 updateQty(item.category, item.index, change);
+            } else {
+                 console.warn(`Could not find item or original product info for "${name}" in cart.`);
+                 // Fallback: Find by name and update if necessary, but we lose card update capability
+                 const itemIndex = cart.findIndex(p => p.name === name);
+                 if (itemIndex > -1) {
+                     const newQty = cart[itemIndex].qty + change;
+                     if (newQty <= 0) {
+                         cart.splice(itemIndex, 1);
+                     } else {
+                         cart[itemIndex].qty = newQty;
+                     }
+                     saveCart();
+                     updateCartUI(); // Refresh UI
+                 }
+            }
+        } catch (error) {
+            console.error("Error in updateQtyFromPanel:", error);
         }
     }
 
@@ -787,7 +817,7 @@
 
         const cardId = `product-${category}-${index}`;
         const card = document.getElementById(cardId);
-        // Only proceed if the card element exists in the current DOM
+        // Only proceed if the card element exists in the current DOM (visible)
         if (!card) return;
         const controlsContainer = card.querySelector('.product-card-controls');
         if (!controlsContainer) {
@@ -797,7 +827,7 @@
 
         try {
             const itemInCart = cart.find(item => item.name === product.name);
-            const productNameSafe = escapeHtml(product.name); // Sanitize name
+            const productNameSafe = escapeHtml(product.name); // Sanitize name for aria-label
 
             controlsContainer.innerHTML = itemInCart ? `
                 <div class="quantity-controls">
@@ -808,8 +838,8 @@
                 <button onclick="event.stopPropagation(); addToCart('${category}', ${index})" class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition">Add to Cart</button>`;
         } catch (error) {
             console.error(`Error updating product card controls for ${category}-${index}:`, error);
-            // Optionally revert to a default state or show an error message in the card
-            controlsContainer.innerHTML = `<p class="text-red-500 text-xs">Error updating controls</p>`;
+             // Fallback to default state if update fails
+            controlsContainer.innerHTML = `<button onclick="event.stopPropagation(); addToCart('${category}', ${index})" class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition">Add to Cart (Error)</button>`;
         }
     }
 
@@ -828,24 +858,40 @@
             localStorage.setItem('cart', JSON.stringify(cart));
         } catch (error) {
             console.error("Error saving cart to localStorage:", error);
-            alert("Warning: Could not save cart changes. Your browser's storage might be full or disabled.");
+            // Consider a user-facing message here
         }
     }
 
     function loadCart() {
         try {
             const storedCart = localStorage.getItem('cart');
-            cart = storedCart ? JSON.parse(storedCart) : [];
-            if (!Array.isArray(cart)) {
-                console.warn("Invalid cart data found in localStorage. Resetting cart.");
-                cart = [];
-                saveCart();
+            if (storedCart) {
+                 try {
+                    const parsedCart = JSON.parse(storedCart);
+                    // Validate loaded cart data
+                    if (Array.isArray(parsedCart)) {
+                        cart = parsedCart.filter(item =>
+                            item &&
+                            typeof item.name === 'string' &&
+                            typeof item.price === 'number' &&
+                            typeof item.qty === 'number' && item.qty > 0 &&
+                            item.category !== undefined && item.index !== undefined && // Ensure original location is stored
+                            products[item.category]?.[item.index]?.name === item.name // Basic validation against product list
+                        );
+                    } else {
+                        console.warn("Invalid cart data format in localStorage. Resetting cart.");
+                        cart = []; // Reset if not an array
+                    }
+                 } catch (parseError) {
+                    console.error("Error parsing cart data from localStorage. Resetting cart.", parseError);
+                    cart = []; // Reset on parse error
+                 }
+            } else {
+                cart = []; // Initialize empty if no data
             }
-            // Clean cart data: ensure required fields exist and qty is positive
-            cart = cart.filter(item => item && typeof item.name === 'string' && typeof item.price === 'number' && typeof item.qty === 'number' && item.qty > 0 && item.category !== undefined && item.index !== undefined);
         } catch (error) {
             console.error("Error loading cart from localStorage:", error);
-            cart = []; // Reset to empty cart on error
+            cart = []; // Reset to empty cart on general localStorage error
         }
     }
 
@@ -853,7 +899,7 @@
         const panelItems = document.getElementById("cartPanelItems");
         const subtotalEl = document.getElementById("cartPanelSubtotal");
         const totalEl = document.getElementById("cartPanelTotal");
-        const discountRow = document.getElementById("discountRow");
+        const discountRow = document.getElementById("cartDiscountRow"); // Use cartDiscountRow ID
         const discountEl = document.getElementById("cartPanelDiscount");
         const emptyCartMsg = document.getElementById("emptyCartMessage");
         const cartFooter = document.getElementById("cartPanelFooter");
@@ -871,8 +917,7 @@
                 emptyCartMsg.classList.remove('hidden');
                 cartFooter.classList.add('hidden');
                 discountRow.classList.add('hidden');
-                appliedCoupon = null; // Reset coupon if cart is empty
-                cartCouponInput.value = ''; // Clear coupon input visual
+                // Don't clear coupon input here, it should persist unless explicitly removed
             } else {
                 emptyCartMsg.classList.add('hidden');
                 cartFooter.classList.remove('hidden');
@@ -886,7 +931,7 @@
                     subtotal += itemTotal;
 
                     const safeItemName = escapeHtml(itemName);
-                    // Need to escape quotes for the onclick attribute string itself
+                     // Need to escape quotes for the onclick attribute string itself
                     const safeItemNameForAttr = itemName.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"');
 
                     panelItems.innerHTML += `
@@ -909,10 +954,12 @@
 
                 subtotalEl.textContent = subtotal;
 
-                // Recalculate total with coupon if applied
+                // Recalculate total with coupon if applied in the cart panel
                 let total = subtotal;
                 let discount = 0;
-                if (appliedCoupon === "NSL10%") {
+                const couponCode = cartCouponInput.value.trim().toUpperCase();
+
+                if (couponCode === "NSL10%") {
                     discount = Math.round(subtotal * 0.10);
                     total = subtotal - discount;
                     discountEl.textContent = discount;
@@ -921,42 +968,11 @@
                     discountRow.classList.add('hidden');
                 }
                 totalEl.textContent = total;
-                cartCouponInput.value = appliedCoupon ? appliedCoupon : '';
             }
         } catch (error) {
              console.error("Error updating cart panel content:", error);
              panelItems.innerHTML = '<p class="text-red-500">Error loading cart items.</p>';
              cartFooter.classList.add('hidden'); // Hide footer on error
-        }
-    }
-
-    function updateQtyFromPanel(name, change) {
-        try {
-            const itemIndex = cart.findIndex(p => p.name === name);
-            if (itemIndex > -1) {
-                 const item = cart[itemIndex];
-                 // Ensure category and index are present from when item was added
-                 if (item.category !== undefined && item.index !== undefined) {
-                     updateQty(item.category, item.index, change);
-                 } else {
-                     // Fallback if category/index somehow missing (should not happen with loadCart checks)
-                     console.warn(`Fallback: Could not find original product info for ${name} in cart item. Updating cart directly.`);
-                     const newQty = cart[itemIndex].qty + change;
-                     if (newQty <= 0) {
-                         cart.splice(itemIndex, 1);
-                     } else {
-                         cart[itemIndex].qty = newQty;
-                     }
-                     saveCart();
-                     updateCartUI(); // Refresh everything
-                     // We can't reliably update the product card without category/index
-                     console.warn(`Could not update product card for ${name} due to missing category/index in cart item.`);
-                 }
-            } else {
-                 console.warn("Item not found in cart for panel update:", name);
-            }
-        } catch (error) {
-            console.error("Error in updateQtyFromPanel:", error);
         }
     }
 
@@ -968,10 +984,9 @@
         const summarySubtotalRow = document.getElementById("summarySubtotalRow"); // Get subtotal row
         const summaryDiscountRow = document.getElementById("summaryDiscountRow");
         const summaryDiscountEl = document.getElementById("summaryDiscount");
-        const orderForm = document.getElementById("orderForm");
         const couponInput = document.getElementById('coupon'); // Coupon input in ORDER FORM
 
-        if (!list || !subtotalEl || !totalEl || !summarySubtotalRow || !summaryDiscountRow || !summaryDiscountEl || !orderForm || !couponInput) {
+        if (!list || !subtotalEl || !totalEl || !summarySubtotalRow || !summaryDiscountRow || !summaryDiscountEl || !couponInput) {
             console.error("One or more order summary elements not found! Cannot update.");
             return;
         }
@@ -988,8 +1003,8 @@
             } else {
                 summarySubtotalRow.classList.remove('hidden'); // Show subtotal row if cart has items
                 cart.forEach(item => {
-                    const itemPrice = item.price || 0;
-                    const itemQty = item.qty || 0;
+                    const itemPrice = typeof item.price === 'number' ? item.price : 0;
+                    const itemQty = typeof item.qty === 'number' ? item.qty : 0;
                     const itemTotal = itemPrice * itemQty;
                     subtotal += itemTotal;
                     list.innerHTML += `
@@ -1001,30 +1016,18 @@
                 });
                 subtotalEl.textContent = subtotal; // Update subtotal display
 
-                 // Apply coupon discount
+                 // Apply coupon discount based on ORDER FORM coupon input
                 let finalTotal = subtotal;
                 let discount = 0;
                 const couponCode = couponInput.value.trim().toUpperCase(); // Use order form input value
 
-                // Check coupon from order form OR globally applied one
-                const effectiveCoupon = couponCode === "NSL10%" ? "NSL10%" : (appliedCoupon === "NSL10%" && couponCode === "" ? "NSL10%" : null);
-                if (effectiveCoupon === "NSL10%") {
+                if (couponCode === "NSL10%") {
                     discount = Math.round(subtotal * 0.10);
                     finalTotal = subtotal - discount;
                     summaryDiscountEl.textContent = discount;
                     summaryDiscountRow.classList.remove('hidden');
-                    // Sync order form input if coupon came from global state and input is empty
-                    if (couponCode === "" && appliedCoupon === "NSL10%") {
-                        couponInput.value = appliedCoupon;
-                    }
                 } else {
                     summaryDiscountRow.classList.add('hidden');
-                    // If user cleared coupon input, ensure global state reflects that
-                    if (couponCode === "" && appliedCoupon) {
-                        appliedCoupon = null; // Clear global state only if input is explicitly cleared
-                        // Need to update cart panel too if global state changed here
-                        updateCartPanel();
-                    }
                 }
                 totalEl.textContent = finalTotal;
             }
@@ -1051,6 +1054,7 @@
             mobileCounter.classList.toggle('hidden', totalItems === 0);
         } catch (error) {
             console.error("Error updating cart counter:", error);
+             // Ensure counters are hidden on error
             counter.classList.add('hidden');
             mobileCounter.classList.add('hidden');
         }
@@ -1098,42 +1102,67 @@
         // Delay scrolling slightly to allow cart closing animation
         setTimeout(() => {
              const orderSection = document.getElementById('order');
-             if (orderSection) {
-                const user = localStorage.getItem('user');
-                const loginForm = document.getElementById('loginForm');
-                const orderForm = document.getElementById('orderForm');
-                // Determine which form is currently visible or should be targeted
-                const targetElement = (user && orderForm && !orderForm.classList.contains('hidden')) ? orderForm : (loginForm && !loginForm.classList.contains('hidden') ? loginForm : orderSection);
+             const loginForm = document.getElementById('loginForm');
+             const orderForm = document.getElementById('orderForm');
 
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                updateOrderSummary(); // Ensure summary is up-to-date when scrolling
-             } else {
-                 console.error("Order section (#order) not found!");
+             if (!orderSection || !loginForm || !orderForm) {
+                 console.error("Order section or forms not found!");
+                 alert("Could not find order section.");
+                 return;
              }
+
+             // Determine which section to scroll to based on login status
+             const user = localStorage.getItem('user');
+             const targetElement = (user && !orderForm.classList.contains('hidden')) ? orderForm : loginForm;
+
+             if (targetElement) {
+                 targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                 updateOrderSummary(); // Ensure summary is up-to-date when scrolling
+             } else {
+                  // Fallback scroll if logic fails
+                  orderSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+             }
+
         }, 450); // Match CSS transition duration + buffer
     }
 
     function applyCoupon() {
-        const couponInput = document.getElementById('cartCoupon'); // Coupon input in CART PANEL
-        if (!couponInput) {
-            console.error("Cart panel coupon input not found!");
+        const cartCouponInput = document.getElementById('cartCoupon'); // Coupon input in CART PANEL
+        const orderCouponInput = document.getElementById('coupon'); // Coupon input in ORDER FORM
+
+        if (!cartCouponInput || !orderCouponInput) {
+            console.error("Coupon input fields not found!");
+            alert("Error: Could not find coupon input fields.");
             return;
         }
-        const couponCode = couponInput.value.trim().toUpperCase();
-        if (couponCode === "NSL10%") {
-            appliedCoupon = "NSL10%";
-            alert('Coupon "NSL10%" applied successfully!');
+
+        const couponCode = cartCouponInput.value.trim().toUpperCase();
+        const validCouponCode = "NSL10%"; // Define valid code here
+
+        if (couponCode === validCouponCode) {
+             // Apply logic: Sync coupon to order form input and update UI
+             orderCouponInput.value = couponCode; // Sync value
+             alert(`Coupon "${validCouponCode}" applied successfully!`);
         } else if (couponCode === "") {
-             appliedCoupon = null; // Explicitly remove coupon
+             // Remove logic: Clear both coupon inputs and update UI
+             cartCouponInput.value = ""; // Clear cart input
+             orderCouponInput.value = ""; // Clear order form input
              alert('Coupon removed.');
         } else {
-            // Invalid code entered, don't change appliedCoupon state, maybe clear input
+            // Invalid code entered, alert and potentially clear the input
             alert('Invalid coupon code.');
-            // couponInput.value = ''; // Optionally clear the input field on invalid
+            // cartCouponInput.value = ''; // Optionally clear the input field on invalid
+            // Don't change orderCouponInput unless it was the valid code
+            if (orderCouponInput.value.trim().toUpperCase() === validCouponCode) {
+                 // If the order form had the valid code, leave it, as the user only entered an invalid one in the cart
+            } else {
+                 orderCouponInput.value = ""; // Clear order form input if it didn't have the valid code either
+            }
         }
-        updateCartPanel();
-        updateOrderSummary(); // Reflect change in order form too
+        // Always update UI after attempting to apply/remove coupon
+        updateCartUI();
     }
+
 
     function showModal(category, index) {
        try {
@@ -1164,10 +1193,22 @@
             // Update button based on current cart state
             const itemInCart = cart.find(item => item.name === product.name);
             modalBtn.textContent = itemInCart ? `Add One More (Qty: ${itemInCart.qty})` : 'Add to Cart';
-            // Clone and replace button to remove old listeners before adding new one
-            const newBtn = modalBtn.cloneNode(true);
-            modalBtn.parentNode.replaceChild(newBtn, modalBtn);
-            newBtn.addEventListener('click', addToCartFromModal);
+
+            // Remove existing event listener before cloning
+            const oldBtn = modalBtn;
+             if (oldBtn._currentEventListener) {
+                oldBtn.removeEventListener('click', oldBtn._currentEventListener);
+             }
+
+            // Clone and replace button to remove old listeners
+            const newBtn = oldBtn.cloneNode(true);
+            oldBtn.parentNode.replaceChild(newBtn, oldBtn);
+
+            // Add new event listener and store it
+            const newListener = addToCartFromModal;
+            newBtn.addEventListener('click', newListener);
+            newBtn._currentEventListener = newListener; // Store reference to remove later
+
 
             productModal.classList.remove('hidden'); // Show the modal
 
@@ -1188,28 +1229,26 @@
 
     function addToCartFromModal() {
         if (currentModalProduct) {
-            const { category, index } = currentModalProduct;
+            const { category, index, name } = currentModalProduct;
             // Double check product exists before adding
-            if (category !== undefined && index !== undefined && products[category]?.[index]) {
+            if (category !== undefined && index !== undefined && products[category]?.[index]?.name === name) {
                 addToCart(category, index); // Add the item
 
                 // Update modal button briefly
-                const modalBtn = document.getElementById('modalAddToCart'); // Get the (potentially replaced) button
+                const modalBtn = document.getElementById('modalAddToCart'); // Get the current button
                  if (modalBtn) {
                      modalBtn.textContent = 'Added!';
                      modalBtn.disabled = true; // Briefly disable
-                     setTimeout(() => {
-                         closeModal();
-                         // Re-enable button after closing, ready for next modal open
-                         // The button text will be reset by showModal next time it's called
-                         modalBtn.disabled = false;
-                     }, 800);
+                     // No need for timeout, closeModal is called immediately
+                     closeModal();
+                     // Re-enable button immediately after closing, ready for next modal open
+                     modalBtn.disabled = false;
                  } else {
                      closeModal(); // Close even if button somehow missing
                  }
             } else {
-                 console.error("Invalid category/index in currentModalProduct:", currentModalProduct);
-                 closeModal();
+                 console.error("Invalid category/index or product mismatch in currentModalProduct:", currentModalProduct);
+                 closeModal(); // Close modal if state is inconsistent
             }
         } else {
              console.warn("Add to cart from modal called with no current product selected.");
@@ -1245,9 +1284,9 @@
         let isValid = true;
         let errorMessage = "Please correct the following issues:\n";
         const emailRegex = /^\S+@\S+\.\S+$/;
-        const phoneRegex = /^[6-9]\d{9}$/;
+        const phoneRegex = /^[6-9]\d{9}$/; // Basic Indian phone number validation
 
-        // Reset previous errors
+        // Reset previous errors visually
         [nameInput, emailInput, phoneInput, addressInput].forEach(input => input.classList.remove('border-red-500'));
 
         if (!name) { isValid = false; nameInput.classList.add('border-red-500'); errorMessage += "- Full Name is required.\n"; }
@@ -1288,13 +1327,13 @@
             const userString = localStorage.getItem('user');
             if (userString) {
                 const user = JSON.parse(userString);
-                // Ensure all required user fields are present
+                // Ensure all required user fields are present and not empty strings
                 if (user && user.name && user.email && user.phone && user.address) {
                     const formName = document.getElementById('formName');
                     const formEmail = document.getElementById('formEmail');
                     const formPhone = document.getElementById('formPhone');
                     const formAddress = document.getElementById('formAddress');
-                    // Populate hidden fields in the order form
+                     // Populate hidden fields in the order form
                     if (formName) formName.value = user.name;
                     if (formEmail) formEmail.value = user.email;
                     if (formPhone) formPhone.value = user.phone;
@@ -1326,41 +1365,52 @@
     }
 
     function logout() {
+        // Confirmation dialog
         if (!confirm("Are you sure you want to logout? Your saved details and cart will be cleared.")) {
-            return;
+            return; // Abort if user cancels
         }
+
         try {
             localStorage.removeItem('user');
             localStorage.removeItem('cart'); // Clear cart on logout too
             cart = []; // Reset in-memory cart
-            appliedCoupon = null; // Reset coupon
             alert("You have been logged out.");
+
             // Reset UI elements
             const loginForm = document.getElementById('loginForm');
             const orderForm = document.getElementById('orderForm');
             if (loginForm) loginForm.classList.remove('hidden');
             if (orderForm) orderForm.classList.add('hidden');
+
             // Clear login form inputs visually
             ['name', 'email', 'phone', 'address'].forEach(id => {
                 const input = document.getElementById(id);
                 if (input) input.value = '';
             });
+
             // Clear coupon inputs visually
             ['cartCoupon', 'coupon'].forEach(id => {
                 const input = document.getElementById(id);
                 if(input) input.value = '';
             });
+
             updateLogoutButtonVisibility();
             updateCartUI(); // Update counters, panels, summaries
-            // Re-render products to reset 'Add to Cart' buttons state
-            renderProducts(currentCategory, document.getElementById('productSearch')?.value || '');
+            // Re-render products to reset 'Add to Cart' buttons state on visible products
+            // Check if productsContainer is visible before re-rendering everything
+            const productsSection = document.getElementById('products');
+            if (productsSection && !productsSection.classList.contains('hidden')) { // Basic visibility check
+                 renderProducts(currentCategory, document.getElementById('productSearch')?.value || '');
+            }
+
+
             window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top
+
         } catch (error) {
             console.error("Error during logout:", error);
-            alert("An error occurred during logout.");
-            // Attempt partial cleanup even on error
+            alert("An error occurred during logout. Some data might not have been cleared.");
+            // Attempt partial cleanup even on error if localStorage access failed
             cart = [];
-            appliedCoupon = null;
             updateCartUI();
             updateLogoutButtonVisibility();
         }
@@ -1374,10 +1424,27 @@
              return;
         }
         try {
-            const user = localStorage.getItem('user');
-            // Show logout buttons only if user data exists in localStorage
-            logoutDesktop.classList.toggle('hidden', !user);
-            logoutMobile.classList.toggle('hidden', !user);
+            // Check if user data exists and is valid JSON
+            const userString = localStorage.getItem('user');
+            let isLoggedIn = false;
+            if (userString) {
+                 try {
+                    const user = JSON.parse(userString);
+                    // Consider the user logged in if core fields exist
+                    if (user && user.name && user.email && user.phone && user.address) {
+                        isLoggedIn = true;
+                    } else {
+                         // Invalid user data structure found
+                         console.warn("Invalid user data structure in localStorage.");
+                    }
+                 } catch (e) {
+                     // JSON parsing error
+                     console.error("Error parsing user data in localStorage:", e);
+                 }
+            }
+            // Show logout buttons only if user data is considered valid and present
+            logoutDesktop.classList.toggle('hidden', !isLoggedIn);
+            logoutMobile.classList.toggle('hidden', !isLoggedIn);
         } catch (error) {
              // Hide buttons if localStorage access fails
              console.error("Error checking user status for logout button:", error);
@@ -1385,6 +1452,7 @@
              logoutMobile.classList.add('hidden');
         }
     }
+
 
     function prepareOrder() {
         try {
@@ -1394,12 +1462,26 @@
                 document.getElementById('loginForm')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 return false; // Prevent form submission
             }
-            const user = JSON.parse(userString);
-            // Assume valid if userString exists (checked by populateOrderForm)
+             // Attempt to parse and validate user data
+            let user;
+            try {
+                 user = JSON.parse(userString);
+                if (!user || !user.name || !user.email || !user.phone || !user.address) {
+                    throw new Error("Incomplete user data"); // Throw if data is incomplete
+                }
+            } catch (e) {
+                 console.error("Corrupted or incomplete user data in localStorage:", e);
+                 alert("Your saved information is incomplete or corrupted. Please re-enter your details.");
+                 localStorage.removeItem('user'); // Clear bad data
+                 populateOrderForm(); // Switch back to login form
+                 document.getElementById('loginForm')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                 return false; // Prevent form submission
+            }
+
 
             if (cart.length === 0) {
                 alert("Your cart is empty. Cannot place order.");
-                toggleCart(); // Show cart maybe? Or just prevent submission.
+                toggleCart(); // Show cart panel
                 return false; // Prevent form submission
             }
 
@@ -1412,6 +1494,7 @@
             const formEmail = document.getElementById('formEmail');
             const formPhone = document.getElementById('formPhone');
             const formAddress = document.getElementById('formAddress');
+
             if (!couponInput || !paymentSelect || !orderSummaryText || !formName || !formEmail || !formPhone || !formAddress) {
                  console.error("Essential order form elements missing!");
                  alert("Error: Order form is incomplete. Cannot proceed.");
@@ -1425,7 +1508,7 @@
             formAddress.value = user.address;
 
             // Generate summary text for the hidden input field
-            const coupon = couponInput.value.trim().toUpperCase(); // Use coupon from order form for final calculation in summary text
+            const coupon = couponInput.value.trim().toUpperCase(); // Use coupon from order form for final calculation
             let summary = `ORDER CONFIRMATION - The Highon's\n===============================\n`;
             summary += `CUSTOMER DETAILS:\n`;
             summary += `  Name:    ${user.name}\n  Email:   ${user.email}\n  Phone:   ${user.phone}\n  Address: ${user.address}\n`;
@@ -1434,46 +1517,52 @@
             let subtotal = 0;
             cart.forEach(item => {
                 const itemTotal = (item.price || 0) * (item.qty || 0);
-                summary += `  - ${item.name || 'Unknown Item'} (x${item.qty || 0})`.padEnd(40) + `₹${itemTotal}\n`;
+                 // Use padding for basic alignment in plain text
+                summary += `  - ${escapeHtml(item.name || 'Unknown Item')} (x${item.qty || 0})`.padEnd(50) + `₹${itemTotal}\n`;
                 subtotal += itemTotal;
             });
-            summary += `-------------------------------\n`;
-            summary += `  Subtotal:`.padEnd(40) + `₹${subtotal}\n`;
+            summary += `---------------------------------------------------\n`;
+            summary += `  Subtotal:`.padEnd(50) + `₹${subtotal}\n`;
 
             let total = subtotal;
             let discount = 0;
-            if (coupon === "NSL10%") {
+            const validCouponCode = "NSL10%"; // Define valid code here again
+            if (coupon === validCouponCode) {
                 discount = Math.round(subtotal * 0.10);
-                summary += `  Discount (NSL10%):`.padEnd(40) + `-₹${discount}\n`;
+                summary += `  Discount (${validCouponCode}):`.padEnd(50) + `-₹${discount}\n`;
                 total -= discount;
             }
 
-            summary += `===============================\n`;
-            summary += `  TOTAL AMOUNT:`.padEnd(40) + `₹${total}\n`;
-            summary += `===============================\n`;
+            summary += `===================================================\n`;
+            summary += `  TOTAL AMOUNT:`.padEnd(50) + `₹${total}\n`;
+            summary += `===================================================\n`;
             summary += `PAYMENT METHOD: ${paymentSelect.value}\n`;
-            summary += `===============================\nThank you!\n`;
+            summary += `===================================================\nThank you!\n`;
 
             // Set the hidden input's value
             orderSummaryText.value = summary;
             // console.log("Order prepared. Summary set. Allowing form submission.");
             // console.log("Order Summary Text:\n", summary); // Optional: Log summary for debugging
 
-            // Clear cart *after* successful submission confirmation (via _next page or AJAX response)
-            // Since we're using FormSubmit's redirect, we clear optimistically after a short delay.
-            // A more robust solution checks on the thank-you page or uses AJAX for submission.
-            setTimeout(() => {
+            // Show confirmation modal and clear state *after* the form is allowed to submit.
+            // FormSubmit handles the redirect, so this setTimeout will run before the redirect happens.
+            // A more robust solution would use AJAX submission and clear state in the success callback.
+             setTimeout(() => {
                 const orderConfirmation = document.getElementById('orderConfirmation');
                 if (orderConfirmation) orderConfirmation.classList.remove('hidden'); // Show confirmation modal
 
                 // Clear cart and related state
                 cart = [];
                 saveCart(); // Persist empty cart
-                appliedCoupon = null; // Reset coupon state
 
                 // Reset UI
                 updateCartUI(); // Update counters, panels, summaries to reflect empty cart
-                renderProducts(currentCategory, document.getElementById('productSearch')?.value || ''); // Reset product cards
+                 // Re-render products only if the product section is likely visible/interactive
+                 const productsSection = document.getElementById('products');
+                if (productsSection && !productsSection.classList.contains('hidden')) {
+                    renderProducts(currentCategory, document.getElementById('productSearch')?.value || ''); // Reset product cards
+                 }
+
 
                 // Clear coupon inputs visually
                 ['cartCoupon', 'coupon'].forEach(id => {
@@ -1481,7 +1570,7 @@
                     if(input) input.value = '';
                 });
 
-            }, 300); // Delay before showing confirmation modal & clearing state
+            }, 300); // Delay slightly
 
             return true; // Allow native form submission to proceed
 
@@ -1495,54 +1584,41 @@
     function closeOrderConfirmation() {
       const orderConfirmation = document.getElementById('orderConfirmation');
       if (orderConfirmation) orderConfirmation.classList.add('hidden');
-      // Optionally scroll to top or products section
+      // Scroll to products section or top
       document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
     }
 
     // --- Helper Functions ---
-
-    function escapeHtml(unsafe) {
-        if (typeof unsafe !== 'string') return unsafe; // Return non-strings as-is
-        return unsafe
-             .replace(/&/g, "&amp;") // Must be first
-             .replace(/</g, "&lt;")
-             .replace(/>/g, "&gt;")
-             .replace(/"/g, "&quot;")
-             .replace(/'/g, "&#039;"); // Use HTML entity for single quote
-    }
-
     function animateCards() {
         try {
             // Select only cards within the products container that have the base animated class
+            // Filter for cards that might not have been animated yet
             const cards = document.querySelectorAll('#productsContainer .product-card.animate__animated');
             cards.forEach((card, index) => {
-                // Ensure clean state before (re)applying animation
-                card.style.opacity = '0';
-                card.classList.remove('animate__fadeInUp'); // Remove existing animation class if present
+                 // Check if the element is likely not animated yet or needs re-animation
+                 // A simple way is to check if it's currently not visible (due to initial opacity 0)
+                 if (card.style.opacity === '0' || !card.classList.contains('animate__fadeInUp')) {
+                     card.style.opacity = '0'; // Ensure starting state
+                     card.classList.remove('animate__fadeInUp'); // Remove any previous animation class
 
-                // Apply animation with stagger
-                card.style.animationDelay = `${index * 60}ms`; // Stagger delay
+                     // Apply animation with stagger
+                     card.style.animationDelay = `${index * 60}ms`; // Stagger delay
 
-                // Use requestAnimationFrame to ensure styles are applied before adding class
-                requestAnimationFrame(() => {
-                    // Use a tiny setTimeout delay to help ensure the transition starts correctly
-                    setTimeout(() => {
-                        card.style.opacity = '1'; // Make visible
-                        card.classList.add('animate__fadeInUp'); // Add animation class
-                        // NOTE: The animation class ('animate__fadeInUp') remains on the element.
-                        // The 'animate.css' library typically only runs the animation once when
-                        // the class is added. Since elements are recreated on filter/search,
-                        // new elements will get the animation when they are first rendered.
-                    }, 10);
-                });
+                     // Use a tiny setTimeout delay to help ensure the transition starts correctly
+                     setTimeout(() => {
+                         card.style.opacity = '1'; // Make visible
+                         card.classList.add('animate__fadeInUp'); // Add animation class
+                     }, 10); // Small delay
+                 }
             });
         } catch (error) {
             console.error("Error animating product cards:", error);
             // Fallback: ensure cards are visible even if animation fails
             const cards = document.querySelectorAll('#productsContainer .product-card.animate__animated');
-            cards.forEach(card => card.style.opacity = '1');
+            cards.forEach(card => card.style.opacity = '1'); // Ensure visible
         }
     }
+
 
     // --- Initialization ---
     window.onload = () => {
@@ -1562,6 +1638,7 @@
           const productSearchInput = document.getElementById('productSearch');
           if (productSearchInput) {
               productSearchInput.addEventListener('input', function() {
+                  // Debounce this if performance is an issue with rapid typing
                   renderProducts(currentCategory, this.value); // Re-render on search input
               });
           } else { console.error("Product search input not found."); }
@@ -1580,7 +1657,7 @@
           if (couponInputOrderForm) {
               // Update summary whenever the order form coupon input changes
               couponInputOrderForm.addEventListener('input', updateOrderSummary);
-          } else { console.error("Order form coupon input ('#coupon') not found."); }
+          } else { console.warn("Order form coupon input ('#coupon') not found."); } // Changed to warn, less critical
 
           // Intersection Observer for Feature Cards Animation
           const featureCards = document.querySelectorAll('.feature-card');
@@ -1596,7 +1673,10 @@
               featureCards.forEach(card => observer.observe(card));
           } else {
               // Fallback for browsers without IntersectionObserver
-              featureCards.forEach(card => card.style.opacity = '1');
+              featureCards.forEach(card => {
+                 card.classList.add('animate__fadeInUp'); // Add class directly
+                 card.style.opacity = '1'; // Ensure visible
+              });
           }
 
       } catch (error) {
