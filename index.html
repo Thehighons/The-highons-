@@ -321,3 +321,518 @@
           <div>
             <label for="requestName" class="block font-semibold mb-2 text-gray-700">Product Name</label>
             <input type="text" id="requestName" name="product" placeholder="What product are you looking for?" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+          </div>
+          <div>
+            <label for="requestDetails" class="block font-semibold mb-2 text-gray-700">Additional Details</label>
+            <textarea id="requestDetails" name="details" rows="4" placeholder="Any specific brand, color, size or other details?" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"></textarea>
+          </div>
+          <div>
+            <label for="requestEmail" class="block font-semibold mb-2 text-gray-700">Your Email</label>
+            <input type="email" id="requestEmail" name="email" placeholder="Your email address" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+          </div>
+          <button type="submit" class="w-full btn-primary text-white py-4 rounded-lg font-medium">Submit Request</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Order Section -->
+  <section id="order" class="py-20 bg-white px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-8 text-gray-800">Place Your Order</h2>
+      <div id="loginForm" class="space-y-6 text-left bg-white p-8 rounded-xl shadow-md">
+        <h3 class="text-2xl font-semibold mb-6 text-gray-700">Your Information</h3>
+        <input type="text" id="name" placeholder="Full Name" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+        <input type="email" id="email" placeholder="Email" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+        <input type="text" id="phone" placeholder="Phone (+91)" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+        <input type="text" id="address" placeholder="Full Address" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required>
+        <button onclick="saveUser()" class="w-full btn-primary text-white py-4 rounded-lg font-medium mt-4">Save & Continue</button>
+      </div>
+      <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left bg-white p-8 rounded-xl shadow-md hidden">
+        <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="name" id="formName">
+        <input type="hidden" name="email" id="formEmail">
+        <input type="hidden" name="phone" id="formPhone">
+        <input type="hidden" name="address" id="formAddress">
+        <input type="hidden" name="message" id="orderSummaryText">
+        <h3 class="text-2xl font-semibold mb-6 text-gray-700">Order Summary</h3>
+        <div class="mb-6">
+          <label class="block font-semibold mb-2 text-gray-700">Have a coupon code?</label>
+          <input type="text" id="coupon" placeholder="Enter code if you have one" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+        </div>
+        <div id="cartSummary" class="bg-gray-50 border border-gray-200 rounded-xl p-6 mb-6">
+          <h3 class="font-semibold text-lg mb-4 text-gray-800">Your Cart</h3>
+          <ul id="cartItems" class="space-y-3"></ul>
+          <div class="border-t border-gray-200 mt-4 pt-4">
+            <p class="text-lg font-bold text-gray-800">Total: ₹<span id="cartTotal">0</span></p>
+          </div>
+        </div>
+        <div class="mb-6">
+          <label class="block font-semibold mb-2 text-gray-700">Payment Option:</label>
+          <select name="payment" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+            <option value="COD">Cash on Delivery</option>
+            <option value="UPI">UPI Payment</option>
+          </select>
+        </div>
+        <div class="text-center bg-gray-50 p-4 rounded-lg mb-6">
+          <p class="font-semibold mb-3 text-gray-700">Scan to Pay via UPI:</p>
+          <img src="1000022591.jpg" alt="UPI QR Code" class="w-48 mx-auto rounded-lg shadow" loading="lazy">
+        </div>
+        <button type="submit" onclick="prepareOrder()" class="w-full btn-primary text-white py-4 rounded-lg font-medium">Confirm Order</button>
+      </form>
+      <p class="text-sm mt-6 text-gray-500">* Orders are only delivered within Navsari - 396445 *</p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="bg-white py-20 text-center px-6">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-4xl font-bold mb-8 text-gray-800">Get In Touch</h2>
+      <div class="grid md:grid-cols-1 gap-8 text-left">
+        <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800">Contact Information</h3>
+          <p class="text-lg mb-2"><span class="font-medium">Email:</span> <a href="mailto:thehighonsofficial@gmail.com" class="text-blue-600 hover:text-blue-800">thehighonsofficial@gmail.com</a></p>
+          <div class="flex space-x-4 mt-6">
+            <a href="https://instagram.com/thehighons" target="_blank" class="text-gray-700 hover:text-purple-600 transition"><i class="fab fa-instagram text-xl"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <span class="text-2xl font-bold tracking-wide brand-name">THE HIGHON'S</span>
+          <p class="mt-2 text-gray-400">Innovating with Purpose</p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-6">
+          <a href="#products" class="text-gray-300 hover:text-white transition">Products</a>
+          <a href="#features" class="text-gray-300 hover:text-white transition">Why Choose Us</a>
+          <a href="#order" class="text-gray-300 hover:text-white transition">Order</a>
+          <a href="#request" class="text-gray-300 hover:text-white transition">Request</a>
+          <a href="#contact" class="text-gray-300 hover:text-white transition">Contact</a>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+        <p>© 2024 The Highon's. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modals -->
+  <div id="productModal" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-8 rounded-xl shadow-2xl relative max-w-md w-full mx-4 animate__animated animate__zoomIn">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+      <img id="modalImg" src="" alt="" class="w-full h-64 object-contain rounded-lg mb-6" loading="lazy">
+      <h3 id="modalName" class="text-2xl font-bold mb-2 text-gray-800"></h3>
+      <p id="modalDesc" class="text-gray-600 mb-4"></p>
+      <p id="modalPrice" class="text-xl font-semibold text-purple-600 mb-6"></p>
+      <button id="modalAddToCart" class="w-full btn-primary text-white py-3 rounded-lg font-medium">Add to Cart</button>
+    </div>
+  </div>
+
+  <div id="orderConfirmation" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-8 rounded-xl shadow-2xl relative max-w-md w-full mx-4 text-center animate__animated animate__zoomIn">
+      <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+        <i class="fas fa-check text-green-500 text-3xl"></i>
+      </div>
+      <h3 class="text-2xl font-bold mb-4 text-gray-800">Order Confirmed!</h3>
+      <p class="text-gray-600 mb-6">Thank you for your purchase. We've sent a confirmation to your email.</p>
+      <button onclick="closeOrderConfirmation()" class="btn-primary text-white px-8 py-3 rounded-lg font-medium">Continue Shopping</button>
+    </div>
+  </div>
+
+  <script>
+    const products = {
+      keychains: [
+        { name: "Thor Loki Keychain", price: 99, img: "Screenshot_20250422_132243_Meesho.jpg", desc: "High-quality metal keychain featuring Thor and Loki designs" },
+        { name: "Thor Hammer Keychain", price: 89, img: "Screenshot_20250422_131740_Meesho.jpg", desc: "Durable Mjolnir keychain with detailed engraving" },
+        { name: "Demon slayer katana keychain", price: 159, img: "Screenshot_20250424_141150_Meesho.jpg", desc: "Miniature katana keychain from Demon Slayer anime" },
+        { name: "Pikachu Keychain", price: 109, img: "Screenshot_20250422_131948_Meesho.jpg", desc: "Cute Pikachu keychain with enamel finish" }
+      ],
+      artSupplies: [
+        { name: "Camel water colour tube", price: 169, img: "Screenshot_20250424_134214_Meesho.jpg", desc: "Professional-grade watercolor tubes, set of 12 vibrant colors" },
+        { name: "FLAIR Acrylic marker", price: 359, img: "Screenshot_20250423_144509_Meesho.jpg", desc: "Premium acrylic paint markers, fine tip for detailed work" },
+        { name: "Levin Acrylic Markers", price: 409, img: "Screenshot_20250423_140558_Meesho.jpg", desc: "Dual-tip acrylic markers with broad and fine tips" },
+        { name: "Marker Set of 48", price: 299, img: "Touch-48-Color-Marker-Pen-Set-Kids-Art-Essentials-Double-Ended-Vibrant-Colors-Non-Bleeding-Wholesale-Discount-.webp", desc: "48-color marker set with dual tips for versatility" },
+        { name: "Markers Set of 24", price: 179, img: "81B5uZXhYEL._AC_UF1000,1000_QL80_.jpg", desc: "24-color marker set, perfect for beginners" },
+        { name: "Paint Brush 12 sizes", price: 89, img: "Screenshot_20250423_195924_Meesho.jpg", desc: "Professional paint brush set with 12 different sizes" },
+        { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg", desc: "Sponge brush set for texture painting and special effects" },
+        { name: "Camel artist gesso 100ml + Decor varnish combo", price: 259, img: "camel-combo.jpg", desc: "Premium gesso and varnish combo for professional art projects" }
+      ],
+      stationery: [
+        { name: "correction tape", price: 70, img: "51l7S8XUY0L.jpg", desc: "Smooth correction tape for error-free writing" },
+        { name: "Hot Melt Glue Gun", price: 220, img: "71xHhYjWcIL.jpg", desc: "20W glue gun with 5 glue sticks included" },
+        { name: "Sketch Kit", price: 619, img: "Screenshot_20250423_205027_Meesho.jpg", desc: "Complete sketching kit with pencils, erasers and sharpeners" },
+        { name: "luxury Pen", price: 199, img: "Screenshot_20250422_001401.jpg", desc: "Premium metal body pen with smooth ink flow" },
+        { name: "Sketch book A5 100pg", price: 119, img: "Screenshot_20250423_204415_Meesho.jpg", desc: "A5 size sketchbook with 100gsm paper, 100 pages" }
+      ],
+      diaries: [
+        { name: "Diary", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg", desc: "Hardcover diary with premium paper and ribbon marker" },
+        { name: "Diary Premium", price: 319, img: "IMG-20250422-WA0005.jpg", desc: "Premium leather-bound diary with lock and key" },
+        { name: "Diary Mini", price: 219, img: "Screenshot_20250422_215326_Meesho.jpg", desc: "Compact pocket diary with elastic closure" },
+        { name: "Vintage Handmade Genuine Leather Journal", price: 499, img: "vintage-journal.jpg", desc: "Premium handcrafted leather diary with handmade paper" }
+      ]
+    };
+
+    const cart = [];
+    let currentModalProduct = null;
+    let currentCategory = 'all';
+
+    // Cart functions
+    function toggleCart() {
+      const cartPanel = document.getElementById('cartPanel');
+      const overlay = document.getElementById('cartOverlay');
+      cartPanel.classList.toggle('open');
+      overlay.classList.toggle('active');
+      document.body.classList.toggle('overflow-hidden');
+      updateCartPanel();
+    }
+
+    function addToCart(category, index) {
+      const product = products[category][index];
+      const existing = cart.find(p => p.name === product.name);
+      
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      
+      updateProductCard(category, index);
+      updateCartCounter();
+      updateCart();
+      updateCartPanel();
+    }
+
+    function updateQty(category, index, change) {
+      const product = products[category][index];
+      const itemIndex = cart.findIndex(p => p.name === product.name);
+      
+      if (itemIndex > -1) {
+        cart[itemIndex].qty += change;
+        
+        if (cart[itemIndex].qty < 1) {
+          cart.splice(itemIndex, 1);
+        }
+        
+        renderProducts(currentCategory, document.getElementById('productSearch').value);
+        updateCartCounter();
+        updateCart();
+        updateCartPanel();
+      }
+    }
+
+    function updatePanelQty(name, change) {
+      const itemIndex = cart.findIndex(p => p.name === name);
+      
+      if (itemIndex > -1) {
+        cart[itemIndex].qty += change;
+        
+        if (cart[itemIndex].qty < 1) {
+          cart.splice(itemIndex, 1);
+        }
+        
+        renderProducts(currentCategory, document.getElementById('productSearch').value);
+        updateCartCounter();
+        updateCart();
+        updateCartPanel();
+      }
+    }
+
+    function updateCartCounter() {
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      const counters = document.querySelectorAll('[id^="cartCounter"]');
+      
+      counters.forEach(counter => {
+        counter.textContent = totalItems;
+        counter.classList.toggle('hidden', totalItems === 0);
+      });
+    }
+
+    function updateCart() {
+      const list = document.getElementById("cartItems");
+      const totalEl = document.getElementById("cartTotal");
+      list.innerHTML = '';
+      let total = 0;
+      
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        list.innerHTML += `
+            <li class="cart-item flex justify-between items-center p-3 rounded-lg">
+                <span>${item.name} x ${item.qty}</span>
+                <span class="font-semibold">₹${item.price * item.qty}</span>
+            </li>
+        `;
+      });
+      
+      totalEl.textContent = total;
+    }
+
+    function updateCartPanel() {
+      const panelItems = document.getElementById("cartPanelItems");
+      const subtotalEl = document.getElementById("cartPanelSubtotal");
+      const totalEl = document.getElementById("cartPanelTotal");
+      
+      panelItems.innerHTML = '';
+      let subtotal = 0;
+      
+      cart.forEach(item => {
+        subtotal += item.price * item.qty;
+        panelItems.innerHTML += `
+            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                <div class="flex items-center">
+                    <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-contain mr-4">
+                    <div>
+                        <h4 class="font-medium">${item.name}</h4>
+                        <p class="text-sm text-gray-600">₹${item.price}</p>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <button onclick="updatePanelQty('${item.name}', -1)" 
+                            class="quantity-btn">-</button>
+                    <span class="quantity-display">${item.qty}</span>
+                    <button onclick="updatePanelQty('${item.name}', 1)" 
+                            class="quantity-btn">+</button>
+                </div>
+            </div>
+        `;
+      });
+      
+      subtotalEl.textContent = subtotal;
+      totalEl.textContent = subtotal;
+      document.getElementById('discountRow').classList.add('hidden');
+    }
+
+    // Product display functions
+    function showCategory(category) {
+      currentCategory = category;
+      renderProducts(category, document.getElementById('productSearch').value);
+      animateCards();
+    }
+
+    function renderProducts(category = 'all', searchTerm = '') {
+      const container = document.getElementById("productsContainer");
+      container.innerHTML = '';
+      
+      if (category === 'all') {
+        Object.entries(products).forEach(([cat, items]) => {
+          const filtered = items.filter(item => 
+            item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+            item.desc.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+          if (filtered.length === 0) return;
+          
+          const section = document.createElement('div');
+          section.className = 'mb-16';
+          section.innerHTML = `
+            <h3 class="category-title">${cat.replace(/([A-Z])/g, ' $1').toUpperCase()}</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8" id="${cat}List"></div>
+          `;
+          filtered.forEach((product, index) => {
+            section.querySelector(`#${cat}List`).appendChild(createProductCard(product, index, cat));
+          });
+          container.appendChild(section);
+        });
+      } else {
+        const grid = document.createElement('div');
+        grid.className = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8';
+        products[category]
+          .filter(item => 
+            item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+            item.desc.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+          .forEach((product, index) => {
+            grid.appendChild(createProductCard(product, index, category));
+          });
+        container.appendChild(grid);
+      }
+      
+      if (container.children.length === 0) {
+        container.innerHTML = '<p class="text-center text-gray-500 py-12">No products found matching your search.</p>';
+      }
+    }
+
+    function createProductCard(product, index, category) {
+      const card = document.createElement("div");
+      card.className = "product-card animate__animated";
+      const inCart = cart.find(item => item.name === product.name);
+      
+      card.innerHTML = `
+        <div class="relative overflow-hidden rounded-lg mb-4 h-48 bg-gray-50 flex items-center justify-center">
+          <img src="${product.img}" alt="${product.name}" class="w-full h-full object-contain transition duration-300 hover:scale-105 cursor-pointer" onclick="showModal('${category}', ${index})" loading="lazy">
+        </div>
+        <h3 class="text-lg font-semibold mb-2 px-4">${product.name}</h3>
+        <span class="block text-xl font-bold text-indigo-600 mb-4 px-4">₹${product.price}</span>
+        <div class="px-4 pb-4">
+          ${inCart ? `
+            <div class="quantity-controls">
+              <button onclick="updateQty('${category}', ${index}, -1)" class="quantity-btn">-</button>
+              <span class="quantity-display">${inCart.qty}</span>
+              <button onclick="updateQty('${category}', ${index}, 1)" class="quantity-btn">+</button>
+            </div>` : `
+            <button onclick="addToCart('${category}', ${index})" class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition">Add to Cart</button>`
+          }
+        </div>
+      `;
+      return card;
+    }
+
+    // Order functions
+    function prepareOrder() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (!user) return;
+
+      const coupon = document.getElementById('coupon').value.trim();
+      let summary = `Order for ${user.name}\nEmail: ${user.email}\nPhone: ${user.phone}\nAddress: ${user.address}\n\nOrder Details:\n`;
+      let total = 0;
+
+      cart.forEach(item => {
+        summary += `${item.name} x ${item.qty} = ₹${item.price * item.qty}\n`;
+        total += item.price * item.qty;
+      });
+
+      if (coupon === "NSL10%") {
+        const discount = Math.round(total * 0.10);
+        summary += `\nDiscount (NSL10%): -₹${discount}\n`;
+        total -= discount;
+      }
+
+      summary += `\nTotal: ₹${total}\n\nPayment Method: ${document.querySelector('select[name="payment"]').value}`;
+      document.getElementById("orderSummaryText").value = summary;
+      
+      setTimeout(() => {
+        document.getElementById('orderConfirmation').classList.remove('hidden');
+        cart.length = 0;
+        updateCart();
+        updateCartCounter();
+        updateCartPanel();
+      }, 1000);
+    }
+
+    // Initialization
+    window.onload = () => {
+      renderProducts();
+      document.getElementById('productSearch').addEventListener('input', function() {
+        renderProducts(currentCategory, this.value);
+      });
+      populateOrderForm();
+    };
+
+    function populateOrderForm() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        document.getElementById('formName').value = user.name;
+        document.getElementById('formEmail').value = user.email;
+        document.getElementById('formPhone').value = user.phone;
+        document.getElementById('formAddress').value = user.address;
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('orderForm').classList.remove('hidden');
+      }
+    }
+
+    function animateCards() {
+      document.querySelectorAll('.product-card').forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('animate__fadeInUp');
+        }, index * 50);
+      });
+    }
+
+    // Utility functions
+    function logout() {
+      localStorage.removeItem('user');
+      location.reload();
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+
+    function closeOrderConfirmation() {
+      document.getElementById('orderConfirmation').classList.add('hidden');
+      window.location.href = '#products';
+    }
+
+    function applyCoupon() {
+      const coupon = document.getElementById('cartCoupon').value.trim();
+      const discountRow = document.getElementById('discountRow');
+      const discountEl = document.getElementById('cartPanelDiscount');
+      const totalEl = document.getElementById('cartPanelTotal');
+      const subtotal = parseInt(document.getElementById('cartPanelSubtotal').textContent);
+      
+      if (coupon === "NSL10%") {
+        const discount = Math.round(subtotal * 0.10);
+        const total = subtotal - discount;
+        discountEl.textContent = discount;
+        totalEl.textContent = total;
+        discountRow.classList.remove('hidden');
+      } else if (coupon) {
+        alert('Invalid coupon code. Please try again.');
+      } else {
+        discountRow.classList.add('hidden');
+        totalEl.textContent = subtotal;
+      }
+    }
+
+    function showModal(category, index) {
+      const product = products[category][index];
+      currentModalProduct = { category, index };
+      
+      document.getElementById('modalImg').src = product.img;
+      document.getElementById('modalName').textContent = product.name;
+      document.getElementById('modalDesc').textContent = product.desc;
+      document.getElementById('modalPrice').textContent = `₹${product.price}`;
+      document.getElementById('productModal').classList.remove('hidden');
+      
+      const modalBtn = document.getElementById('modalAddToCart');
+      const itemInCart = cart.find(item => item.name === product.name);
+      
+      if (itemInCart) {
+        modalBtn.textContent = `Added (${itemInCart.qty})`;
+        modalBtn.classList.add('bg-gray-600');
+        modalBtn.classList.remove('btn-primary');
+      } else {
+        modalBtn.textContent = 'Add to Cart';
+        modalBtn.classList.remove('bg-gray-600');
+        modalBtn.classList.add('btn-primary');
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('productModal').classList.add('hidden');
+    }
+
+    function saveUser() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      const phoneRegex = /^[6-9]\d{9}$/;
+
+      if (!name || !email || !phone || !address) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      if (!phoneRegex.test(phone)) {
+        alert("Please enter a valid 10-digit Indian phone number.");
+        return;
+      }
+
+      localStorage.setItem('user', JSON.stringify({ name, email, phone, address }));
+      populateOrderForm();
+    }
+  </script>
+</body>
+</html>
