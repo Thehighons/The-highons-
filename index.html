@@ -204,10 +204,14 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-    /* Removed float animation keyframes as it's no longer used */
-    /* @keyframes float { ... } */
-    /* .floating { ... } */
-
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(-2deg); }
+      50% { transform: translateY(-15px) rotate(2deg); }
+      100% { transform: translateY(0px) rotate(-2deg); }
+    }
+    .floating {
+      animation: float 4s ease-in-out infinite;
+    }
     .image-scale {
       transition: transform 0.4s ease;
     }
@@ -338,14 +342,13 @@
       <a href="#products" class="inline-block btn-primary text-white px-10 py-4 rounded-full shadow-lg font-medium animate__animated animate__fadeIn animate__delay-2s">Explore Our Collection</a>
     </div>
     <div class="mt-12 flex justify-center space-x-8">
-      <!-- Removed 'floating' class from these divs to stop continuous animation -->
-      <div class="animate__animated animate__fadeIn animate__delay-3s">
+      <div class="floating animate__animated animate__fadeIn animate__delay-3s">
         <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-32 h-32 rounded-lg object-cover shadow-xl image-scale" loading="lazy">
       </div>
-      <div class="animate__animated animate__fadeIn animate__delay-4s" style="animation-delay: 0.5s">
+      <div class="floating animate__animated animate__fadeIn animate__delay-4s" style="animation-delay: 0.5s">
         <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-32 h-32 rounded-lg object-cover shadow-xl image-scale" loading="lazy">
       </div>
-      <div class="animate__animated animate__fadeIn animate__delay-5s" style="animation-delay: 1s">
+      <div class="floating animate__animated animate__fadeIn animate__delay-5s" style="animation-delay: 1s">
         <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-32 h-32 rounded-lg object-cover shadow-xl image-scale" loading="lazy">
       </div>
     </div>
@@ -413,10 +416,9 @@
     <div class="max-w-2xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-8 text-gray-800">Request a Product</h2>
       <div class="product-request-form bg-white p-8 rounded-xl shadow-md">
-        <!-- Make sure to update the 'action' URL to your FormSubmit endpoint -->
-        <!-- Make sure to update the '_next' value to your desired thank you page URL -->
         <form id="requestForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
-          <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-request.html"> <!-- !! UPDATE THIS URL !! -->
+          <!-- !! UPDATE THIS URL !! -->
+          <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-request.html">
           <input type="hidden" name="_subject" value="New Product Request from The Highon's Site">
           <input type="hidden" name="_captcha" value="false"> <!-- Consider enabling reCAPTCHA later -->
           <div>
@@ -451,10 +453,9 @@
         <button onclick="saveUser()" class="w-full btn-primary text-white py-4 rounded-lg font-medium mt-4">Save & Continue</button>
       </div>
       <!-- Order Form (Initially Hidden) -->
-      <!-- Make sure to update the 'action' URL to your FormSubmit endpoint -->
-      <!-- Make sure to update the '_next' value to your desired thank you page URL -->
       <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left bg-white p-8 rounded-xl shadow-md hidden">
-        <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-order.html"> <!-- !! UPDATE THIS URL !! -->
+        <!-- !! UPDATE THIS URL !! -->
+        <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-order.html">
         <input type="hidden" name="_captcha" value="false"> <!-- Consider enabling reCAPTCHA later -->
         <input type="hidden" name="_subject" value="New Order from The Highon's Site!">
         <!-- User details will be added here by JS -->
@@ -678,7 +679,7 @@
 
         card.innerHTML = `
             <div class="relative overflow-hidden rounded-t-lg h-56 bg-gray-100 flex items-center justify-center p-2 cursor-pointer" onclick="showModal('${category}', ${index})">
-                <img src="${escapeHtml(product.img)}" alt="${productNameSafe}" class="max-w-full max-h-full object-contain transition duration-300 hover:scale-105" loading="lazy">
+                <img src="${product.img}" alt="${productNameSafe}" class="max-w-full max-h-full object-contain transition duration-300 hover:scale-105" loading="lazy">
             </div>
             <div class="product-card-content">
                  <div> <!-- Top content wrapper -->
@@ -1571,15 +1572,13 @@
 
     function escapeHtml(unsafe) {
         if (typeof unsafe !== 'string') return unsafe; // Return non-strings as is
-        // Basic escaping for HTML context
         return unsafe
-             .replace(/&/g, "&") // Must be first
+             .replace(/&/g, "&")
              .replace(/</g, "<")
              .replace(/>/g, ">")
              .replace(/"/g, """)
-             .replace(/'/g, "'"); // Or '
+             .replace(/'/g, "'");
     }
-
 
     function animateCards() {
         try {
