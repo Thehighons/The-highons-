@@ -15,9 +15,7 @@
   <style>
     @font-face {
       font-family: 'Trajan Pro';
-      /* Make sure these paths are correct relative to your HTML file or hosted if needed */
       /* src: url('trajan-pro.woff2') format('woff2'), url('trajan-pro.woff') format('woff'); */
-      /* Using a system fallback for now if font files aren't available */
       font-display: swap; /* Improves perceived performance */
     }
     :root {
@@ -233,6 +231,7 @@
         font-size: 0.875rem; /* text-md */
         font-weight: bold;
         line-height: 1; /* Ensure '+' and '-' are centered vertically */
+        cursor: pointer; /* Add cursor pointer */
     }
     .cart-panel .quantity-btn:hover {
         background-color: #d1d5db; /* hover:bg-gray-300 */
@@ -244,6 +243,41 @@
         width: 1.25rem; /* w-5 */
         text-align: center;
     }
+    /* Ensure quantity buttons on product cards are also styled */
+     .product-card .quantity-btn {
+        background-color: #e5e7eb; /* bg-gray-200 */
+        color: #374151; /* text-gray-700 */
+        width: 2rem; /* w-8 */
+        height: 2rem; /* h-8 */
+        border-radius: 9999px; /* rounded-full */
+        display: inline-flex; /* Use inline-flex */
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s ease;
+        font-size: 1rem; /* text-lg */
+        font-weight: bold;
+        line-height: 1;
+        cursor: pointer; /* Add cursor pointer */
+        border: none; /* Remove default button border */
+    }
+    .product-card .quantity-btn:hover {
+        background-color: #d1d5db; /* hover:bg-gray-300 */
+    }
+     .product-card .quantity-display {
+        margin-left: 0.5rem; /* mx-2 */
+        margin-right: 0.5rem; /* mx-2 */
+        font-weight: 600; /* font-semibold */
+        font-size: 1rem; /* text-lg */
+        min-width: 1.5rem; /* Ensure space for number */
+        text-align: center;
+        display: inline-block; /* Make it inline */
+        vertical-align: middle; /* Align vertically */
+    }
+     .product-card .quantity-controls { /* Wrapper div */
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Or center, depending on desired layout */
+     }
 
   </style>
 </head>
@@ -417,8 +451,8 @@
       <h2 class="text-4xl font-bold mb-8 text-gray-800">Request a Product</h2>
       <div class="product-request-form bg-white p-8 rounded-xl shadow-md">
         <form id="requestForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
-          <!-- !! UPDATE THIS URL !! -->
-          <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-request.html">
+          <!-- !! UPDATE THIS URL if you have a thank you page -->
+          <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-request.html"> <!-- Replace with your actual thank you page URL -->
           <input type="hidden" name="_subject" value="New Product Request from The Highon's Site">
           <input type="hidden" name="_captcha" value="false"> <!-- Consider enabling reCAPTCHA later -->
           <div>
@@ -454,8 +488,8 @@
       </div>
       <!-- Order Form (Initially Hidden) -->
       <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left bg-white p-8 rounded-xl shadow-md hidden">
-        <!-- !! UPDATE THIS URL !! -->
-        <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-order.html">
+        <!-- !! UPDATE THIS URL if you have a thank you page -->
+        <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-order.html"> <!-- Replace with your actual thank you page URL -->
         <input type="hidden" name="_captcha" value="false"> <!-- Consider enabling reCAPTCHA later -->
         <input type="hidden" name="_subject" value="New Order from The Highon's Site!">
         <!-- User details will be added here by JS -->
@@ -475,11 +509,18 @@
           <h3 class="font-semibold text-lg mb-4 text-gray-800">Your Cart Items</h3>
           <ul id="cartItems" class="space-y-3 mb-4"></ul>
           <div class="border-t border-gray-200 pt-4">
+              <div id="summarySubtotalRow" class="flex justify-between mb-2"> <!-- Added Subtotal explicitly -->
+                  <span class="font-semibold">Subtotal:</span>
+                  <span class="font-semibold">₹<span id="summarySubtotal">0</span></span>
+              </div>
               <div id="summaryDiscountRow" class="flex justify-between mb-2 hidden">
                   <span class="font-semibold">Discount:</span>
                   <span class="font-semibold text-green-600">-₹<span id="summaryDiscount">0</span></span>
               </div>
-              <p class="text-lg font-bold text-gray-800">Total: ₹<span id="cartTotal">0</span></p>
+              <p class="text-lg font-bold text-gray-800 flex justify-between"> <!-- Made total a flex row -->
+                <span>Total:</span>
+                <span>₹<span id="cartTotal">0</span></span>
+              </p>
           </div>
         </div>
         <div class="mb-6">
@@ -609,7 +650,8 @@
         if (!container) { console.error("productsContainer not found!"); return; }
         container.innerHTML = '<div class="loader"></div>'; // Show loader
 
-        setTimeout(() => {
+        // Use requestAnimationFrame for smoother rendering start
+        requestAnimationFrame(() => {
             try {
                 container.innerHTML = ''; // Clear loader/previous content
                 let hasProducts = false;
@@ -666,20 +708,22 @@
                 console.error("Error rendering products:", error);
                 container.innerHTML = '<p class="text-center text-red-500 py-12 text-lg">Error loading products. Please try again later.</p>';
             }
-        }, 50); // Short delay for loader visibility
+        }); // End requestAnimationFrame
     }
 
     function createProductCard(product, index, category) {
         const card = document.createElement("div");
         card.id = `product-${category}-${index}`;
-        card.className = "product-card animate__animated"; // Base class for animation
+        // Add animate__animated here, specific animation added by animateCards()
+        card.className = "product-card animate__animated";
 
         const itemInCart = cart.find(item => item.name === product.name);
-        const productNameSafe = escapeHtml(product.name); // Sanitize name for use in HTML attributes if needed
+        const productNameSafe = escapeHtml(product.name); // Sanitize name
 
+        // Use template literals and structure for clarity
         card.innerHTML = `
             <div class="relative overflow-hidden rounded-t-lg h-56 bg-gray-100 flex items-center justify-center p-2 cursor-pointer" onclick="showModal('${category}', ${index})">
-                <img src="${product.img}" alt="${productNameSafe}" class="max-w-full max-h-full object-contain transition duration-300 hover:scale-105" loading="lazy">
+                <img src="${escapeHtml(product.img)}" alt="${productNameSafe}" class="max-w-full max-h-full object-contain transition duration-300 hover:scale-105" loading="lazy">
             </div>
             <div class="product-card-content">
                  <div> <!-- Top content wrapper -->
@@ -689,19 +733,21 @@
                 </div>
                 <div class="product-card-controls mt-auto"> <!-- Controls wrapper -->
                     ${itemInCart ? `
-                        <div class="flex items-center justify-between gap-2">
-                            <button onclick="event.stopPropagation(); updateQty('${category}', ${index}, -1)" class="quantity-btn">-</button>
+                        <div class="quantity-controls">
+                            <button onclick="event.stopPropagation(); updateQty('${category}', ${index}, -1)" class="quantity-btn" aria-label="Decrease quantity of ${productNameSafe}">-</button>
                             <span class="quantity-display">${itemInCart.qty}</span>
-                            <button onclick="event.stopPropagation(); updateQty('${category}', ${index}, 1)" class="quantity-btn">+</button>
+                            <button onclick="event.stopPropagation(); updateQty('${category}', ${index}, 1)" class="quantity-btn" aria-label="Increase quantity of ${productNameSafe}">+</button>
                         </div>` : `
                         <button onclick="event.stopPropagation(); addToCart('${category}', ${index})" class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition">Add to Cart</button>`
                     }
                 </div>
             </div>
         `;
-        // Added event.stopPropagation() to +/- buttons to prevent triggering showModal
+        // Added event.stopPropagation() to buttons to prevent triggering showModal
+        // Added aria-labels for accessibility
         return card;
     }
+
 
     // --- Cart Functionality ---
 
@@ -777,12 +823,13 @@
 
         try {
             const itemInCart = cart.find(item => item.name === product.name);
+            const productNameSafe = escapeHtml(product.name); // Sanitize name
 
             controlsContainer.innerHTML = itemInCart ? `
-                <div class="flex items-center justify-between gap-2">
-                     <button onclick="event.stopPropagation(); updateQty('${category}', ${index}, -1)" class="quantity-btn">-</button>
+                <div class="quantity-controls">
+                     <button onclick="event.stopPropagation(); updateQty('${category}', ${index}, -1)" class="quantity-btn" aria-label="Decrease quantity of ${productNameSafe}">-</button>
                      <span class="quantity-display">${itemInCart.qty}</span>
-                     <button onclick="event.stopPropagation(); updateQty('${category}', ${index}, 1)" class="quantity-btn">+</button>
+                     <button onclick="event.stopPropagation(); updateQty('${category}', ${index}, 1)" class="quantity-btn" aria-label="Increase quantity of ${productNameSafe}">+</button>
                 </div>` : `
                 <button onclick="event.stopPropagation(); addToCart('${category}', ${index})" class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition">Add to Cart</button>`;
         } catch (error) {
@@ -807,7 +854,6 @@
             localStorage.setItem('cart', JSON.stringify(cart));
         } catch (error) {
             console.error("Error saving cart to localStorage:", error);
-            // Optionally inform the user cart cannot be saved (e.g., storage full or private browsing)
             alert("Warning: Could not save cart changes. Your browser's storage might be full or disabled.");
         }
     }
@@ -816,15 +862,12 @@
         try {
             const storedCart = localStorage.getItem('cart');
             cart = storedCart ? JSON.parse(storedCart) : [];
-            // Basic validation: ensure loaded cart is an array
             if (!Array.isArray(cart)) {
                 console.warn("Invalid cart data found in localStorage. Resetting cart.");
                 cart = [];
-                saveCart(); // Save the empty cart back
+                saveCart();
             }
-             // Further validation: check if items have necessary properties (name, price, qty)
             cart = cart.filter(item => item && typeof item.name === 'string' && typeof item.price === 'number' && typeof item.qty === 'number' && item.qty > 0);
-
         } catch (error) {
             console.error("Error loading cart from localStorage:", error);
             cart = []; // Reset to empty cart on error
@@ -839,7 +882,7 @@
         const discountEl = document.getElementById("cartPanelDiscount");
         const emptyCartMsg = document.getElementById("emptyCartMessage");
         const cartFooter = document.getElementById("cartPanelFooter");
-        const cartCouponInput = document.getElementById('cartCoupon'); // Get coupon input
+        const cartCouponInput = document.getElementById('cartCoupon');
 
         if (!panelItems || !subtotalEl || !totalEl || !discountRow || !discountEl || !emptyCartMsg || !cartFooter || !cartCouponInput) {
             console.error("One or more cart panel elements not found! Cannot update panel.");
@@ -861,30 +904,29 @@
                 cartFooter.classList.remove('hidden');
 
                 cart.forEach(item => {
-                    // Sanity checks for item properties
                     const itemName = item.name || 'Unknown Item';
-                    const itemImg = item.img || 'placeholder.jpg'; // Consider adding a real placeholder image path
+                    const itemImg = item.img || 'placeholder.jpg';
                     const itemPrice = typeof item.price === 'number' ? item.price : 0;
                     const itemQty = typeof item.qty === 'number' ? item.qty : 0;
                     const itemTotal = itemPrice * itemQty;
                     subtotal += itemTotal;
 
-                     // Escape item name for use in onclick attribute to prevent XSS or errors
-                     const safeItemName = itemName.replace(/'/g, "\\'").replace(/"/g, '"');
+                     const safeItemName = escapeHtml(itemName); // Use already escaped name
+                     const safeItemNameForAttr = itemName.replace(/'/g, "\\'").replace(/"/g, '\\"'); // Escape for JS string in attribute
 
                     panelItems.innerHTML += `
                         <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg shadow-sm">
-                            <div class="flex items-center space-x-3 flex-1 min-w-0"> <!-- Added flex-1 and min-w-0 for text wrap -->
-                                <img src="${escapeHtml(itemImg)}" alt="${escapeHtml(itemName)}" class="w-16 h-16 object-contain rounded border border-gray-200 flex-shrink-0">
-                                <div class="flex-1 min-w-0"> <!-- Added flex-1 and min-w-0 here too -->
-                                    <h4 class="font-medium text-sm truncate">${escapeHtml(itemName)}</h4> <!-- Added truncate -->
+                            <div class="flex items-center space-x-3 flex-1 min-w-0">
+                                <img src="${escapeHtml(itemImg)}" alt="${safeItemName}" class="w-16 h-16 object-contain rounded border border-gray-200 flex-shrink-0">
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="font-medium text-sm truncate">${safeItemName}</h4>
                                     <p class="text-xs text-gray-600">₹${itemPrice} × ${itemQty} = ₹${itemTotal}</p>
                                 </div>
                             </div>
-                            <div class="flex items-center space-x-1 flex-shrink-0 ml-2"> <!-- Adjusted spacing and added shrink -->
-                                <button onclick="updateQtyFromPanel('${safeItemName}', -1)" class="quantity-btn">-</button>
+                            <div class="flex items-center space-x-1 flex-shrink-0 ml-2">
+                                <button onclick="updateQtyFromPanel('${safeItemNameForAttr}', -1)" class="quantity-btn" aria-label="Decrease quantity of ${safeItemName}">-</button>
                                 <span class="quantity-display">${itemQty}</span>
-                                <button onclick="updateQtyFromPanel('${safeItemName}', 1)" class="quantity-btn">+</button>
+                                <button onclick="updateQtyFromPanel('${safeItemNameForAttr}', 1)" class="quantity-btn" aria-label="Increase quantity of ${safeItemName}">+</button>
                             </div>
                         </div>
                     `;
@@ -895,7 +937,6 @@
                 // Recalculate total with coupon if applied
                 let total = subtotal;
                 let discount = 0;
-                // Use the globally stored appliedCoupon state
                 if (appliedCoupon === "NSL10%") {
                     discount = Math.round(subtotal * 0.10);
                     total = subtotal - discount;
@@ -905,7 +946,6 @@
                     discountRow.classList.add('hidden');
                 }
                 totalEl.textContent = total;
-                // Ensure coupon input reflects the applied coupon state
                 cartCouponInput.value = appliedCoupon ? appliedCoupon : '';
             }
         } catch (error) {
@@ -915,24 +955,19 @@
         }
     }
 
-    // Update quantity directly from Cart Panel (uses item NAME to find the product)
     function updateQtyFromPanel(name, change) {
-        console.log(`updateQtyFromPanel called for: ${name}, change: ${change}`); // Debug
+        // console.log(`updateQtyFromPanel called for: ${name}, change: ${change}`); // Debug
         try {
             const itemIndex = cart.findIndex(p => p.name === name);
             if (itemIndex > -1) {
-                 // Get the stored category/index from the cart item itself
                  const item = cart[itemIndex];
                  const category = item.category;
                  const index = item.index;
 
-                 // Validate if category and index are usable
                  if (category !== undefined && index !== undefined && products[category]?.[index]?.name === name) {
-                     // Use the standard updateQty function
-                     console.log(`Using updateQty for ${category}[${index}]`); // Debug
+                    //  console.log(`Using updateQty for ${category}[${index}]`); // Debug
                      updateQty(category, index, change);
                  } else {
-                     // Fallback: If stored info is missing or invalid, update cart directly (less ideal but works)
                      console.warn(`Fallback: Could not find original product info for ${name}. Updating cart directly.`);
                      const newQty = cart[itemIndex].qty + change;
                      if (newQty <= 0) {
@@ -941,11 +976,10 @@
                          cart[itemIndex].qty = newQty;
                      }
                      saveCart();
-                     updateCartUI(); // Refresh everything since product card link might be lost
+                     updateCartUI(); // Refresh everything
                  }
             } else {
                  console.warn("Item not found in cart for panel update:", name);
-                 // If trying to add from panel (change=1) and item not found, potentially log error or ignore
             }
         } catch (error) {
             console.error("Error in updateQtyFromPanel:", error);
@@ -954,31 +988,36 @@
 
     function updateOrderSummary() {
         const list = document.getElementById("cartItems");
+        const subtotalEl = document.getElementById("summarySubtotal"); // Get subtotal element
         const totalEl = document.getElementById("cartTotal");
+        const summarySubtotalRow = document.getElementById("summarySubtotalRow"); // Get subtotal row
         const summaryDiscountRow = document.getElementById("summaryDiscountRow");
         const summaryDiscountEl = document.getElementById("summaryDiscount");
         const orderForm = document.getElementById("orderForm");
-        const couponInput = document.getElementById('coupon'); // Coupon input on the main order form
+        const couponInput = document.getElementById('coupon');
 
-        if (!list || !totalEl || !summaryDiscountRow || !summaryDiscountEl || !orderForm || !couponInput) {
+        if (!list || !subtotalEl || !totalEl || !summarySubtotalRow || !summaryDiscountRow || !summaryDiscountEl || !orderForm || !couponInput) {
             console.error("One or more order summary elements not found! Cannot update.");
             return;
         }
 
         list.innerHTML = '';
-        let subtotal = 0; // Changed from total to subtotal
+        let subtotal = 0;
 
         try {
             if (cart.length === 0) {
                 list.innerHTML = '<li class="text-gray-500">Your cart is empty.</li>';
-                totalEl.textContent = 0;
+                subtotalEl.textContent = 0; // Set subtotal to 0
+                totalEl.textContent = 0;    // Set total to 0
+                summarySubtotalRow.classList.add('hidden'); // Hide subtotal row if empty
                 summaryDiscountRow.classList.add('hidden');
             } else {
+                summarySubtotalRow.classList.remove('hidden'); // Show subtotal row if cart has items
                 cart.forEach(item => {
                     const itemPrice = item.price || 0;
                     const itemQty = item.qty || 0;
                     const itemTotal = itemPrice * itemQty;
-                    subtotal += itemTotal; // Calculate subtotal
+                    subtotal += itemTotal;
                     list.innerHTML += `
                         <li class="cart-item flex justify-between items-center text-sm">
                             <span class="flex-1 mr-2 truncate">${escapeHtml(item.name || 'Unknown Item')} (×${itemQty})</span>
@@ -987,36 +1026,41 @@
                     `;
                 });
 
-                 // Apply coupon discount based on the ORDER FORM's coupon input
+                 subtotalEl.textContent = subtotal; // Update subtotal display
+
+                 // Apply coupon discount
                 let finalTotal = subtotal;
                 let discount = 0;
-                const couponCode = couponInput.value.trim().toUpperCase(); // Use order form coupon
+                const couponCode = couponInput.value.trim().toUpperCase();
 
-                if (couponCode === "NSL10%") {
+                // Check coupon from order form OR globally applied one
+                const effectiveCoupon = couponCode === "NSL10%" ? "NSL10%" : (appliedCoupon === "NSL10%" && couponCode === "" ? "NSL10%" : null);
+
+                if (effectiveCoupon === "NSL10%") {
                     discount = Math.round(subtotal * 0.10);
                     finalTotal = subtotal - discount;
                     summaryDiscountEl.textContent = discount;
                     summaryDiscountRow.classList.remove('hidden');
-                } else {
-                    // If order form coupon is not valid/empty, but a coupon was applied in the cart panel, reflect that
-                    if (appliedCoupon === "NSL10%") {
-                        discount = Math.round(subtotal * 0.10);
-                        finalTotal = subtotal - discount;
-                        summaryDiscountEl.textContent = discount;
-                        summaryDiscountRow.classList.remove('hidden');
-                        // Optionally update the order form input to match the applied coupon
+                    // Optionally sync order form input if coupon came from global state
+                    if (couponCode === "" && appliedCoupon === "NSL10%") {
                         couponInput.value = appliedCoupon;
-                    } else {
-                        summaryDiscountRow.classList.add('hidden');
+                    }
+                } else {
+                    summaryDiscountRow.classList.add('hidden');
+                     // If user cleared coupon input, ensure global state reflects that
+                    if (couponCode === "" && appliedCoupon) {
+                        appliedCoupon = null;
+                        updateCartPanel(); // Update panel as well
                     }
                 }
-                totalEl.textContent = finalTotal; // Display the final calculated total
+                totalEl.textContent = finalTotal;
             }
         } catch (error) {
             console.error("Error updating order summary:", error);
             list.innerHTML = '<li class="text-red-500">Error loading summary.</li>';
         }
     }
+
 
     function updateCartCounter() {
         const counter = document.getElementById('cartCounter');
@@ -1028,15 +1072,12 @@
 
         try {
             const totalItems = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
-
             counter.textContent = totalItems;
             mobileCounter.textContent = totalItems;
-
             counter.classList.toggle('hidden', totalItems === 0);
             mobileCounter.classList.toggle('hidden', totalItems === 0);
         } catch (error) {
             console.error("Error updating cart counter:", error);
-            // Hide counters on error
             counter.classList.add('hidden');
             mobileCounter.classList.add('hidden');
         }
@@ -1045,7 +1086,6 @@
     // --- UI Interaction Functions ---
 
     function toggleCart() {
-        console.log("toggleCart called"); // DEBUG
         const cartPanel = document.getElementById('cartPanel');
         const overlay = document.getElementById('cartOverlay');
         const body = document.body;
@@ -1054,17 +1094,13 @@
             console.error("Cart panel, overlay, or body element not found!");
             return;
         }
-
         const isOpen = cartPanel.classList.contains('open');
-
         try {
             if (isOpen) {
-                console.log("Closing cart"); // DEBUG
                 cartPanel.classList.remove('open');
                 overlay.classList.remove('active');
                 body.classList.remove('overflow-hidden');
             } else {
-                console.log("Opening cart"); // DEBUG
                 updateCartPanel(); // Update content *before* showing
                 cartPanel.classList.add('open');
                 overlay.classList.add('active');
@@ -1072,7 +1108,6 @@
             }
         } catch (error) {
             console.error("Error toggling cart visibility:", error);
-            // Attempt to reset state if error occurs during toggle
             cartPanel.classList.remove('open');
             overlay.classList.remove('active');
             body.classList.remove('overflow-hidden');
@@ -1084,29 +1119,21 @@
             alert("Your cart is empty. Please add items before proceeding to checkout.");
             return;
         }
+        toggleCart(); // Close cart if open
 
-        const cartPanel = document.getElementById('cartPanel');
-        if (cartPanel && cartPanel.classList.contains('open')) {
-            toggleCart(); // Close cart first
-        }
-
-        // Use timeout to allow cart closing animation before scrolling
         setTimeout(() => {
              const orderSection = document.getElementById('order');
              if (orderSection) {
-                // Check if user info is saved, otherwise scroll to login form
                 const user = localStorage.getItem('user');
                 const targetElement = user ? document.getElementById('orderForm') : document.getElementById('loginForm');
-                if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                } else {
-                    orderSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Fallback
-                }
-                updateOrderSummary(); // Ensure summary is up-to-date when scrolling
+                const elementToScrollTo = targetElement && !targetElement.classList.contains('hidden') ? targetElement : orderSection; // Scroll to section if form hidden
+
+                elementToScrollTo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                updateOrderSummary();
              } else {
                  console.error("Order section (#order) not found!");
              }
-        }, 450); // Match CSS transition duration + small buffer
+        }, 450); // Match CSS transition duration + buffer
     }
 
     function applyCoupon() {
@@ -1115,23 +1142,23 @@
             console.error("Cart panel coupon input not found!");
             return;
         }
-
         const couponCode = couponInput.value.trim().toUpperCase();
 
         if (couponCode === "NSL10%") {
-            appliedCoupon = "NSL10%"; // Store globally
+            appliedCoupon = "NSL10%";
             alert('Coupon "NSL10%" applied successfully!');
         } else if (couponCode === "") {
-             appliedCoupon = null; // Remove coupon
+             appliedCoupon = null;
              alert('Coupon removed.');
         } else {
-            // appliedCoupon = null; // Don't reset if invalid, let user try again
+            // Don't reset appliedCoupon if invalid, just clear input
             alert('Invalid coupon code.');
-            couponInput.value = ''; // Clear only the input field
+            couponInput.value = '';
         }
-        updateCartPanel(); // Re-calculate totals in cart panel & update display
-        updateOrderSummary(); // Also update the order form summary to reflect changes
+        updateCartPanel();
+        updateOrderSummary(); // Reflect change in order form too
     }
+
 
     function showModal(category, index) {
        try {
@@ -1140,7 +1167,7 @@
                 console.error("Product not found for modal:", category, index);
                 return;
             }
-            currentModalProduct = { category, index, name: product.name }; // Store reference
+            currentModalProduct = { category, index, name: product.name };
 
             const modalImg = document.getElementById('modalImg');
             const modalName = document.getElementById('modalName');
@@ -1154,33 +1181,24 @@
                  return;
             }
 
-            modalImg.src = product.img;
+            modalImg.src = escapeHtml(product.img);
+            modalImg.alt = escapeHtml(product.name); // Add alt text
             modalName.textContent = escapeHtml(product.name);
             modalDesc.textContent = escapeHtml(product.desc);
             modalPrice.textContent = `₹${product.price}`;
 
-             // Check if item is already in cart to adjust button text/action
             const itemInCart = cart.find(item => item.name === product.name);
-            if (itemInCart) {
-                modalBtn.textContent = `Add One More`; // Or 'Update Quantity'
-                // Optionally change style slightly
-                // modalBtn.classList.add('bg-purple-700');
-            } else {
-                modalBtn.textContent = 'Add to Cart';
-                // modalBtn.classList.remove('bg-purple-700');
-            }
+            modalBtn.textContent = itemInCart ? `Add One More (Qty: ${itemInCart.qty})` : 'Add to Cart';
 
-            productModal.classList.remove('hidden');
-            // Add event listener for the button *inside* showModal to ensure it's current
-            // Remove previous listener if any to avoid duplicates
-            const newBtn = modalBtn.cloneNode(true); // Clone to remove old listeners
+            // Clone and replace button to remove old listeners before adding new one
+            const newBtn = modalBtn.cloneNode(true);
             modalBtn.parentNode.replaceChild(newBtn, modalBtn);
             newBtn.addEventListener('click', addToCartFromModal);
 
+            productModal.classList.remove('hidden');
 
        } catch (error) {
             console.error("Error showing modal:", error);
-            // Ensure modal is hidden if an error occurs
              const productModal = document.getElementById('productModal');
              if(productModal) productModal.classList.add('hidden');
        }
@@ -1191,33 +1209,35 @@
       if (productModal) {
         productModal.classList.add('hidden');
       }
-      currentModalProduct = null; // Clear stored product reference
+      currentModalProduct = null;
     }
 
     function addToCartFromModal() {
         if (currentModalProduct) {
             const { category, index } = currentModalProduct;
-            // Double check if product still exists (unlikely but safe)
             if (category !== undefined && index !== undefined && products[category]?.[index]) {
                 addToCart(category, index);
-                // Optionally provide feedback like a quick button text change
-                 const modalBtn = document.getElementById('modalAddToCart');
+                 const modalBtn = document.getElementById('modalAddToCart'); // Get the potentially replaced button
                  if (modalBtn) {
                      modalBtn.textContent = 'Added!';
-                     setTimeout(() => closeModal(), 800); // Close modal shortly after adding
+                     modalBtn.disabled = true; // Briefly disable
+                     setTimeout(() => {
+                         closeModal();
+                         modalBtn.disabled = false; // Re-enable after closing
+                     }, 800);
                  } else {
-                     closeModal(); // Close modal immediately if button not found
+                     closeModal();
                  }
             } else {
-                 console.error("Invalid category/index stored in currentModalProduct:", currentModalProduct);
+                 console.error("Invalid category/index in currentModalProduct:", currentModalProduct);
                  closeModal();
             }
         } else {
              console.warn("Add to cart from modal called with no current product selected.");
              closeModal();
         }
-        // Do not call closeModal here if you want the timeout above to work
     }
+
 
     function toggleMobileMenu() {
       const mobileMenu = document.getElementById('mobileMenu');
@@ -1245,49 +1265,27 @@
         const phone = phoneInput.value.trim();
         const address = addressInput.value.trim();
 
-        // Basic Validation
         let isValid = true;
         let errorMessage = "Please correct the following issues:\n";
         const emailRegex = /^\S+@\S+\.\S+$/;
-        // Simple Indian mobile: starts with 6, 7, 8, or 9, followed by 9 digits.
         const phoneRegex = /^[6-9]\d{9}$/;
 
-        // Reset previous errors
         [nameInput, emailInput, phoneInput, addressInput].forEach(input => input.classList.remove('border-red-500'));
 
-        if (!name) {
-            isValid = false;
-            nameInput.classList.add('border-red-500');
-            errorMessage += "- Full Name is required.\n";
-        }
-        if (!email || !emailRegex.test(email)) {
-            isValid = false;
-            emailInput.classList.add('border-red-500');
-            errorMessage += "- A valid Email is required.\n";
-        }
-        if (!phone || !phoneRegex.test(phone)) {
-            isValid = false;
-            phoneInput.classList.add('border-red-500');
-            errorMessage += "- A valid 10-digit Indian phone number (starting with 6-9) is required.\n";
-        }
-        if (!address) {
-            isValid = false;
-            addressInput.classList.add('border-red-500');
-            errorMessage += "- Full Address is required.\n";
-        }
+        if (!name) { isValid = false; nameInput.classList.add('border-red-500'); errorMessage += "- Full Name is required.\n"; }
+        if (!email || !emailRegex.test(email)) { isValid = false; emailInput.classList.add('border-red-500'); errorMessage += "- A valid Email is required.\n"; }
+        if (!phone || !phoneRegex.test(phone)) { isValid = false; phoneInput.classList.add('border-red-500'); errorMessage += "- A valid 10-digit Indian phone number (starting with 6-9) is required.\n"; }
+        if (!address) { isValid = false; addressInput.classList.add('border-red-500'); errorMessage += "- Full Address is required.\n"; }
 
         if (!isValid) {
             alert(errorMessage);
             return;
         }
 
-        // Save to localStorage
         try {
             localStorage.setItem('user', JSON.stringify({ name, email, phone, address }));
             alert("Information saved successfully!");
-            populateOrderForm(); // Show order form and hide login form
-            // No need to call updateLogoutButtonVisibility here, populateOrderForm does it.
-            // Scroll to the now visible order form
+            populateOrderForm();
             const orderForm = document.getElementById('orderForm');
             if (orderForm) {
                 orderForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1311,10 +1309,7 @@
             const userString = localStorage.getItem('user');
             if (userString) {
                 const user = JSON.parse(userString);
-
-                // Validate user object properties just in case
                  if (user && user.name && user.email && user.phone && user.address) {
-                    // Pre-fill hidden fields in the order form
                     const formName = document.getElementById('formName');
                     const formEmail = document.getElementById('formEmail');
                     const formPhone = document.getElementById('formPhone');
@@ -1325,85 +1320,66 @@
                     if (formPhone) formPhone.value = user.phone;
                     if (formAddress) formAddress.value = user.address;
 
-                    // Hide login form, show order form
                     loginForm.classList.add('hidden');
                     orderForm.classList.remove('hidden');
-
-                    // Update the cart summary within the order form
                     updateOrderSummary();
-
                 } else {
-                    console.warn("User data in localStorage is incomplete or invalid. Clearing.");
-                    localStorage.removeItem('user'); // Clear invalid data
+                    console.warn("User data in localStorage is incomplete. Clearing.");
+                    localStorage.removeItem('user');
                     loginForm.classList.remove('hidden');
                     orderForm.classList.add('hidden');
                 }
             } else {
-                // No user data found, ensure login form is shown
                 loginForm.classList.remove('hidden');
                 orderForm.classList.add('hidden');
             }
         } catch (error) {
              console.error("Error parsing user data or populating order form:", error);
-             // Default to showing login form if error occurs during parsing
-             localStorage.removeItem('user'); // Clear potentially corrupted data
+             localStorage.removeItem('user');
              loginForm.classList.remove('hidden');
              orderForm.classList.add('hidden');
         }
-        updateLogoutButtonVisibility(); // Update logout button status based on final state
+        updateLogoutButtonVisibility();
     }
 
     function logout() {
-        const confirmation = confirm("Are you sure you want to logout? Your saved details and cart will be cleared.");
-        if (!confirmation) {
-            return; // User cancelled
+        if (!confirm("Are you sure you want to logout? Your saved details and cart will be cleared.")) {
+            return;
         }
-
         try {
             localStorage.removeItem('user');
-            localStorage.removeItem('cart'); // Also clear cart on logout
-            cart = []; // Clear in-memory cart
-            appliedCoupon = null; // Reset coupon state
+            localStorage.removeItem('cart');
+            cart = [];
+            appliedCoupon = null;
             alert("You have been logged out.");
 
-            // Reset forms and UI
             const loginForm = document.getElementById('loginForm');
             const orderForm = document.getElementById('orderForm');
             if (loginForm) loginForm.classList.remove('hidden');
             if (orderForm) orderForm.classList.add('hidden');
 
-            // Clear input fields in the login form
-            const nameInput = document.getElementById('name');
-            const emailInput = document.getElementById('email');
-            const phoneInput = document.getElementById('phone');
-            const addressInput = document.getElementById('address');
-            if (nameInput) nameInput.value = '';
-            if (emailInput) emailInput.value = '';
-            if (phoneInput) phoneInput.value = '';
-            if (addressInput) addressInput.value = '';
+            // Clear login form inputs
+            ['name', 'email', 'phone', 'address'].forEach(id => {
+                const input = document.getElementById(id);
+                if (input) input.value = '';
+            });
             // Clear coupon inputs
-            const cartCoupon = document.getElementById('cartCoupon');
-            const orderCoupon = document.getElementById('coupon');
-            if(cartCoupon) cartCoupon.value = '';
-            if(orderCoupon) orderCoupon.value = '';
-
+            ['cartCoupon', 'coupon'].forEach(id => {
+                const input = document.getElementById(id);
+                if(input) input.value = '';
+            });
 
             updateLogoutButtonVisibility();
-            updateCartUI(); // Clear cart display (counters, panel, summary)
-            // Reset all product cards to "Add to Cart" state
+            updateCartUI();
             renderProducts(currentCategory, document.getElementById('productSearch')?.value || ''); // Re-render to reset cards
-
-            // Scroll back to the top or login section
-             window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
         } catch (error) {
             console.error("Error during logout:", error);
-            alert("An error occurred during logout. Please try clearing your browser data if issues persist.");
-            // Attempt partial cleanup even on error
-            cart = [];
-            updateCartUI();
-            updateLogoutButtonVisibility();
-            // ... etc.
+            alert("An error occurred during logout.");
+            // Attempt partial cleanup
+            cart = []; appliedCoupon = null;
+            updateCartUI(); updateLogoutButtonVisibility();
         }
     }
 
@@ -1414,15 +1390,12 @@
             console.warn("Logout buttons not found.");
             return;
         }
-
         try {
             const user = localStorage.getItem('user');
-            // Show logout button if user data exists
             logoutDesktop.classList.toggle('hidden', !user);
             logoutMobile.classList.toggle('hidden', !user);
         } catch (error) {
              console.error("Error checking user status for logout button:", error);
-             // Default to hidden if error occurs checking storage
              logoutDesktop.classList.add('hidden');
              logoutMobile.classList.add('hidden');
         }
@@ -1430,71 +1403,50 @@
 
     function prepareOrder() {
         try {
-            // 1. Check if user data exists
             const userString = localStorage.getItem('user');
             if (!userString) {
                 alert("Please save your information before placing the order.");
-                const loginForm = document.getElementById('loginForm');
-                if (loginForm) loginForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                return false; // Prevent form submission
+                document.getElementById('loginForm')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                return false;
             }
-            const user = JSON.parse(userString); // Assume valid if it exists (validated on save)
+            const user = JSON.parse(userString);
 
-             // 2. Check if cart is empty
             if (cart.length === 0) {
                 alert("Your cart is empty. Cannot place order.");
-                toggleCart(); // Open cart panel to show it's empty
-                return false; // Prevent form submission
+                toggleCart();
+                return false;
             }
 
-            // 3. Ensure order summary is up-to-date
-            updateOrderSummary(); // Recalculates totals based on current cart & order form coupon
+            updateOrderSummary(); // Ensure summary is fresh
 
-            // 4. Get necessary form elements
             const couponInput = document.getElementById('coupon');
             const paymentSelect = document.querySelector('select[name="payment"]');
             const orderSummaryText = document.getElementById("orderSummaryText");
-             // Also get hidden fields to ensure they are populated
             const formName = document.getElementById('formName');
             const formEmail = document.getElementById('formEmail');
             const formPhone = document.getElementById('formPhone');
             const formAddress = document.getElementById('formAddress');
 
-
             if (!couponInput || !paymentSelect || !orderSummaryText || !formName || !formEmail || !formPhone || !formAddress) {
-                 console.error("Essential order form elements (coupon, payment, summary, hidden user fields) missing!");
-                 alert("Error: Order form is incomplete. Cannot submit.");
-                 return false; // Prevent submission
+                 console.error("Essential order form elements missing!");
+                 alert("Error: Order form is incomplete.");
+                 return false;
             }
 
-             // Ensure hidden fields match localStorage (should be populated by populateOrderForm)
-            if (formName.value !== user.name || formEmail.value !== user.email || formPhone.value !== user.phone || formAddress.value !== user.address) {
-                console.warn("Mismatch between localStorage user data and hidden form fields. Repopulating.");
-                formName.value = user.name;
-                formEmail.value = user.email;
-                formPhone.value = user.phone;
-                formAddress.value = user.address;
-                // Optionally alert the user or just proceed.
-            }
+            // Sync hidden fields just in case
+            formName.value = user.name; formEmail.value = user.email; formPhone.value = user.phone; formAddress.value = user.address;
 
-            // 5. Generate the order summary text for the hidden field
+            // Generate summary text
             const coupon = couponInput.value.trim().toUpperCase();
             let summary = `ORDER CONFIRMATION - The Highon's\n===============================\n`;
             summary += `CUSTOMER DETAILS:\n`;
-            summary += `  Name:    ${user.name}\n`;
-            summary += `  Email:   ${user.email}\n`;
-            summary += `  Phone:   ${user.phone}\n`;
-            summary += `  Address: ${user.address}\n`;
-            summary += `===============================\n`;
-            summary += `ORDER ITEMS:\n`;
+            summary += `  Name:    ${user.name}\n  Email:   ${user.email}\n  Phone:   ${user.phone}\n  Address: ${user.address}\n`;
+            summary += `===============================\nORDER ITEMS:\n`;
 
             let subtotal = 0;
             cart.forEach(item => {
-                const itemPrice = item.price || 0;
-                const itemQty = item.qty || 0;
-                const itemTotal = itemPrice * itemQty;
-                // Pad item name for better alignment (optional)
-                summary += `  - ${item.name || 'Unknown Item'} (x${itemQty})`.padEnd(40) + `₹${itemTotal}\n`;
+                const itemTotal = (item.price || 0) * (item.qty || 0);
+                summary += `  - ${item.name || 'Unknown Item'} (x${item.qty || 0})`.padEnd(40) + `₹${itemTotal}\n`;
                 subtotal += itemTotal;
             });
 
@@ -1503,7 +1455,7 @@
 
             let total = subtotal;
             let discount = 0;
-            // Use the coupon from the order form input for the final calculation
+             // Use coupon from order form for final calculation
             if (coupon === "NSL10%") {
                 discount = Math.round(subtotal * 0.10);
                 summary += `  Discount (NSL10%):`.padEnd(40) + `-₹${discount}\n`;
@@ -1514,93 +1466,85 @@
             summary += `  TOTAL AMOUNT:`.padEnd(40) + `₹${total}\n`;
             summary += `===============================\n`;
             summary += `PAYMENT METHOD: ${paymentSelect.value}\n`;
-            summary += `===============================\n`;
-            summary += `Thank you for your order!\n`;
+            summary += `===============================\nThank you!\n`;
 
-            orderSummaryText.value = summary; // Set the value for form submission
+            orderSummaryText.value = summary;
 
-            // 6. Simulate submission success and clear state (REMOVE THIS TIMEOUT IN PRODUCTION)
-            // In production, the form's action will handle the submission,
-            // and the 'thank-you' page (_next URL) should ideally confirm success.
-            // You might clear the cart *after* the form submission is known to be successful
-            // (e.g., on the thank-you page load, or via an AJAX response).
             console.log("Order prepared. Summary set. Allowing form submission.");
-            console.log("Order Summary:\n", summary);
+            // console.log("Order Summary:\n", summary); // Optional: Log summary for debugging
 
-            // Clear cart immediately for this demo. In production, do this post-submission confirmation.
+            // Clear cart *after* successful submission confirmation (via _next page or AJAX)
+            // For this example using FormSubmit's redirect, we clear it optimistically after a delay.
+            // A more robust solution would involve checking on the thank-you page.
             setTimeout(() => {
                 const orderConfirmation = document.getElementById('orderConfirmation');
                 if (orderConfirmation) orderConfirmation.classList.remove('hidden');
 
-                cart = []; // Clear the cart array
-                saveCart(); // Save the empty cart to localStorage
-                appliedCoupon = null; // Reset coupon state
-                updateCartUI(); // Update all cart displays (counters, panel, summary)
-                // Reset product cards
+                cart = [];
+                saveCart();
+                appliedCoupon = null;
+                updateCartUI();
                 renderProducts(currentCategory, document.getElementById('productSearch')?.value || '');
                 // Clear coupon inputs
-                 const cartCoupon = document.getElementById('cartCoupon');
-                 const orderCoupon = document.getElementById('coupon');
-                 if(cartCoupon) cartCoupon.value = '';
-                 if(orderCoupon) orderCoupon.value = '';
+                ['cartCoupon', 'coupon'].forEach(id => {
+                    const input = document.getElementById(id);
+                    if(input) input.value = '';
+                });
 
-            }, 300); // Short delay before showing confirmation modal
+            }, 300); // Delay before showing confirmation modal
 
-
-            return true; // Allow the native form submission to proceed
+            return true; // Allow native form submission
 
         } catch (error) {
             console.error("Error preparing order:", error);
-            alert("An critical error occurred while preparing your order. Please try again or contact support.");
-            return false; // Prevent submission on critical error
+            alert("A critical error occurred while preparing your order. Please try again or contact support.");
+            return false; // Prevent submission on error
         }
     }
+
 
     function closeOrderConfirmation() {
       const orderConfirmation = document.getElementById('orderConfirmation');
       if (orderConfirmation) orderConfirmation.classList.add('hidden');
-      // Optional: scroll to top or products section
-      const productsSection = document.getElementById('products');
-      if (productsSection) {
-        productsSection.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+      // Scroll to top or products section
+      document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
     }
 
     // --- Helper Functions ---
 
     function escapeHtml(unsafe) {
-        if (typeof unsafe !== 'string') return unsafe; // Return non-strings as is
+        if (typeof unsafe !== 'string') return unsafe;
         return unsafe
-             .replace(/&/g, "&")
+             .replace(/&/g, "&") // Use & for ampersand
              .replace(/</g, "<")
              .replace(/>/g, ">")
              .replace(/"/g, """)
-             .replace(/'/g, "'");
+             .replace(/'/g, "'"); // Use HTML entity for single quote
     }
+
 
     function animateCards() {
         try {
-            const cards = document.querySelectorAll('#productsContainer .product-card');
-             cards.forEach((card, index) => {
-                 // Reset animation state if re-animating
-                 card.style.opacity = '0';
-                 card.classList.remove('animate__fadeInUp');
+            const cards = document.querySelectorAll('#productsContainer .product-card.animate__animated'); // Target cards with base class
+            cards.forEach((card, index) => {
+                // Ensure clean state before animation
+                card.style.opacity = '0';
+                card.classList.remove('animate__fadeInUp');
 
                 // Apply animation with stagger
-                card.style.animationDelay = `${index * 60}ms`; // Slightly increased delay
+                card.style.animationDelay = `${index * 60}ms`; // Stagger delay
 
                 // Use setTimeout to ensure styles are applied before adding class
-                setTimeout(() => {
-                     card.style.opacity = '1';
-                     card.classList.add('animate__fadeInUp');
-                     // Clean up animation class after it finishes
-                     card.addEventListener('animationend', () => {
-                        // It's generally okay to leave the class unless it interferes later
-                        // card.classList.remove('animate__fadeInUp');
-                     }, { once: true });
-                }, 20); // Small delay needed for browser rendering cycle
+                // Or use requestAnimationFrame for potentially smoother start
+                requestAnimationFrame(() => {
+                    setTimeout(() => { // Small delay helps ensure transition starts correctly
+                        card.style.opacity = '1';
+                        card.classList.add('animate__fadeInUp');
+                         // **REMOVED** the animationend listener that removes the class.
+                         // Let the class persist. The animation only runs once per class addition.
+                         // Since elements are recreated on filter/search, new elements get animated.
+                    }, 10);
+                });
             });
         } catch (error) {
             console.error("Error animating product cards:", error);
@@ -1609,19 +1553,18 @@
 
     // --- Initialization ---
     window.onload = () => {
-      console.log("Window loaded. Initializing..."); // DEBUG
+      // console.log("Window loaded. Initializing..."); // DEBUG
       try {
-          // Set footer year
           const footerYear = document.getElementById('footerYear');
           if (footerYear) footerYear.textContent = new Date().getFullYear();
 
-          loadCart();           // Load cart from localStorage first
-          populateOrderForm();  // Check for existing user data & show appropriate form
-          renderProducts();     // Initial render of all products
-          updateCartUI();       // Update all cart displays based on loaded cart
-          // updateLogoutButtonVisibility() is called within populateOrderForm
+          loadCart();
+          populateOrderForm();
+          renderProducts();     // Initial render
+          updateCartUI();
+          // updateLogoutButtonVisibility is called within populateOrderForm
 
-          // Add Global Event Listeners
+          // Event Listeners
           const productSearchInput = document.getElementById('productSearch');
           if (productSearchInput) {
               productSearchInput.addEventListener('input', function() {
@@ -1638,42 +1581,37 @@
               });
           } else { console.error("Category filter select not found."); }
 
-          // Add listener for order form coupon input to update summary dynamically
           const couponInput = document.getElementById('coupon');
           if (couponInput) {
-            couponInput.addEventListener('input', updateOrderSummary);
+              // Update summary on 'input' for immediate feedback, or 'change' if preferred
+              couponInput.addEventListener('input', updateOrderSummary);
           } else { console.error("Order form coupon input not found."); }
 
-          // Modal AddToCart button listener is added dynamically in showModal()
-
-          // Feature card Intersection Observer for animations
+          // Feature card Intersection Observer
           const featureCards = document.querySelectorAll('.feature-card');
           if ('IntersectionObserver' in window && featureCards.length > 0) {
-              const observerOptions = { threshold: 0.1 };
               const observer = new IntersectionObserver((entries, obs) => {
                   entries.forEach(entry => {
                       if (entry.isIntersecting) {
-                          entry.target.classList.add('animate__fadeInUp'); // Or appropriate animation
-                          obs.unobserve(entry.target); // Animate only once
+                          entry.target.classList.add('animate__fadeInUp');
+                          obs.unobserve(entry.target);
                       }
                   });
-              }, observerOptions);
+              }, { threshold: 0.1 });
               featureCards.forEach(card => observer.observe(card));
-          } else if (featureCards.length > 0) {
-              // Fallback for older browsers or if Observer fails
-              featureCards.forEach(card => card.style.opacity = '1'); // Just make them visible
+          } else {
+              featureCards.forEach(card => card.style.opacity = '1'); // Fallback
           }
 
-          console.log("Initialization complete."); // DEBUG
+          // console.log("Initialization complete."); // DEBUG
       } catch (error) {
            console.error("Critical error during window.onload initialization:", error);
            alert("There was a significant error loading the page. Some features might be unavailable or broken. Please try refreshing.");
-           // Display a more user-friendly error message on the page itself
-           const body = document.body;
-           if(body) body.innerHTML = `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h1>Oops!</h1><p>Something went wrong while loading the page. Please <a href="javascript:location.reload();">refresh</a> and try again.</p><p style="font-size: 0.8em; color: grey;">Error: ${escapeHtml(error.message)}</p></div>`;
+           document.body.innerHTML = `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h1>Oops!</h1><p>Something went wrong while loading the page. Please <a href="javascript:location.reload();">refresh</a> and try again.</p><p style="font-size: 0.8em; color: grey;">Error: ${escapeHtml(error.message)}</p></div>`;
       }
     };
 
   </script>
+
 </body>
 </html>
