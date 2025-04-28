@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="The Highon's - Premium creative supplies including keychains, art supplies, stationery, and diaries. Shop now for high-quality products.">
-  <title>The Highon's - Creative Supplies | Premium Keychains, Art Materials & Stationery</title>
+  <meta name="description" content="The Highon's - Premium creative supplies including keychains, art supplies, stationery, gadgets, and diaries. Shop now for high-quality products.">
+  <title>The Highon's - Creative Supplies | Keychains, Art, Stationery & More</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -22,6 +22,7 @@
       --accent: #D4A373;    /* Warm Gold */
       --dark: #1A1A1A;      /* Dark Text */
       --light: #F8F9FA;     /* Light Background */
+      --purple: #6d28d9;   /* Purple Accent */
     }
 
     body {
@@ -44,25 +45,25 @@
       color: var(--primary);
     }
     .product-card {
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      transition: all 0.3s ease-in-out; /* Smoother transition */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06); /* Slightly softer shadow */
       background: white;
       border-radius: 12px;
       overflow: hidden;
-      display: flex; /* Use flexbox for better structure */
+      display: flex;
       flex-direction: column;
-      height: 100%; /* Make cards equal height in a grid row */
+      height: 100%;
     }
     .product-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+      transform: translateY(-6px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
     .product-card-content {
-        padding: 1rem; /* Use px-4 pb-4 equivalent */
-        flex-grow: 1; /* Allow content to grow */
+        padding: 1rem;
+        flex-grow: 1;
         display: flex;
         flex-direction: column;
-        justify-content: space-between; /* Push controls to bottom */
+        justify-content: space-between;
     }
     .product-card-controls {
         margin-top: auto; /* Pushes controls to the bottom */
@@ -70,22 +71,46 @@
     .category-title {
       background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       color: white;
-      padding: 12px 32px;
+      padding: 10px 28px; /* Slightly smaller padding */
       border-radius: 8px;
       display: inline-block;
       margin: 20px 0;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 8px rgba(42, 45, 52, 0.15); /* Adjusted shadow */
+      font-family: 'Montserrat', sans-serif; /* Use main font */
+      font-weight: 600; /* Semibold */
+      font-size: 1.1rem;
     }
     .nav-link {
       position: relative;
       color: var(--secondary);
       transition: all 0.3s ease;
+      padding-bottom: 4px; /* Space for underline */
     }
     .nav-link:hover {
       color: var(--primary);
     }
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 50%;
+        background-color: var(--primary);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+    .nav-link:hover::after {
+        width: 60%; /* Underline effect */
+    }
+
     .hero-gradient {
-      background: linear-gradient(135deg, var(--light) 0%, #e2e8f0 100%);
+      /* Subtle pattern example - replace with your own or remove */
+      background-color: var(--light);
+      background-image: linear-gradient(135deg, var(--light) 0%, #e9eef3 100%),
+                        radial-gradient(circle at top left, rgba(42, 45, 52, 0.03), transparent 40%),
+                        radial-gradient(circle at bottom right, rgba(92, 107, 115, 0.03), transparent 50%);
+      background-blend-mode: normal, multiply, normal;
     }
     .btn-primary {
       background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
@@ -97,9 +122,25 @@
       font-weight: 500; /* medium */
     }
     .btn-primary:hover {
-      transform: translateY(-3px);
+      transform: translateY(-3px) scale(1.03); /* Add subtle scale */
       box-shadow: 0 8px 16px rgba(42, 45, 52, 0.2);
     }
+    .btn-secondary { /* Example secondary button */
+        background-color: white;
+        color: var(--primary);
+        border: 1px solid var(--secondary);
+        transition: all 0.3s ease;
+        padding: 0.75rem 1.5rem;
+        border-radius: 9999px;
+        font-weight: 500;
+    }
+    .btn-secondary:hover {
+        background-color: #f8f9fa; /* Light hover background */
+        border-color: var(--primary);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
     /* Style for the filter dropdown */
     #categoryFilter {
       appearance: none;
@@ -108,40 +149,28 @@
       background-position: right 0.75rem center;
       background-size: 1.2em 1.2em;
       padding-right: 2.5rem; /* Make space for the arrow */
+      transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Add transition */
     }
-    .feature-icon {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 4px 10px rgba(42, 45, 52, 0.2);
+    #categoryFilter:focus {
+      border-color: var(--purple); /* Purple border on focus */
+      box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.3); /* Purple ring on focus */
     }
-    .feature-card {
-        background: white;
-        padding: 2rem;
-        border-radius: 12px;
-        text-align: center;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        transition: all 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    /* Input focus styles */
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    textarea:focus,
+    select:focus {
+        border-color: var(--purple);
+        box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.3);
+        outline: none; /* Remove default outline */
     }
-    .feature-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 16px rgba(0,0,0,0.08);
-    }
+
 
     /* Cart Panel Styling */
     .cart-panel {
       background: white;
-      box-shadow: -8px 0 32px rgba(0,0,0,0.1);
+      box-shadow: -10px 0 40px rgba(0,0,0,0.15); /* Enhanced shadow */
       position: fixed;
       top: 0;
       right: -100%; /* Start hidden off-screen */
@@ -149,23 +178,23 @@
       max-width: 90vw;
       height: 100vh;
       overflow-y: auto;
-      z-index: 60; /* Above overlay, below modal */
-      transition: right 0.4s ease-in-out;
+      z-index: 60;
+      transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother ease */
       display: flex;
-      flex-direction: column; /* Allow header/footer */
+      flex-direction: column;
     }
     .cart-panel.open {
       right: 0; /* Slide in */
     }
     .cart-panel-content {
         flex-grow: 1;
-        overflow-y: auto; /* Scroll only content */
-        padding: 1.5rem; /* p-6 */
+        overflow-y: auto;
+        padding: 1.5rem;
     }
     .cart-panel-footer {
-        padding: 1.5rem; /* p-6 */
-        border-top: 1px solid #e5e7eb; /* border-gray-200 */
-        background-color: #f9fafb; /* bg-gray-50 */
+        padding: 1.5rem;
+        border-top: 1px solid #e5e7eb;
+        background-color: #f9fafb;
     }
 
     /* Overlay Styling */
@@ -175,149 +204,147 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.6); /* Darker overlay */
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.4s ease-in-out, visibility 0s 0.4s; /* Delay hiding visibility */
-      z-index: 55; /* Below cart, above content */
+      transition: opacity 0.4s ease-in-out, visibility 0s 0.4s;
+      z-index: 55;
     }
     .overlay.active {
       opacity: 1;
       visibility: visible;
-      transition: opacity 0.4s ease-in-out; /* Only transition opacity */
+      transition: opacity 0.4s ease-in-out;
     }
 
     .loader {
-      border: 4px solid #f3f3f3; /* Light grey */
-      border-top: 4px solid var(--primary); /* Blue */
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--primary);
       border-radius: 50%;
       width: 40px;
       height: 40px;
       animation: spin 1s linear infinite;
-      margin: 40px auto;
+      margin: 60px auto; /* Increased margin */
     }
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
     @keyframes float {
-      0% { transform: translateY(0px) rotate(-2deg); }
-      50% { transform: translateY(-15px) rotate(2deg); }
-      100% { transform: translateY(0px) rotate(-2deg); }
+      0% { transform: translateY(0px) rotate(-1deg); }
+      50% { transform: translateY(-12px) rotate(1deg); }
+      100% { transform: translateY(0px) rotate(-1deg); }
     }
     .floating {
-      animation: float 4s ease-in-out infinite;
+      animation: float 4.5s ease-in-out infinite;
     }
     .image-scale {
       transition: transform 0.4s ease;
     }
     .image-scale:hover {
-      transform: scale(1.08);
+      transform: scale(1.1); /* Slightly increased scale */
     }
 
-    /* Ensure buttons within cart panel are styled consistently */
-    .cart-panel .quantity-btn {
-        background-color: #e5e7eb; /* bg-gray-200 */
-        color: #374151; /* text-gray-700 */
-        width: 1.75rem; /* w-7 */
-        height: 1.75rem; /* h-7 */
-        border-radius: 9999px; /* rounded-full */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background-color 0.2s ease;
-        font-size: 0.875rem; /* text-md */
-        font-weight: bold;
-        line-height: 1; /* Ensure '+' and '-' are centered vertically */
-        cursor: pointer; /* Add cursor pointer */
-    }
-    .cart-panel .quantity-btn:hover {
-        background-color: #d1d5db; /* hover:bg-gray-300 */
-    }
-    .cart-panel .quantity-display {
-        margin-left: 0.25rem;
-        margin-right: 0.25rem;
-        font-weight: 500;
-        width: 1.25rem; /* w-5 */
-        text-align: center;
-    }
-    /* Ensure quantity buttons on product cards are also styled */
-     .product-card .quantity-btn {
+    /* Consistent Quantity Button Styling */
+    .quantity-btn {
         background-color: #e5e7eb; /* bg-gray-200 */
         color: #374151; /* text-gray-700 */
         width: 2rem; /* w-8 */
         height: 2rem; /* h-8 */
         border-radius: 9999px; /* rounded-full */
-        display: inline-flex; /* Use inline-flex */
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        transition: background-color 0.2s ease;
-        font-size: 1rem; /* text-lg */
+        transition: background-color 0.2s ease, transform 0.1s ease;
+        font-size: 1rem;
         font-weight: bold;
         line-height: 1;
-        cursor: pointer; /* Add cursor pointer */
-        border: none; /* Remove default button border */
+        cursor: pointer;
+        border: none;
     }
-    .product-card .quantity-btn:hover {
+    .quantity-btn:hover {
         background-color: #d1d5db; /* hover:bg-gray-300 */
     }
-     .product-card .quantity-display {
-        margin-left: 0.5rem; /* mx-2 */
-        margin-right: 0.5rem; /* mx-2 */
+     .quantity-btn:active {
+        transform: scale(0.95); /* Click effect */
+    }
+    .quantity-display {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
         font-weight: 600; /* font-semibold */
         font-size: 1rem; /* text-lg */
-        min-width: 1.5rem; /* Ensure space for number */
+        min-width: 1.5rem;
         text-align: center;
-        display: inline-block; /* Make it inline */
-        vertical-align: middle; /* Align vertically */
+        display: inline-block;
+        vertical-align: middle;
     }
-     .product-card .quantity-controls { /* Wrapper div */
+    .quantity-controls { /* Wrapper div */
         display: flex;
         align-items: center;
-        justify-content: space-between; /* Or center, depending on desired layout */
-     }
+        justify-content: center; /* Center controls */
+    }
+    /* Specific adjustments for cart panel buttons if needed */
+    .cart-panel .quantity-btn {
+        width: 1.75rem; /* w-7 */
+        height: 1.75rem; /* h-7 */
+        font-size: 0.875rem; /* text-md */
+    }
+    .cart-panel .quantity-display {
+        font-size: 0.875rem;
+        min-width: 1.25rem; /* w-5 */
+    }
+    .cart-panel .quantity-controls {
+        justify-content: flex-end; /* Align to right in cart panel */
+    }
+
+
+    /* Error state for inputs */
+    input.border-red-500, textarea.border-red-500 {
+      border-color: #ef4444; /* Tailwind red-500 */
+      box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
+    }
+
+    /* Modal animation */
+    .animate__zoomIn {
+        animation-duration: 0.3s; /* Faster zoom */
+    }
 
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-  <header class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+  <header class="bg-white shadow-md sticky top-0 z-50"> <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
       <div class="flex items-center">
         <span class="text-2xl font-bold tracking-wide brand-name">THE HIGHON'S</span>
       </div>
       <nav class="hidden md:flex items-center space-x-8">
         <a href="#products" class="nav-link">Products</a>
-        <a href="#features" class="nav-link">Why Choose Us</a>
         <a href="#order" class="nav-link">Order</a>
         <a href="#request" class="nav-link">Request Product</a>
         <a href="#contact" class="nav-link">Contact</a>
         <div class="relative ml-4">
-          <button onclick="toggleCart()" class="flex items-center relative text-gray-600 hover:text-gray-800" aria-label="View Shopping Cart">
+          <button onclick="toggleCart()" class="flex items-center relative text-gray-600 hover:text-gray-800 transition-colors duration-200" aria-label="View Shopping Cart">
             <i class="fas fa-shopping-cart text-xl"></i>
             <span id="cartCounter" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold hidden">0</span>
           </button>
         </div>
-        <button id="logoutButtonDesktop" onclick="logout()" class="ml-4 text-sm btn-primary px-4 py-2 rounded-full hidden">Logout</button>
-      </nav>
+        <button id="logoutButtonDesktop" onclick="logout()" class="ml-4 text-sm btn-secondary px-4 py-2 hidden">Logout</button> </nav>
       <div class="md:hidden flex items-center space-x-4">
-        <button onclick="toggleCart()" class="flex items-center relative text-gray-600 hover:text-gray-800" aria-label="View Shopping Cart">
+        <button onclick="toggleCart()" class="flex items-center relative text-gray-600 hover:text-gray-800 transition-colors duration-200" aria-label="View Shopping Cart">
            <i class="fas fa-shopping-cart text-xl"></i>
           <span id="cartCounterMobile" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold hidden">0</span>
         </button>
-        <button onclick="toggleMobileMenu()" class="text-gray-700" aria-label="Toggle mobile menu">
+        <button onclick="toggleMobileMenu()" class="text-gray-700 focus:outline-none" aria-label="Toggle mobile menu">
           <i class="fas fa-bars text-2xl"></i>
         </button>
       </div>
     </div>
-    <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-200 p-4">
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-200 p-4 absolute w-full shadow-lg">
        <div class="flex flex-col space-y-4">
-        <a href="#products" class="nav-link block py-2" onclick="toggleMobileMenu()">Products</a>
-        <a href="#features" class="nav-link block py-2" onclick="toggleMobileMenu()">Why Choose Us</a>
-        <a href="#order" class="nav-link block py-2" onclick="toggleMobileMenu()">Order</a>
-        <a href="#request" class="nav-link block py-2" onclick="toggleMobileMenu()">Request Product</a>
-        <a href="#contact" class="nav-link block py-2" onclick="toggleMobileMenu()">Contact</a>
-        <button id="logoutButtonMobile" onclick="logout()" class="text-sm btn-primary px-4 py-2 rounded-full w-full mt-4 hidden">Logout</button>
+        <a href="#products" class="nav-link block py-2 text-center" onclick="toggleMobileMenu()">Products</a>
+        <a href="#order" class="nav-link block py-2 text-center" onclick="toggleMobileMenu()">Order</a>
+        <a href="#request" class="nav-link block py-2 text-center" onclick="toggleMobileMenu()">Request Product</a>
+        <a href="#contact" class="nav-link block py-2 text-center" onclick="toggleMobileMenu()">Contact</a>
+        <button id="logoutButtonMobile" onclick="logout()" class="text-sm btn-secondary px-4 py-2 rounded-full w-full mt-4 hidden">Logout</button>
       </div>
      </div>
   </header>
@@ -325,86 +352,53 @@
   <div class="overlay" id="cartOverlay" onclick="toggleCart()"></div>
   <div class="cart-panel" id="cartPanel">
       <div class="cart-panel-content">
-          <div class="flex justify-between items-center mb-6">
+          <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
               <h3 class="text-2xl font-bold text-gray-800">Your Cart</h3>
-              <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700 text-2xl leading-none align-middle" aria-label="Close Cart">&times;</button>
+              <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-800 text-3xl leading-none align-middle transition-colors duration-200" aria-label="Close Cart">&times;</button>
           </div>
           <div id="cartPanelItems" class="space-y-4 mb-6">
-             <p id="emptyCartMessage" class="text-center text-gray-500">Your cart is empty.</p>
-             </div>
+             <p id="emptyCartMessage" class="text-center text-gray-500 py-8">Your cart is empty.</p>
+          </div>
       </div>
 
       <div id="cartPanelFooter" class="cart-panel-footer hidden">
-          <div class="border-t border-gray-200 pt-4 mb-6">
-              <div class="flex justify-between mb-2">
-                  <span class="font-semibold">Subtotal:</span>
-                  <span class="font-semibold">₹<span id="cartPanelSubtotal">0</span></span>
+          <div class="mb-4">
+              <label for="cartCoupon" class="block font-semibold mb-2 text-sm text-gray-700">Coupon Code:</label>
+              <div class="flex">
+                  <input type="text" id="cartCoupon" placeholder="Enter code & apply" class="flex-1 p-3 text-sm border border-gray-200 rounded-l-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition">
+                  <button onclick="applyCouponFromCart()" class="bg-purple-600 text-white px-4 py-3 rounded-r-lg hover:bg-purple-700 transition text-sm font-medium">Apply</button>
               </div>
-              <div id="cartDiscountRow" class="flex justify-between mb-2 hidden">
-                  <span class="font-semibold">Discount:</span>
+              <p id="cartCouponFeedback" class="text-xs mt-1 h-4"></p> </div>
+          <div class="border-t border-gray-200 pt-4">
+              <div class="flex justify-between mb-2 text-sm">
+                  <span class="font-semibold text-gray-600">Subtotal:</span>
+                  <span class="font-semibold text-gray-800">₹<span id="cartPanelSubtotal">0</span></span>
+              </div>
+              <div id="cartDiscountRow" class="flex justify-between mb-2 text-sm hidden">
+                  <span class="font-semibold text-gray-600">Discount:</span>
                   <span class="font-semibold text-green-600">-₹<span id="cartPanelDiscount">0</span></span>
               </div>
-              <div class="flex justify-between text-lg font-bold">
+              <div class="flex justify-between text-lg font-bold mt-2">
                   <span>Total:</span>
                   <span>₹<span id="cartPanelTotal">0</span></span>
               </div>
           </div>
-          <div class="mb-4">
-              <label for="cartCoupon" class="block font-semibold mb-2 text-gray-700">Coupon Code:</label>
-              <div class="flex">
-                  <input type="text" id="cartCoupon" placeholder="Enter coupon code" class="flex-1 p-3 border border-gray-200 rounded-l-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-                  <button onclick="applyCoupon()" class="bg-purple-600 text-white px-4 py-3 rounded-r-lg hover:bg-purple-700 transition">Apply</button>
-              </div>
-          </div>
-          <button onclick="proceedToCheckout()" class="block w-full btn-primary text-white py-3 rounded-lg font-medium text-center">Proceed to Checkout</button>
+          <button onclick="proceedToCheckout()" class="block w-full btn-primary text-white py-3 rounded-lg font-medium text-center mt-6">Proceed to Checkout</button>
       </div>
   </div>
 
-  <section class="text-center hero-gradient pt-20 pb-12">
-    <div class="max-w-4xl mx-auto px-6">
-      <img src="GridArt_20250425_064014157.png" alt="The Highon's Logo" class="logo mb-6 animate__animated animate__fadeIn w-48 mx-auto" loading="lazy">
-      <h2 class="text-5xl font-bold mb-6 text-gray-800 animate__animated animate__fadeInDown">Create Bold. Create Bright.</h2>
-      <p class="text-xl mb-10 text-gray-600 max-w-2xl mx-auto animate__animated animate__fadeIn animate__delay-1s">Welcome to The Highon's — where creativity meets purpose through premium supplies.</p>
-      <a href="#products" class="inline-block btn-primary text-white px-10 py-4 rounded-full shadow-lg font-medium animate__animated animate__fadeIn animate__delay-2s">Explore Our Collection</a>
+  <section class="text-center hero-gradient pt-24 pb-16"> <div class="max-w-4xl mx-auto px-6">
+      <img src="GridArt_20250425_064014157.png" alt="The Highon's Logo" class="logo mb-6 animate__animated animate__fadeIn w-40 sm:w-48 mx-auto" loading="lazy">
+      <h2 class="text-4xl sm:text-5xl font-bold mb-6 text-gray-800 animate__animated animate__fadeInDown">Create Bold. Create Bright.</h2>
+      <p class="text-lg sm:text-xl mb-10 text-gray-600 max-w-2xl mx-auto animate__animated animate__fadeIn animate__delay-1s">Welcome to The Highon's — where creativity meets purpose through premium supplies.</p>
+      <a href="#products" class="inline-block btn-primary text-white px-8 sm:px-10 py-3 sm:py-4 rounded-full shadow-lg font-medium animate__animated animate__fadeIn animate__delay-2s">Explore Our Collection</a>
     </div>
-    <div class="mt-12 flex justify-center space-x-8">
-      <div class="floating animate__animated animate__fadeIn animate__delay-3s">
-        <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-32 h-32 rounded-lg object-cover shadow-xl image-scale" loading="lazy">
+    <div class="mt-16 flex justify-center space-x-6 sm:space-x-8"> <div class="floating animate__animated animate__fadeIn animate__delay-3s">
+        <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-28 h-28 sm:w-32 sm:h-32 rounded-lg object-cover shadow-xl image-scale border-2 border-white" loading="lazy">
       </div>
-      <div class="floating animate__animated animate__fadeIn animate__delay-4s" style="animation-delay: 0.5s">
-        <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-32 h-32 rounded-lg object-cover shadow-xl image-scale" loading="lazy">
+      <div class="floating animate__animated animate__fadeIn animate__delay-4s" style="animation-delay: 0.4s"> <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-28 h-28 sm:w-32 sm:h-32 rounded-lg object-cover shadow-xl image-scale border-2 border-white" loading="lazy">
       </div>
-      <div class="floating animate__animated animate__fadeIn animate__delay-5s" style="animation-delay: 1s">
-        <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-32 h-32 rounded-lg object-cover shadow-xl image-scale" loading="lazy">
-      </div>
-    </div>
-  </section>
-
-  <section id="features" class="py-20 bg-gray-50 px-6">
-    <div class="max-w-7xl mx-auto">
-      <h2 class="text-4xl font-bold mb-12 text-center text-gray-800">Why Choose The Highon's</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="feature-card animate__animated">
-          <div class="feature-icon">
-            <i class="fas fa-award"></i>
-          </div>
-          <h3 class="text-xl font-bold mb-3 text-gray-800">Premium Quality</h3>
-          <p class="text-gray-600">We source only the highest quality materials to ensure your creative projects shine.</p>
-        </div>
-        <div class="feature-card animate__animated">
-          <div class="feature-icon">
-            <i class="fas fa-truck"></i>
-          </div>
-          <h3 class="text-xl font-bold mb-3 text-gray-800">Local Delivery Only</h3>
-          <p class="text-gray-600">Delivery within Navsari with careful packaging to protect your items.</p>
-        </div>
-        <div class="feature-card animate__animated">
-          <div class="feature-icon">
-            <i class="fas fa-headset"></i>
-          </div>
-          <h3 class="text-xl font-bold mb-3 text-gray-800">Dedicated Support</h3>
-          <p class="text-gray-600">Our team is always ready to help with any questions about our products.</p>
-        </div>
+      <div class="floating animate__animated animate__fadeIn animate__delay-5s" style="animation-delay: 0.8s"> <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-28 h-28 sm:w-32 sm:h-32 rounded-lg object-cover shadow-xl image-scale border-2 border-white" loading="lazy">
       </div>
     </div>
   </section>
@@ -412,24 +406,25 @@
   <section id="products" class="py-20 bg-white px-6">
     <div class="max-w-7xl mx-auto">
       <h2 class="text-4xl font-bold mb-6 text-center text-gray-800">Our Premium Collection</h2>
-      <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
-          <div class="relative w-full md:w-1/2 lg:w-1/3">
-            <input type="text" id="productSearch" placeholder="Search products..." class="w-full p-4 pl-12 border border-gray-200 rounded-full shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent" aria-label="Search products">
+      <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+          <div class="relative w-full md:w-2/5 lg:w-1/3">
+            <input type="text" id="productSearch" placeholder="Search products..." class="w-full p-4 pl-12 border border-gray-200 rounded-full shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" aria-label="Search products">
             <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
           </div>
-          <div class="filter-selector text-center md:text-left">
-            <label for="categoryFilter" class="mr-2 font-semibold text-gray-700">Filter by Category:</label>
-            <select id="categoryFilter" class="p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white" aria-label="Select product category">
+          <div class="filter-selector text-center md:text-right w-full md:w-auto">
+            <label for="categoryFilter" class="mr-2 font-semibold text-gray-700">Filter:</label>
+            <select id="categoryFilter" class="p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white transition" aria-label="Select product category">
               <option value="all">All Products</option>
               <option value="keychains">Keychains</option>
               <option value="artSupplies">Art Supplies</option>
               <option value="stationery">Stationery</option>
               <option value="diaries">Diaries</option>
-            </select>
+              <option value="gadgets">Gadgets</option> </select>
           </div>
       </div>
-      <div id="productsContainer" class="relative min-h-[300px]"> <div class="loader"></div>
-          </div>
+      <div id="productsContainer" class="relative min-h-[300px]">
+            <div class="loader"></div>
+      </div>
     </div>
   </section>
 
@@ -438,19 +433,19 @@
       <h2 class="text-4xl font-bold mb-8 text-gray-800">Request a Product</h2>
       <div class="product-request-form bg-white p-8 rounded-xl shadow-md">
         <form id="requestForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
-          <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-request.html"> <input type="hidden" name="_subject" value="New Product Request from The Highon's Site">
-          <input type="hidden" name="_captcha" value="false">
-          <div>
+          <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL/thank-you-request.html">
+          <input type="hidden" name="_subject" value="New Product Request from The Highon's Site">
+          <input type="hidden" name="_captcha" value="false"> <div>
             <label for="requestName" class="block font-semibold mb-2 text-gray-700">Product Name</label>
-            <input type="text" id="requestName" name="product" placeholder="What product are you looking for?" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required aria-label="Product name for request">
+            <input type="text" id="requestName" name="product" placeholder="What product are you looking for?" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" required aria-label="Product name for request">
           </div>
           <div>
             <label for="requestDetails" class="block font-semibold mb-2 text-gray-700">Additional Details</label>
-            <textarea id="requestDetails" name="details" rows="4" placeholder="Any specific brand, color, size or other details?" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" aria-label="Additional details for product request"></textarea>
+            <textarea id="requestDetails" name="details" rows="4" placeholder="Any specific brand, color, size or other details?" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" aria-label="Additional details for product request"></textarea>
           </div>
           <div>
             <label for="requestEmail" class="block font-semibold mb-2 text-gray-700">Your Email</label>
-            <input type="email" id="requestEmail" name="email" placeholder="Your email address" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required aria-label="Your email address for request">
+            <input type="email" id="requestEmail" name="email" placeholder="Your email address" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" required aria-label="Your email address for request">
           </div>
           <button type="submit" class="w-full btn-primary text-white py-4 rounded-lg font-medium">Submit Request</button>
         </form>
@@ -461,42 +456,61 @@
   <section id="order" class="py-20 bg-white px-6">
     <div class="max-w-2xl mx-auto text-center">
       <h2 class="text-4xl font-bold mb-8 text-gray-800">Place Your Order</h2>
-      <div id="loginForm" class="space-y-6 text-left bg-white p-8 rounded-xl shadow-md">
+
+      <div id="loginForm" class="space-y-6 text-left bg-white p-8 rounded-xl shadow-md mb-8">
         <h3 class="text-2xl font-semibold mb-6 text-gray-700">Your Information</h3>
-        <input type="text" id="name" placeholder="Full Name" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required aria-label="Full Name">
-        <input type="email" id="email" placeholder="Email" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required aria-label="Email Address">
-        <input type="tel" id="phone" placeholder="Phone (+91)" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required pattern="[6-9]\d{9}" aria-label="Phone number (starts with 6-9, 10 digits)">
-        <input type="text" id="address" placeholder="Full Address (Navsari)" class="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" required aria-label="Full Address">
-        <button onclick="saveUser()" class="w-full btn-primary text-white py-4 rounded-lg font-medium mt-4">Save & Continue</button>
+        <p class="text-sm text-gray-500 mb-4">Please provide your details for delivery within Navsari.</p>
+        <div>
+            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+            <input type="text" id="name" placeholder="Enter your full name" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" required aria-label="Full Name">
+        </div>
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input type="email" id="email" placeholder="Enter your email" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" required aria-label="Email Address">
+        </div>
+        <div>
+            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone (+91)</label>
+            <input type="tel" id="phone" placeholder="Enter 10-digit number" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" required pattern="[6-9]\d{9}" aria-label="Phone number (starts with 6-9, 10 digits)">
+        </div>
+        <div>
+             <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Full Address (Navsari)</label>
+             <input type="text" id="address" placeholder="House No, Street, Area, Navsari - 396445" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" required aria-label="Full Address">
+        </div>
+        <button onclick="saveUser()" class="w-full btn-primary text-white py-3 rounded-lg font-medium mt-4">Save & Continue</button>
       </div>
+
       <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left bg-white p-8 rounded-xl shadow-md hidden">
-        <input type="hidden" name="_next" value="https://YOUR_WEBSITE.com/thank-you-order.html"> <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_subject" value="New Order from The Highon's Site!">
+        <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL/thank-you-order.html">
+        <input type="hidden" name="_captcha" value="false"> <input type="hidden" name="_subject" value="New Order from The Highon's Site!">
         <input type="hidden" name="name" id="formName">
         <input type="hidden" name="email" id="formEmail">
         <input type="hidden" name="phone" id="formPhone">
         <input type="hidden" name="address" id="formAddress">
-        <input type="hidden" name="message" id="orderSummaryText">
+        <input type="hidden" name="message" id="orderSummaryText"> <h3 class="text-2xl font-semibold mb-6 text-gray-700">Order Summary</h3>
 
-        <h3 class="text-2xl font-semibold mb-6 text-gray-700">Order Summary</h3>
-        <div class="mb-6">
-          <label for="coupon" class="block font-semibold mb-2 text-gray-700">Have a coupon code?</label>
-          <input type="text" id="coupon" placeholder="Enter code if you have one" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" aria-label="Coupon code">
-        </div>
         <div id="cartSummary" class="bg-gray-50 border border-gray-200 rounded-xl p-6 mb-6">
-          <h3 class="font-semibold text-lg mb-4 text-gray-800">Your Cart Items</h3>
-          <ul id="cartItems" class="space-y-3 mb-4">
-            </ul>
-          <div class="border-t border-gray-200 pt-4">
-              <div id="summarySubtotalRow" class="flex justify-between mb-2">
-                  <span class="font-semibold">Subtotal:</span>
-                  <span class="font-semibold">₹<span id="summarySubtotal">0</span></span>
+          <h4 class="font-semibold text-lg mb-4 text-gray-800">Your Items</h4>
+          <ul id="cartItems" class="space-y-3 mb-4 max-h-60 overflow-y-auto pr-2">
+            <li class="text-gray-500">Loading cart...</li>
+          </ul>
+          <div class="border-t border-gray-200 pt-4 mt-4">
+              <div class="mb-4">
+                <label for="coupon" class="block font-semibold mb-2 text-sm text-gray-700">Apply Coupon:</label>
+                <div class="flex">
+                    <input type="text" id="coupon" placeholder="Enter code & press apply" class="flex-1 p-3 text-sm border border-gray-200 rounded-l-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition">
+                    <button type="button" onclick="applyCouponFromOrder()" class="bg-purple-600 text-white px-4 py-3 rounded-r-lg hover:bg-purple-700 transition text-sm font-medium">Apply</button>
+                </div>
+                <p id="orderCouponFeedback" class="text-xs mt-1 h-4"></p> </div>
+
+              <div id="summarySubtotalRow" class="flex justify-between mb-2 text-sm">
+                  <span class="font-semibold text-gray-600">Subtotal:</span>
+                  <span class="font-semibold text-gray-800">₹<span id="summarySubtotal">0</span></span>
               </div>
-              <div id="summaryDiscountRow" class="flex justify-between mb-2 hidden">
-                  <span class="font-semibold">Discount:</span>
+              <div id="summaryDiscountRow" class="flex justify-between mb-2 text-sm hidden">
+                  <span class="font-semibold text-gray-600">Discount:</span>
                   <span class="font-semibold text-green-600">-₹<span id="summaryDiscount">0</span></span>
               </div>
-              <p class="text-lg font-bold text-gray-800 flex justify-between">
+              <p class="text-xl font-bold text-gray-800 flex justify-between mt-3 border-t pt-3">
                 <span>Total:</span>
                 <span>₹<span id="cartTotal">0</span></span>
               </p>
@@ -505,21 +519,21 @@
 
         <div class="mb-6">
           <label for="payment" class="block font-semibold mb-2 text-gray-700">Payment Option:</label>
-          <select id="payment" name="payment" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white" aria-label="Payment option">
+          <select id="payment" name="payment" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white transition" aria-label="Payment option">
             <option value="COD">Cash on Delivery</option>
-            <option value="UPI">UPI Payment</option>
+            <option value="UPI">UPI Payment (Scan QR Below)</option>
           </select>
         </div>
-        <div class="text-center bg-gray-50 p-4 rounded-lg mb-6">
+        <div class="text-center bg-gray-50 p-4 rounded-lg mb-6 border border-gray-200">
           <p class="font-semibold mb-3 text-gray-700">Scan to Pay via UPI:</p>
-          <img src="1000022591.jpg" alt="UPI QR Code for Payment" class="w-48 mx-auto rounded-lg shadow" loading="lazy">
+          <img src="1000022591.jpg" alt="UPI QR Code for Payment" class="w-40 sm:w-48 mx-auto rounded-lg shadow" loading="lazy">
+          <p class="text-xs text-gray-500 mt-2">(Optional: Pay now via UPI or choose Cash on Delivery)</p>
         </div>
         <button type="submit" onclick="return prepareOrder()" class="w-full btn-primary text-white py-4 rounded-lg font-medium">Confirm Order</button>
       </form>
-      <p class="text-sm mt-6 text-gray-500">* Orders are only delivered within Navsari - 396445 *</p>
+      <p class="text-sm mt-6 text-gray-500">* Orders are only delivered within Navsari (PIN: 396445) *</p>
     </div>
   </section>
-
 
   <section id="contact" class="bg-gray-50 py-20 text-center px-6">
     <div class="max-w-4xl mx-auto">
@@ -527,10 +541,11 @@
       <div class="grid md:grid-cols-1 gap-8 text-left">
         <div class="bg-white p-8 rounded-xl shadow-sm">
           <h3 class="text-xl font-semibold mb-4 text-gray-800">Contact Information</h3>
-          <p class="text-lg mb-2"><span class="font-medium">Email:</span> <a href="mailto:thehighonsofficial@gmail.com" class="text-purple-600 hover:text-purple-800">thehighonsofficial@gmail.com</a></p>
+          <p class="text-lg mb-2"><span class="font-medium">Email:</span> <a href="mailto:thehighonsofficial@gmail.com" class="text-purple-600 hover:text-purple-800 transition-colors duration-200">thehighonsofficial@gmail.com</a></p>
+          <p class="text-lg mb-2"><span class="font-medium">Location:</span> Navsari, Gujarat - 396445</p>
           <div class="flex space-x-4 mt-6">
             <a href="https://instagram.com/thehighons" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-purple-600 transition" aria-label="Follow us on Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-          </div>
+            </div>
         </div>
       </div>
     </div>
@@ -541,113 +556,142 @@
       <div class="flex flex-col md:flex-row justify-between items-center">
         <div class="mb-6 md:mb-0 text-center md:text-left">
           <span class="text-2xl font-bold tracking-wide brand-name text-white">THE HIGHON'S</span>
-          <p class="mt-2 text-gray-400">Innovating with Purpose</p>
+          <p class="mt-2 text-gray-400 text-sm">Innovating with Purpose</p>
         </div>
-        <div class="flex flex-wrap justify-center gap-6">
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
           <a href="#products" class="text-gray-300 hover:text-white transition">Products</a>
-          <a href="#features" class="text-gray-300 hover:text-white transition">Why Choose Us</a>
           <a href="#order" class="text-gray-300 hover:text-white transition">Order</a>
           <a href="#request" class="text-gray-300 hover:text-white transition">Request</a>
           <a href="#contact" class="text-gray-300 hover:text-white transition">Contact</a>
         </div>
       </div>
       <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
-        <p> <span id="footerYear"></span> The Highon's.</p>
+        <p> &copy; <span id="footerYear"></span> The Highon's. All Rights Reserved.</p>
       </div>
     </div>
   </footer>
 
-  <div id="productModal" class="fixed inset-0 z-[70] bg-black bg-opacity-50 flex items-center justify-center hidden p-4">
-    <div class="bg-white p-8 rounded-xl shadow-2xl relative max-w-md w-full mx-auto animate__animated animate__zoomIn animate__faster">
-      <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl leading-none" aria-label="Close product details modal">&times;</button>
-      <img id="modalImg" src="" alt="" class="w-full h-64 object-contain rounded-lg mb-6" loading="lazy">
+  <div id="productModal" class="fixed inset-0 z-[70] bg-black bg-opacity-60 flex items-center justify-center hidden p-4 backdrop-blur-sm">
+    <div class="bg-white p-6 sm:p-8 rounded-xl shadow-2xl relative max-w-md w-full mx-auto animate__animated animate__zoomIn animate__faster">
+      <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-3xl leading-none transition-colors duration-200" aria-label="Close product details modal">&times;</button>
+      <img id="modalImg" src="" alt="" class="w-full h-56 sm:h-64 object-contain rounded-lg mb-5" loading="lazy">
       <h3 id="modalName" class="text-2xl font-bold mb-2 text-gray-800"></h3>
-      <p id="modalDesc" class="text-gray-600 mb-4"></p>
-      <p id="modalPrice" class="text-xl font-semibold text-purple-600 mb-6"></p>
+      <p id="modalDesc" class="text-gray-600 mb-4 text-sm"></p>
+      <p id="modalPrice" class="text-2xl font-semibold text-purple-600 mb-6"></p>
       <button id="modalAddToCart" class="w-full btn-primary text-white py-3 rounded-lg font-medium">Add to Cart</button>
     </div>
   </div>
 
-  <div id="orderConfirmation" class="fixed inset-0 z-[70] bg-black bg-opacity-50 flex items-center justify-center hidden p-4">
+  <div id="orderConfirmation" class="fixed inset-0 z-[70] bg-black bg-opacity-60 flex items-center justify-center hidden p-4 backdrop-blur-sm">
     <div class="bg-white p-8 rounded-xl shadow-2xl relative max-w-md w-full mx-auto text-center animate__animated animate__zoomIn animate__faster">
-      <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-        <i class="fas fa-check text-green-500 text-3xl"></i>
+      <div class="w-16 h-16 sm:w-20 sm:h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+        <i class="fas fa-check text-green-500 text-3xl sm:text-4xl"></i>
       </div>
       <h3 class="text-2xl font-bold mb-4 text-gray-800">Order Confirmed!</h3>
-      <p class="text-gray-600 mb-6">Thank you for your purchase. We've received your order details via email and will contact you shortly if needed.</p>
+      <p class="text-gray-600 mb-6">Thank you for your purchase. Your order details will be sent via email. We will contact you for delivery confirmation.</p>
       <button onclick="closeOrderConfirmation()" class="btn-primary text-white px-8 py-3 rounded-lg font-medium">Continue Shopping</button>
     </div>
   </div>
 
+
   <script>
+    // --- Constants ---
+    const VALID_COUPON_CODE = "NSL10%";
+    const COUPON_DISCOUNT_RATE = 0.10; // 10%
+
     // --- Product Data ---
+    // IMPORTANT: Replace 'placeholder-gadget.png' with an actual image URL/path for the Mini Thermal Printer
     const products = {
          keychains: [
-            { name: "Thor Loki Keychain", price: 99, img: "Screenshot_20250422_132243_Meesho.jpg", desc: "High-quality metal keychain featuring Thor and Loki designs" },
-            { name: "Thor Hammer Keychain", price: 89, img: "Screenshot_20250422_131740_Meesho.jpg", desc: "Durable Mjolnir keychain with detailed engraving" },
-            { name: "Demon slayer katana keychain", price: 159, img: "Screenshot_20250424_141150_Meesho.jpg", desc: "Miniature katana keychain from Demon Slayer anime" },
-            { name: "Pikachu Keychain", price: 109, img: "Screenshot_20250422_131948_Meesho.jpg", desc: "Cute Pikachu keychain with enamel finish" }
+            { id: "kc001", name: "Thor Loki Keychain", price: 99, img: "Screenshot_20250422_132243_Meesho.jpg", desc: "High-quality metal keychain featuring Thor and Loki designs" },
+            { id: "kc002", name: "Thor Hammer Keychain", price: 89, img: "Screenshot_20250422_131740_Meesho.jpg", desc: "Durable Mjolnir keychain with detailed engraving" },
+            { id: "kc003", name: "Demon slayer katana keychain", price: 159, img: "Screenshot_20250424_141150_Meesho.jpg", desc: "Miniature katana keychain from Demon Slayer anime" },
+            { id: "kc004", name: "Pikachu Keychain", price: 109, img: "Screenshot_20250422_131948_Meesho.jpg", desc: "Cute Pikachu keychain with enamel finish" }
         ],
         artSupplies: [
-            { name: "Camel water colour tube", price: 169, img: "Screenshot_20250424_134214_Meesho.jpg", desc: "Professional-grade watercolor tubes, set of 12 vibrant colors" },
-            { name: "FLAIR Acrylic marker", price: 359, img: "Screenshot_20250423_144509_Meesho.jpg", desc: "Premium acrylic paint markers, fine tip for detailed work" },
-            { name: "Levin Acrylic Markers", price: 409, img: "Screenshot_20250423_140558_Meesho.jpg", desc: "Dual-tip acrylic markers with broad and fine tips" },
-            { name: "Marker Set of 48", price: 299, img: "Touch-48-Color-Marker-Pen-Set-Kids-Art-Essentials-Double-Ended-Vibrant-Colors-Non-Bleeding-Wholesale-Discount-.webp", desc: "48-color marker set with dual tips for versatility" },
-            { name: "Markers Set of 24", price: 179, img: "81B5uZXhYEL._AC_UF1000,1000_QL80_.jpg", desc: "24-color marker set, perfect for beginners" },
-            { name: "Paint Brush 12 sizes", price: 89, img: "Screenshot_20250423_195924_Meesho.jpg", desc: "Professional paint brush set with 12 different sizes" },
-            { name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg", desc: "Sponge brush set for texture painting and special effects" },
-            { name: "Camel artist gesso 100ml + Decor varnish combo", price: 259, img: "camel-combo.jpg", desc: "Premium gesso and varnish combo for professional art projects" }
+            { id: "as001", name: "Camel water colour tube", price: 169, img: "Screenshot_20250424_134214_Meesho.jpg", desc: "Professional-grade watercolor tubes, set of 12 vibrant colors" },
+            { id: "as002", name: "FLAIR Acrylic marker", price: 359, img: "Screenshot_20250423_144509_Meesho.jpg", desc: "Premium acrylic paint markers, fine tip for detailed work" },
+            { id: "as003", name: "Levin Acrylic Markers", price: 409, img: "Screenshot_20250423_140558_Meesho.jpg", desc: "Dual-tip acrylic markers with broad and fine tips" },
+            { id: "as004", name: "Marker Set of 48", price: 299, img: "Touch-48-Color-Marker-Pen-Set-Kids-Art-Essentials-Double-Ended-Vibrant-Colors-Non-Bleeding-Wholesale-Discount-.webp", desc: "48-color marker set with dual tips for versatility" },
+            { id: "as005", name: "Markers Set of 24", price: 179, img: "81B5uZXhYEL._AC_UF1000,1000_QL80_.jpg", desc: "24-color marker set, perfect for beginners" },
+            { id: "as006", name: "Paint Brush 12 sizes", price: 89, img: "Screenshot_20250423_195924_Meesho.jpg", desc: "Professional paint brush set with 12 different sizes" },
+            { id: "as007", name: "Sponge Dabbing Brush 5 Piece Set", price: 90, img: "41fvlzAzMWL._AC_.jpg", desc: "Sponge brush set for texture painting and special effects" },
+            { id: "as008", name: "Camel artist gesso + Decor varnish combo", price: 259, img: "camel-combo.jpg", desc: "Premium gesso (100ml) and varnish combo for art projects" } // Updated desc
         ],
         stationery: [
-            { name: "correction tape", price: 70, img: "51l7S8XUY0L.jpg", desc: "Smooth correction tape for error-free writing" },
-            { name: "Hot Melt Glue Gun", price: 220, img: "71xHhYjWcIL.jpg", desc: "20W glue gun with 5 glue sticks included" },
-            { name: "Sketch Kit", price: 619, img: "Screenshot_20250423_205027_Meesho.jpg", desc: "Complete sketching kit with pencils, erasers and sharpeners" },
-            { name: "luxury Pen", price: 199, img: "Screenshot_20250422_001401.jpg", desc: "Premium metal body pen with smooth ink flow" },
-            { name: "Sketch book A5 100pg", price: 119, img: "Screenshot_20250423_204415_Meesho.jpg", desc: "A5 size sketchbook with 100gsm paper, 100 pages" }
+            { id: "st001", name: "Correction Tape", price: 70, img: "51l7S8XUY0L.jpg", desc: "Smooth correction tape for error-free writing" }, // Updated name
+            { id: "st002", name: "Hot Melt Glue Gun (20W)", price: 220, img: "71xHhYjWcIL.jpg", desc: "20W glue gun with 5 glue sticks included" }, // Updated name
+            { id: "st003", name: "Sketch Kit", price: 619, img: "Screenshot_20250423_205027_Meesho.jpg", desc: "Complete sketching kit with pencils, erasers and sharpeners" },
+            { id: "st004", name: "Luxury Pen", price: 199, img: "Screenshot_20250422_001401.jpg", desc: "Premium metal body pen with smooth ink flow" },
+            { id: "st005", name: "Sketch book A5 (100pg)", price: 119, img: "Screenshot_20250423_204415_Meesho.jpg", desc: "A5 size sketchbook with 100gsm paper, 100 pages" } // Updated name
         ],
         diaries: [
-            { name: "Diary", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg", desc: "Hardcover diary with premium paper and ribbon marker" },
-            { name: "Diary Premium", price: 319, img: "IMG-20250422-WA0005.jpg", desc: "Premium leather-bound diary with lock and key" },
-            { name: "Diary Mini", price: 219, img: "Screenshot_20250422_215326_Meesho.jpg", desc: "Compact pocket diary with elastic closure" },
-            { name: "Vintage Handmade Genuine Leather Journal", price: 499, img: "Screenshot_20250426_225225_Amazon.jpg", desc: "Premium handcrafted leather diary with handmade paper" }
+            { id: "di001", name: "Hardcover Diary", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg", desc: "Classic hardcover diary with premium paper and ribbon marker" }, // Updated name
+            { id: "di002", name: "Premium Lock Diary", price: 319, img: "IMG-20250422-WA0005.jpg", desc: "Premium leather-bound diary with lock and key" }, // Updated name
+            { id: "di003", name: "Mini Pocket Diary", price: 219, img: "Screenshot_20250422_215326_Meesho.jpg", desc: "Compact pocket diary with elastic closure" }, // Updated name
+            { id: "di004", name: "Vintage Leather Journal", price: 499, img: "Screenshot_20250426_225225_Amazon.jpg", desc: "Premium handcrafted leather diary with handmade paper" } // Updated name
+        ],
+        gadgets: [ // New Category
+             { id: "ga001", name: "Mini Thermal Printer", price: 899, img: "placeholder-gadget.png", desc: "Compact thermal printer for labels, notes & fun prints. Bluetooth connectivity." }
+             // Add more gadgets here
         ]
     };
+
     // --- State Variables ---
-    let cart = []; // Initialized later from localStorage
-    let currentModalProduct = null;
-    let currentCategory = 'all';
-    // Removed appliedCoupon state variable as coupon is now tied to input fields
+    let cart = []; // { id: string, qty: number }
+    let currentModalProduct = null; // { category: string, index: number, id: string }
+    let currentCategoryFilter = 'all';
+    let appliedCouponCode = null; // Store the currently validated & applied coupon code
 
-
-    // --- Core Functions ---
-
+    // --- Utility Functions ---
     function escapeHtml(unsafe) {
-        if (typeof unsafe !== 'string') return unsafe; // Return non-strings as-is
+        if (typeof unsafe !== 'string') return unsafe;
         return unsafe
-             .replace(/&/g, "&amp;") // Must be first
+             .replace(/&/g, "&amp;")
              .replace(/</g, "&lt;")
              .replace(/>/g, "&gt;")
              .replace(/"/g, "&quot;")
-             .replace(/'/g, "&#039;"); // Use HTML entity for single quote
+             .replace(/'/g, "&#039;");
     }
 
+    function findProduct(id) {
+        for (const categoryKey in products) {
+            const product = products[categoryKey].find(p => p.id === id);
+            if (product) {
+                // Return a copy to prevent accidental modification of original data
+                return { ...product, category: categoryKey };
+            }
+        }
+        return null;
+    }
+
+    function findProductIndex(id) {
+        for (const categoryKey in products) {
+            const index = products[categoryKey].findIndex(p => p.id === id);
+            if (index !== -1) {
+                return { category: categoryKey, index: index };
+            }
+        }
+        return null;
+    }
+
+    // --- Product Rendering ---
     function renderProducts(category = 'all', searchTerm = '') {
         const container = document.getElementById("productsContainer");
         if (!container) { console.error("productsContainer not found!"); return; }
 
         container.innerHTML = '<div class="loader"></div>'; // Show loader
 
-        requestAnimationFrame(() => {
+        requestAnimationFrame(() => { // Use rAF for smoother rendering
             try {
-                container.innerHTML = ''; // Clear loader
-
+                container.innerHTML = ''; // Clear loader/previous content
                 let hasProducts = false;
                 const searchTermLower = searchTerm.toLowerCase().trim();
+                currentCategoryFilter = category; // Update global filter state
 
-                // Function to create a category section
                 const createCategorySection = (catKey, items) => {
                     const filtered = items.filter(item =>
-                        !searchTermLower || // Show all if no search term
+                        !searchTermLower ||
                         item.name.toLowerCase().includes(searchTermLower) ||
                         item.desc.toLowerCase().includes(searchTermLower)
                     );
@@ -655,24 +699,27 @@
                     if (filtered.length > 0) {
                         hasProducts = true;
                         const section = document.createElement('div');
-                        section.className = 'mb-16';
+                        section.className = 'mb-16 animate__animated animate__fadeIn'; // Fade in section
                         const title = catKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-                         // Only show title if filtering by 'all' or if it's the single category being shown
+
+                         // Show title only if filtering by 'all' or if it's the single category being shown
                         if (category === 'all' || category === catKey) {
-                             section.innerHTML = `<h3 class="category-title">${title}</h3>`;
+                            section.innerHTML = `<h3 class="category-title">${escapeHtml(title)}</h3>`;
                         }
+
                         const grid = document.createElement('div');
                         grid.className = 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8';
-                        grid.id = `${catKey}List`;
-                        section.appendChild(grid); // Append grid to section
-                        container.appendChild(section); // Append section to container
+                        grid.id = `${catKey}Grid`; // Use grid ID
+                        section.appendChild(grid);
+                        container.appendChild(section);
 
                         filtered.forEach((product) => {
-                            const originalIndex = products[catKey].findIndex(p => p.name === product.name);
-                             if (originalIndex !== -1) { // Ensure index is found
-                                grid.appendChild(createProductCard(product, originalIndex, catKey));
+                            // Find original index needed for modal/cart operations
+                             const originalLocation = findProductIndex(product.id);
+                            if (originalLocation) {
+                                grid.appendChild(createProductCard(product, originalLocation.index, originalLocation.category));
                             } else {
-                                console.warn(`Product ${product.name} not found in original ${catKey} list for indexing.`);
+                                 console.warn(`Original location not found for product ID: ${product.id}`);
                             }
                         });
                     }
@@ -688,377 +735,401 @@
 
                 if (!hasProducts) {
                     container.innerHTML = '<p class="text-center text-gray-500 py-12 text-lg">No products found matching your criteria.</p>';
-                } else {
-                     animateCards(); // Animate cards after they are added
                 }
+                // No need to call animateCards separately, animation added directly to section/card creation
             } catch (error) {
                 console.error("Error rendering products:", error);
-                container.innerHTML = '<p class="text-center text-red-500 py-12 text-lg">Error loading products. Please try again later.</p>'; // Error message replaces loader/content
+                container.innerHTML = '<p class="text-center text-red-500 py-12 text-lg">Error loading products. Please try again later.</p>';
             }
-        }); // End requestAnimationFrame
+        });
     }
+
 
     function createProductCard(product, index, category) {
         const card = document.createElement("div");
-        card.id = `product-${category}-${index}`;
-        card.className = "product-card animate__animated"; // Add animate__animated here
-        const itemInCart = cart.find(item => item.name === product.name);
-        const productNameSafe = escapeHtml(product.name); // Sanitize name
+        // Use product.id for a stable identifier
+        card.id = `product-${product.id}`;
+        card.className = "product-card animate__animated animate__fadeIn"; // Apply animation directly
+        card.style.animationDelay = `${Math.random() * 200}ms`; // Slight random delay
+
+        const itemInCart = cart.find(item => item.id === product.id);
+        const productNameSafe = escapeHtml(product.name);
+        const productDescSafe = escapeHtml(product.desc);
+        const productImgSafe = escapeHtml(product.img);
+
+        // Ensure category and index are passed correctly to modal function
+        const showModalParams = `'${category}', ${index}`;
 
         card.innerHTML = `
-            <div class="relative overflow-hidden rounded-t-lg h-56 bg-gray-100 flex items-center justify-center p-2 cursor-pointer" onclick="showModal('${category}', ${index})">
-                <img src="${escapeHtml(product.img)}" alt="${productNameSafe}" class="max-w-full max-h-full object-contain transition duration-300 hover:scale-105" loading="lazy">
+            <div class="relative overflow-hidden rounded-t-lg h-52 sm:h-56 bg-gray-100 flex items-center justify-center p-2 cursor-pointer group" onclick="showModal(${showModalParams})">
+                <img src="${productImgSafe}" alt="${productNameSafe}" class="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
             </div>
             <div class="product-card-content">
                  <div>
-                    <h3 class="text-lg font-semibold mb-1 text-gray-800">${productNameSafe}</h3>
-                    <p class="text-sm text-gray-500 mb-3 min-h-[40px]">${escapeHtml(product.desc ? product.desc.substring(0, 50) + (product.desc.length > 50 ? '...' : '') : '')}</p>
-                    <span class="block text-xl font-bold text-purple-600 mb-4">₹${product.price}</span>
+                    <h3 class="text-md sm:text-lg font-semibold mb-1 text-gray-800 truncate" title="${productNameSafe}">${productNameSafe}</h3>
+                    <p class="text-xs sm:text-sm text-gray-500 mb-3 h-10 overflow-hidden" title="${productDescSafe}">${productDescSafe ? productDescSafe.substring(0, 60) + (productDescSafe.length > 60 ? '...' : '') : ''}</p>
+                    <span class="block text-lg sm:text-xl font-bold text-purple-600 mb-4">₹${product.price}</span>
                 </div>
                 <div class="product-card-controls mt-auto">
-                    ${itemInCart ? `
-                        <div class="quantity-controls">
-                            <button onclick="event.stopPropagation(); updateQty('${category}', ${index}, -1)" class="quantity-btn" aria-label="Decrease quantity of ${productNameSafe}">-</button>
-                            <span class="quantity-display">${itemInCart.qty}</span>
-                            <button onclick="event.stopPropagation(); updateQty('${category}', ${index}, 1)" class="quantity-btn" aria-label="Increase quantity of ${productNameSafe}">+</button>
-                        </div>` : `
-                        <button onclick="event.stopPropagation(); addToCart('${category}', ${index})" class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition">Add to Cart</button>`
-                    }
-                </div>
+                    </div>
             </div>
         `;
+
+        // Immediately update the controls based on current cart state
+        updateProductCardUI(product.id, card.querySelector('.product-card-controls'));
+
         return card;
     }
 
-    // --- Cart Functionality ---
 
-    function addToCart(category, index) {
-        try {
-            const product = products[category]?.[index];
-            if (!product) {
-                console.error("Product not found for:", category, index);
-                return;
-            }
-            const existingItemIndex = cart.findIndex(item => item.name === product.name);
-            if (existingItemIndex > -1) {
-                cart[existingItemIndex].qty++;
-            } else {
-                // Add category and index to the item for easier reference later
-                cart.push({ ...product, qty: 1, category: category, index: index });
-            }
-
-            saveCart();
-            updateProductCard(category, index); // Update the specific product card
-            updateCartUI(); // Update all UI elements related to cart
-        } catch (error) {
-            console.error("Error adding to cart:", error);
-        }
-    }
-
-    function updateQty(category, index, change) {
-       try {
-            const product = products[category]?.[index];
-            if (!product) {
-                console.error("Cannot update quantity, product info not found for:", category, index);
-                return;
-            }
-            const itemIndex = cart.findIndex(item => item.name === product.name);
-            if (itemIndex > -1) {
-                const newQty = cart[itemIndex].qty + change;
-                if (newQty <= 0) {
-                    cart.splice(itemIndex, 1); // Remove item
-                } else {
-                    cart[itemIndex].qty = newQty; // Update quantity
-                }
-                saveCart();
-                updateProductCard(category, index); // Update the specific product card
-                updateCartUI(); // Update cart panel and counters
-            } else if (change > 0) {
-                // If item not found and change is positive (e.g., clicked '+' when not in cart), add it
-                addToCart(category, index);
-            } else {
-                 console.warn(`Attempted to decrease quantity for item not in cart: ${product.name}`);
-            }
-       } catch (error) {
-            console.error("Error updating quantity:", error);
-        }
-    }
-
-    // Called from cart panel buttons
-    function updateQtyFromPanel(name, change) {
-        try {
-            const item = cart.find(p => p.name === name);
-            if (item && item.category !== undefined && item.index !== undefined) {
-                 updateQty(item.category, item.index, change);
-            } else {
-                 console.warn(`Could not find item or original product info for "${name}" in cart.`);
-                 // Fallback: Find by name and update if necessary, but we lose card update capability
-                 const itemIndex = cart.findIndex(p => p.name === name);
-                 if (itemIndex > -1) {
-                     const newQty = cart[itemIndex].qty + change;
-                     if (newQty <= 0) {
-                         cart.splice(itemIndex, 1);
-                     } else {
-                         cart[itemIndex].qty = newQty;
-                     }
-                     saveCart();
-                     updateCartUI(); // Refresh UI
-                 }
-            }
-        } catch (error) {
-            console.error("Error in updateQtyFromPanel:", error);
-        }
-    }
-
-    function updateProductCard(category, index) {
-        // Only proceed if the product exists in the original data
-        const product = products[category]?.[index];
-        if (!product) return;
-
-        const cardId = `product-${category}-${index}`;
-        const card = document.getElementById(cardId);
-        // Only proceed if the card element exists in the current DOM (visible)
-        if (!card) return;
-        const controlsContainer = card.querySelector('.product-card-controls');
-        if (!controlsContainer) {
-            console.warn(`Controls container not found for card: ${cardId}`);
-            return;
-        }
-
-        try {
-            const itemInCart = cart.find(item => item.name === product.name);
-            const productNameSafe = escapeHtml(product.name); // Sanitize name for aria-label
-
-            controlsContainer.innerHTML = itemInCart ? `
-                <div class="quantity-controls">
-                     <button onclick="event.stopPropagation(); updateQty('${category}', ${index}, -1)" class="quantity-btn" aria-label="Decrease quantity of ${productNameSafe}">-</button>
-                     <span class="quantity-display">${itemInCart.qty}</span>
-                     <button onclick="event.stopPropagation(); updateQty('${category}', ${index}, 1)" class="quantity-btn" aria-label="Increase quantity of ${productNameSafe}">+</button>
-                 </div>` : `
-                <button onclick="event.stopPropagation(); addToCart('${category}', ${index})" class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition">Add to Cart</button>`;
-        } catch (error) {
-            console.error(`Error updating product card controls for ${category}-${index}:`, error);
-             // Fallback to default state if update fails
-            controlsContainer.innerHTML = `<button onclick="event.stopPropagation(); addToCart('${category}', ${index})" class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition">Add to Cart (Error)</button>`;
-        }
-    }
-
-    function updateCartUI() {
-        try {
-            updateCartCounter();
-            updateCartPanel(); // This recalculates and redraws the panel
-            updateOrderSummary(); // Update the order form summary as well
-        } catch(error) {
-            console.error("Error updating cart UI:", error);
-        }
-    }
+     // --- Cart State & Local Storage ---
 
     function saveCart() {
         try {
-            localStorage.setItem('cart', JSON.stringify(cart));
+            localStorage.setItem('theHighonsCart', JSON.stringify(cart));
+            localStorage.setItem('theHighonsCoupon', appliedCouponCode || ''); // Save applied coupon
         } catch (error) {
-            console.error("Error saving cart to localStorage:", error);
-            // Consider a user-facing message here
+            console.error("Error saving cart or coupon to localStorage:", error);
+            // Consider alerting the user if storage fails persistently
         }
     }
 
     function loadCart() {
         try {
-            const storedCart = localStorage.getItem('cart');
+            const storedCart = localStorage.getItem('theHighonsCart');
+            const storedCoupon = localStorage.getItem('theHighonsCoupon');
+
             if (storedCart) {
                  try {
                     const parsedCart = JSON.parse(storedCart);
-                    // Validate loaded cart data
+                    // Validate loaded cart data: ensure it's an array of objects with id and qty > 0
                     if (Array.isArray(parsedCart)) {
                         cart = parsedCart.filter(item =>
-                            item &&
-                            typeof item.name === 'string' &&
-                            typeof item.price === 'number' &&
-                            typeof item.qty === 'number' && item.qty > 0 &&
-                            item.category !== undefined && item.index !== undefined && // Ensure original location is stored
-                            products[item.category]?.[item.index]?.name === item.name // Basic validation against product list
+                            item && typeof item.id === 'string' && typeof item.qty === 'number' && item.qty > 0 && findProduct(item.id) // Check if product still exists
                         );
                     } else {
                         console.warn("Invalid cart data format in localStorage. Resetting cart.");
-                        cart = []; // Reset if not an array
+                        cart = [];
                     }
                  } catch (parseError) {
                     console.error("Error parsing cart data from localStorage. Resetting cart.", parseError);
-                    cart = []; // Reset on parse error
+                    cart = [];
                  }
             } else {
-                cart = []; // Initialize empty if no data
+                cart = [];
             }
+
+            // Load and validate coupon (only apply if it's the valid one)
+            if (storedCoupon && storedCoupon === VALID_COUPON_CODE) {
+                appliedCouponCode = storedCoupon;
+                 // Sync coupon input fields visually
+                 document.getElementById('cartCoupon').value = appliedCouponCode;
+                 document.getElementById('coupon').value = appliedCouponCode;
+            } else {
+                 appliedCouponCode = null;
+            }
+
         } catch (error) {
-            console.error("Error loading cart from localStorage:", error);
-            cart = []; // Reset to empty cart on general localStorage error
+            console.error("Error loading cart or coupon from localStorage:", error);
+            cart = [];
+            appliedCouponCode = null;
         }
+        // Update UI after loading
+        updateFullUI();
+    }
+
+    // --- Core Cart Logic ---
+
+    function addToCart(productId) {
+        const product = findProduct(productId);
+        if (!product) {
+            console.error(`Product with ID ${productId} not found.`);
+            alert("Sorry, this product could not be added to the cart.");
+            return;
+        }
+
+        const existingItemIndex = cart.findIndex(item => item.id === productId);
+
+        if (existingItemIndex > -1) {
+            cart[existingItemIndex].qty++;
+        } else {
+            cart.push({ id: productId, qty: 1 });
+        }
+
+        saveCart();
+        updateFullUI(); // Update all relevant UI parts
+    }
+
+    function updateQty(productId, change) {
+        const itemIndex = cart.findIndex(item => item.id === productId);
+
+        if (itemIndex > -1) {
+            const newQty = cart[itemIndex].qty + change;
+            if (newQty <= 0) {
+                // Remove item from cart
+                cart.splice(itemIndex, 1);
+            } else {
+                // Update quantity
+                cart[itemIndex].qty = newQty;
+            }
+            saveCart();
+            updateFullUI();
+        } else if (change > 0) {
+            // If trying to increase qty for an item not in cart (e.g., '+' on product card), add it.
+             addToCart(productId);
+        } else {
+             console.warn(`Attempted to decrease quantity for item ID ${productId} not in cart.`);
+        }
+    }
+
+    // --- Coupon Logic ---
+    function applyCoupon(couponCode) {
+        const code = couponCode.trim().toUpperCase();
+        const cartFeedback = document.getElementById('cartCouponFeedback');
+        const orderFeedback = document.getElementById('orderCouponFeedback');
+
+        // Clear previous feedback
+        if (cartFeedback) cartFeedback.textContent = '';
+        if (orderFeedback) orderFeedback.textContent = '';
+
+        if (code === VALID_COUPON_CODE) {
+            appliedCouponCode = VALID_COUPON_CODE;
+            if (cartFeedback) { cartFeedback.textContent = 'Coupon applied!'; cartFeedback.className = 'text-xs mt-1 h-4 text-green-600'; }
+            if (orderFeedback) { orderFeedback.textContent = 'Coupon applied!'; orderFeedback.className = 'text-xs mt-1 h-4 text-green-600'; }
+            // Sync input fields
+            document.getElementById('cartCoupon').value = appliedCouponCode;
+            document.getElementById('coupon').value = appliedCouponCode;
+        } else if (code === "") {
+             appliedCouponCode = null; // Remove coupon
+             if (cartFeedback) { cartFeedback.textContent = 'Coupon removed.'; cartFeedback.className = 'text-xs mt-1 h-4 text-gray-500'; }
+             if (orderFeedback) { orderFeedback.textContent = 'Coupon removed.'; orderFeedback.className = 'text-xs mt-1 h-4 text-gray-500'; }
+             // Clear input fields
+             document.getElementById('cartCoupon').value = '';
+             document.getElementById('coupon').value = '';
+        } else {
+            appliedCouponCode = null; // Invalid code, ensure no coupon is applied
+             if (cartFeedback) { cartFeedback.textContent = 'Invalid coupon code.'; cartFeedback.className = 'text-xs mt-1 h-4 text-red-500'; }
+             if (orderFeedback) { orderFeedback.textContent = 'Invalid coupon code.'; orderFeedback.className = 'text-xs mt-1 h-4 text-red-500'; }
+             // Clear the invalid code from the *other* input if needed
+             if (document.getElementById('cartCoupon').value.trim().toUpperCase() !== VALID_COUPON_CODE) {
+                 document.getElementById('cartCoupon').value = '';
+             }
+             if (document.getElementById('coupon').value.trim().toUpperCase() !== VALID_COUPON_CODE) {
+                 document.getElementById('coupon').value = '';
+             }
+        }
+
+        saveCart(); // Save coupon state
+        updateFullUI(); // Recalculate totals and update UI
+    }
+
+    // Specific handlers for Apply buttons
+    function applyCouponFromCart() {
+        const cartCouponInput = document.getElementById('cartCoupon');
+        applyCoupon(cartCouponInput.value);
+    }
+
+    function applyCouponFromOrder() {
+        const orderCouponInput = document.getElementById('coupon');
+        applyCoupon(orderCouponInput.value);
+    }
+
+
+    // --- UI Update Functions ---
+
+    // Central function to update all UI elements related to cart/products
+    function updateFullUI() {
+        updateCartCounter();
+        updateCartPanel(); // Includes totals calculation
+        updateOrderSummary(); // Includes totals calculation
+        updateAllVisibleProductCards(); // Update 'Add to Cart' buttons on visible cards
+    }
+
+    function updateCartCounter() {
+        const counter = document.getElementById('cartCounter');
+        const mobileCounter = document.getElementById('cartCounterMobile');
+        if (!counter || !mobileCounter) return;
+
+        const totalItems = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
+        counter.textContent = totalItems;
+        mobileCounter.textContent = totalItems;
+        counter.classList.toggle('hidden', totalItems === 0);
+        mobileCounter.classList.toggle('hidden', totalItems === 0);
+    }
+
+    function calculateTotals() {
+        let subtotal = 0;
+        cart.forEach(item => {
+            const product = findProduct(item.id);
+            if (product) {
+                subtotal += product.price * item.qty;
+            }
+        });
+
+        let discount = 0;
+        if (appliedCouponCode === VALID_COUPON_CODE) {
+            discount = Math.round(subtotal * COUPON_DISCOUNT_RATE);
+        }
+
+        let total = subtotal - discount;
+        // Ensure total doesn't go below zero (though unlikely with % discount)
+        total = Math.max(0, total);
+
+        return { subtotal, discount, total };
     }
 
     function updateCartPanel() {
         const panelItems = document.getElementById("cartPanelItems");
         const subtotalEl = document.getElementById("cartPanelSubtotal");
         const totalEl = document.getElementById("cartPanelTotal");
-        const discountRow = document.getElementById("cartDiscountRow"); // Use cartDiscountRow ID
+        const discountRow = document.getElementById("cartDiscountRow");
         const discountEl = document.getElementById("cartPanelDiscount");
         const emptyCartMsg = document.getElementById("emptyCartMessage");
         const cartFooter = document.getElementById("cartPanelFooter");
-        const cartCouponInput = document.getElementById('cartCoupon');
 
-        if (!panelItems || !subtotalEl || !totalEl || !discountRow || !discountEl || !emptyCartMsg || !cartFooter || !cartCouponInput) {
-            console.error("One or more cart panel elements not found! Cannot update panel.");
+        if (!panelItems || !subtotalEl || !totalEl || !discountRow || !discountEl || !emptyCartMsg || !cartFooter) {
+            console.error("Cart panel elements missing!");
             return;
         }
 
         panelItems.innerHTML = ''; // Clear previous items
-        let subtotal = 0;
-        try {
-            if (cart.length === 0) {
-                emptyCartMsg.classList.remove('hidden');
-                cartFooter.classList.add('hidden');
-                discountRow.classList.add('hidden');
-                // Don't clear coupon input here, it should persist unless explicitly removed
-            } else {
-                emptyCartMsg.classList.add('hidden');
-                cartFooter.classList.remove('hidden');
+        const { subtotal, discount, total } = calculateTotals();
 
-                cart.forEach(item => {
-                    const itemName = item.name || 'Unknown Item';
-                    const itemImg = item.img || 'placeholder.jpg';
-                    const itemPrice = typeof item.price === 'number' ? item.price : 0;
-                    const itemQty = typeof item.qty === 'number' ? item.qty : 0;
-                    const itemTotal = itemPrice * itemQty;
-                    subtotal += itemTotal;
+        if (cart.length === 0) {
+            emptyCartMsg.classList.remove('hidden');
+            cartFooter.classList.add('hidden');
+        } else {
+            emptyCartMsg.classList.add('hidden');
+            cartFooter.classList.remove('hidden');
 
-                    const safeItemName = escapeHtml(itemName);
-                     // Need to escape quotes for the onclick attribute string itself
-                    const safeItemNameForAttr = itemName.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"');
+            cart.forEach(item => {
+                const product = findProduct(item.id);
+                if (product) {
+                    const itemTotal = product.price * item.qty;
+                    const safeItemName = escapeHtml(product.name);
+                    // Need to escape quotes for the onclick attribute string itself
+                    const safeProductIdForAttr = product.id.replace(/'/g, "\\'").replace(/"/g, '\\"');
 
-                    panelItems.innerHTML += `
-                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg shadow-sm">
-                            <div class="flex items-center space-x-3 flex-1 min-w-0">
-                                <img src="${escapeHtml(itemImg)}" alt="${safeItemName}" class="w-16 h-16 object-contain rounded border border-gray-200 flex-shrink-0">
-                                <div class="flex-1 min-w-0">
-                                    <h4 class="font-medium text-sm truncate">${safeItemName}</h4>
-                                    <p class="text-xs text-gray-600">₹${itemPrice} × ${itemQty} = ₹${itemTotal}</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-1 flex-shrink-0 ml-2">
-                                <button onclick="updateQtyFromPanel('${safeItemNameForAttr}', -1)" class="quantity-btn" aria-label="Decrease quantity of ${safeItemName}">-</button>
-                                <span class="quantity-display">${itemQty}</span>
-                                <button onclick="updateQtyFromPanel('${safeItemNameForAttr}', 1)" class="quantity-btn" aria-label="Increase quantity of ${safeItemName}">+</button>
+                    const itemElement = document.createElement('div');
+                    itemElement.className = "flex justify-between items-center p-3 bg-gray-50 rounded-lg shadow-sm";
+                    itemElement.innerHTML = `
+                        <div class="flex items-center space-x-3 flex-1 min-w-0">
+                            <img src="${escapeHtml(product.img)}" alt="${safeItemName}" class="w-14 h-14 sm:w-16 sm:h-16 object-contain rounded border border-gray-200 flex-shrink-0">
+                            <div class="flex-1 min-w-0">
+                                <h4 class="font-medium text-sm truncate" title="${safeItemName}">${safeItemName}</h4>
+                                <p class="text-xs text-gray-600">₹${product.price} × ${item.qty} = ₹${itemTotal}</p>
                             </div>
                         </div>
+                        <div class="quantity-controls flex items-center space-x-1 flex-shrink-0 ml-2">
+                            <button onclick="updateQty('${safeProductIdForAttr}', -1)" class="quantity-btn" aria-label="Decrease quantity of ${safeItemName}">-</button>
+                            <span class="quantity-display">${item.qty}</span>
+                            <button onclick="updateQty('${safeProductIdForAttr}', 1)" class="quantity-btn" aria-label="Increase quantity of ${safeItemName}">+</button>
+                        </div>
                     `;
-                });
-
-                subtotalEl.textContent = subtotal;
-
-                // Recalculate total with coupon if applied in the cart panel
-                let total = subtotal;
-                let discount = 0;
-                const couponCode = cartCouponInput.value.trim().toUpperCase();
-
-                if (couponCode === "NSL10%") {
-                    discount = Math.round(subtotal * 0.10);
-                    total = subtotal - discount;
-                    discountEl.textContent = discount;
-                    discountRow.classList.remove('hidden');
-                } else {
-                    discountRow.classList.add('hidden');
+                    panelItems.appendChild(itemElement);
                 }
-                totalEl.textContent = total;
+            });
+
+            subtotalEl.textContent = subtotal;
+            totalEl.textContent = total;
+
+            if (discount > 0) {
+                discountEl.textContent = discount;
+                discountRow.classList.remove('hidden');
+            } else {
+                discountRow.classList.add('hidden');
             }
-        } catch (error) {
-             console.error("Error updating cart panel content:", error);
-             panelItems.innerHTML = '<p class="text-red-500">Error loading cart items.</p>';
-             cartFooter.classList.add('hidden'); // Hide footer on error
         }
     }
 
-
     function updateOrderSummary() {
         const list = document.getElementById("cartItems");
-        const subtotalEl = document.getElementById("summarySubtotal"); // Get subtotal element
+        const subtotalEl = document.getElementById("summarySubtotal");
         const totalEl = document.getElementById("cartTotal");
-        const summarySubtotalRow = document.getElementById("summarySubtotalRow"); // Get subtotal row
+        const summarySubtotalRow = document.getElementById("summarySubtotalRow");
         const summaryDiscountRow = document.getElementById("summaryDiscountRow");
         const summaryDiscountEl = document.getElementById("summaryDiscount");
-        const couponInput = document.getElementById('coupon'); // Coupon input in ORDER FORM
 
-        if (!list || !subtotalEl || !totalEl || !summarySubtotalRow || !summaryDiscountRow || !summaryDiscountEl || !couponInput) {
-            console.error("One or more order summary elements not found! Cannot update.");
+         if (!list || !subtotalEl || !totalEl || !summarySubtotalRow || !summaryDiscountRow || !summaryDiscountEl) {
+            console.error("Order summary elements missing!");
             return;
         }
 
         list.innerHTML = '';
-        let subtotal = 0;
-        try {
-            if (cart.length === 0) {
-                list.innerHTML = '<li class="text-gray-500">Your cart is empty.</li>';
-                subtotalEl.textContent = 0; // Set subtotal to 0
-                totalEl.textContent = 0; // Set total to 0
-                summarySubtotalRow.classList.add('hidden'); // Hide subtotal row if empty
-                summaryDiscountRow.classList.add('hidden'); // Hide discount row
-            } else {
-                summarySubtotalRow.classList.remove('hidden'); // Show subtotal row if cart has items
-                cart.forEach(item => {
-                    const itemPrice = typeof item.price === 'number' ? item.price : 0;
-                    const itemQty = typeof item.qty === 'number' ? item.qty : 0;
-                    const itemTotal = itemPrice * itemQty;
-                    subtotal += itemTotal;
-                    list.innerHTML += `
-                        <li class="cart-item flex justify-between items-center text-sm">
-                            <span class="flex-1 mr-2 truncate">${escapeHtml(item.name || 'Unknown Item')} (×${itemQty})</span>
+        const { subtotal, discount, total } = calculateTotals();
+
+        if (cart.length === 0) {
+            list.innerHTML = '<li class="text-gray-500 text-center py-4">Your cart is empty.</li>';
+            summarySubtotalRow.classList.add('hidden');
+            summaryDiscountRow.classList.add('hidden');
+            subtotalEl.textContent = '0';
+            totalEl.textContent = '0';
+        } else {
+             summarySubtotalRow.classList.remove('hidden');
+             cart.forEach(item => {
+                const product = findProduct(item.id);
+                 if (product) {
+                     const itemTotal = product.price * item.qty;
+                     list.innerHTML += `
+                        <li class="cart-item flex justify-between items-center text-sm py-1 border-b border-gray-100 last:border-b-0">
+                            <span class="flex-1 mr-2 truncate" title="${escapeHtml(product.name)}">${escapeHtml(product.name)} (×${item.qty})</span>
                             <span class="font-semibold flex-shrink-0">₹${itemTotal}</span>
                         </li>
                     `;
-                });
-                subtotalEl.textContent = subtotal; // Update subtotal display
-
-                 // Apply coupon discount based on ORDER FORM coupon input
-                let finalTotal = subtotal;
-                let discount = 0;
-                const couponCode = couponInput.value.trim().toUpperCase(); // Use order form input value
-
-                if (couponCode === "NSL10%") {
-                    discount = Math.round(subtotal * 0.10);
-                    finalTotal = subtotal - discount;
-                    summaryDiscountEl.textContent = discount;
-                    summaryDiscountRow.classList.remove('hidden');
-                } else {
-                    summaryDiscountRow.classList.add('hidden');
                 }
-                totalEl.textContent = finalTotal;
+             });
+            subtotalEl.textContent = subtotal;
+            totalEl.textContent = total;
+
+             if (discount > 0) {
+                summaryDiscountEl.textContent = discount;
+                summaryDiscountRow.classList.remove('hidden');
+            } else {
+                summaryDiscountRow.classList.add('hidden');
             }
-        } catch (error) {
-            console.error("Error updating order summary:", error);
-            list.innerHTML = '<li class="text-red-500">Error loading summary.</li>';
         }
     }
 
+    // Updates the Add to Cart / Quantity controls on a single product card
+    function updateProductCardUI(productId, controlsContainer) {
+        if (!controlsContainer) return; // Exit if container not found
 
-    function updateCartCounter() {
-        const counter = document.getElementById('cartCounter');
-        const mobileCounter = document.getElementById('cartCounterMobile');
-        if (!counter || !mobileCounter) {
-             console.warn("Cart counter elements not found.");
-             return;
-        }
+        const product = findProduct(productId);
+        if (!product) return; // Exit if product doesn't exist
 
-        try {
-            const totalItems = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
-            counter.textContent = totalItems;
-            mobileCounter.textContent = totalItems;
-            counter.classList.toggle('hidden', totalItems === 0);
-            mobileCounter.classList.toggle('hidden', totalItems === 0);
-        } catch (error) {
-            console.error("Error updating cart counter:", error);
-             // Ensure counters are hidden on error
-            counter.classList.add('hidden');
-            mobileCounter.classList.add('hidden');
+        const itemInCart = cart.find(item => item.id === productId);
+        const productNameSafe = escapeHtml(product.name);
+        // Escape quotes for attribute values
+        const safeProductIdForAttr = productId.replace(/'/g, "\\'").replace(/"/g, '\\"');
+
+        if (itemInCart) {
+            // Show quantity controls
+            controlsContainer.innerHTML = `
+                <div class="quantity-controls">
+                     <button onclick="event.stopPropagation(); updateQty('${safeProductIdForAttr}', -1)" class="quantity-btn" aria-label="Decrease quantity of ${productNameSafe}">-</button>
+                     <span class="quantity-display">${itemInCart.qty}</span>
+                     <button onclick="event.stopPropagation(); updateQty('${safeProductIdForAttr}', 1)" class="quantity-btn" aria-label="Increase quantity of ${productNameSafe}">+</button>
+                 </div>`;
+        } else {
+            // Show Add to Cart button
+            controlsContainer.innerHTML = `
+                <button onclick="event.stopPropagation(); addToCart('${safeProductIdForAttr}')" class="w-full btn-primary text-white py-2 px-4 rounded-lg hover:shadow-md transition text-sm font-medium">Add to Cart</button>`;
         }
     }
+
+    // Iterates through currently visible product cards and updates their controls
+    function updateAllVisibleProductCards() {
+         // Find all product card elements currently in the DOM
+         const productCards = document.querySelectorAll('.product-card[id^="product-"]');
+         productCards.forEach(card => {
+             const productId = card.id.replace('product-', ''); // Extract ID
+             const controlsContainer = card.querySelector('.product-card-controls');
+             if (productId && controlsContainer) {
+                 updateProductCardUI(productId, controlsContainer);
+             }
+         });
+    }
+
 
     // --- UI Interaction Functions ---
 
@@ -1066,40 +1137,30 @@
         const cartPanel = document.getElementById('cartPanel');
         const overlay = document.getElementById('cartOverlay');
         const body = document.body;
+        if (!cartPanel || !overlay || !body) return;
 
-        if (!cartPanel || !overlay || !body) {
-            console.error("Cart panel, overlay, or body element not found!");
-            return;
-        }
         const isOpen = cartPanel.classList.contains('open');
-        try {
-            if (isOpen) {
-                cartPanel.classList.remove('open');
-                overlay.classList.remove('active');
-                body.classList.remove('overflow-hidden');
-            } else {
-                updateCartPanel(); // Update content *before* showing
-                cartPanel.classList.add('open');
-                overlay.classList.add('active');
-                body.classList.add('overflow-hidden');
-            }
-        } catch (error) {
-            console.error("Error toggling cart visibility:", error);
-            // Attempt to reset to closed state on error
+        if (isOpen) {
             cartPanel.classList.remove('open');
             overlay.classList.remove('active');
             body.classList.remove('overflow-hidden');
+        } else {
+            updateCartPanel(); // Refresh content before showing
+            cartPanel.classList.add('open');
+            overlay.classList.add('active');
+            body.classList.add('overflow-hidden');
         }
     }
 
     function proceedToCheckout() {
         if (cart.length === 0) {
-            alert("Your cart is empty. Please add items before proceeding to checkout.");
+            alert("Your cart is empty. Please add items before proceeding.");
+            toggleCart(); // Open cart to show it's empty
             return;
         }
         toggleCart(); // Close cart if open
 
-        // Delay scrolling slightly to allow cart closing animation
+        // Delay slightly for animation, then scroll to order/login section
         setTimeout(() => {
              const orderSection = document.getElementById('order');
              const loginForm = document.getElementById('loginForm');
@@ -1110,59 +1171,13 @@
                  alert("Could not find order section.");
                  return;
              }
+             // Scroll to login or order form depending on visibility
+             const targetElement = loginForm.classList.contains('hidden') ? orderForm : loginForm;
+             targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+             updateOrderSummary(); // Ensure summary is fresh when user sees the form
 
-             // Determine which section to scroll to based on login status
-             const user = localStorage.getItem('user');
-             const targetElement = (user && !orderForm.classList.contains('hidden')) ? orderForm : loginForm;
-
-             if (targetElement) {
-                 targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                 updateOrderSummary(); // Ensure summary is up-to-date when scrolling
-             } else {
-                  // Fallback scroll if logic fails
-                  orderSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-             }
-
-        }, 450); // Match CSS transition duration + buffer
+        }, 450);
     }
-
-    function applyCoupon() {
-        const cartCouponInput = document.getElementById('cartCoupon'); // Coupon input in CART PANEL
-        const orderCouponInput = document.getElementById('coupon'); // Coupon input in ORDER FORM
-
-        if (!cartCouponInput || !orderCouponInput) {
-            console.error("Coupon input fields not found!");
-            alert("Error: Could not find coupon input fields.");
-            return;
-        }
-
-        const couponCode = cartCouponInput.value.trim().toUpperCase();
-        const validCouponCode = "NSL10%"; // Define valid code here
-
-        if (couponCode === validCouponCode) {
-             // Apply logic: Sync coupon to order form input and update UI
-             orderCouponInput.value = couponCode; // Sync value
-             alert(`Coupon "${validCouponCode}" applied successfully!`);
-        } else if (couponCode === "") {
-             // Remove logic: Clear both coupon inputs and update UI
-             cartCouponInput.value = ""; // Clear cart input
-             orderCouponInput.value = ""; // Clear order form input
-             alert('Coupon removed.');
-        } else {
-            // Invalid code entered, alert and potentially clear the input
-            alert('Invalid coupon code.');
-            // cartCouponInput.value = ''; // Optionally clear the input field on invalid
-            // Don't change orderCouponInput unless it was the valid code
-            if (orderCouponInput.value.trim().toUpperCase() === validCouponCode) {
-                 // If the order form had the valid code, leave it, as the user only entered an invalid one in the cart
-            } else {
-                 orderCouponInput.value = ""; // Clear order form input if it didn't have the valid code either
-            }
-        }
-        // Always update UI after attempting to apply/remove coupon
-        updateCartUI();
-    }
-
 
     function showModal(category, index) {
        try {
@@ -1171,7 +1186,8 @@
                 console.error("Product not found for modal:", category, index);
                 return;
             }
-            currentModalProduct = { category, index, name: product.name }; // Store reference
+             // Use product.id for storing current modal product
+            currentModalProduct = { category, index, id: product.id };
 
             const modalImg = document.getElementById('modalImg');
             const modalName = document.getElementById('modalName');
@@ -1180,42 +1196,28 @@
             const productModal = document.getElementById('productModal');
             const modalBtn = document.getElementById('modalAddToCart');
             if (!modalImg || !modalName || !modalDesc || !modalPrice || !productModal || !modalBtn) {
-                 console.error("One or more modal elements not found!");
+                 console.error("Modal elements missing!");
                  return;
             }
 
             modalImg.src = escapeHtml(product.img);
-            modalImg.alt = escapeHtml(product.name); // Add alt text
+            modalImg.alt = escapeHtml(product.name);
             modalName.textContent = escapeHtml(product.name);
             modalDesc.textContent = escapeHtml(product.desc);
             modalPrice.textContent = `₹${product.price}`;
 
-            // Update button based on current cart state
-            const itemInCart = cart.find(item => item.name === product.name);
+            // Update button based on cart state
+            const itemInCart = cart.find(item => item.id === product.id);
             modalBtn.textContent = itemInCart ? `Add One More (Qty: ${itemInCart.qty})` : 'Add to Cart';
-
-            // Remove existing event listener before cloning
-            const oldBtn = modalBtn;
-             if (oldBtn._currentEventListener) {
-                oldBtn.removeEventListener('click', oldBtn._currentEventListener);
-             }
-
-            // Clone and replace button to remove old listeners
-            const newBtn = oldBtn.cloneNode(true);
-            oldBtn.parentNode.replaceChild(newBtn, oldBtn);
-
-            // Add new event listener and store it
-            const newListener = addToCartFromModal;
-            newBtn.addEventListener('click', newListener);
-            newBtn._currentEventListener = newListener; // Store reference to remove later
+            // Set onclick directly for simplicity here, passing product ID
+            modalBtn.onclick = () => addToCartFromModal(product.id);
 
 
-            productModal.classList.remove('hidden'); // Show the modal
+            productModal.classList.remove('hidden');
 
        } catch (error) {
             console.error("Error showing modal:", error);
-            const productModal = document.getElementById('productModal');
-            if(productModal) productModal.classList.add('hidden'); // Ensure modal is hidden on error
+            closeModal(); // Ensure modal is hidden on error
        }
     }
 
@@ -1224,35 +1226,31 @@
       if (productModal) {
         productModal.classList.add('hidden');
       }
-      currentModalProduct = null; // Clear reference
+      currentModalProduct = null;
     }
 
-    function addToCartFromModal() {
-        if (currentModalProduct) {
-            const { category, index, name } = currentModalProduct;
-            // Double check product exists before adding
-            if (category !== undefined && index !== undefined && products[category]?.[index]?.name === name) {
-                addToCart(category, index); // Add the item
-
-                // Update modal button briefly
-                const modalBtn = document.getElementById('modalAddToCart'); // Get the current button
-                 if (modalBtn) {
-                     modalBtn.textContent = 'Added!';
-                     modalBtn.disabled = true; // Briefly disable
-                     // No need for timeout, closeModal is called immediately
-                     closeModal();
-                     // Re-enable button immediately after closing, ready for next modal open
+    function addToCartFromModal(productId) {
+        if (productId) {
+             addToCart(productId); // Use the main addToCart function
+             // Optionally provide feedback on the button
+             const modalBtn = document.getElementById('modalAddToCart');
+             if (modalBtn) {
+                 modalBtn.textContent = 'Added!';
+                 modalBtn.disabled = true;
+                 setTimeout(() => {
+                     closeModal(); // Close after a short delay
+                     // Re-enable button after closing, ready for next time
+                     // Note: This might cause issues if modal is reopened quickly.
+                     // A better approach would be to re-enable it when the modal is next shown.
                      modalBtn.disabled = false;
-                 } else {
-                     closeModal(); // Close even if button somehow missing
-                 }
-            } else {
-                 console.error("Invalid category/index or product mismatch in currentModalProduct:", currentModalProduct);
-                 closeModal(); // Close modal if state is inconsistent
-            }
+                     modalBtn.textContent = 'Add to Cart'; // Reset text (will be updated on next show)
+                 }, 600); // Delay before closing
+             } else {
+                 closeModal(); // Close even if button missing
+             }
         } else {
-             console.warn("Add to cart from modal called with no current product selected.");
-             closeModal(); // Close modal if state is inconsistent
+             console.warn("addToCartFromModal called without a valid product ID.");
+             closeModal();
         }
     }
 
@@ -1270,11 +1268,7 @@
         const emailInput = document.getElementById('email');
         const phoneInput = document.getElementById('phone');
         const addressInput = document.getElementById('address');
-        if (!nameInput || !emailInput || !phoneInput || !addressInput) {
-            console.error("User info input fields not found!");
-            alert("Error: Could not find user input fields.");
-            return;
-        }
+        if (!nameInput || !emailInput || !phoneInput || !addressInput) return;
 
         const name = nameInput.value.trim();
         const email = emailInput.value.trim();
@@ -1282,136 +1276,125 @@
         const address = addressInput.value.trim();
 
         let isValid = true;
-        let errorMessage = "Please correct the following issues:\n";
+        let errorMessages = [];
         const emailRegex = /^\S+@\S+\.\S+$/;
-        const phoneRegex = /^[6-9]\d{9}$/; // Basic Indian phone number validation
+        const phoneRegex = /^[6-9]\d{9}$/;
 
-        // Reset previous errors visually
+        // Reset previous errors
         [nameInput, emailInput, phoneInput, addressInput].forEach(input => input.classList.remove('border-red-500'));
 
-        if (!name) { isValid = false; nameInput.classList.add('border-red-500'); errorMessage += "- Full Name is required.\n"; }
-        if (!email || !emailRegex.test(email)) { isValid = false; emailInput.classList.add('border-red-500'); errorMessage += "- A valid Email is required.\n"; }
-        if (!phone || !phoneRegex.test(phone)) { isValid = false; phoneInput.classList.add('border-red-500'); errorMessage += "- A valid 10-digit Indian phone number (starting with 6-9) is required.\n"; }
-        if (!address) { isValid = false; addressInput.classList.add('border-red-500'); errorMessage += "- Full Address is required.\n"; }
+        if (!name) { isValid = false; nameInput.classList.add('border-red-500'); errorMessages.push("Full Name is required."); }
+        if (!email || !emailRegex.test(email)) { isValid = false; emailInput.classList.add('border-red-500'); errorMessages.push("A valid Email is required."); }
+        if (!phone || !phoneRegex.test(phone)) { isValid = false; phoneInput.classList.add('border-red-500'); errorMessages.push("A valid 10-digit Indian phone number (starting 6-9) is required."); }
+        if (!address) { isValid = false; addressInput.classList.add('border-red-500'); errorMessages.push("Full Address is required."); }
 
         if (!isValid) {
-            alert(errorMessage);
+            alert("Please correct the following errors:\n- " + errorMessages.join("\n- "));
             return;
         }
 
         try {
-            localStorage.setItem('user', JSON.stringify({ name, email, phone, address }));
-            alert("Information saved successfully!");
-            populateOrderForm(); // Show order form, hide login form
+            localStorage.setItem('theHighonsUser', JSON.stringify({ name, email, phone, address }));
+            populateOrderForm(); // Shows order form, hides login
             const orderForm = document.getElementById('orderForm');
             if (orderForm) {
-                 // Scroll smoothly to the order form after saving info
                 orderForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         } catch (error) {
             console.error("Error saving user data to localStorage:", error);
-            alert("Could not save your information due to a browser storage issue. Please try again or enable storage.");
+            alert("Could not save your information. Please ensure browser storage is enabled.");
         }
     }
 
     function populateOrderForm() {
         const loginForm = document.getElementById('loginForm');
         const orderForm = document.getElementById('orderForm');
-
-        if (!loginForm || !orderForm) {
-            console.error("Login or Order form not found!");
-            return;
-        }
+        if (!loginForm || !orderForm) return;
 
         try {
-            const userString = localStorage.getItem('user');
+            const userString = localStorage.getItem('theHighonsUser');
             if (userString) {
                 const user = JSON.parse(userString);
-                // Ensure all required user fields are present and not empty strings
                 if (user && user.name && user.email && user.phone && user.address) {
-                    const formName = document.getElementById('formName');
-                    const formEmail = document.getElementById('formEmail');
-                    const formPhone = document.getElementById('formPhone');
-                    const formAddress = document.getElementById('formAddress');
-                     // Populate hidden fields in the order form
-                    if (formName) formName.value = user.name;
-                    if (formEmail) formEmail.value = user.email;
-                    if (formPhone) formPhone.value = user.phone;
-                    if (formAddress) formAddress.value = user.address;
-                    // Hide login form, show order form
+                    // Populate hidden fields
+                    document.getElementById('formName').value = user.name;
+                    document.getElementById('formEmail').value = user.email;
+                    document.getElementById('formPhone').value = user.phone;
+                    document.getElementById('formAddress').value = user.address;
+
+                    // Show order form, hide login form
                     loginForm.classList.add('hidden');
                     orderForm.classList.remove('hidden');
-                    updateOrderSummary(); // Update the summary displayed in the order form
+                    updateOrderSummary(); // Update summary displayed in the order form
                 } else {
-                    // If user data is incomplete/invalid, remove it and show login form
-                    console.warn("User data in localStorage is incomplete or invalid. Clearing.");
-                    localStorage.removeItem('user');
+                    // Invalid data, clear it
+                    localStorage.removeItem('theHighonsUser');
                     loginForm.classList.remove('hidden');
                     orderForm.classList.add('hidden');
                 }
             } else {
-                // No user data found, ensure login form is shown
+                // No user data, show login form
                 loginForm.classList.remove('hidden');
                 orderForm.classList.add('hidden');
             }
         } catch (error) {
-             // Error parsing data, clear potentially corrupted data and show login form
-             console.error("Error parsing user data or populating order form:", error);
-             localStorage.removeItem('user'); // Attempt to clear bad data
+             console.error("Error parsing user data:", error);
+             localStorage.removeItem('theHighonsUser'); // Clear potentially bad data
              loginForm.classList.remove('hidden');
              orderForm.classList.add('hidden');
         }
-        updateLogoutButtonVisibility(); // Update based on final login status
+        updateLogoutButtonVisibility();
     }
 
     function logout() {
-        // Confirmation dialog
         if (!confirm("Are you sure you want to logout? Your saved details and cart will be cleared.")) {
-            return; // Abort if user cancels
+            return;
         }
 
         try {
-            localStorage.removeItem('user');
-            localStorage.removeItem('cart'); // Clear cart on logout too
+            localStorage.removeItem('theHighonsUser');
+            localStorage.removeItem('theHighonsCart');
+            localStorage.removeItem('theHighonsCoupon'); // Clear coupon too
+
             cart = []; // Reset in-memory cart
+            appliedCouponCode = null; // Reset coupon state
+
             alert("You have been logged out.");
 
-            // Reset UI elements
+            // Reset UI
             const loginForm = document.getElementById('loginForm');
             const orderForm = document.getElementById('orderForm');
             if (loginForm) loginForm.classList.remove('hidden');
             if (orderForm) orderForm.classList.add('hidden');
 
-            // Clear login form inputs visually
+             // Clear login form inputs
             ['name', 'email', 'phone', 'address'].forEach(id => {
                 const input = document.getElementById(id);
                 if (input) input.value = '';
             });
-
-            // Clear coupon inputs visually
-            ['cartCoupon', 'coupon'].forEach(id => {
+             // Clear coupon inputs
+             ['cartCoupon', 'coupon'].forEach(id => {
                 const input = document.getElementById(id);
                 if(input) input.value = '';
             });
+             // Clear coupon feedback messages
+             ['cartCouponFeedback', 'orderCouponFeedback'].forEach(id => {
+                 const el = document.getElementById(id);
+                 if (el) el.textContent = '';
+             });
 
             updateLogoutButtonVisibility();
-            updateCartUI(); // Update counters, panels, summaries
-            // Re-render products to reset 'Add to Cart' buttons state on visible products
-            // Check if productsContainer is visible before re-rendering everything
-            const productsSection = document.getElementById('products');
-            if (productsSection && !productsSection.classList.contains('hidden')) { // Basic visibility check
-                 renderProducts(currentCategory, document.getElementById('productSearch')?.value || '');
-            }
+            updateFullUI(); // Update counters, panels, summaries, product cards
 
-
-            window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
         } catch (error) {
             console.error("Error during logout:", error);
-            alert("An error occurred during logout. Some data might not have been cleared.");
-            // Attempt partial cleanup even on error if localStorage access failed
+            alert("An error occurred during logout.");
+            // Attempt partial cleanup even on error
             cart = [];
-            updateCartUI();
+            appliedCouponCode = null;
+            updateFullUI();
             updateLogoutButtonVisibility();
         }
     }
@@ -1419,160 +1402,135 @@
     function updateLogoutButtonVisibility() {
         const logoutDesktop = document.getElementById('logoutButtonDesktop');
         const logoutMobile = document.getElementById('logoutButtonMobile');
-        if (!logoutDesktop || !logoutMobile) {
-             console.warn("Logout buttons not found.");
-             return;
-        }
+        if (!logoutDesktop || !logoutMobile) return;
+
         try {
-            // Check if user data exists and is valid JSON
-            const userString = localStorage.getItem('user');
+            const userString = localStorage.getItem('theHighonsUser');
             let isLoggedIn = false;
             if (userString) {
                  try {
                     const user = JSON.parse(userString);
-                    // Consider the user logged in if core fields exist
                     if (user && user.name && user.email && user.phone && user.address) {
                         isLoggedIn = true;
-                    } else {
-                         // Invalid user data structure found
-                         console.warn("Invalid user data structure in localStorage.");
                     }
-                 } catch (e) {
-                     // JSON parsing error
-                     console.error("Error parsing user data in localStorage:", e);
-                 }
+                 } catch (e) { /* Ignore parsing errors, treat as not logged in */ }
             }
-            // Show logout buttons only if user data is considered valid and present
             logoutDesktop.classList.toggle('hidden', !isLoggedIn);
             logoutMobile.classList.toggle('hidden', !isLoggedIn);
         } catch (error) {
-             // Hide buttons if localStorage access fails
              console.error("Error checking user status for logout button:", error);
              logoutDesktop.classList.add('hidden');
              logoutMobile.classList.add('hidden');
         }
     }
 
-
     function prepareOrder() {
         try {
-            const userString = localStorage.getItem('user');
-            if (!userString) {
-                alert("Please save your information before placing the order.");
-                document.getElementById('loginForm')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                return false; // Prevent form submission
-            }
-             // Attempt to parse and validate user data
+            // 1. Check if user is logged in
+            const userString = localStorage.getItem('theHighonsUser');
             let user;
-            try {
-                 user = JSON.parse(userString);
-                if (!user || !user.name || !user.email || !user.phone || !user.address) {
-                    throw new Error("Incomplete user data"); // Throw if data is incomplete
+            if (userString) {
+                try {
+                    user = JSON.parse(userString);
+                    if (!user || !user.name || !user.email || !user.phone || !user.address) {
+                        throw new Error("Incomplete user data");
+                    }
+                } catch (e) {
+                     alert("Your saved information seems incomplete or corrupted. Please save your details again.");
+                     populateOrderForm(); // Show login form
+                     document.getElementById('loginForm')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                     return false; // Prevent submission
                 }
-            } catch (e) {
-                 console.error("Corrupted or incomplete user data in localStorage:", e);
-                 alert("Your saved information is incomplete or corrupted. Please re-enter your details.");
-                 localStorage.removeItem('user'); // Clear bad data
-                 populateOrderForm(); // Switch back to login form
+            } else {
+                 alert("Please save your information before placing the order.");
                  document.getElementById('loginForm')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                 return false; // Prevent form submission
-            }
-
-
-            if (cart.length === 0) {
-                alert("Your cart is empty. Cannot place order.");
-                toggleCart(); // Show cart panel
-                return false; // Prevent form submission
-            }
-
-            updateOrderSummary(); // Ensure summary is absolutely fresh before generating text
-
-            const couponInput = document.getElementById('coupon'); // Use coupon from order form
-            const paymentSelect = document.querySelector('select[name="payment"]');
-            const orderSummaryText = document.getElementById("orderSummaryText"); // Hidden input for summary
-            const formName = document.getElementById('formName');
-            const formEmail = document.getElementById('formEmail');
-            const formPhone = document.getElementById('formPhone');
-            const formAddress = document.getElementById('formAddress');
-
-            if (!couponInput || !paymentSelect || !orderSummaryText || !formName || !formEmail || !formPhone || !formAddress) {
-                 console.error("Essential order form elements missing!");
-                 alert("Error: Order form is incomplete. Cannot proceed.");
                  return false; // Prevent submission
             }
 
-            // Re-populate hidden fields from validated user object just to be safe
-            formName.value = user.name;
-            formEmail.value = user.email;
-            formPhone.value = user.phone;
-            formAddress.value = user.address;
+            // 2. Check if cart is empty
+            if (cart.length === 0) {
+                alert("Your cart is empty. Please add items to your cart.");
+                toggleCart(); // Show cart
+                return false; // Prevent submission
+            }
 
-            // Generate summary text for the hidden input field
-            const coupon = couponInput.value.trim().toUpperCase(); // Use coupon from order form for final calculation
+            // 3. Ensure summary is up-to-date & get totals
+             updateOrderSummary(); // Recalculate just before generating text
+            const { subtotal, discount, total } = calculateTotals();
+
+            // 4. Get other form values
+            const paymentSelect = document.querySelector('select[name="payment"]');
+            const orderSummaryText = document.getElementById("orderSummaryText");
+            if (!paymentSelect || !orderSummaryText) {
+                console.error("Payment select or summary text input missing!");
+                alert("Error: Order form is incomplete.");
+                return false;
+            }
+
+            // 5. Populate hidden user fields again (redundant but safe)
+            document.getElementById('formName').value = user.name;
+            document.getElementById('formEmail').value = user.email;
+            document.getElementById('formPhone').value = user.phone;
+            document.getElementById('formAddress').value = user.address;
+
+            // 6. Generate summary text for the hidden input field
             let summary = `ORDER CONFIRMATION - The Highon's\n===============================\n`;
             summary += `CUSTOMER DETAILS:\n`;
             summary += `  Name:    ${user.name}\n  Email:   ${user.email}\n  Phone:   ${user.phone}\n  Address: ${user.address}\n`;
             summary += `===============================\nORDER ITEMS:\n`;
 
-            let subtotal = 0;
             cart.forEach(item => {
-                const itemTotal = (item.price || 0) * (item.qty || 0);
-                 // Use padding for basic alignment in plain text
-                summary += `  - ${escapeHtml(item.name || 'Unknown Item')} (x${item.qty || 0})`.padEnd(50) + `₹${itemTotal}\n`;
-                subtotal += itemTotal;
+                const product = findProduct(item.id);
+                if (product) {
+                    const itemTotal = product.price * item.qty;
+                    summary += `  - ${escapeHtml(product.name)} (x${item.qty})`.padEnd(50) + `₹${itemTotal}\n`;
+                }
             });
             summary += `---------------------------------------------------\n`;
             summary += `  Subtotal:`.padEnd(50) + `₹${subtotal}\n`;
 
-            let total = subtotal;
-            let discount = 0;
-            const validCouponCode = "NSL10%"; // Define valid code here again
-            if (coupon === validCouponCode) {
-                discount = Math.round(subtotal * 0.10);
-                summary += `  Discount (${validCouponCode}):`.padEnd(50) + `-₹${discount}\n`;
-                total -= discount;
+            if (discount > 0 && appliedCouponCode) {
+                 summary += `  Discount (${appliedCouponCode}):`.padEnd(50) + `-₹${discount}\n`;
             }
 
             summary += `===================================================\n`;
             summary += `  TOTAL AMOUNT:`.padEnd(50) + `₹${total}\n`;
             summary += `===================================================\n`;
             summary += `PAYMENT METHOD: ${paymentSelect.value}\n`;
-            summary += `===================================================\nThank you!\n`;
+            summary += `===================================================\nOrder placed via website.\nThank you!\n`;
 
-            // Set the hidden input's value
             orderSummaryText.value = summary;
-            // console.log("Order prepared. Summary set. Allowing form submission.");
-            // console.log("Order Summary Text:\n", summary); // Optional: Log summary for debugging
 
-            // Show confirmation modal and clear state *after* the form is allowed to submit.
-            // FormSubmit handles the redirect, so this setTimeout will run before the redirect happens.
-            // A more robust solution would use AJAX submission and clear state in the success callback.
+            // 7. Form is ready for submission. Show confirmation modal *after* a slight delay
+            // to allow form submission to begin. Clear state locally.
              setTimeout(() => {
                 const orderConfirmation = document.getElementById('orderConfirmation');
-                if (orderConfirmation) orderConfirmation.classList.remove('hidden'); // Show confirmation modal
+                if (orderConfirmation) orderConfirmation.classList.remove('hidden');
 
-                // Clear cart and related state
+                // Clear cart and coupon state locally
                 cart = [];
-                saveCart(); // Persist empty cart
+                appliedCouponCode = null;
+                saveCart(); // Persist empty cart and no coupon
 
-                // Reset UI
-                updateCartUI(); // Update counters, panels, summaries to reflect empty cart
-                 // Re-render products only if the product section is likely visible/interactive
-                 const productsSection = document.getElementById('products');
-                if (productsSection && !productsSection.classList.contains('hidden')) {
-                    renderProducts(currentCategory, document.getElementById('productSearch')?.value || ''); // Reset product cards
-                 }
-
-
-                // Clear coupon inputs visually
-                ['cartCoupon', 'coupon'].forEach(id => {
+                // Reset UI completely
+                updateFullUI();
+                 // Clear coupon inputs visually
+                 ['cartCoupon', 'coupon'].forEach(id => {
                     const input = document.getElementById(id);
                     if(input) input.value = '';
                 });
+                // Clear coupon feedback messages
+                ['cartCouponFeedback', 'orderCouponFeedback'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = '';
+                });
+
+                // Optionally hide order form and show login form again? Or leave as is?
+                // Let's leave it as is for now.
 
             }, 300); // Delay slightly
 
-            return true; // Allow native form submission to proceed
+            return true; // Allow native form submission
 
         } catch (error) {
             console.error("Error preparing order:", error);
@@ -1584,109 +1542,69 @@
     function closeOrderConfirmation() {
       const orderConfirmation = document.getElementById('orderConfirmation');
       if (orderConfirmation) orderConfirmation.classList.add('hidden');
-      // Scroll to products section or top
+      // Optional: Scroll to top or products section
       document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // --- Helper Functions ---
-    function animateCards() {
-        try {
-            // Select only cards within the products container that have the base animated class
-            // Filter for cards that might not have been animated yet
-            const cards = document.querySelectorAll('#productsContainer .product-card.animate__animated');
-            cards.forEach((card, index) => {
-                 // Check if the element is likely not animated yet or needs re-animation
-                 // A simple way is to check if it's currently not visible (due to initial opacity 0)
-                 if (card.style.opacity === '0' || !card.classList.contains('animate__fadeInUp')) {
-                     card.style.opacity = '0'; // Ensure starting state
-                     card.classList.remove('animate__fadeInUp'); // Remove any previous animation class
-
-                     // Apply animation with stagger
-                     card.style.animationDelay = `${index * 60}ms`; // Stagger delay
-
-                     // Use a tiny setTimeout delay to help ensure the transition starts correctly
-                     setTimeout(() => {
-                         card.style.opacity = '1'; // Make visible
-                         card.classList.add('animate__fadeInUp'); // Add animation class
-                     }, 10); // Small delay
-                 }
-            });
-        } catch (error) {
-            console.error("Error animating product cards:", error);
-            // Fallback: ensure cards are visible even if animation fails
-            const cards = document.querySelectorAll('#productsContainer .product-card.animate__animated');
-            cards.forEach(card => card.style.opacity = '1'); // Ensure visible
-        }
     }
 
 
     // --- Initialization ---
-    window.onload = () => {
+    document.addEventListener('DOMContentLoaded', () => {
       try {
           // Set footer year
           const footerYear = document.getElementById('footerYear');
           if (footerYear) footerYear.textContent = new Date().getFullYear();
 
-          // Load state
-          loadCart(); // Load cart from localStorage
-          populateOrderForm(); // Check for saved user info and set up forms accordingly
-          renderProducts(); // Initial render of all products
-          updateCartUI(); // Update counters, cart panel, and order summary based on loaded cart
-          // updateLogoutButtonVisibility() is called within populateOrderForm
+          // Load state (cart, user, coupon)
+          loadCart(); // Loads cart & coupon, updates UI via updateFullUI()
+          populateOrderForm(); // Sets up forms based on loaded user, updates logout button
 
-          // Event Listeners Setup
+          // Initial render of products (respecting loaded filter/search if implemented)
+          // For now, just render all initially
+          renderProducts('all', '');
+
+          // --- Event Listeners Setup ---
           const productSearchInput = document.getElementById('productSearch');
           if (productSearchInput) {
-              productSearchInput.addEventListener('input', function() {
-                  // Debounce this if performance is an issue with rapid typing
-                  renderProducts(currentCategory, this.value); // Re-render on search input
-              });
+               let searchTimeout;
+               productSearchInput.addEventListener('input', function() {
+                   clearTimeout(searchTimeout);
+                   const searchTerm = this.value;
+                   // Debounce search slightly
+                   searchTimeout = setTimeout(() => {
+                       renderProducts(currentCategoryFilter, searchTerm);
+                   }, 250);
+               });
           } else { console.error("Product search input not found."); }
 
           const categoryFilterSelect = document.getElementById('categoryFilter');
           if (categoryFilterSelect) {
                categoryFilterSelect.addEventListener('change', function() {
-                  currentCategory = this.value; // Update current category state
                   const searchVal = document.getElementById('productSearch')?.value || '';
-                  renderProducts(currentCategory, searchVal); // Re-render on category change
+                  renderProducts(this.value, searchVal); // Re-render on category change
                });
           } else { console.error("Category filter select not found."); }
 
-          // Listener for the coupon input within the ORDER FORM
-          const couponInputOrderForm = document.getElementById('coupon');
-          if (couponInputOrderForm) {
-              // Update summary whenever the order form coupon input changes
-              couponInputOrderForm.addEventListener('input', updateOrderSummary);
-          } else { console.warn("Order form coupon input ('#coupon') not found."); } // Changed to warn, less critical
+           // Coupon input listeners (syncing is handled by applyCoupon function)
+           // No additional listeners needed here as apply buttons trigger the logic.
 
-          // Intersection Observer for Feature Cards Animation
-          const featureCards = document.querySelectorAll('.feature-card');
-          if ('IntersectionObserver' in window && featureCards.length > 0) {
-              const observer = new IntersectionObserver((entries, obs) => {
-                  entries.forEach(entry => {
-                      if (entry.isIntersecting) {
-                          entry.target.classList.add('animate__fadeInUp'); // Add animation class when visible
-                          obs.unobserve(entry.target); // Stop observing once animated
-                      }
-                  });
-              }, { threshold: 0.1 }); // Trigger when 10% visible
-              featureCards.forEach(card => observer.observe(card));
-          } else {
-              // Fallback for browsers without IntersectionObserver
-              featureCards.forEach(card => {
-                 card.classList.add('animate__fadeInUp'); // Add class directly
-                 card.style.opacity = '1'; // Ensure visible
-              });
-          }
+           // Listener for modal close on background click (if desired)
+           const productModal = document.getElementById('productModal');
+           if (productModal) {
+               productModal.addEventListener('click', (event) => {
+                   // Close only if clicking the background itself, not the content
+                   if (event.target === productModal) {
+                       closeModal();
+                   }
+               });
+           }
 
       } catch (error) {
-           // Catch critical errors during initialization
-           console.error("Critical error during window.onload initialization:", error);
-           alert("There was a significant error loading the page. Some features might be unavailable or broken. Please try refreshing.");
-           // Optionally display a user-friendly error message overlay
-           document.body.innerHTML = `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h1>Oops!</h1><p>Something went wrong while loading the page. Please <a href="javascript:location.reload();">refresh</a> and try again.</p><p style="font-size: 0.8em; color: grey;">Error: ${escapeHtml(error.message)}</p></div>`;
+           console.error("Critical error during DOMContentLoaded initialization:", error);
+           alert("Error loading page content. Some features might be unavailable. Please refresh.");
+           // Optional: Display a more user-friendly error message
+           document.body.innerHTML = `<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h1>Oops!</h1><p>Something went wrong while loading the page. Please <a href="javascript:location.reload();">refresh</a> and try again.</p></div>`;
       }
-    };
+    });
 
   </script>
 
