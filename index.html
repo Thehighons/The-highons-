@@ -114,7 +114,9 @@
 
         /* Buttons */
         .btn {
-            display: inline-block;
+            display: inline-flex; /* Changed to flex for centering content */
+            align-items: center; /* Center text vertically */
+            justify-content: center; /* Center text horizontally */
             padding: 0.8rem 2rem;
             border-radius: 50px;
             font-weight: 600;
@@ -125,6 +127,7 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            white-space: nowrap; /* Prevent text wrapping */
         }
         .btn::before { /* Subtle shine effect on hover */
             content: "";
@@ -160,6 +163,14 @@
             background-color: rgba(127, 90, 240, 0.1);
             transform: translateY(-2px);
         }
+
+         /* Small buttons for quantity control */
+         .btn-small {
+             padding: 0.3rem 0.8rem; /* Reduced padding */
+             font-size: 0.9rem; /* Smaller font */
+             border-radius: 9999px; /* Fully rounded */
+         }
+
 
         /* Product Section */
          #products {
@@ -202,9 +213,12 @@
             position: relative;
             transform-style: preserve-3d; /* For tilt effect */
             box-shadow: 0 5px 15px rgba(0,0,0, 0.2);
+            display: flex; /* Use flex to space content and controls */
+            flex-direction: column;
+            justify-content: space-between; /* Push controls to bottom */
         }
         .product-card:hover {
-            transform: translateY(-10px) rotateX(5deg) rotateY(-3deg); /* Tilt effect */
+            transform: translateY(-10px) rotateX(3deg) rotateY(-2deg); /* Slight tilt effect */
             box-shadow: 0 15px 30px rgba(0,0,0, 0.3);
             border-color: rgba(127, 90, 240, 0.5); /* Accent border on hover */
         }
@@ -244,6 +258,10 @@
         .product-card-content {
             padding: 1.25rem; /* Increased padding */
             text-align: center; /* Center content */
+            flex-grow: 1; /* Allow content to take space */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Align text to top */
         }
         .product-card h3 {
             font-family: 'Montserrat', sans-serif; /* Use body font for card title */
@@ -251,13 +269,23 @@
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: var(--text-main);
-            min-height: 44px; /* Ensure consistent height */
+            min-height: 2.8em; /* Ensure consistent height over two lines */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
          .product-card p.product-desc {
              font-size: 0.85rem;
              color: var(--text-secondary);
              margin-bottom: 1rem;
-             min-height: 40px; /* Ensure consistent height */
+             min-height: 3.4em; /* Ensure consistent height over multiple lines */
+             display: -webkit-box;
+             -webkit-line-clamp: 3;
+             -webkit-box-orient: vertical;
+             overflow: hidden;
+             text-overflow: ellipsis;
          }
         .product-card .product-price {
             font-size: 1.4rem;
@@ -265,11 +293,27 @@
             color: var(--primary-accent); /* Accent color for price */
             margin-bottom: 1.25rem;
         }
-        .product-card .btn-details {
+        /* Product Controls - Centered at the bottom */
+        .product-card-controls {
+            padding: 0 1.25rem 1.25rem; /* Padding bottom matches content */
+            display: flex;
+            justify-content: center; /* Center buttons */
+            align-items: center;
             width: 100%;
-            padding: 0.6rem 1rem;
-            font-size: 0.9rem;
         }
+
+        .product-quantity-controls {
+             display: flex;
+             align-items: center;
+             gap: 0.5rem; /* Space between buttons and quantity */
+        }
+         .product-quantity {
+             font-size: 1.1rem;
+             font-weight: 700;
+             color: var(--text-main);
+             min-width: 30px; /* Ensure width for 1, 10, etc */
+             text-align: center;
+         }
 
         /* Filter/Search Styling */
         #productSearch, #categoryFilter {
@@ -369,44 +413,46 @@
              color: var(--text-main);
          }
 
-        /* How to Order Section - Removed as Order section is added */
-        /* .how-to-order-content {
-            line-height: 1.8;
-            color: var(--text-secondary);
-        }
-        .how-to-order-content strong {
-            color: var(--text-main);
-            font-weight: 600;
-        }
-        .how-to-order-content ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        .how-to-order-content li {
-            margin-bottom: 1rem;
-            padding-left: 2rem;
-            position: relative;
-        }
-        .how-to-order-content li::before {
-            content: '\f00c';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 0;
-            top: 4px;
-            color: var(--secondary-accent);
-            font-size: 0.9em;
-        }
-        .how-to-order-content a {
-            color: var(--primary-accent);
-            font-weight: 600;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        .how-to-order-content a:hover {
-            color: var(--secondary-accent);
-            text-decoration: underline;
-        } */
+        /* Order Summary Display */
+         #orderSummaryDisplay {
+             background-color: rgba(22, 22, 26, 0.7);
+             border: 1px solid var(--border-color);
+             border-radius: 8px;
+             padding: 1rem;
+             margin-bottom: 1.5rem;
+             min-height: 80px; /* Give it some minimum space */
+             color: var(--text-main);
+         }
+         #orderSummaryDisplay p {
+             color: var(--text-secondary);
+             text-align: center;
+         }
+         #orderSummaryDisplay ul {
+             list-style: none;
+             padding: 0;
+             margin: 0;
+         }
+         #orderSummaryDisplay li {
+             padding: 0.5rem 0;
+             border-bottom: 1px dashed rgba(148, 161, 178, 0.1);
+         }
+         #orderSummaryDisplay li:last-child {
+             border-bottom: none;
+         }
+         #orderSummaryDisplay .order-item-name {
+             font-weight: 600;
+             color: var(--text-main);
+         }
+         #orderSummaryDisplay .order-total {
+              font-size: 1.2rem;
+              font-weight: 700;
+              color: var(--secondary-accent);
+              margin-top: 1rem;
+              text-align: right;
+              padding-top: 0.5rem;
+              border-top: 1px solid var(--border-color);
+         }
+
 
         /* Contact Section */
         #contact {
@@ -477,7 +523,6 @@
              color: var(--text-main);
              transform: rotate(90deg);
         }
-         /* Removed modal add to cart button style */
 
         /* Loader */
         .loader {
@@ -527,7 +572,7 @@
          #orderFormContainer input[type="text"],
          #orderFormContainer input[type="email"],
          #orderFormContainer input[type="tel"],
-         #orderFormContainer textarea,
+         #orderFormContainer textarea, /* Keep textarea for potential additional notes */
          #orderFormContainer select {
              background-color: rgba(22, 22, 26, 0.7);
              border: 1px solid var(--border-color);
@@ -650,11 +695,25 @@
         <div class="max-w-3xl mx-auto text-center reveal">
             <h2 class="text-4xl md:text-5xl font-bold mb-8">Place Your Order</h2>
             <div id="orderFormContainer" class="text-left">
-                <p class="text-gray-400 mb-8">Please fill out the form below to place your order for delivery within Navsari (PIN: 396445). Please list the items you wish to order in the "Order Details" box.</p>
+                <p class="text-gray-400 mb-6">Items added from the 'Our Collection' section will appear below. Fill in your details to place your order for delivery within Navsari (PIN: 396445).</p>
+
+                <div>
+                     <label class="mb-2 block text-secondary">Your Order Summary</label>
+                     <div id="orderSummaryDisplay">
+                         <p>Add items from the collection above to see your order here.</p>
+                     </div>
+                </div>
+
+
                 <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
                      <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL/thank-you-order.html">
                      <input type="hidden" name="_captcha" value="false">
-                     <input type="hidden" name="_subject" value="New Order from The Highon's Site!">
+                     <input type="hidden" name="_subject" id="formSubject" value="New Order from The Highon's Site!">
+                     <input type="hidden" name="Order Summary" id="hiddenOrderSummary" value="">
+                      <div>
+                        <label for="orderNotes">Additional Notes (Optional)</label>
+                         <textarea id="orderNotes" name="Additional Notes" rows="3" placeholder="Any specific instructions or details?" aria-label="Additional notes for order"></textarea>
+                    </div>
 
                     <div>
                         <label for="orderName">Full Name</label>
@@ -666,16 +725,13 @@
                     </div>
                      <div>
                         <label for="orderPhone">Phone (+91)</label>
-                         <input type="tel" id="orderPhone" name="phone" placeholder="Enter 10-digit number" required pattern="[6-9]\d{9}" aria-label="Phone number for order (starts with 6-9, 10 digits)">
+                         <input type="tel" id="orderPhone" name="phone" placeholder="Enter 10-digit number" required pattern="[6-9]\d{9}" title="Please enter a valid 10-digit Indian mobile number (starting with 6, 7, 8, or 9)" aria-label="Phone number for order (starts with 6-9, 10 digits)">
                     </div>
                     <div>
                         <label for="orderAddress">Full Address (Navsari)</label>
                         <input type="text" id="orderAddress" name="address" placeholder="House No, Street, Area, Navsari - 396445" required aria-label="Full Address for order">
                     </div>
-                     <div>
-                        <label for="orderDetails">Order Details (Items & Quantity)</label>
-                         <textarea id="orderDetails" name="message" rows="6" placeholder="e.g., Thor Loki Keychain x 2, Camel water colour tube x 1" required aria-label="Order details including items and quantity"></textarea>
-                    </div>
+
                     <div>
                         <label for="orderPayment">Payment Option</label>
                         <select id="orderPayment" name="payment" class="w-full" aria-label="Payment option">
@@ -727,7 +783,7 @@
                     <div class="space-y-4 text-center text-lg">
                         <p><span class="font-medium text-gray-400">Email:</span> <a href="mailto:thehighonsofficial@gmail.com">thehighonsofficial@gmail.com</a></p>
                         <p><span class="font-medium text-gray-400">Location:</span> Navsari, Gujarat - 396445</p>
-                         <p class="text-sm text-gray-500">(Online orders via Email/Instagram for local delivery only)</p>
+                         <p class="text-sm text-gray-500">(Online orders via this site for local delivery only)</p>
                     </div>
                     <div class="flex justify-center space-x-6 mt-8 social-icons">
                         <a href="https://instagram.com/thehighons" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
@@ -767,7 +823,7 @@
                         <h3 id="modalName" class="text-2xl lg:text-3xl font-bold mb-3"></h3>
                         <p id="modalDesc" class="text-sm lg:text-base mb-5"></p>
                         <p id="modalPrice" class="modal-price mb-6"></p>
-                        <p class="text-sm text-gray-400">To order this item, please go to the <a href="#order" onclick="closeModal()" class="text-purple-400 hover:text-emerald-400 underline">Place Order section</a> and list the item.</p>
+                        <p class="text-sm text-gray-400">To order this item, please go to the <a href="#products" onclick="closeModal()" class="text-purple-400 hover:text-emerald-400 underline">Our Collection section</a> and click 'Add' on the product card.</p>
                     </div>
                 </div>
              </div>
@@ -817,7 +873,8 @@
         // --- State Variables ---
         let currentModalProduct = null; // { category: string, index: number, id: string }
         let currentCategoryFilter = 'all';
-        // Removed cart and coupon state
+        let orderItems = {}; // Stores product ID and quantity: { "productId": quantity, ... }
+
 
         // --- Utility Functions ---
         function escapeHtml(unsafe) {
@@ -834,21 +891,13 @@
             for (const categoryKey in products) {
                 const product = products[categoryKey].find(p => p.id === id);
                 if (product) {
+                    // Return product details along with its category
                     return { ...product, category: categoryKey };
                 }
             }
-            return null;
+            return null; // Product not found
         }
 
-        function findProductIndex(id) {
-            for (const categoryKey in products) {
-                const index = products[categoryKey].findIndex(p => p.id === id);
-                if (index !== -1) {
-                    return { category: categoryKey, index: index };
-                }
-            }
-            return null;
-        }
 
         // --- Product Rendering ---
         function renderProducts(category = 'all', searchTerm = '') {
@@ -876,9 +925,11 @@
                             const section = document.createElement('div');
                             section.className = 'mb-16'; // No initial animation here, handled by card + observer
                             const title = catKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                             // Only show category title if filtering by all or this specific category
                             if (category === 'all' || category === catKey) {
                                 section.innerHTML = `<h3 class="category-title reveal">${escapeHtml(title)}</h3>`;
                             }
+
 
                             const grid = document.createElement('div');
                             // Modified grid class for 2 columns
@@ -887,20 +938,17 @@
                             section.appendChild(grid);
                             container.appendChild(section);
 
-                            filtered.forEach((product, idx) => {
-                                const originalLocation = findProductIndex(product.id);
-                                if (originalLocation) {
-                                    const card = createProductCard(product, originalLocation.index, originalLocation.category);
-                                    grid.appendChild(card);
-                                    // Add to observer for reveal animation
-                                    observeElement(card);
-                                } else {
-                                     console.warn(`Original location not found for product ID: ${product.id}`);
-                                }
+                            filtered.forEach((product) => {
+                                // Use the product object directly, findProduct is not needed here for rendering
+                                const card = createProductCard(product);
+                                grid.appendChild(card);
+                                // Add to observer for reveal animation
+                                observeElement(card);
                             });
                             observeElement(section.querySelector('.category-title')); // Observe title too
                         }
                     };
+
                     if (category === 'all') {
                         Object.entries(products).forEach(([catKey, items]) => {
                             createCategorySection(catKey, items);
@@ -920,54 +968,175 @@
             });
         }
 
-        function createProductCard(product, index, category) {
+        function createProductCard(product) {
             const card = document.createElement("div");
             card.id = `product-${product.id}`;
-            // Added 'reveal' class for scroll animation
-            card.className = "product-card reveal cursor-pointer";
-            card.onclick = () => showModal(category, index); // Make whole card clickable
+             // Added 'reveal' class for scroll animation and data attribute for ID
+            card.className = "product-card reveal";
+            card.setAttribute('data-product-id', product.id);
+
 
             const productNameSafe = escapeHtml(product.name);
             const productDescSafe = escapeHtml(product.desc);
             const productImgSafe = escapeHtml(product.img);
 
+            const quantity = orderItems[product.id] || 0; // Get current quantity from state
+
             card.innerHTML = `
-                <div class="product-image-wrapper">
-                    <img src="${productImgSafe}" alt="${productNameSafe}" loading="lazy">
+                <div class="product-image-wrapper cursor-pointer">
+                    <img src="${productImgSafe}" alt="${productNameSafe}" loading="lazy" class="product-img">
                 </div>
-                <div class="product-card-content">
+                <div class="product-card-content cursor-pointer">
                     <div>
                         <h3 title="${productNameSafe}">${productNameSafe}</h3>
-                        <p class="product-desc" title="${productDescSafe}">${productDescSafe ? productDescSafe.substring(0, 60) + (productDescSafe.length > 60 ? '...' : '') : ''}</p>
+                        <p class="product-desc" title="${productDescSafe}">${productDescSafe ? productDescSafe.substring(0, 80) + (productDescSafe.length > 80 ? '...' : '') : ''}</p>
                         <span class="block product-price">₹${product.price}</span>
                     </div>
-                    <div class="product-card-controls mt-auto">
-                        <button type="button" class="btn btn-secondary btn-details" aria-label="View details for ${productNameSafe}">
-                            View Details
-                        </button>
-                    </div>
+                </div>
+                <div class="product-card-controls mt-auto">
+                    ${quantity === 0
+                        ? `<button type="button" class="btn btn-primary btn-add w-full" data-product-id="${product.id}">Add</button>`
+                        : `
+                            <div class="product-quantity-controls" data-product-id="${product.id}">
+                                <button type="button" class="btn btn-secondary btn-small btn-decrease" aria-label="Decrease quantity">-</button>
+                                <span class="product-quantity">${quantity}</span>
+                                <button type="button" class="btn btn-secondary btn-small btn-increase" aria-label="Increase quantity">+</button>
+                            </div>
+                        `
+                    }
                 </div>
             `;
-            // No cart controls needed anymore
+
+            // Add event listener to image/content for modal view
+            card.querySelector('.product-image-wrapper').onclick = () => showModal(product.id);
+            card.querySelector('.product-card-content').onclick = () => showModal(product.id);
+
+
             return card;
         }
 
+        // --- Order Management Functions ---
+        function addItemToOrder(productId) {
+            if (orderItems[productId]) {
+                increaseQuantity(productId);
+            } else {
+                orderItems[productId] = 1;
+                 updateProductCardUI(productId);
+                 renderOrderSummary();
+            }
+             console.log('Order Items:', orderItems);
+        }
+
+        function increaseQuantity(productId) {
+            if (orderItems[productId] !== undefined) {
+                orderItems[productId]++;
+                 updateProductCardUI(productId);
+                 renderOrderSummary();
+            }
+             console.log('Order Items:', orderItems);
+        }
+
+        function decreaseQuantity(productId) {
+            if (orderItems[productId] !== undefined) {
+                orderItems[productId]--;
+                if (orderItems[productId] <= 0) {
+                    delete orderItems[productId];
+                }
+                 updateProductCardUI(productId);
+                 renderOrderSummary();
+            }
+             console.log('Order Items:', orderItems);
+        }
+
+        function updateProductCardUI(productId) {
+            const card = document.getElementById(`product-${productId}`);
+            if (!card) {
+                 console.warn(`Product card not found for ID: ${productId}`);
+                 return;
+            }
+
+            const controlsContainer = card.querySelector('.product-card-controls');
+            const quantity = orderItems[productId] || 0;
+
+            controlsContainer.innerHTML = ''; // Clear current controls
+
+            if (quantity === 0) {
+                controlsContainer.innerHTML = `<button type="button" class="btn btn-primary btn-add w-full" data-product-id="${productId}">Add</button>`;
+            } else {
+                 controlsContainer.innerHTML = `
+                    <div class="product-quantity-controls" data-product-id="${productId}">
+                        <button type="button" class="btn btn-secondary btn-small btn-decrease" aria-label="Decrease quantity">-</button>
+                        <span class="product-quantity">${quantity}</span>
+                        <button type="button" class="btn btn-secondary btn-small btn-increase" aria-label="Increase quantity">+</button>
+                    </div>
+                 `;
+            }
+             // Re-attach event listeners via delegation after updating innerHTML
+             // This is handled by the main delegated listener on #productsContainer
+        }
+
+        function renderOrderSummary() {
+             const summaryDisplay = document.getElementById('orderSummaryDisplay');
+             const hiddenSummaryInput = document.getElementById('hiddenOrderSummary');
+             const formSubjectInput = document.getElementById('formSubject');
+
+             if (!summaryDisplay || !hiddenSummaryInput || !formSubjectInput) {
+                 console.error("Order summary elements not found.");
+                 return;
+             }
+
+             const productIds = Object.keys(orderItems);
+             let totalAmount = 0;
+             let displayHTML = '';
+             let hiddenText = 'Order Summary:\n\n';
+
+             if (productIds.length === 0) {
+                 displayHTML = '<p>Add items from the collection above to see your order here.</p>';
+                 hiddenText = 'Order is empty.';
+                 formSubjectInput.value = 'New Order from The Highon\'s Site (Empty)';
+             } else {
+                 displayHTML += '<ul>';
+                 productIds.forEach(productId => {
+                     const product = findProduct(productId);
+                     const quantity = orderItems[productId];
+                     if (product && quantity > 0) {
+                         const itemTotal = product.price * quantity;
+                         totalAmount += itemTotal;
+                         displayHTML += `
+                            <li>
+                                <span class="order-item-name">${escapeHtml(product.name)}</span> x ${quantity}
+                                <span class="float-right">₹${itemTotal.toFixed(2)}</span>
+                            </li>
+                         `;
+                          hiddenText += `- ${escapeHtml(product.name)} x ${quantity} (₹${product.price} each = ₹${itemTotal.toFixed(2)})\n`;
+                     }
+                 });
+                 displayHTML += '</ul>';
+                 displayHTML += `<div class="order-total">Total: ₹${totalAmount.toFixed(2)}</div>`;
+                 hiddenText += `\nTotal Amount: ₹${totalAmount.toFixed(2)}`;
+                 formSubjectInput.value = `New Order from The Highon's Site (Total ₹${totalAmount.toFixed(2)})`;
+             }
+
+             summaryDisplay.innerHTML = displayHTML;
+             hiddenSummaryInput.value = hiddenText;
+        }
+
+
         // --- UI Interaction Functions ---
 
-        function showModal(category, index) {
+        function showModal(productId) {
            try {
-                const product = products[category]?.[index];
+                const product = findProduct(productId);
                 if (!product) {
-                    console.error("Product not found for modal:", category, index);
+                    console.error("Product not found for modal:", productId);
                     return;
                 }
-                currentModalProduct = { category, index, id: product.id };
+
                 const modalImg = document.getElementById('modalImg');
                 const modalName = document.getElementById('modalName');
                 const modalDesc = document.getElementById('modalDesc');
                 const modalPrice = document.getElementById('modalPrice');
                 const productModal = document.getElementById('productModal');
-                // Removed modal add to cart button reference
 
                 if (!modalImg || !modalName || !modalDesc || !modalPrice || !productModal) {
                      console.error("Modal elements missing!");
@@ -994,7 +1163,6 @@
           if (productModal) {
             productModal.classList.add('hidden');
           }
-          currentModalProduct = null;
           document.body.classList.remove('overflow-hidden'); // Re-enable body scroll
         }
 
@@ -1005,8 +1173,6 @@
           }
         }
 
-        // Removed User/Order/Cart/Coupon specific functions
-        // (saveUser, populateOrderForm, logout, prepareOrder, closeOrderConfirmation, etc.)
 
         // --- Scroll Animation Observer ---
         const observer = new IntersectionObserver((entries) => {
@@ -1016,10 +1182,6 @@
                     // Optional: unobserve after revealing to save resources
                     // observer.unobserve(entry.target);
                 }
-                // Optional: remove 'visible' class if element scrolls out of view
-                // else {
-                //     entry.target.classList.remove('visible');
-                // }
             });
         }, {
             threshold: 0.1 // Trigger when 10% of the element is visible
@@ -1039,8 +1201,12 @@
 
               // Initial render of products
               renderProducts('all', '');
+              renderOrderSummary(); // Render empty order summary initially
+
 
               // --- Event Listeners Setup ---
+
+              // Product Search Input
               const productSearchInput = document.getElementById('productSearch');
               if (productSearchInput) {
                    let searchTimeout;
@@ -1053,6 +1219,7 @@
                    });
               } else { console.error("Product search input not found."); }
 
+              // Category Filter Select
               const categoryFilterSelect = document.getElementById('categoryFilter');
               if (categoryFilterSelect) {
                    categoryFilterSelect.addEventListener('change', function() {
@@ -1061,7 +1228,7 @@
                    });
               } else { console.error("Category filter select not found."); }
 
-               // Listener for modal close on background click
+               // Modal close on background click
                const productModal = document.getElementById('productModal');
                if (productModal) {
                    productModal.addEventListener('click', (event) => {
@@ -1071,13 +1238,64 @@
                    });
                }
 
+               // --- Event Delegation for Product Card Controls ---
+               const productsContainer = document.getElementById('productsContainer');
+               if (productsContainer) {
+                   productsContainer.addEventListener('click', (event) => {
+                       const target = event.target;
+                       const productId = target.closest('.product-card')?.getAttribute('data-product-id');
+
+                       if (!productId) return; // Not a product card control click
+
+                       if (target.classList.contains('btn-add')) {
+                           addItemToOrder(productId);
+                       } else if (target.classList.contains('btn-increase')) {
+                           increaseQuantity(productId);
+                       } else if (target.classList.contains('btn-decrease')) {
+                           decreaseQuantity(productId);
+                       } else if (target.classList.contains('product-img') || target.closest('.product-image-wrapper') || target.closest('.product-card-content')) {
+                           // Clicked image or content area - open modal
+                           showModal(productId);
+                       }
+                   });
+               } else { console.error("productsContainer not found for event delegation."); }
+
+
+               // --- Order Form Submission Listener ---
+               const orderForm = document.getElementById('orderForm');
+               if (orderForm) {
+                   orderForm.addEventListener('submit', function(event) {
+                       // The hidden input field "Order Summary" is populated by renderOrderSummary
+                       // which is called whenever orderItems changes.
+                       // We just need to ensure it's up-to-date right before submit
+                       renderOrderSummary(); // Call one last time to be safe
+
+                       // Basic validation: Check if any items are in the order
+                       if (Object.keys(orderItems).length === 0) {
+                            alert("Your order list is empty. Please add items from the collection before placing an order.");
+                            event.preventDefault(); // Prevent form submission
+                       } else {
+                            // Optional: Disable the submit button to prevent double clicks
+                            const submitButton = orderForm.querySelector('button[type="submit"]');
+                            if(submitButton) {
+                                submitButton.disabled = true;
+                                submitButton.textContent = 'Placing Order...';
+                            }
+                       }
+                       // FormSubmit.co handles the actual AJAX submission or page redirect
+                   });
+               } else { console.error("Order form not found."); }
+
+
                // Observe elements with 'reveal' class initially present in HTML
                 document.querySelectorAll('.reveal').forEach(el => observeElement(el));
+
+
           } catch (error) {
                console.error("Critical error during DOMContentLoaded initialization:", error);
                alert("Error loading page content. Some features might be unavailable. Please refresh.");
                // Optional: Display a more user-friendly error message
-               document.body.innerHTML = `<div style="padding: 40px; text-align: center; font-family: sans-serif; color: white;"><h1>Oops!</h1><p>Something went wrong while loading the page. Please <a href="javascript:location.reload();" style="color: #7f5af0;">refresh</a> and try again.</p></div>`;
+               document.body.innerHTML = `<div style="padding: 40px; text-align: center; font-family: sans-serif; color: white;"><h1>Oops!</h1><p>Something went wrong while loading the page. Please <a href="javascript:location.reload();" style="color: #7f5af0;">refresh</a> and try again.</p><p>Error: ${escapeHtml(error.message)}</p></div>`;
           }
         });
     </script>
