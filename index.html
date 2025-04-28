@@ -572,42 +572,43 @@
          #orderFormContainer input[type="text"],
          #orderFormContainer input[type="email"],
          #orderFormContainer input[type="tel"],
-         #orderFormContainer textarea, /* Keep textarea for potential additional notes */
+         #orderFormContainer textarea,
          #orderFormContainer select {
-             background-color: rgba(22, 22, 26, 0.7);
-             border: 1px solid var(--border-color);
-             color: var(--text-main);
-             border-radius: 8px;
-             padding: 0.9rem 1rem;
+            background-color: rgba(22, 22, 26, 0.7); /* Darker input bg */
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: 8px;
+            padding: 0.9rem 1rem;
              width: 100%;
              transition: all 0.3s ease;
-         }
-         #orderFormContainer input::placeholder,
-         #orderFormContainer textarea::placeholder {
-             color: rgba(148, 161, 178, 0.6);
-         }
-         #orderFormContainer input:focus,
-         #orderFormContainer textarea:focus,
-         #orderFormContainer select:focus {
-             border-color: var(--primary-accent);
-             background-color: rgba(22, 22, 26, 0.9);
+        }
+        #orderFormContainer input::placeholder,
+        #orderFormContainer textarea::placeholder {
+            color: rgba(148, 161, 178, 0.6); /* Lighter placeholder */
+        }
+        #orderFormContainer input:focus,
+        #orderFormContainer textarea:focus,
+        #orderFormContainer select:focus {
+            border-color: var(--primary-accent);
+            background-color: rgba(22, 22, 26, 0.9);
              box-shadow: 0 0 0 2px rgba(127, 90, 240, 0.3);
              outline: none;
+        }
+         #orderFormContainer select option {
+             background-color: var(--bg-dark);
+             color: var(--text-main);
          }
-          #orderFormContainer select option {
-              background-color: var(--bg-dark);
-              color: var(--text-main);
-          }
          #orderFormContainer .btn-primary {
              margin-top: 1rem;
          }
 
-        /* Adjust product grid for 2 columns */
+        /* Adjust product grid for 2 columns - Removed custom CSS */
+        /*
         #productsContainer .grid {
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust minmax as needed */
-            gap: 2rem; /* Adjust gap as needed */
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
         }
-
+        */
 
     </style>
 </head>
@@ -732,6 +733,11 @@
                         <input type="text" id="orderAddress" name="address" placeholder="House No, Street, Area, Navsari - 396445" required aria-label="Full Address for order">
                     </div>
 
+                    <button type="button" id="forgetMyDetailsBtn" class="text-sm text-gray-500 hover:text-red-400 focus:outline-none transition-colors duration-200 mt-2 hidden" aria-label="Forget my saved details">
+                        Forget My Details
+                    </button>
+
+
                     <div>
                         <label for="orderPayment">Payment Option</label>
                         <select id="orderPayment" name="payment" class="w-full" aria-label="Payment option">
@@ -832,7 +838,7 @@
 
     <script>
         // --- Constants ---
-        // Removed cart/coupon constants
+        const USER_DETAILS_STORAGE_KEY = 'highonsUserDetails'; // Key for localStorage
 
         // --- Product Data ---
         const products = {
@@ -923,29 +929,25 @@
                         if (filtered.length > 0) {
                             hasProducts = true;
                             const section = document.createElement('div');
-                            section.className = 'mb-16'; // No initial animation here, handled by card + observer
+                            section.className = 'mb-16';
                             const title = catKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-                             // Only show category title if filtering by all or this specific category
                             if (category === 'all' || category === catKey) {
                                 section.innerHTML = `<h3 class="category-title reveal">${escapeHtml(title)}</h3>`;
                             }
 
-
                             const grid = document.createElement('div');
-                            // Modified grid class for 2 columns
+                            // Using Tailwind classes for responsive grid (1 col on small, 2+ on larger)
                             grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10';
                             grid.id = `${catKey}Grid`;
                             section.appendChild(grid);
                             container.appendChild(section);
 
                             filtered.forEach((product) => {
-                                // Use the product object directly, findProduct is not needed here for rendering
                                 const card = createProductCard(product);
                                 grid.appendChild(card);
-                                // Add to observer for reveal animation
-                                observeElement(card);
+                                observeElement(card); // Add to observer for reveal animation
                             });
-                            observeElement(section.querySelector('.category-title')); // Observe title too
+                            observeElement(section.querySelector('.category-title')); // Observe title too if it exists
                         }
                     };
 
@@ -971,10 +973,8 @@
         function createProductCard(product) {
             const card = document.createElement("div");
             card.id = `product-${product.id}`;
-             // Added 'reveal' class for scroll animation and data attribute for ID
             card.className = "product-card reveal";
             card.setAttribute('data-product-id', product.id);
-
 
             const productNameSafe = escapeHtml(product.name);
             const productDescSafe = escapeHtml(product.desc);
@@ -1007,9 +1007,9 @@
                 </div>
             `;
 
-            // Add event listener to image/content for modal view
-            card.querySelector('.product-image-wrapper').onclick = () => showModal(product.id);
-            card.querySelector('.product-card-content').onclick = () => showModal(product.id);
+            // Add event listener to image/content for modal view - Handled by delegation below
+            // card.querySelector('.product-image-wrapper').onclick = () => showModal(product.id);
+            // card.querySelector('.product-card-content').onclick = () => showModal(product.id);
 
 
             return card;
@@ -1121,6 +1121,76 @@
              hiddenSummaryInput.value = hiddenText;
         }
 
+        // --- User Details Management (using localStorage) ---
+        function loadUserDetails() {
+            const userDetails = localStorage.getItem(USER_DETAILS_STORAGE_KEY);
+            const nameInput = document.getElementById('orderName');
+            const emailInput = document.getElementById('orderEmail');
+            const phoneInput = document.getElementById('orderPhone');
+            const addressInput = document.getElementById('orderAddress');
+            const forgetButton = document.getElementById('forgetMyDetailsBtn');
+
+            if (userDetails && nameInput && emailInput && phoneInput && addressInput && forgetButton) {
+                try {
+                    const parsedDetails = JSON.parse(userDetails);
+                    nameInput.value = parsedDetails.name || '';
+                    emailInput.value = parsedDetails.email || '';
+                    phoneInput.value = parsedDetails.phone || '';
+                    addressInput.value = parsedDetails.address || '';
+                    forgetButton.classList.remove('hidden'); // Show forget button
+                } catch (e) {
+                    console.error("Error parsing user details from localStorage", e);
+                    clearUserDetails(); // Clear invalid data
+                }
+            } else if (forgetButton) {
+                 forgetButton.classList.add('hidden'); // Hide forget button if no data or elements missing
+            }
+        }
+
+        function saveUserDetails() {
+            const nameInput = document.getElementById('orderName');
+            const emailInput = document.getElementById('orderEmail');
+            const phoneInput = document.getElementById('orderPhone');
+            const addressInput = document.getElementById('orderAddress');
+
+            if (nameInput && emailInput && phoneInput && addressInput) {
+                const userDetails = {
+                    name: nameInput.value,
+                    email: emailInput.value,
+                    phone: phoneInput.value,
+                    address: addressInput.value
+                };
+                 // Save only if name and email are provided (basic check)
+                 if(userDetails.name && userDetails.email) {
+                    localStorage.setItem(USER_DETAILS_STORAGE_KEY, JSON.stringify(userDetails));
+                    console.log("User details saved.");
+                    // Show forget button after saving
+                     const forgetButton = document.getElementById('forgetMyDetailsBtn');
+                     if(forgetButton) forgetButton.classList.remove('hidden');
+                 } else {
+                     console.log("User details not saved: Name or Email missing.");
+                 }
+            }
+        }
+
+        function clearUserDetails() {
+            localStorage.removeItem(USER_DETAILS_STORAGE_KEY);
+            const nameInput = document.getElementById('orderName');
+            const emailInput = document.getElementById('orderEmail');
+            const phoneInput = document.getElementById('orderPhone');
+            const addressInput = document.getElementById('orderAddress');
+             const forgetButton = document.getElementById('forgetMyDetailsBtn');
+
+
+            if (nameInput) nameInput.value = '';
+            if (emailInput) emailInput.value = '';
+            if (phoneInput) phoneInput.value = '';
+            if (addressInput) addressInput.value = '';
+            if (forgetButton) forgetButton.classList.add('hidden');
+
+            console.log("User details cleared.");
+        }
+
 
         // --- UI Interaction Functions ---
 
@@ -1199,6 +1269,9 @@
               const footerYear = document.getElementById('footerYear');
               if (footerYear) footerYear.textContent = new Date().getFullYear();
 
+              // Load user details from local storage
+              loadUserDetails();
+
               // Initial render of products
               renderProducts('all', '');
               renderOrderSummary(); // Render empty order summary initially
@@ -1238,24 +1311,30 @@
                    });
                }
 
-               // --- Event Delegation for Product Card Controls ---
+               // --- Event Delegation for Product Card Controls and Modal Trigger ---
                const productsContainer = document.getElementById('productsContainer');
                if (productsContainer) {
                    productsContainer.addEventListener('click', (event) => {
                        const target = event.target;
-                       const productId = target.closest('.product-card')?.getAttribute('data-product-id');
+                       // Find the closest product card element to get the product ID
+                       const productCard = target.closest('.product-card');
+                       const productId = productCard?.getAttribute('data-product-id');
 
-                       if (!productId) return; // Not a product card control click
+                       if (!productId) return; // Not inside a product card or product ID missing
 
+                       // Check if the click was on a specific button class
                        if (target.classList.contains('btn-add')) {
                            addItemToOrder(productId);
                        } else if (target.classList.contains('btn-increase')) {
                            increaseQuantity(productId);
                        } else if (target.classList.contains('btn-decrease')) {
                            decreaseQuantity(productId);
-                       } else if (target.classList.contains('product-img') || target.closest('.product-image-wrapper') || target.closest('.product-card-content')) {
-                           // Clicked image or content area - open modal
-                           showModal(productId);
+                       } else {
+                           // If not a quantity button, assume click is for modal if within card content/image
+                            const clickedArea = target.closest('.product-image-wrapper') || target.closest('.product-card-content');
+                           if(clickedArea) {
+                                showModal(productId);
+                           }
                        }
                    });
                } else { console.error("productsContainer not found for event delegation."); }
@@ -1265,26 +1344,34 @@
                const orderForm = document.getElementById('orderForm');
                if (orderForm) {
                    orderForm.addEventListener('submit', function(event) {
-                       // The hidden input field "Order Summary" is populated by renderOrderSummary
-                       // which is called whenever orderItems changes.
-                       // We just need to ensure it's up-to-date right before submit
-                       renderOrderSummary(); // Call one last time to be safe
-
                        // Basic validation: Check if any items are in the order
                        if (Object.keys(orderItems).length === 0) {
                             alert("Your order list is empty. Please add items from the collection before placing an order.");
                             event.preventDefault(); // Prevent form submission
-                       } else {
-                            // Optional: Disable the submit button to prevent double clicks
-                            const submitButton = orderForm.querySelector('button[type="submit"]');
-                            if(submitButton) {
-                                submitButton.disabled = true;
-                                submitButton.textContent = 'Placing Order...';
-                            }
+                            return; // Stop here if order is empty
+                       }
+
+                        // Save user details before submitting
+                       saveUserDetails();
+
+                       // Ensure the hidden order summary is populated just before submitting
+                       renderOrderSummary();
+
+                       // Optional: Disable the submit button to prevent double clicks
+                       const submitButton = orderForm.querySelector('button[type="submit"]');
+                       if(submitButton) {
+                           submitButton.disabled = true;
+                           submitButton.textContent = 'Placing Order...';
                        }
                        // FormSubmit.co handles the actual AJAX submission or page redirect
                    });
                } else { console.error("Order form not found."); }
+
+                // --- Forget My Details Button Listener ---
+                const forgetButton = document.getElementById('forgetMyDetailsBtn');
+                if(forgetButton) {
+                    forgetButton.addEventListener('click', clearUserDetails);
+                }
 
 
                // Observe elements with 'reveal' class initially present in HTML
