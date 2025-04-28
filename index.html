@@ -37,6 +37,10 @@
           color: var(--text-main);
           overflow-x: hidden; /* Prevent horizontal scroll */
         }
+        /* Prevent body scroll when modal is open */
+        body.overflow-hidden {
+            overflow: hidden;
+        }
 
         h1, h2, h3, h4, h5, h6 {
           font-family: 'Playfair Display', serif;
@@ -108,7 +112,6 @@
             to { transform: translateY(20px) translateX(-15px) rotate(30deg) scale(1.1); }
         }
 
-
         /* Buttons */
         .btn {
             display: inline-block;
@@ -155,7 +158,7 @@
         }
         .btn-secondary:hover {
             background-color: rgba(127, 90, 240, 0.1);
-             transform: translateY(-2px);
+            transform: translateY(-2px);
         }
 
         /* Product Section */
@@ -275,7 +278,7 @@
             border: 1px solid var(--border-color);
             border-radius: 50px; /* Pill shape */
             padding: 0.8rem 1.5rem;
-             transition: all 0.3s ease;
+            transition: all 0.3s ease;
         }
          #productSearch::placeholder {
              color: var(--text-secondary);
@@ -299,7 +302,7 @@
              border-color: var(--primary-accent);
              box-shadow: 0 0 0 2px rgba(127, 90, 240, 0.3);
              outline: none;
-         }
+        }
         .search-icon { color: var(--text-secondary); }
 
         /* Form Styling */
@@ -366,9 +369,8 @@
              color: var(--text-main);
          }
 
-
-        /* How to Order Section */
-        .how-to-order-content {
+        /* How to Order Section - Removed as Order section is added */
+        /* .how-to-order-content {
             line-height: 1.8;
             color: var(--text-secondary);
         }
@@ -386,13 +388,13 @@
             position: relative;
         }
         .how-to-order-content li::before {
-            content: '\f00c'; /* Font Awesome check icon */
+            content: '\f00c';
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             position: absolute;
             left: 0;
             top: 4px;
-            color: var(--secondary-accent); /* Green accent */
+            color: var(--secondary-accent);
             font-size: 0.9em;
         }
         .how-to-order-content a {
@@ -404,7 +406,7 @@
         .how-to-order-content a:hover {
             color: var(--secondary-accent);
             text-decoration: underline;
-        }
+        } */
 
         /* Contact Section */
         #contact {
@@ -425,6 +427,7 @@
         .contact-info-box a {
             color: var(--primary-accent);
             transition: color 0.3s ease;
+            word-break: break-all; /* Allow long email to break line */
         }
         .contact-info-box a:hover {
             color: var(--secondary-accent);
@@ -449,7 +452,6 @@
         footer a:hover { color: var(--primary-accent); }
         footer .text-gray-500 { color: var(--text-secondary); opacity: 0.7; }
 
-
         /* Modal Styling */
         .modal-backdrop {
              background-color: rgba(22, 22, 26, 0.7); /* Dark backdrop */
@@ -458,7 +460,7 @@
         }
         .modal-content {
             background-color: var(--card-bg);
-             border: 1px solid var(--border-color);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
             color: var(--text-main);
              box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
@@ -503,6 +505,65 @@
             transform: translateY(0);
         }
 
+        /* Order Form Styling */
+        #orderFormContainer {
+             background-color: var(--card-bg);
+             border: 1px solid var(--border-color);
+             border-radius: 16px;
+             padding: 2rem;
+             position: relative;
+             z-index: 1;
+             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+             max-width: 600px;
+             margin: 0 auto;
+        }
+         #orderFormContainer label {
+             color: var(--text-secondary);
+             font-weight: 500;
+             font-size: 0.9rem;
+             margin-bottom: 0.5rem;
+             display: block;
+         }
+         #orderFormContainer input[type="text"],
+         #orderFormContainer input[type="email"],
+         #orderFormContainer input[type="tel"],
+         #orderFormContainer textarea,
+         #orderFormContainer select {
+             background-color: rgba(22, 22, 26, 0.7);
+             border: 1px solid var(--border-color);
+             color: var(--text-main);
+             border-radius: 8px;
+             padding: 0.9rem 1rem;
+             width: 100%;
+             transition: all 0.3s ease;
+         }
+         #orderFormContainer input::placeholder,
+         #orderFormContainer textarea::placeholder {
+             color: rgba(148, 161, 178, 0.6);
+         }
+         #orderFormContainer input:focus,
+         #orderFormContainer textarea:focus,
+         #orderFormContainer select:focus {
+             border-color: var(--primary-accent);
+             background-color: rgba(22, 22, 26, 0.9);
+             box-shadow: 0 0 0 2px rgba(127, 90, 240, 0.3);
+             outline: none;
+         }
+          #orderFormContainer select option {
+              background-color: var(--bg-dark);
+              color: var(--text-main);
+          }
+         #orderFormContainer .btn-primary {
+             margin-top: 1rem;
+         }
+
+        /* Adjust product grid for 2 columns */
+        #productsContainer .grid {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust minmax as needed */
+            gap: 2rem; /* Adjust gap as needed */
+        }
+
+
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -514,7 +575,7 @@
             </div>
             <nav class="hidden md:flex items-center space-x-6 lg:space-x-8">
                 <a href="#products" class="nav-link">Products</a>
-                <a href="#how-to-order" class="nav-link">How to Order</a>
+                <a href="#order" class="nav-link">Place Order</a>
                 <a href="#request" class="nav-link">Request Product</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </nav>
@@ -525,13 +586,13 @@
             </div>
         </div>
         <div id="mobileMenu" class="hidden md:hidden bg-gradient-to-b from-[rgba(36,38,41,0.9)] to-[rgba(22,22,26,0.9)] backdrop-blur-sm border-t border-[rgba(148,161,178,0.2)] p-4 absolute w-full shadow-lg">
-           <div class="flex flex-col items-center space-y-4">
-            <a href="#products" class="nav-link block py-2" onclick="toggleMobileMenu()">Products</a>
-            <a href="#how-to-order" class="nav-link block py-2" onclick="toggleMobileMenu()">How to Order</a>
-            <a href="#request" class="nav-link block py-2" onclick="toggleMobileMenu()">Request Product</a>
-            <a href="#contact" class="nav-link block py-2" onclick="toggleMobileMenu()">Contact</a>
-          </div>
-         </div>
+            <div class="flex flex-col items-center space-y-4">
+                <a href="#products" class="nav-link block py-2" onclick="toggleMobileMenu()">Products</a>
+                <a href="#order" class="nav-link block py-2" onclick="toggleMobileMenu()">Place Order</a>
+                <a href="#request" class="nav-link block py-2" onclick="toggleMobileMenu()">Request Product</a>
+                <a href="#contact" class="nav-link block py-2" onclick="toggleMobileMenu()">Contact</a>
+            </div>
+        </div>
     </header>
 
     <section class="hero-section text-center pt-28 pb-20 md:pt-36 md:pb-28 relative">
@@ -570,51 +631,65 @@
                 <div class="filter-selector text-center md:text-right w-full md:w-auto">
                     <label for="categoryFilter" class="mr-2 font-semibold text-gray-400">Filter:</label>
                     <select id="categoryFilter" class="" aria-label="Select product category">
-                      <option value="all">All Products</option>
-                      <option value="keychains">Keychains</option>
-                      <option value="artSupplies">Art Supplies</option>
-                      <option value="stationery">Stationery</option>
-                      <option value="diaries">Diaries</option>
-                      <option value="gadgets">Gadgets</option>
+                        <option value="all">All Products</option>
+                        <option value="keychains">Keychains</option>
+                        <option value="artSupplies">Art Supplies</option>
+                        <option value="stationery">Stationery</option>
+                        <option value="diaries">Diaries</option>
+                        <option value="gadgets">Gadgets</option>
                     </select>
                 </div>
             </div>
             <div id="productsContainer" class="relative min-h-[300px]">
-                  <div class="loader"></div>
+                 <div class="loader"></div>
             </div>
         </div>
     </section>
 
-     <section id="how-to-order" class="py-20 px-6 form-section">
+     <section id="order" class="py-20 px-6 form-section">
         <div class="max-w-3xl mx-auto text-center reveal">
-            <h2 class="text-4xl md:text-5xl font-bold mb-8">How to Order / Enquire</h2>
-            <div class="form-container text-left how-to-order-content">
-                <p class="mb-6 text-lg">Interested in our products? Here’s how you can get them (Delivery only within Navsari - 396445):</p>
-                <ul>
-                    <li>
-                        <strong>Browse:</strong> Explore our collection in the <a href="#products">Products section</a> above. Note down the names of the items you like.
-                    </li>
-                    <li>
-                        <strong>Contact Us:</strong> Reach out directly to check availability and place your order:
-                        <ul class="list-none pl-6 mt-2 space-y-1">
-                             <li><i class="fas fa-envelope mr-2 text-purple-400"></i>Email: <a href="mailto:thehighonsofficial@gmail.com">thehighonsofficial@gmail.com</a></li>
-                             <li><i class="fab fa-instagram mr-2 text-purple-400"></i>Instagram DM: <a href="https://instagram.com/thehighons" target="_blank" rel="noopener noreferrer">@thehighons</a></li>
-                        </ul>
-                    </li>
-                     <li>
-                        <strong>Confirmation:</strong> We'll confirm item availability, the total amount, and arrange delivery details with you.
-                    </li>
-                     <li>
-                        <strong>Payment:</strong> We accept <strong>Cash on Delivery (COD)</strong> or <strong>UPI Payment</strong> upon confirmation. We'll provide UPI details when you contact us.
-                    </li>
-                     <li>
-                        <strong>Delivery:</strong> Enjoy your premium supplies delivered to your doorstep within Navsari!
-                    </li>
-                </ul>
-                 <p class="mt-6 text-sm text-gray-400">Alternatively, if you're looking for something specific not listed, use the "Request a Product" form below!</p>
+            <h2 class="text-4xl md:text-5xl font-bold mb-8">Place Your Order</h2>
+            <div id="orderFormContainer" class="text-left">
+                <p class="text-gray-400 mb-8">Please fill out the form below to place your order for delivery within Navsari (PIN: 396445). Please list the items you wish to order in the "Order Details" box.</p>
+                <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
+                     <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL/thank-you-order.html">
+                     <input type="hidden" name="_captcha" value="false">
+                     <input type="hidden" name="_subject" value="New Order from The Highon's Site!">
+
+                    <div>
+                        <label for="orderName">Full Name</label>
+                        <input type="text" id="orderName" name="name" placeholder="Enter your full name" required aria-label="Full Name for order">
+                    </div>
+                    <div>
+                        <label for="orderEmail">Email</label>
+                        <input type="email" id="orderEmail" name="email" placeholder="Enter your email" required aria-label="Email Address for order">
+                    </div>
+                     <div>
+                        <label for="orderPhone">Phone (+91)</label>
+                         <input type="tel" id="orderPhone" name="phone" placeholder="Enter 10-digit number" required pattern="[6-9]\d{9}" aria-label="Phone number for order (starts with 6-9, 10 digits)">
+                    </div>
+                    <div>
+                        <label for="orderAddress">Full Address (Navsari)</label>
+                        <input type="text" id="orderAddress" name="address" placeholder="House No, Street, Area, Navsari - 396445" required aria-label="Full Address for order">
+                    </div>
+                     <div>
+                        <label for="orderDetails">Order Details (Items & Quantity)</label>
+                         <textarea id="orderDetails" name="message" rows="6" placeholder="e.g., Thor Loki Keychain x 2, Camel water colour tube x 1" required aria-label="Order details including items and quantity"></textarea>
+                    </div>
+                    <div>
+                        <label for="orderPayment">Payment Option</label>
+                        <select id="orderPayment" name="payment" class="w-full" aria-label="Payment option">
+                            <option value="COD">Cash on Delivery</option>
+                            <option value="UPI">UPI Payment</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-full">Place Order</button>
+                </form>
             </div>
         </div>
     </section>
+
 
     <section id="request" class="py-20 px-6 form-section">
         <div class="max-w-2xl mx-auto text-center reveal">
@@ -624,7 +699,8 @@
                 <form id="requestForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
                     <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL/thank-you-request.html">
                     <input type="hidden" name="_subject" value="New Product Request from The Highon's Site">
-                    <input type="hidden" name="_captcha" value="false"> <div>
+                    <input type="hidden" name="_captcha" value="false">
+                    <div>
                         <label for="requestName">Product Name</label>
                         <input type="text" id="requestName" name="product" placeholder="e.g., Specific brand watercolor set" required aria-label="Product name for request">
                     </div>
@@ -655,7 +731,7 @@
                     </div>
                     <div class="flex justify-center space-x-6 mt-8 social-icons">
                         <a href="https://instagram.com/thehighons" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -670,7 +746,7 @@
                 </div>
                 <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
                     <a href="#products">Products</a>
-                    <a href="#how-to-order">How to Order</a>
+                    <a href="#order">Place Order</a>
                     <a href="#request">Request</a>
                     <a href="#contact">Contact</a>
                 </div>
@@ -691,20 +767,18 @@
                         <h3 id="modalName" class="text-2xl lg:text-3xl font-bold mb-3"></h3>
                         <p id="modalDesc" class="text-sm lg:text-base mb-5"></p>
                         <p id="modalPrice" class="modal-price mb-6"></p>
-                        <p class="text-sm text-gray-400">To order this item, please <a href="#how-to-order" onclick="closeModal()" class="text-purple-400 hover:text-emerald-400 underline">contact us</a>.</p>
-                        </div>
+                        <p class="text-sm text-gray-400">To order this item, please go to the <a href="#order" onclick="closeModal()" class="text-purple-400 hover:text-emerald-400 underline">Place Order section</a> and list the item.</p>
+                    </div>
                 </div>
              </div>
         </div>
     </div>
-
 
     <script>
         // --- Constants ---
         // Removed cart/coupon constants
 
         // --- Product Data ---
-        // IMPORTANT: Replace 'placeholder-gadget.png' with an actual image URL/path for the Mini Thermal Printer
         const products = {
              keychains: [
                 { id: "kc001", name: "Thor Loki Keychain", price: 99, img: "Screenshot_20250422_132243_Meesho.jpg", desc: "High-quality metal keychain featuring Thor and Loki designs" },
@@ -802,13 +876,13 @@
                             const section = document.createElement('div');
                             section.className = 'mb-16'; // No initial animation here, handled by card + observer
                             const title = catKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-
                             if (category === 'all' || category === catKey) {
                                 section.innerHTML = `<h3 class="category-title reveal">${escapeHtml(title)}</h3>`;
                             }
 
                             const grid = document.createElement('div');
-                            grid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10'; // Adjusted grid cols and gap
+                            // Modified grid class for 2 columns
+                            grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10';
                             grid.id = `${catKey}Grid`;
                             section.appendChild(grid);
                             container.appendChild(section);
@@ -824,10 +898,9 @@
                                      console.warn(`Original location not found for product ID: ${product.id}`);
                                 }
                             });
-                             observeElement(section.querySelector('.category-title')); // Observe title too
+                            observeElement(section.querySelector('.category-title')); // Observe title too
                         }
                     };
-
                     if (category === 'all') {
                         Object.entries(products).forEach(([catKey, items]) => {
                             createCategorySection(catKey, items);
@@ -863,7 +936,7 @@
                     <img src="${productImgSafe}" alt="${productNameSafe}" loading="lazy">
                 </div>
                 <div class="product-card-content">
-                     <div>
+                    <div>
                         <h3 title="${productNameSafe}">${productNameSafe}</h3>
                         <p class="product-desc" title="${productDescSafe}">${productDescSafe ? productDescSafe.substring(0, 60) + (productDescSafe.length > 60 ? '...' : '') : ''}</p>
                         <span class="block product-price">₹${product.price}</span>
@@ -879,7 +952,6 @@
             return card;
         }
 
-
         // --- UI Interaction Functions ---
 
         function showModal(category, index) {
@@ -890,7 +962,6 @@
                     return;
                 }
                 currentModalProduct = { category, index, id: product.id };
-
                 const modalImg = document.getElementById('modalImg');
                 const modalName = document.getElementById('modalName');
                 const modalDesc = document.getElementById('modalDesc');
@@ -953,7 +1024,6 @@
         }, {
             threshold: 0.1 // Trigger when 10% of the element is visible
         });
-
         function observeElement(element) {
             if (element) {
                 observer.observe(element);
@@ -1003,15 +1073,13 @@
 
                // Observe elements with 'reveal' class initially present in HTML
                 document.querySelectorAll('.reveal').forEach(el => observeElement(el));
-
-
           } catch (error) {
                console.error("Critical error during DOMContentLoaded initialization:", error);
                alert("Error loading page content. Some features might be unavailable. Please refresh.");
+               // Optional: Display a more user-friendly error message
                document.body.innerHTML = `<div style="padding: 40px; text-align: center; font-family: sans-serif; color: white;"><h1>Oops!</h1><p>Something went wrong while loading the page. Please <a href="javascript:location.reload();" style="color: #7f5af0;">refresh</a> and try again.</p></div>`;
           }
         });
-
     </script>
 
 </body>
