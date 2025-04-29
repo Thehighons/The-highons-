@@ -6,7 +6,7 @@
     <meta name="description" content="The Highon's - Premium creative supplies including keychains, art supplies, stationery, gadgets, and diaries available for inquiry in Navsari.">
     <title>The Highon's - Premium Creative Supplies | Navsari</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght400;500;600;700&family=Playfair+Display:wght400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -203,6 +203,8 @@
             font-size: 1.2rem;
              text-align: center; /* Ensure text is centered */
              width: fit-content; /* Make background fit content */
+             clear: both; /* Prevent floating issues with filters */
+             display: block; /* Make it a block element to ensure centering */
         }
 
         /* Redesigned Product Card */
@@ -491,7 +493,7 @@
             color: var(--secondary-accent);
         }
         .coupon-feedback-error {
-            color: #ef4444; /* Tailwind red-500 */
+            color: #ef4444; /* Tailwind red-500 - Not used if no error message on invalid */
         }
 
 
@@ -573,7 +575,7 @@
           width: 50px;
           height: 50px;
           animation: spin 1s linear infinite;
-          margin: 80px auto;
+          margin: 80px auto; /* Center the loader */
         }
         @keyframes spin {
           0% { transform: rotate(0deg); }
@@ -674,31 +676,6 @@
         </div>
     </header>
 
-    <section class="hero-section text-center pt-28 pb-20 md:pt-36 md:pb-28 relative">
-        <div class="hero-shapes absolute inset-0 z-0">
-            <div></div> <div></div> <div></div>
-        </div>
-
-        <div class="max-w-4xl mx-auto px-6 relative z-10">
-             <img src="GridArt_20250428_230202733.png" alt="The Highon's Logo" class="w-56 sm:w-72 md:w-80 mx-auto mb-8 animate__animated animate__fadeInDown" loading="lazy">
-
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 animate__animated animate__fadeInUp">
-                Ignite Your <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-emerald-400">Creativity</span>.
-            </h1>
-            <p class="text-lg md:text-xl mb-10 text-gray-300 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-1s">
-                Discover premium supplies in Navsari. Explore keychains, art materials, stationery, and more.
-            </p>
-            <a href="#products" class="btn btn-primary text-lg px-10 py-4 animate__animated animate__fadeInUp animate__delay-2s">
-                Explore Collection
-            </a>
-        </div>
-         <div class="mt-20 flex justify-center space-x-5 sm:space-x-8 opacity-80">
-           <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-3s" loading="lazy">
-           <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-emerald-500/50 animate__animated animate__fadeIn animate__delay-4s" loading="lazy" style="animation-delay: 0.4s;">
-           <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-5s" loading="lazy" style="animation-delay: 0.8s;">
-         </div>
-    </section>
-
     <section id="products" class="py-20 px-6">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center reveal">Our Collection</h2>
@@ -719,8 +696,13 @@
                     </select>
                 </div>
             </div>
-             <div id="productsContainer" class="relative min-h-[300px] grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
-                 <div class="loader col-span-full mx-auto"></div> </div>
+             <!-- Category titles will be inserted here by JS -->
+
+             <!-- Product Grid Container - Uses Tailwind for Responsive 1/2+ Columns -->
+            <div id="productsContainer" class="relative min-h-[300px] grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
+                 <!-- Products and loader will be inserted here by JS -->
+                 <div class="loader col-span-full mx-auto"></div> <!-- Loader centered using col-span-full and mx-auto -->
+            </div>
         </div>
     </section>
 
@@ -737,19 +719,22 @@
                      </div>
                 </div>
 
+                <!-- Coupon Section -->
                 <div class="mb-6">
                      <label for="couponCode">Have a Coupon Code?</label>
                      <div class="coupon-input-group">
-                         <input type="text" id="couponCode" placeholder="Enter code (e.g. NSL10)" aria-label="Coupon code input">
+                         <input type="text" id="couponCode" placeholder="Enter code" aria-label="Coupon code input">
                          <button type="button" id="applyCouponBtn" class="btn btn-secondary">Apply</button>
                      </div>
-                     <p id="couponFeedback" class="text-sm text-gray-400 min-h-[1.2em]"></p> </div>
+                     <p id="couponFeedback" class="text-sm text-gray-400 min-h-[1.2em]"></p> <!-- Feedback message -->
+                </div>
 
 
                 <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
                      <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL/thank-you-order.html">
                      <input type="hidden" name="_captcha" value="false">
                      <input type="hidden" name="_subject" id="formSubject" value="New Order from The Highon's Site!">
+                     <!-- This field will be populated with the full order summary including coupon details -->
                      <input type="hidden" name="Order Summary" id="hiddenOrderSummary" value="">
                       <div>
                         <label for="orderNotes">Additional Notes (Optional)</label>
@@ -959,7 +944,8 @@
             container.innerHTML = '<div class="loader col-span-full mx-auto"></div>';
             container.className = 'relative min-h-[300px] flex justify-center items-center'; // Use flex for centering loader
 
-            requestAnimationFrame(() => { // Use rAF for smoother UI update
+            // Use a small timeout or rAF to ensure the loader is visible before rendering
+            requestAnimationFrame(() => {
                 try {
                     // Restore grid classes and clear loader
                     container.className = 'relative min-h-[300px] grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10';
@@ -971,19 +957,21 @@
                     let filteredProducts = [];
                     let productsFound = false;
 
+                    // Determine which products to filter and display
                     if (category === 'all') {
-                        // Filter all products from all categories
+                        // Flatten all products from all categories
                         const allProductsArray = Object.values(products).flat();
                         filteredProducts = allProductsArray.filter(item =>
-                             !searchTermLower ||
-                             item.name.toLowerCase().includes(searchTermLower) ||
-                             item.desc.toLowerCase().includes(searchTermLower)
+                             item && // Basic check if item exists
+                             (!searchTermLower ||
+                              (typeof item.name === 'string' && item.name.toLowerCase().includes(searchTermLower)) ||
+                              (typeof item.desc === 'string' && item.desc.toLowerCase().includes(searchTermLower)))
                          );
 
                          // If showing all and no search term, add category titles above the grid
-                         if (searchTermLower === '') {
+                         if (searchTermLower === '' && Object.keys(products).length > 0) {
                              Object.keys(products).forEach(catKey => {
-                                 if (products[catKey].length > 0) {
+                                 if (products[catKey] && Array.isArray(products[catKey]) && products[catKey].length > 0) {
                                      const titleElement = document.createElement('h3');
                                      titleElement.className = 'category-title text-center mx-auto block reveal';
                                      titleElement.textContent = catKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
@@ -994,31 +982,43 @@
                              });
                          }
 
-                    } else if (products[category]) {
+                    } else if (products[category] && Array.isArray(products[category])) {
                         // Filter products within the selected category
                         filteredProducts = products[category].filter(item =>
-                            !searchTermLower ||
-                            item.name.toLowerCase().includes(searchTermLower) ||
-                            item.desc.toLowerCase().includes(searchTermLower)
-                        );
+                             item && // Basic check if item exists
+                             (!searchTermLower ||
+                              (typeof item.name === 'string' && item.name.toLowerCase().includes(searchTermLower)) ||
+                              (typeof item.desc === 'string' && item.desc.toLowerCase().includes(searchTermLower)))
+                         );
 
                         // Add category title above the grid for the selected category view
-                        if (filteredProducts.length > 0 || searchTermLower !== '') { // Add title even if no results for search in category
+                        // Add title if products are found OR if search term is present (to show "no results for X in Y" under title)
+                         if (filteredProducts.length > 0 || searchTermLower !== '') {
                              const titleElement = document.createElement('h3');
                              titleElement.className = 'category-title text-center mx-auto block reveal';
                              titleElement.textContent = category.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
                              productSection.insertBefore(titleElement, container);
                              observeElement(titleElement); // Observe the title
                         }
+                    } else {
+                         // Handle case where category data is missing or not an array
+                         console.error(`Category "${category}" data is missing or invalid.`);
+                         // Optionally display an error message for this specific case
                     }
+
 
                     if (filteredProducts.length > 0) {
                         productsFound = true;
                         // Add filtered product cards directly to the main grid container
                         filteredProducts.forEach((product) => {
-                            const card = createProductCard(product);
-                            container.appendChild(card);
-                            observeElement(card); // Observe the card
+                            // Additional safety checks before creating card
+                            if (product && product.id && typeof product.name === 'string' && typeof product.price === 'number' && typeof product.img === 'string') {
+                                const card = createProductCard(product);
+                                container.appendChild(card);
+                                observeElement(card); // Observe the card
+                            } else {
+                                console.warn("Skipping invalid product data:", product);
+                            }
                         });
                     }
 
@@ -1030,7 +1030,7 @@
 
 
                 } catch (error) {
-                    console.error("Error rendering products:", error);
+                    console.error("Error rendering products:", error); // This is the error source
                     container.innerHTML = '<p class="text-center text-red-500 py-12 text-lg col-span-full">Error loading products. Please try again later.</p>';
                      container.className = 'relative min-h-[300px] grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10 place-items-center'; // Ensure grid for centering
                 }
@@ -1038,6 +1038,7 @@
         }
 
         function createProductCard(product) {
+            // Basic validation is assumed to have happened before calling this function
             const card = document.createElement("div");
             card.id = `product-${product.id}`;
             card.className = "product-card reveal";
@@ -1078,6 +1079,13 @@
 
         // --- Order Management Functions ---
         function addItemToOrder(productId) {
+             // Ensure product exists and is valid before adding
+             const product = findProduct(productId);
+             if (!product || !product.id || typeof product.name !== 'string' || typeof product.price !== 'number' || typeof product.img !== 'string') {
+                 console.error("Attempted to add invalid product:", productId);
+                 return;
+             }
+
             if (orderItems[productId]) {
                 increaseQuantity(productId);
             } else {
@@ -1108,7 +1116,7 @@
                     const couponInput = document.getElementById('couponCode');
                     if (couponFeedback) {
                         couponFeedback.textContent = '';
-                         couponFeedback.className = 'text-sm text-gray-400 min-height-[1.2em]'; // Reset class
+                         couponFeedback.className = 'text-sm text-gray-400 min-h-[1.2em]'; // Reset class
                     }
                     if (couponInput) couponInput.value = '';
                 }
@@ -1170,15 +1178,14 @@
                  // Clear coupon if order becomes empty
                   appliedCoupon = null;
                   couponFeedback.textContent = '';
-                   couponFeedback.className = 'text-sm text-gray-400 min-height-[1.2em]'; // Reset class
-                  couponInput.value = '';
-
+                   couponFeedback.className = 'text-sm text-gray-400 min-h-[1.2em]'; // Reset class
+                  couponInput.value = ''; // Also clear input field
              } else {
                  displayHTML += '<ul>';
                  productIds.forEach(productId => {
                      const product = findProduct(productId);
                      const quantity = orderItems[productId];
-                     if (product && quantity > 0) {
+                     if (product && quantity > 0) { // Basic check for valid product and quantity
                          const itemTotal = product.price * quantity;
                          originalTotal += itemTotal;
                          displayHTML += `
@@ -1188,6 +1195,10 @@
                             </li>
                          `;
                           hiddenText += `- ${escapeHtml(product.name)} x ${quantity} (₹${product.price} each = ₹${itemTotal.toFixed(2)})\n`;
+                     } else {
+                         console.warn(`Invalid item in orderItems: ID ${productId}, Quantity ${quantity}. Skipping.`);
+                         // Optionally remove invalid items from orderItems here
+                         // delete orderItems[productId];
                      }
                  });
                  displayHTML += '</ul>';
@@ -1195,7 +1206,6 @@
                  let finalTotal = originalTotal;
                  let discountAmount = 0;
                  let increaseAmount = 0;
-                 let couponMessage = '';
 
                  // Apply Coupon Logic
                  if (appliedCoupon === 'NSL10') {
@@ -1205,8 +1215,9 @@
                      displayHTML += `<p class="order-discount">Discount (${appliedCoupon}): - ₹${discountAmount.toFixed(2)}</p>`;
                      hiddenText += `\nSubtotal: ₹${originalTotal.toFixed(2)}\n`;
                      hiddenText += `Discount (${appliedCoupon}): - ₹${discountAmount.toFixed(2)}\n`;
-                      couponMessage = `Coupon "${appliedCoupon}" applied!`;
-                      couponFeedback.classList.remove('coupon-feedback-error');
+                      // Set feedback message only on successful application
+                       couponFeedback.textContent = `Coupon applied!`; // Generic success message
+                       couponFeedback.classList.remove('coupon-feedback-error');
                        couponFeedback.classList.add('coupon-feedback-success');
 
 
@@ -1217,21 +1228,14 @@
                       displayHTML += `<p class="order-increase">Increase (${appliedCoupon}): + ₹${increaseAmount.toFixed(2)}</p>`;
                       hiddenText += `\nSubtotal: ₹${originalTotal.toFixed(2)}\n`;
                       hiddenText += `Increase (${appliedCoupon}): + ₹${increaseAmount.toFixed(2)}\n`;
-                       couponMessage = `Coupon "${appliedCoupon}" applied!`;
+                       // Set feedback message only on successful application
+                        couponFeedback.textContent = `Coupon applied!`; // Generic success message
                         couponFeedback.classList.remove('coupon-feedback-error');
                        couponFeedback.classList.add('coupon-feedback-success');
                  } else {
-                     // No valid coupon applied, clear feedback if it was previously set
-                      if(couponFeedback.textContent.includes('applied')) {
-                         couponFeedback.textContent = '';
-                         couponFeedback.className = 'text-sm text-gray-400 min-height-[1.2em]'; // Reset class
-                         couponInput.value = ''; // Clear input if coupon was removed programmatically
-                      }
-                 }
-
-                // Update coupon feedback message only if it was changed by applyCoupon() or programmatically cleared
-                 if (couponMessage) {
-                    couponFeedback.textContent = couponMessage;
+                     // No valid coupon applied, ensure feedback is cleared
+                      couponFeedback.textContent = '';
+                      couponFeedback.className = 'text-sm text-gray-400 min-h-[1.2em]'; // Reset class
                  }
 
 
@@ -1260,35 +1264,25 @@
              }
 
              const code = couponInput.value.trim().toUpperCase();
-             couponFeedback.textContent = ''; // Clear previous feedback
+             couponFeedback.textContent = ''; // Clear previous feedback immediately
              couponFeedback.className = 'text-sm min-h-[1.2em]'; // Reset class
 
              // Check if order is empty
              if (Object.keys(orderItems).length === 0) {
-                 couponFeedback.textContent = 'Please add items to your order first.';
-                 couponFeedback.classList.add('coupon-feedback-error');
+                 // No feedback message for empty order as per strict instruction
                  appliedCoupon = null;
                  renderOrderSummary(); // Ensure summary reflects no coupon
                  return;
              }
 
-
-             if (code === '') {
-                 appliedCoupon = null;
-                 couponFeedback.textContent = ''; // Clear feedback if input is empty
-                  couponFeedback.className = 'text-sm text-gray-400 min-height-[1.2em]'; // Reset class
-                 renderOrderSummary(); // Recalculate without coupon
-                 return;
-             }
-
+             // Apply coupon only if a valid code is entered
              if (code === 'NSL10' || code === 'JIANSPECIAL') {
                  appliedCoupon = code;
-                 // renderOrderSummary will set the success message and class
-                 renderOrderSummary();
+                 renderOrderSummary(); // This will now add the success message
              } else {
+                 // Invalid or empty code - clear coupon and feedback
                  appliedCoupon = null;
-                 couponFeedback.textContent = 'Invalid coupon code.';
-                 couponFeedback.classList.add('coupon-feedback-error');
+                 // Feedback is already cleared at the start of the function
                  renderOrderSummary(); // Recalculate without coupon
              }
         }
