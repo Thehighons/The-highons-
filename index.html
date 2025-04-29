@@ -6,7 +6,7 @@
     <meta name="description" content="The Highon's - Premium creative supplies including keychains, art supplies, stationery, gadgets, and diaries available for inquiry in Navsari.">
     <title>The Highon's - Premium Creative Supplies | Navsari</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -196,11 +196,13 @@
             padding: 12px 32px;
             border-radius: 8px;
             display: inline-block;
-            margin: 30px 0;
+            margin: 30px auto; /* Center the title */
             box-shadow: 0 5px 15px rgba(44, 182, 125, 0.2); /* Adjusted shadow */
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
             font-size: 1.2rem;
+             text-align: center; /* Ensure text is centered */
+             width: fit-content; /* Make background fit content */
         }
 
         /* Redesigned Product Card */
@@ -374,7 +376,7 @@
             padding: 2rem;
             position: relative; /* To stay above the ::before */
             z-index: 1;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 25px rgba(0,10,10,0.3);
         }
         .form-container label {
              color: var(--text-secondary);
@@ -597,7 +599,7 @@
              padding: 2rem;
              position: relative;
              z-index: 1;
-             box-shadow: 0 10px 25px rgba(0,10,10,0.3); /* Adjusted shadow */
+             box-shadow: 0 10px 25px rgba(0,10,10,0.3);
              max-width: 600px;
              margin: 0 auto;
         }
@@ -718,8 +720,7 @@
                 </div>
             </div>
              <div id="productsContainer" class="relative min-h-[300px] grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
-                 <div class="loader"></div>
-            </div>
+                 <div class="loader col-span-full mx-auto"></div> </div>
         </div>
     </section>
 
@@ -948,141 +949,90 @@
         // --- Product Rendering ---
         function renderProducts(category = 'all', searchTerm = '') {
             const container = document.getElementById("productsContainer");
-            if (!container) { console.error("productsContainer not found!"); return; }
+             const productSection = document.getElementById('products');
+            if (!container || !productSection) { console.error("productsContainer or productSection not found!"); return; }
 
-            // Temporarily remove grid classes and show loader in center
-            container.className = 'relative min-h-[300px] flex justify-center items-center';
-            container.innerHTML = '<div class="loader"></div>'; // Show loader
+            // Remove existing category titles
+             productSection.querySelectorAll('.category-title').forEach(title => title.remove());
 
-            requestAnimationFrame(() => {
+            // Set container to loader state
+            container.innerHTML = '<div class="loader col-span-full mx-auto"></div>';
+            container.className = 'relative min-h-[300px] flex justify-center items-center'; // Use flex for centering loader
+
+            requestAnimationFrame(() => { // Use rAF for smoother UI update
                 try {
-                    container.innerHTML = ''; // Clear loader/previous content
-                     // Restore grid classes
+                    // Restore grid classes and clear loader
                     container.className = 'relative min-h-[300px] grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10';
+                    container.innerHTML = ''; // Clear loader
 
-                    let hasProducts = false;
                     const searchTermLower = searchTerm.toLowerCase().trim();
                     currentCategoryFilter = category;
 
-                    const createCategorySection = (catKey, items) => {
-                        const filtered = items.filter(item =>
-                            !searchTermLower ||
-                            item.name.toLowerCase().includes(searchTermLower) ||
-                            item.desc.toLowerCase().includes(searchTermLower)
-                        );
+                    let filteredProducts = [];
+                    let productsFound = false;
 
-                        if (filtered.length > 0) {
-                            hasProducts = true;
-                            const section = document.createElement('div');
-                            section.className = 'mb-16 col-span-full'; // Category title spans all columns
-                            const title = catKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-                            if (category === 'all' || category === catKey) {
-                                section.innerHTML = `<h3 class="category-title reveal">${escapeHtml(title)}</h3>`;
-                            }
+                    if (category === 'all') {
+                        // Filter all products from all categories
+                        const allProductsArray = Object.values(products).flat();
+                        filteredProducts = allProductsArray.filter(item =>
+                             !searchTermLower ||
+                             item.name.toLowerCase().includes(searchTermLower) ||
+                             item.desc.toLowerCase().includes(searchTermLower)
+                         );
 
-                            const grid = document.createElement('div');
-                            // Using Tailwind classes for responsive grid within the section
-                            grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10';
-                            grid.id = `${catKey}Grid`;
-                            section.appendChild(grid);
-
-                            // Append section containing title and its grid to the main container
-                            container.appendChild(section);
-
-                            filtered.forEach((product) => {
-                                const card = createProductCard(product);
-                                grid.appendChild(card); // Append card to the category-specific grid
-                                observeElement(card); // Add to observer for reveal animation
-                            });
-                            // Observe the section title if it exists
-                            const sectionTitleElement = section.querySelector('.category-title');
-                            if (sectionTitleElement) {
-                                observeElement(sectionTitleElement);
-                            }
-                        }
-                    };
-
-                     // If filtering by category, clear container first then add section grid
-                     if (category !== 'all') {
-                         container.innerHTML = '';
-                          // Re-apply grid classes to the main container if needed, but maybe remove for filtered views?
-                          // Let's try removing the main grid and just using section grids for 'all'
-                          container.className = 'relative min-h-[300px]'; // Remove main grid class
-
-                         if (products[category]) {
-                            createCategorySection(category, products[category]);
+                         // If showing all and no search term, add category titles above the grid
+                         if (searchTermLower === '') {
+                             Object.keys(products).forEach(catKey => {
+                                 if (products[catKey].length > 0) {
+                                     const titleElement = document.createElement('h3');
+                                     titleElement.className = 'category-title text-center mx-auto block reveal';
+                                     titleElement.textContent = catKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                                     // Insert before the product container
+                                     productSection.insertBefore(titleElement, container);
+                                     observeElement(titleElement); // Observe the title
+                                 }
+                             });
                          }
-                     } else {
-                        // For 'all', use the main container grid
-                         container.className = 'relative min-h-[300px] grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10';
-                         Object.entries(products).forEach(([catKey, items]) => {
-                            // For 'all', we don't need separate grids per category in the main container,
-                            // just add the category title and then the product cards directly to the main grid.
-                            // This requires a different structure. Let's rethink the structure for 'all'.
-                            // A better approach for 'all' might be to just render all cards directly into the main grid,
-                            // perhaps adding category titles as grid items that span columns.
 
-                            // Let's simplify: when category is 'all', we just render all products in the main grid.
-                            // Category titles will be rendered separately *above* the product grid container.
-                             // If category is 'all', we don't render sections here, we just filter all products and render them in the main grid.
-                         });
-
-                        // Re-implement rendering for 'all' category
-                        const allProductsArray = Object.values(products).flat(); // Flatten all products into one array
-                        const filteredAllProducts = allProductsArray.filter(item =>
+                    } else if (products[category]) {
+                        // Filter products within the selected category
+                        filteredProducts = products[category].filter(item =>
                             !searchTermLower ||
                             item.name.toLowerCase().includes(searchTermLower) ||
                             item.desc.toLowerCase().includes(searchTermLower)
                         );
 
-                        if (filteredAllProducts.length > 0) {
-                            hasProducts = true;
-                            // No category titles within the grid for 'all' view, they are above.
-                            filteredAllProducts.forEach(product => {
-                                const card = createProductCard(product);
-                                container.appendChild(card);
-                                observeElement(card);
-                            });
+                        // Add category title above the grid for the selected category view
+                        if (filteredProducts.length > 0 || searchTermLower !== '') { // Add title even if no results for search in category
+                             const titleElement = document.createElement('h3');
+                             titleElement.className = 'category-title text-center mx-auto block reveal';
+                             titleElement.textContent = category.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                             productSection.insertBefore(titleElement, container);
+                             observeElement(titleElement); // Observe the title
                         }
-                     }
+                    }
 
-                     // Re-implementing Category Titles logic: Render category titles *before* the productsContainer
-                     const productSection = document.getElementById('products');
-                     const existingTitles = productSection.querySelectorAll('.category-title');
-                     existingTitles.forEach(title => title.remove()); // Remove old titles
-
-
-                    if (category === 'all' && hasProducts && searchTermLower === '') {
-                         // For 'all' view without search, add category titles above the grid
-                        Object.keys(products).forEach(catKey => {
-                            if (products[catKey].length > 0) {
-                                const titleElement = document.createElement('h3');
-                                titleElement.className = 'category-title text-center mx-auto block reveal'; // Center the title
-                                titleElement.textContent = catKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-                                productSection.insertBefore(titleElement, container); // Insert before the main container
-                                observeElement(titleElement);
-                            }
+                    if (filteredProducts.length > 0) {
+                        productsFound = true;
+                        // Add filtered product cards directly to the main grid container
+                        filteredProducts.forEach((product) => {
+                            const card = createProductCard(product);
+                            container.appendChild(card);
+                            observeElement(card); // Observe the card
                         });
-                    } else if (category !== 'all' && products[category]?.length > 0 && hasProducts) {
-                         // For specific category view with or without search, add one title
-                         const titleElement = document.createElement('h3');
-                         titleElement.className = 'category-title text-center mx-auto block reveal'; // Center the title
-                         titleElement.textContent = category.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-                         productSection.insertBefore(titleElement, container); // Insert before the main container
-                         observeElement(titleElement);
                     }
 
-
-                    if (!hasProducts) {
+                    if (!productsFound) {
                         container.innerHTML = '<p class="text-center text-gray-400 py-12 text-lg col-span-full">No products found matching your criteria.</p>';
-                         // Remove grid classes if empty? Or keep them? Let's keep them for layout consistency.
-                          container.className = 'relative min-h-[300px] grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10';
+                         // Ensure container still has grid properties for centering the message
+                        container.className = 'relative min-h-[300px] grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10 place-items-center'; // Center content
                     }
+
 
                 } catch (error) {
                     console.error("Error rendering products:", error);
                     container.innerHTML = '<p class="text-center text-red-500 py-12 text-lg col-span-full">Error loading products. Please try again later.</p>';
-                     container.className = 'relative min-h-[300px] grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10';
+                     container.className = 'relative min-h-[300px] grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10 place-items-center'; // Ensure grid for centering
                 }
             });
         }
@@ -1152,10 +1102,14 @@
                 orderItems[productId]--;
                 if (orderItems[productId] <= 0) {
                     delete orderItems[productId];
-                    appliedCoupon = null; // Clear coupon if order becomes empty or item is removed
+                     // Clear coupon if order becomes empty or item is removed
+                    appliedCoupon = null;
                     const couponFeedback = document.getElementById('couponFeedback');
                     const couponInput = document.getElementById('couponCode');
-                    if (couponFeedback) couponFeedback.textContent = '';
+                    if (couponFeedback) {
+                        couponFeedback.textContent = '';
+                         couponFeedback.className = 'text-sm text-gray-400 min-height-[1.2em]'; // Reset class
+                    }
                     if (couponInput) couponInput.value = '';
                 }
                  updateProductCardUI(productId);
@@ -1167,9 +1121,8 @@
         function updateProductCardUI(productId) {
             const card = document.getElementById(`product-${productId}`);
             if (!card) {
-                 console.warn(`Product card not found for ID: ${productId}`);
-                 // If card is not found, it might be because the filter/search changed.
-                 // We don't need to update UI for invisible cards.
+                 // Card might not be in the current view (due to filter/search)
+                 // No need to update UI for invisible cards.
                  return;
             }
 
@@ -1196,9 +1149,12 @@
              const summaryDisplay = document.getElementById('orderSummaryDisplay');
              const hiddenSummaryInput = document.getElementById('hiddenOrderSummary');
              const formSubjectInput = document.getElementById('formSubject');
+             const couponFeedback = document.getElementById('couponFeedback');
+             const couponInput = document.getElementById('couponCode');
 
-             if (!summaryDisplay || !hiddenSummaryInput || !formSubjectInput) {
-                 console.error("Order summary elements not found.");
+
+             if (!summaryDisplay || !hiddenSummaryInput || !formSubjectInput || !couponFeedback || !couponInput) {
+                 console.error("Order summary or coupon elements not found.");
                  return;
              }
 
@@ -1211,11 +1167,11 @@
                  displayHTML = '<p>Add items from the collection above to see your order here.</p>';
                  hiddenText = 'Order is empty.';
                  formSubjectInput.value = 'New Order from The Highon\'s Site (Empty)';
-                  appliedCoupon = null; // Clear coupon if order becomes empty
-                  const couponFeedback = document.getElementById('couponFeedback');
-                  const couponInput = document.getElementById('couponCode');
-                  if (couponFeedback) couponFeedback.textContent = '';
-                  if (couponInput) couponInput.value = '';
+                 // Clear coupon if order becomes empty
+                  appliedCoupon = null;
+                  couponFeedback.textContent = '';
+                   couponFeedback.className = 'text-sm text-gray-400 min-height-[1.2em]'; // Reset class
+                  couponInput.value = '';
 
              } else {
                  displayHTML += '<ul>';
@@ -1239,6 +1195,7 @@
                  let finalTotal = originalTotal;
                  let discountAmount = 0;
                  let increaseAmount = 0;
+                 let couponMessage = '';
 
                  // Apply Coupon Logic
                  if (appliedCoupon === 'NSL10') {
@@ -1248,6 +1205,10 @@
                      displayHTML += `<p class="order-discount">Discount (${appliedCoupon}): - ₹${discountAmount.toFixed(2)}</p>`;
                      hiddenText += `\nSubtotal: ₹${originalTotal.toFixed(2)}\n`;
                      hiddenText += `Discount (${appliedCoupon}): - ₹${discountAmount.toFixed(2)}\n`;
+                      couponMessage = `Coupon "${appliedCoupon}" applied!`;
+                      couponFeedback.classList.remove('coupon-feedback-error');
+                       couponFeedback.classList.add('coupon-feedback-success');
+
 
                  } else if (appliedCoupon === 'JIANSPECIAL') {
                       increaseAmount = originalTotal * 0.20;
@@ -1256,7 +1217,23 @@
                       displayHTML += `<p class="order-increase">Increase (${appliedCoupon}): + ₹${increaseAmount.toFixed(2)}</p>`;
                       hiddenText += `\nSubtotal: ₹${originalTotal.toFixed(2)}\n`;
                       hiddenText += `Increase (${appliedCoupon}): + ₹${increaseAmount.toFixed(2)}\n`;
+                       couponMessage = `Coupon "${appliedCoupon}" applied!`;
+                        couponFeedback.classList.remove('coupon-feedback-error');
+                       couponFeedback.classList.add('coupon-feedback-success');
+                 } else {
+                     // No valid coupon applied, clear feedback if it was previously set
+                      if(couponFeedback.textContent.includes('applied')) {
+                         couponFeedback.textContent = '';
+                         couponFeedback.className = 'text-sm text-gray-400 min-height-[1.2em]'; // Reset class
+                         couponInput.value = ''; // Clear input if coupon was removed programmatically
+                      }
                  }
+
+                // Update coupon feedback message only if it was changed by applyCoupon() or programmatically cleared
+                 if (couponMessage) {
+                    couponFeedback.textContent = couponMessage;
+                 }
+
 
                  displayHTML += `<div class="order-total">Total: ₹${finalTotal.toFixed(2)}</div>`;
                  hiddenText += `\nFinal Total: ₹${finalTotal.toFixed(2)}\n`;
@@ -1299,14 +1276,14 @@
              if (code === '') {
                  appliedCoupon = null;
                  couponFeedback.textContent = ''; // Clear feedback if input is empty
+                  couponFeedback.className = 'text-sm text-gray-400 min-height-[1.2em]'; // Reset class
                  renderOrderSummary(); // Recalculate without coupon
                  return;
              }
 
              if (code === 'NSL10' || code === 'JIANSPECIAL') {
                  appliedCoupon = code;
-                 couponFeedback.textContent = `Coupon "${code}" applied!`;
-                 couponFeedback.classList.add('coupon-feedback-success');
+                 // renderOrderSummary will set the success message and class
                  renderOrderSummary();
              } else {
                  appliedCoupon = null;
@@ -1601,7 +1578,7 @@
                console.error("Critical error during DOMContentLoaded initialization:", error);
                alert("Error loading page content. Some features might be unavailable. Please refresh.");
                // Optional: Display a more user-friendly error message
-               document.body.innerHTML = `<div style="padding: 40px; text-align: center; font-family: sans-serif; color: white;"><h1>Oops!</h1><p>Something went wrong while loading the page. Please <a href="javascript:location.reload();" style="color: #7f5af0;">refresh</a> and try again.</p><p>Error: ${escapeHtml(error.message)}</p></div>`;
+               // document.body.innerHTML = `<div style="padding: 40px; text-align: center; font-family: sans-serif; color: white;"><h1>Oops!</h1><p>Something went wrong while loading the page. Please <a href="javascript:location.reload();" style="color: #7f5af0;">refresh</a> and try again.</p><p>Error: ${escapeHtml(error.message)}</p></div>`;
           }
         });
     </script>
