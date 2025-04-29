@@ -1144,6 +1144,7 @@
                  hiddenText = 'Order is empty.';
                  formSubjectInput.value = 'New Order from The Highon\'s Site (Empty)';
                   couponCodeInput.disabled = true; // Disable coupon input if cart is empty
+                  couponCodeInput.value = ''; // Clear coupon input if cart becomes empty
                   couponFeedback.textContent = '';
              } else {
                   couponCodeInput.disabled = false; // Enable coupon input if items are in cart
