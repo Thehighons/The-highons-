@@ -1026,8 +1026,8 @@
                             }
 
                             const grid = document.createElement('div');
-                            // Using Tailwind classes for responsive grid (1 col on small, 2+ on larger)
-                            grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10';
+                            // Updated grid classes for more columns on larger screens and adjusted gaps
+                            grid.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8';
                             grid.id = `${catKey}Grid`;
                             section.appendChild(grid);
                             container.appendChild(section);
