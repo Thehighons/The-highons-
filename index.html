@@ -389,7 +389,7 @@
              -webkit-backdrop-filter: blur(5px);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 2rem;
+            padding: 2.5rem; /* Increased padding for whitespace */
             position: relative; /* To stay above the ::before */
             z-index: 1;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
@@ -436,7 +436,7 @@
              background-color: rgba(22, 22, 26, 0.7);
              border: 1px solid var(--border-color);
              border-radius: 8px;
-             padding: 1rem;
+             padding: 1rem; /* Base padding */
              margin-bottom: 1.5rem;
              min-height: 80px; /* Give it some minimum space */
              color: var(--text-main);
@@ -448,11 +448,11 @@
          }
          #orderSummaryDisplay ul {
              list-style: none;
-             padding: 0;
-             margin: 0;
+             padding: 0; /* No list padding */
+             margin: 0; /* No list margin */
          }
          #orderSummaryDisplay li {
-             padding: 0.5rem 0;
+             padding: 0.75rem 0; /* Slightly increased vertical padding for list items */
              border-bottom: 1px dashed rgba(148, 161, 178, 0.1);
               display: flex;
               justify-content: space-between;
@@ -465,11 +465,12 @@
              font-weight: 600;
              color: var(--text-main);
              flex-grow: 1;
-             margin-right: 0.5rem;
+             margin-right: 1rem; /* Increased margin between name and quantity */
          }
          #orderSummaryDisplay .order-item-quantity {
               color: var(--text-secondary);
               font-size: 0.85rem;
+              margin-right: 0.5rem; /* Space before price */
          }
          #orderSummaryDisplay .order-item-price {
               font-weight: 500;
@@ -479,7 +480,7 @@
                display: flex;
                justify-content: space-between;
                align-items: center;
-               padding: 0.5rem 0;
+               padding: 0.75rem 0; /* Slightly increased vertical padding for summary lines */
                border-bottom: 1px dashed rgba(148, 161, 178, 0.1);
           }
           #orderSummaryDisplay .order-summary-line:last-child {
@@ -490,9 +491,9 @@
               font-size: 1.2rem;
               font-weight: 700;
               color: var(--secondary-accent);
-              margin-top: 1rem;
+              margin-top: 1.5rem; /* Increased margin above total */
               text-align: right;
-              padding-top: 0.5rem;
+              padding-top: 0.75rem; /* Increased padding above total border */
               border-top: 1px solid var(--border-color);
          }
          #orderSummaryDisplay .discount-line {
@@ -511,7 +512,7 @@
              background-color: rgba(22, 22, 26, 0.8); /* Darker box */
              border: 1px solid var(--border-color);
              border-radius: 12px;
-             padding: 2rem;
+             padding: 2.5rem; /* Slightly increased padding */
              transition: all 0.3s ease;
         }
         .contact-info-box:hover {
@@ -604,7 +605,7 @@
              background-color: var(--card-bg);
              border: 1px solid var(--border-color);
              border-radius: 16px;
-             padding: 2rem;
+             padding: 2.5rem; /* Slightly increased padding */
              position: relative;
              z-index: 1;
              box-shadow: 0 10px 25px rgba(0,0,0,0.3);
@@ -648,7 +649,7 @@
              color: var(--text-main);
          }
          #orderFormContainer .btn-primary {
-             margin-top: 1rem;
+             margin-top: 1.5rem; /* Slightly increased margin top */
          }
 
     </style>
@@ -693,8 +694,7 @@
             <h1 class="text-4xl md:text-6xl font-bold mb-6 animate__animated animate__fadeInUp">
                 Ignite Your <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-emerald-400">Creativity</span>.
             </h1>
-            <p class="text-lg md:text-xl mb-10 text-gray-300 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-1s">
-                Discover premium supplies in Navsari. Explore keychains, art materials, stationery, and more.
+            <p class="text-lg md:text-xl mb-12 text-gray-300 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-1s"> Discover premium supplies in Navsari. Explore keychains, art materials, stationery, and more.
             </p>
             <a href="#products" class="btn btn-primary text-lg px-10 py-4 animate__animated animate__fadeInUp animate__delay-2s">
                 Explore Collection
@@ -752,8 +752,7 @@
                       <p id="couponFeedback" class="text-sm mt-2 text-gray-400 min-h-[1.2em]"></p> </div>
 
 
-                <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
-                     <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL/thank-you-order.html">
+                <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-8 text-left"> <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL/thank-you-order.html">
                      <input type="hidden" name="_captcha" value="false">
                      <input type="hidden" name="_subject" id="formSubject" value="New Order from The Highon's Site!">
                      <input type="hidden" name="Order Summary" id="hiddenOrderSummary" value="">
@@ -803,9 +802,7 @@
         <div class="max-w-2xl mx-auto text-center reveal">
             <h2 class="text-4xl md:text-5xl font-bold mb-8">Request a Product</h2>
             <p class="text-gray-400 mb-8 max-w-xl mx-auto">Can't find what you're looking for? Let us know, and we'll try our best to source it for you!</p>
-            <div class="form-container">
-                <form id="requestForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
-                    <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL/thank-you-request.html">
+            <div class="form-container" style="padding: 2.5rem;"> <form id="requestForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-8 text-left"> <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL/thank-you-request.html">
                     <input type="hidden" name="_subject" value="New Product Request from The Highon's Site">
                     <input type="hidden" name="_captcha" value="false">
                     <div>
@@ -830,10 +827,8 @@
         <div class="max-w-4xl mx-auto reveal">
             <h2 class="text-4xl md:text-5xl font-bold mb-8">Get In Touch</h2>
             <div class="grid grid-cols-1 gap-8 text-left">
-                <div class="contact-info-box">
-                    <h3 class="text-2xl font-semibold mb-6 text-center">Contact Information</h3>
-                    <div class="space-y-4 text-center text-lg">
-                        <p><span class="font-medium text-gray-400">Email:</span> <a href="mailto:thehighonsofficial@gmail.com">thehighonsofficial@gmail.com</a></p>
+                <div class="contact-info-box" style="padding: 2.5rem;"> <h3 class="text-2xl font-semibold mb-6 text-center">Contact Information</h3>
+                    <div class="space-y-6 text-center text-lg"> <p><span class="font-medium text-gray-400">Email:</span> <a href="mailto:thehighonsofficial@gmail.com">thehighonsofficial@gmail.com</a></p>
                         <p><span class="font-medium text-gray-400">Location:</span> Navsari, Gujarat - 396445</p>
                          <p class="text-sm text-gray-500">(Online orders via this site for local delivery only)</p>
                     </div>
@@ -944,7 +939,7 @@
                  .replace(/</g, "&lt;")
                  .replace(/>/g, "&gt;")
                  .replace(/"/g, "&quot;")
-                 .replace(/'/g, "&#039;");
+                 .replace(/'/g, "&#039;');
         }
 
         function findProduct(id) {
@@ -1026,8 +1021,8 @@
                             }
 
                             const grid = document.createElement('div');
-                            // Using Tailwind classes for responsive grid (1 col on small, 2+ on larger)
-                            grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10';
+                            // Adjusted gap classes for increased whitespace
+                            grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-10 md:gap-12'; /* Increased gap-8 to gap-10, md:gap-10 to md:gap-12 */
                             grid.id = `${catKey}Grid`;
                             section.appendChild(grid);
                             container.appendChild(section);
@@ -1130,6 +1125,7 @@
              }
             if (orderItems[productId] !== undefined) {
                 orderItems[productId]++;
+                if (orderItems[productId] > 99) orderItems[productId] = 99; // Prevent excessive quantity
                  saveCart();
                  updateProductCardUI(productId);
                  renderOrderSummary();
@@ -1507,7 +1503,7 @@
                       const searchVal = document.getElementById('productSearch')?.value || '';
                       renderProducts(this.value, searchVal);
                    });
-              } else { console.error("Category filter select not found."); }
+               } else { console.error("Category filter select not found."); }
 
                // Modal close on background click
                const productModal = document.getElementById('productModal');
