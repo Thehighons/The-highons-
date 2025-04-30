@@ -389,7 +389,7 @@
              -webkit-backdrop-filter: blur(5px);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 2.5rem; /* Increased padding for whitespace */
+            padding: 2rem;
             position: relative; /* To stay above the ::before */
             z-index: 1;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
@@ -436,7 +436,7 @@
              background-color: rgba(22, 22, 26, 0.7);
              border: 1px solid var(--border-color);
              border-radius: 8px;
-             padding: 1rem; /* Base padding */
+             padding: 1rem;
              margin-bottom: 1.5rem;
              min-height: 80px; /* Give it some minimum space */
              color: var(--text-main);
@@ -448,11 +448,11 @@
          }
          #orderSummaryDisplay ul {
              list-style: none;
-             padding: 0; /* No list padding */
-             margin: 0; /* No list margin */
+             padding: 0;
+             margin: 0;
          }
          #orderSummaryDisplay li {
-             padding: 0.75rem 0; /* Slightly increased vertical padding for list items */
+             padding: 0.5rem 0;
              border-bottom: 1px dashed rgba(148, 161, 178, 0.1);
               display: flex;
               justify-content: space-between;
@@ -465,12 +465,11 @@
              font-weight: 600;
              color: var(--text-main);
              flex-grow: 1;
-             margin-right: 1rem; /* Increased margin between name and quantity */
+             margin-right: 0.5rem;
          }
          #orderSummaryDisplay .order-item-quantity {
               color: var(--text-secondary);
               font-size: 0.85rem;
-              margin-right: 0.5rem; /* Space before price */
          }
          #orderSummaryDisplay .order-item-price {
               font-weight: 500;
@@ -480,7 +479,7 @@
                display: flex;
                justify-content: space-between;
                align-items: center;
-               padding: 0.75rem 0; /* Slightly increased vertical padding for summary lines */
+               padding: 0.5rem 0;
                border-bottom: 1px dashed rgba(148, 161, 178, 0.1);
           }
           #orderSummaryDisplay .order-summary-line:last-child {
@@ -491,9 +490,9 @@
               font-size: 1.2rem;
               font-weight: 700;
               color: var(--secondary-accent);
-              margin-top: 1.5rem; /* Increased margin above total */
+              margin-top: 1rem;
               text-align: right;
-              padding-top: 0.75rem; /* Increased padding above total border */
+              padding-top: 0.5rem;
               border-top: 1px solid var(--border-color);
          }
          #orderSummaryDisplay .discount-line {
@@ -512,7 +511,7 @@
              background-color: rgba(22, 22, 26, 0.8); /* Darker box */
              border: 1px solid var(--border-color);
              border-radius: 12px;
-             padding: 2.5rem; /* Slightly increased padding */
+             padding: 2rem;
              transition: all 0.3s ease;
         }
         .contact-info-box:hover {
@@ -524,7 +523,6 @@
             color: var(--primary-accent);
             transition: color 0.3s ease;
             word-break: break-all; /* Allow long email to break line */
-            overflow-wrap: break-word;
         }
         .contact-info-box a:hover {
             color: var(--secondary-accent);
@@ -575,7 +573,7 @@
              transform: rotate(90deg);
         }
 
-        /* Loader (Kept for potential future use, removed from initial product list HTML) */
+        /* Loader */
         .loader {
           border: 4px solid rgba(148, 161, 178, 0.2); /* Lighter grey border */
           border-top: 4px solid var(--primary-accent); /* Accent color spinner */
@@ -606,7 +604,7 @@
              background-color: var(--card-bg);
              border: 1px solid var(--border-color);
              border-radius: 16px;
-             padding: 2.5rem; /* Slightly increased padding */
+             padding: 2rem;
              position: relative;
              z-index: 1;
              box-shadow: 0 10px 25px rgba(0,0,0,0.3);
@@ -650,7 +648,7 @@
              color: var(--text-main);
          }
          #orderFormContainer .btn-primary {
-             margin-top: 1.5rem; /* Slightly increased margin top */
+             margin-top: 1rem;
          }
 
     </style>
@@ -674,7 +672,7 @@
                 </button>
             </div>
         </div>
-        <div id="mobileMenu" class="hidden md:hidden bg-gradient-to-b from-[rgba(36,38,41,0.9)] to-[rgba(22,22,26,0.9)] backdrop-blur-sm border-t border-[rgba(148,161,178,0.2)] p-4 absolute w-full shadow-lg z-40">
+        <div id="mobileMenu" class="hidden md:hidden bg-gradient-to-b from-[rgba(36,38,41,0.9)] to-[rgba(22,22,26,0.9)] backdrop-blur-sm border-t border-[rgba(148,161,178,0.2)] p-4 absolute w-full shadow-lg">
             <div class="flex flex-col items-center space-y-4">
                 <a href="#products" class="nav-link block py-2" onclick="toggleMobileMenu()">Products</a>
                 <a href="#order" class="nav-link block py-2" onclick="toggleMobileMenu()">Place Order</a>
@@ -695,7 +693,8 @@
             <h1 class="text-4xl md:text-6xl font-bold mb-6 animate__animated animate__fadeInUp">
                 Ignite Your <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-emerald-400">Creativity</span>.
             </h1>
-            <p class="text-lg md:text-xl mb-12 text-gray-300 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-1s"> Discover premium supplies in Navsari. Explore keychains, art materials, stationery, and more.
+            <p class="text-lg md:text-xl mb-10 text-gray-300 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-1s">
+                Discover premium supplies in Navsari. Explore keychains, art materials, stationery, and more.
             </p>
             <a href="#products" class="btn btn-primary text-lg px-10 py-4 animate__animated animate__fadeInUp animate__delay-2s">
                 Explore Collection
@@ -729,7 +728,8 @@
                 </div>
             </div>
             <div id="productsContainer" class="relative min-h-[300px]">
-                 </div>
+                 <div class="loader"></div>
+            </div>
         </div>
     </section>
 
@@ -752,7 +752,8 @@
                       <p id="couponFeedback" class="text-sm mt-2 text-gray-400 min-h-[1.2em]"></p> </div>
 
 
-                <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-8 text-left"> <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL/thank-you-order.html">
+                <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
+                     <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL/thank-you-order.html">
                      <input type="hidden" name="_captcha" value="false">
                      <input type="hidden" name="_subject" id="formSubject" value="New Order from The Highon's Site!">
                      <input type="hidden" name="Order Summary" id="hiddenOrderSummary" value="">
@@ -802,7 +803,9 @@
         <div class="max-w-2xl mx-auto text-center reveal">
             <h2 class="text-4xl md:text-5xl font-bold mb-8">Request a Product</h2>
             <p class="text-gray-400 mb-8 max-w-xl mx-auto">Can't find what you're looking for? Let us know, and we'll try our best to source it for you!</p>
-            <div class="form-container" style="padding: 2.5rem;"> <form id="requestForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-8 text-left"> <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL/thank-you-request.html">
+            <div class="form-container">
+                <form id="requestForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
+                    <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL/thank-you-request.html">
                     <input type="hidden" name="_subject" value="New Product Request from The Highon's Site">
                     <input type="hidden" name="_captcha" value="false">
                     <div>
@@ -827,8 +830,10 @@
         <div class="max-w-4xl mx-auto reveal">
             <h2 class="text-4xl md:text-5xl font-bold mb-8">Get In Touch</h2>
             <div class="grid grid-cols-1 gap-8 text-left">
-                <div class="contact-info-box" style="padding: 2.5rem;"> <h3 class="text-2xl font-semibold mb-6 text-center">Contact Information</h3>
-                    <div class="space-y-6 text-center text-lg"> <p><span class="font-medium text-gray-400">Email:</span> <a href="mailto:thehighonsofficial@gmail.com">thehighonsofficial@gmail.com</a></p>
+                <div class="contact-info-box">
+                    <h3 class="text-2xl font-semibold mb-6 text-center">Contact Information</h3>
+                    <div class="space-y-4 text-center text-lg">
+                        <p><span class="font-medium text-gray-400">Email:</span> <a href="mailto:thehighonsofficial@gmail.com">thehighonsofficial@gmail.com</a></p>
                         <p><span class="font-medium text-gray-400">Location:</span> Navsari, Gujarat - 396445</p>
                          <p class="text-sm text-gray-500">(Online orders via this site for local delivery only)</p>
                     </div>
@@ -926,6 +931,7 @@
 
 
         // --- State Variables ---
+        let currentModalProduct = null; // { category: string, index: number, id: string }
         let currentCategoryFilter = 'all';
         let orderItems = {}; // Stores product ID and quantity: { "productId": quantity, ... }
 
@@ -938,7 +944,7 @@
                  .replace(/</g, "&lt;")
                  .replace(/>/g, "&gt;")
                  .replace(/"/g, "&quot;")
-                 .replace(/'/g, "&#039;');
+                 .replace(/'/g, "&#039;");
         }
 
         function findProduct(id) {
@@ -955,7 +961,7 @@
          function saveCart() {
              try {
                  localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(orderItems));
-                 // console.log("Cart saved:", orderItems); // Keep commented unless debugging
+                 console.log("Cart saved:", orderItems);
              } catch (e) {
                  console.error("Error saving cart to localStorage:", e);
              }
@@ -972,14 +978,14 @@
                               Object.entries(parsedCart)
                                   .filter(([productId, quantity]) => findProduct(productId) && typeof quantity === 'number' && quantity > 0)
                           );
-                         // console.log("Cart loaded:", orderItems); // Keep commented unless debugging
+                         console.log("Cart loaded:", orderItems);
                      } else {
                           orderItems = {}; // Start with an empty cart if invalid data is found
                          console.warn("Invalid cart data found in localStorage, starting with empty cart.");
                      }
                  } else {
                      orderItems = {}; // Start with empty cart if nothing is in storage
-                     // console.log("No cart data found in localStorage, starting with empty cart."); // Keep commented unless debugging
+                     console.log("No cart data found in localStorage, starting with empty cart.");
                  }
              } catch (e) {
                  console.error("Error loading cart from localStorage:", e);
@@ -993,78 +999,75 @@
             const container = document.getElementById("productsContainer");
             if (!container) { console.error("productsContainer not found!"); return; }
 
-            container.innerHTML = ''; // Clear previous content (including loader if it was there)
+            container.innerHTML = '<div class="loader"></div>'; // Show loader
 
-            let hasProducts = false;
-            const searchTermLower = searchTerm.toLowerCase().trim();
-            currentCategoryFilter = category;
+            // Use a small delay to allow loader to show and avoid blocking
+            setTimeout(() => {
+                 try {
+                    container.innerHTML = ''; // Clear loader/previous content
+                    let hasProducts = false;
+                    const searchTermLower = searchTerm.toLowerCase().trim();
+                    currentCategoryFilter = category;
 
-            const createCategorySection = (catKey, items) => {
-                const filtered = items.filter(item =>
-                    !searchTermLower ||
-                    item.name.toLowerCase().includes(searchTermLower) ||
-                    item.desc.toLowerCase().includes(searchTermLower)
-                );
+                    const createCategorySection = (catKey, items) => {
+                        const filtered = items.filter(item =>
+                            !searchTermLower ||
+                            item.name.toLowerCase().includes(searchTermLower) ||
+                            item.desc.toLowerCase().includes(searchTermLower)
+                        );
 
-                if (filtered.length > 0) {
-                    hasProducts = true;
-                    const section = document.createElement('div');
-                    // Add 'reveal' to the section itself if displaying the title for it
-                     section.className = 'mb-16';
+                        if (filtered.length > 0) {
+                            hasProducts = true;
+                            const section = document.createElement('div');
+                            section.className = 'mb-16';
+                            const title = catKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                            if (category === 'all' || category === catKey) {
+                                section.innerHTML = `<h3 class="category-title reveal">${escapeHtml(title)}</h3>`;
+                            }
 
+                            const grid = document.createElement('div');
+                            // Using Tailwind classes for responsive grid (1 col on small, 2+ on larger)
+                            grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10';
+                            grid.id = `${catKey}Grid`;
+                            section.appendChild(grid);
+                            container.appendChild(section);
 
-                    if (category === 'all' || category === catKey) {
-                        const titleElement = document.createElement('h3');
-                        titleElement.className = 'category-title reveal'; // Add reveal class to title
-                        const titleText = catKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-                        titleElement.textContent = escapeHtml(titleText);
-                         section.appendChild(titleElement);
-                         observeElement(titleElement); // Observe the title element
+                            filtered.forEach((product) => {
+                                const card = createProductCard(product);
+                                grid.appendChild(card);
+                                observeElement(card); // Add to observer for reveal animation
+                            });
+                            // Observe title only if it's explicitly created for this category section
+                            if (category === 'all' || category === catKey) {
+                                observeElement(section.querySelector('.category-title'));
+                            }
+                        }
+                    };
+
+                    if (category === 'all') {
+                        Object.entries(products).forEach(([catKey, items]) => {
+                            createCategorySection(catKey, items);
+                        });
+                    } else if (products[category]) {
+                        createCategorySection(category, products[category]);
                     }
 
-                    const grid = document.createElement('div');
-                    // Adjusted gap classes for increased whitespace
-                    grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-10 md:gap-12'; /* Increased gap-8 to gap-10, md:gap-10 to md:gap-12 */
-                    section.appendChild(grid);
-                    container.appendChild(section);
+                    if (!hasProducts) {
+                        container.innerHTML = '<p class="text-center text-gray-400 py-12 text-lg">No products found matching your criteria.</p>';
+                    }
 
-                    filtered.forEach((product) => {
-                        const card = createProductCard(product);
-                        grid.appendChild(card);
-                        observeElement(card); // Add card to observer for reveal animation
-                    });
-
+                 } catch (error) {
+                    console.error("Error rendering products:", error);
+                    container.innerHTML = '<p class="text-center text-red-500 py-12 text-lg">Error loading products. Please try again later.</p>';
                 }
-            };
-
-            if (category === 'all') {
-                Object.entries(products).forEach(([catKey, items]) => {
-                    createCategorySection(catKey, items);
-                });
-            } else if (products[category]) {
-                createCategorySection(category, products[category]);
-            }
-
-            if (!hasProducts && !searchTermLower) {
-                 // Only show "no products" if the filter is applied or search has results,
-                 // AND there are no products at all in the selected category/search
-                 const totalProductCount = Object.values(products).flat().length;
-                 if (totalProductCount === 0) {
-                     container.innerHTML = '<p class="text-center text-red-500 py-12 text-lg">No product data available.</p>';
-                 } else {
-                      // No products found after filtering/searching
-                     container.innerHTML = '<p class="text-center text-gray-400 py-12 text-lg">No products found matching your criteria.</p>';
-                 }
-            } else if (!hasProducts && searchTermLower) {
-                container.innerHTML = '<p class="text-center text-gray-400 py-12 text-lg">No products found matching your search term.</p>';
-            }
+            }, 50); // Small timeout
         }
 
 
         function createProductCard(product) {
             const card = document.createElement("div");
             card.id = `product-${product.id}`; // Add ID for easy lookup
-            card.className = "product-card reveal"; // Add reveal class here
+            card.className = "product-card reveal";
             card.setAttribute('data-product-id', product.id);
 
             const productNameSafe = escapeHtml(product.name);
@@ -1116,7 +1119,7 @@
                  updateProductCardUI(productId);
                  renderOrderSummary();
             }
-             // console.log('Order Items:', orderItems); // Keep commented unless debugging
+             console.log('Order Items:', orderItems);
         }
 
         function increaseQuantity(productId) {
@@ -1127,7 +1130,6 @@
              }
             if (orderItems[productId] !== undefined) {
                 orderItems[productId]++;
-                if (orderItems[productId] > 99) orderItems[productId] = 99; // Prevent excessive quantity
                  saveCart();
                  updateProductCardUI(productId);
                  renderOrderSummary();
@@ -1135,7 +1137,7 @@
                  // This case shouldn't happen if UI is in sync with state, but handle defensively
                  addItemToOrder(productId);
             }
-             // console.log('Order Items:', orderItems); // Keep commented unless debugging
+             console.log('Order Items:', orderItems);
         }
 
         function decreaseQuantity(productId) {
@@ -1153,13 +1155,13 @@
                  updateProductCardUI(productId);
                  renderOrderSummary();
             }
-             // console.log('Order Items:', orderItems); // Keep commented unless debugging
+             console.log('Order Items:', orderItems);
         }
 
         function updateProductCardUI(productId) {
             const card = document.getElementById(`product-${productId}`);
             if (!card) {
-                 // console.warn(`Product card not found for ID: ${productId}. Cannot update UI.`); // Keep commented unless debugging
+                 console.warn(`Product card not found for ID: ${productId}. Cannot update UI.`);
                  // This might happen if the user is on a filtered/searched view and updates an item not currently displayed
                  // We don't need to block, just log a warning. The state is still updated.
                  return;
@@ -1365,7 +1367,7 @@
                  if(userDetails.name && userDetails.email) {
                     try {
                          localStorage.setItem(USER_DETAILS_STORAGE_KEY, JSON.stringify(userDetails));
-                         // console.log("User details saved."); // Keep commented unless debugging
+                         console.log("User details saved.");
                          // Show forget button after saving
                           const forgetButton = document.getElementById('forgetMyDetailsBtn');
                           if(forgetButton) forgetButton.classList.remove('hidden');
@@ -1373,7 +1375,7 @@
                          console.error("Error saving user details to localStorage:", e);
                     }
                  } else {
-                     // console.log("User details not saved: Name or Email missing."); // Keep commented unless debugging
+                     console.log("User details not saved: Name or Email missing.");
                  }
             }
         }
@@ -1393,7 +1395,7 @@
             if (addressInput) addressInput.value = '';
             if (forgetButton) forgetButton.classList.add('hidden');
 
-            // console.log("User details cleared."); // Keep commented unless debugging
+            console.log("User details cleared.");
         }
 
 
@@ -1463,12 +1465,7 @@
         });
         function observeElement(element) {
             if (element) {
-                // Check if the element hasn't been observed already (prevents re-observing on re-render if not clearing observer)
-                // A more robust solution might involve clearing the observer and re-observing,
-                // but for simple append like this, checking if it already has 'visible' is a quick way to avoid redundant observes
-                if (!element.classList.contains('visible')) {
-                     observer.observe(element);
-                }
+                observer.observe(element);
             }
         }
 
@@ -1484,7 +1481,7 @@
               loadUserDetails();
 
               // Initial render of products and order summary based on loaded cart
-              renderProducts('all', ''); // Render products initially
+              renderProducts('all', '');
               renderOrderSummary();
 
 
@@ -1510,7 +1507,7 @@
                       const searchVal = document.getElementById('productSearch')?.value || '';
                       renderProducts(this.value, searchVal);
                    });
-               } else { console.error("Category filter select not found."); }
+              } else { console.error("Category filter select not found."); }
 
                // Modal close on background click
                const productModal = document.getElementById('productModal');
@@ -1527,35 +1524,27 @@
                if (productsContainer) {
                    productsContainer.addEventListener('click', (event) => {
                        const target = event.target;
-
-                        // Check if the click was directly on a quantity button or the "Add" button
-                       if (target.classList.contains('btn-add')) {
-                           const productId = target.getAttribute('data-product-id');
-                           if (productId) addItemToOrder(productId);
-                           return; // Stop here if it was an add button
-                       }
-                        if (target.classList.contains('btn-increase')) {
-                           const productId = target.getAttribute('data-product-id');
-                           if (productId) increaseQuantity(productId);
-                           return; // Stop here if it was an increase button
-                       }
-                        if (target.classList.contains('btn-decrease')) {
-                           const productId = target.getAttribute('data-product-id');
-                           if (productId) decreaseQuantity(productId);
-                           return; // Stop here if it was a decrease button
-                       }
-
-
-                       // If not a quantity button, check if the click was within a product card
+                       // Find the closest product card element to get the product ID
                        const productCard = target.closest('.product-card');
-                       if (productCard) {
-                            const productId = productCard.getAttribute('data-product-id');
-                            // Further check to ensure the click wasn't inside the quantity controls container
-                             const controlsContainer = target.closest('.product-card-controls');
-                             if (!controlsContainer) {
-                                // Click was inside the card but not on controls -> show modal
-                                if (productId) showModal(productId);
-                             }
+                       const productId = productCard?.getAttribute('data-product-id');
+
+                       if (!productId) return; // Not inside a product card or product ID missing
+
+                       // Check if the click was on a specific button class
+                       if (target.classList.contains('btn-add')) {
+                           addItemToOrder(productId);
+                       } else if (target.classList.contains('btn-increase')) {
+                           increaseQuantity(productId);
+                       } else if (target.classList.contains('btn-decrease')) {
+                           decreaseQuantity(productId);
+                       } else {
+                           // If not a quantity button, assume click is for modal if within card content/image
+                           // Check if the click target or its closest parent is specifically the image wrapper or content area,
+                           // NOT the controls area itself.
+                           const clickedArea = target.closest('.product-image-wrapper') || (target.closest('.product-card-content') && !target.closest('.product-card-controls'));
+                           if(clickedArea) {
+                                showModal(productId);
+                           }
                        }
                    });
                } else { console.error("productsContainer not found for event delegation."); }
@@ -1603,7 +1592,6 @@
 
 
                // Observe elements with 'reveal' class initially present in HTML
-               // This includes the h2 titles and filter/search bar
                 document.querySelectorAll('.reveal').forEach(el => observeElement(el));
 
 
@@ -1612,8 +1600,7 @@
                // Use a more robust error display
                const errorDiv = document.createElement('div');
                errorDiv.style.cssText = "padding: 40px; text-align: center; font-family: sans-serif; color: white; background-color: #333; margin: 20px; border-radius: 8px;";
-               errorDiv.innerHTML = `<h1>Oops!</h1><p>Something went wrong while loading the page content.</p><p>Please <a href="javascript:location.reload();" style="color: var(--primary-accent); text-decoration: underline;">refresh</a> and try again.</p><p style="font-size: 0.8em; color: var(--text-secondary);">Error details: ${escapeHtml(error.message)}</p>`;
-               // Attempt to clear body content safely before appending error
+               errorDiv.innerHTML = `<h1>Oops!</h1><p>Something went wrong while loading the page content.</p><p>Please <a href="javascript:location.reload();" style="color: #7f5af0; text-decoration: underline;">refresh</a> and try again.</p><p style="font-size: 0.8em; color: #94a1b2;">Error details: ${escapeHtml(error.message)}</p>`;
                document.body.innerHTML = ''; // Clear existing body content
                document.body.appendChild(errorDiv);
           }
