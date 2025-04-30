@@ -17,16 +17,15 @@
           font-display: swap; /* Improves perceived performance */
         }
         :root {
-          /* New Color Palette based on image: */
-          --bg-dark: #435739; /* Very Dark Green */
-          --text-main: #F2F4EC; /* Off White/Very Light Grey */
-          --text-secondary: #A7B194; /* Medium Green/Grey */
-          --primary-accent: #687C61; /* Dark Green/Grey - Primary Action/Highlight */
-          --secondary-accent: #D9DFCC; /* Light Grey/Green - Secondary Highlight */
-          --card-bg: #516741; /* Slightly lighter dark green - Card Background */
-          --border-color: rgba(167, 177, 148, 0.2); /* Subtle border based on text-secondary */
-           --danger-color: #f05a7f; /* Soft Red (keeping existing) */
-           --success-color: var(--secondary-accent); /* Green for success/discounts (now #D9DFCC) */
+          --bg-dark: #16161a; /* Off Black/Deep Indigo */
+          --text-main: #fffffe; /* Off White */
+          --text-secondary: #94a1b2; /* Greyish Blue */
+          --primary-accent: #7f5af0; /* Vibrant Violet */
+          --secondary-accent: #2cb67d; /* Emerald Green */
+          --card-bg: #242629; /* Dark Grey */
+          --border-color: rgba(148, 161, 178, 0.2); /* Subtle border based on text-secondary */
+           --danger-color: #f05a7f; /* Soft Red for errors/increases */
+           --success-color: var(--secondary-accent); /* Green for success/discounts */
         }
 
         /* Smooth Scrolling */
@@ -59,7 +58,7 @@
 
         /* Header Styling */
         header {
-          background-color: rgba(67, 87, 57, 0.8); /* Slightly transparent dark green bg based on new --bg-dark */
+          background-color: rgba(22, 22, 26, 0.8); /* Slightly transparent dark bg */
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
           border-bottom: 1px solid var(--border-color);
@@ -96,14 +95,12 @@
         .hero-section {
             position: relative;
             overflow: hidden;
-             /* Updated gradient */
-            background: radial-gradient(ellipse at bottom, var(--bg-dark) 0%, rgba(67, 87, 57, 0.8) 100%);
+            background: radial-gradient(ellipse at bottom, var(--bg-dark) 0%, #1a1a2e 100%);
         }
-        /* Animated background shapes */
+        /* Animated background shapes (Example) */
         .hero-shapes div {
             position: absolute;
             border-radius: 50%;
-             /* Updated gradient */
             background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
             opacity: 0.1;
             animation: drift 20s infinite linear alternate;
@@ -141,7 +138,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(242, 244, 236, 0.2), transparent); /* Shine based on new text-main */
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.6s ease;
             z-index: -1;
         }
@@ -150,16 +147,13 @@
         }
 
         .btn-primary {
-             /* Updated gradient */
-            background: linear-gradient(135deg, var(--primary-accent) 0%, #8DA377 100%); /* Gradient based on primary accent */
+            background: linear-gradient(135deg, var(--primary-accent) 0%, #a787ff 100%); /* Violet gradient */
             color: var(--text-main);
-             /* Updated shadow color */
-            box-shadow: 0 4px 15px rgba(104, 124, 97, 0.3);
+            box-shadow: 0 4px 15px rgba(127, 90, 240, 0.3);
         }
         .btn-primary:hover {
             transform: translateY(-3px) scale(1.03);
-             /* Updated shadow color */
-            box-shadow: 0 6px 20px rgba(104, 124, 97, 0.4);
+            box-shadow: 0 6px 20px rgba(127, 90, 240, 0.4);
         }
          .btn-primary:disabled {
              opacity: 0.6;
@@ -178,8 +172,7 @@
             border: 2px solid var(--primary-accent);
         }
         .btn-secondary:hover {
-             /* Updated hover background color */
-            background-color: rgba(104, 124, 97, 0.1); /* Based on new primary accent */
+            background-color: rgba(127, 90, 240, 0.1);
             transform: translateY(-2px);
         }
 
@@ -193,8 +186,7 @@
 
         /* Product Section */
          #products {
-             /* Updated gradient */
-            background: linear-gradient(to bottom, var(--bg-dark), #374B2F); /* Gradient to a slightly darker green */
+            background: linear-gradient(to bottom, var(--bg-dark), #1a1a2e); /* Gradient background */
             position: relative;
             padding-top: 8rem;
             padding-bottom: 8rem;
@@ -206,21 +198,18 @@
             left: 0;
             right: 0;
             height: 100px;
-             /* Updated gradient color */
-            background: linear-gradient(to bottom, rgba(67, 87, 57, 0), rgba(104, 124, 97, 0.1)); /* Based on new primary accent */
+            background: linear-gradient(to bottom, rgba(22, 22, 26, 0), rgba(127, 90, 240, 0.1));
             pointer-events: none;
          }
 
         .category-title {
-             /* Updated gradient */
             background: linear-gradient(135deg, var(--primary-accent) 0%, var(--secondary-accent) 100%);
             color: var(--text-main);
             padding: 12px 32px;
             border-radius: 8px;
             display: inline-block;
             margin: 30px 0;
-             /* Updated shadow color */
-            box-shadow: 0 5px 15px rgba(217, 223, 204, 0.2); /* Based on new secondary accent */
+            box-shadow: 0 5px 15px rgba(44, 182, 125, 0.2); /* Adjusted shadow */
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
             font-size: 1.2rem;
@@ -243,15 +232,13 @@
         .product-card:hover {
             transform: translateY(-10px) rotateX(3deg) rotateY(-2deg); /* Slight tilt effect */
             box-shadow: 0 15px 30px rgba(0,0,0, 0.3);
-             /* Updated border color */
-            border-color: rgba(104, 124, 97, 0.5); /* Based on new primary accent */
+            border-color: rgba(127, 90, 240, 0.5); /* Accent border on hover */
         }
          .product-card::after { /* Subtle glow effect */
              content: '';
              position: absolute;
              inset: -1px;
-             /* Updated glow color */
-             background: radial-gradient(ellipse at center, rgba(104, 124, 97, 0.2), transparent 70%); /* Based on new primary accent */
+             background: radial-gradient(ellipse at center, rgba(127, 90, 240, 0.2), transparent 70%);
              opacity: 0;
              transition: opacity 0.4s ease;
              z-index: -1;
@@ -263,7 +250,7 @@
 
         .product-image-wrapper {
             height: 200px; /* Fixed height */
-            background-color: rgba(242, 244, 236, 0.05); /* Slightly lighter bg for image based on text-main */
+            background-color: rgba(255, 255, 255, 0.05); /* Slightly lighter bg for image */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -358,8 +345,7 @@
         #productSearch { padding-left: 3rem; } /* Space for icon */
         #categoryFilter {
           appearance: none;
-           /* Updated dropdown arrow color */
-          background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%23A7B194"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>');
+          background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%2394a1b2"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>');
           background-repeat: no-repeat;
           background-position: right 1rem center;
           background-size: 1em 1em;
@@ -372,8 +358,7 @@
 
         #productSearch:focus, #categoryFilter:focus, #couponCode:focus {
              border-color: var(--primary-accent);
-             /* Updated box shadow color */
-             box-shadow: 0 0 0 2px rgba(104, 124, 97, 0.3); /* Based on new primary accent */
+             box-shadow: 0 0 0 2px rgba(127, 90, 240, 0.3);
              outline: none;
         }
          #couponCode:disabled {
@@ -392,16 +377,14 @@
              content: "";
              position: absolute;
              inset: 0;
-             /* Updated radial gradient colors */
-             background: radial-gradient(circle at 30% 20%, rgba(104, 124, 97, 0.15) 0%, transparent 40%), /* Based on new primary accent */
-                         radial-gradient(circle at 70% 80%, rgba(217, 223, 204, 0.1) 0%, transparent 40%); /* Based on new secondary accent */
+             background: radial-gradient(circle at 30% 20%, rgba(127, 90, 240, 0.15) 0%, transparent 40%),
+                         radial-gradient(circle at 70% 80%, rgba(44, 182, 125, 0.1) 0%, transparent 40%);
              filter: blur(50px);
              z-index: 0;
         }
 
         .form-container {
-             /* Updated background color */
-            background-color: rgba(81, 103, 65, 0.8); /* Semi-transparent card bg based on new --card-bg */
+            background-color: rgba(36, 38, 41, 0.8); /* Semi-transparent card bg */
             backdrop-filter: blur(5px);
              -webkit-backdrop-filter: blur(5px);
             border: 1px solid var(--border-color);
@@ -423,8 +406,7 @@
         .form-container input[type="tel"],
         .form-container textarea,
         .form-container select {
-             /* Updated background color */
-            background-color: rgba(67, 87, 57, 0.7); /* Darker input bg based on new --bg-dark */
+            background-color: rgba(22, 22, 26, 0.7); /* Darker input bg */
             border: 1px solid var(--border-color);
             color: var(--text-main);
             border-radius: 8px;
@@ -434,16 +416,14 @@
         }
         .form-container input::placeholder,
         .form-container textarea::placeholder {
-            color: rgba(167, 177, 148, 0.6); /* Lighter placeholder based on text-secondary */
+            color: rgba(148, 161, 178, 0.6); /* Lighter placeholder */
         }
         .form-container input:focus,
         .form-container textarea:focus,
         .form-container select:focus {
             border-color: var(--primary-accent);
-             /* Updated background color */
-            background-color: rgba(67, 87, 57, 0.9); /* Darker input bg based on new --bg-dark */
-             /* Updated box shadow color */
-             box-shadow: 0 0 0 2px rgba(104, 124, 97, 0.3); /* Based on new primary accent */
+            background-color: rgba(22, 22, 26, 0.9);
+             box-shadow: 0 0 0 2px rgba(127, 90, 240, 0.3);
              outline: none;
         }
          .form-container select option {
@@ -453,8 +433,7 @@
 
         /* Order Summary Display */
          #orderSummaryDisplay {
-             /* Updated background color */
-             background-color: rgba(67, 87, 57, 0.7); /* Based on new --bg-dark */
+             background-color: rgba(22, 22, 26, 0.7);
              border: 1px solid var(--border-color);
              border-radius: 8px;
              padding: 1rem;
@@ -474,8 +453,7 @@
          }
          #orderSummaryDisplay li {
              padding: 0.5rem 0;
-             /* Updated dashed border color */
-             border-bottom: 1px dashed rgba(167, 177, 148, 0.1); /* Based on text-secondary */
+             border-bottom: 1px dashed rgba(148, 161, 178, 0.1);
               display: flex;
               justify-content: space-between;
               align-items: center;
@@ -502,8 +480,7 @@
                justify-content: space-between;
                align-items: center;
                padding: 0.5rem 0;
-               /* Updated dashed border color */
-               border-bottom: 1px dashed rgba(167, 177, 148, 0.1); /* Based on text-secondary */
+               border-bottom: 1px dashed rgba(148, 161, 178, 0.1);
           }
           #orderSummaryDisplay .order-summary-line:last-child {
               border-bottom: none;
@@ -531,8 +508,7 @@
             background-color: var(--card-bg); /* Use card bg for contrast */
         }
         .contact-info-box {
-             /* Updated background color */
-             background-color: rgba(67, 87, 57, 0.8); /* Darker box based on new --bg-dark */
+             background-color: rgba(22, 22, 26, 0.8); /* Darker box */
              border: 1px solid var(--border-color);
              border-radius: 12px;
              padding: 2rem;
@@ -573,8 +549,7 @@
 
         /* Modal Styling */
         .modal-backdrop {
-             /* Updated background color */
-             background-color: rgba(67, 87, 57, 0.7); /* Based on new --bg-dark */
+             background-color: rgba(22, 22, 26, 0.7); /* Dark backdrop */
              backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
         }
@@ -585,7 +560,7 @@
             color: var(--text-main);
              box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
         }
-        .modal-content img { border-radius: 8px; background-color: rgba(242,244,236,0.05); } /* Based on text-main */
+        .modal-content img { border-radius: 8px; background-color: rgba(255,255,255,0.05); }
         .modal-content h3 { color: var(--text-main); }
         .modal-content p { color: var(--text-secondary); }
         .modal-content .modal-price { color: var(--primary-accent); font-size: 1.8rem; font-weight: 700;}
@@ -600,8 +575,7 @@
 
         /* Loader */
         .loader {
-          /* Updated border color */
-          border: 4px solid rgba(167, 177, 148, 0.2); /* Lighter grey border based on text-secondary */
+          border: 4px solid rgba(148, 161, 178, 0.2); /* Lighter grey border */
           border-top: 4px solid var(--primary-accent); /* Accent color spinner */
           border-radius: 50%;
           width: 50px;
@@ -649,8 +623,7 @@
          #orderFormContainer input[type="tel"],
          #orderFormContainer textarea,
          #orderFormContainer select {
-            /* Updated background color */
-            background-color: rgba(67, 87, 57, 0.7); /* Darker input bg based on new --bg-dark */
+            background-color: rgba(22, 22, 26, 0.7); /* Darker input bg */
             border: 1px solid var(--border-color);
             color: var(--text-main);
             border-radius: 8px;
@@ -660,16 +633,14 @@
         }
         #orderFormContainer input::placeholder,
         #orderFormContainer textarea::placeholder {
-            color: rgba(167, 177, 148, 0.6); /* Lighter placeholder based on text-secondary */
+            color: rgba(148, 161, 178, 0.6); /* Lighter placeholder */
         }
         #orderFormContainer input:focus,
         #orderFormContainer textarea:focus,
         #orderFormContainer select:focus {
             border-color: var(--primary-accent);
-             /* Updated background color */
-            background-color: rgba(67, 87, 57, 0.9); /* Darker input bg based on new --bg-dark */
-             /* Updated box shadow color */
-             box-shadow: 0 0 0 2px rgba(104, 124, 97, 0.3); /* Based on new primary accent */
+            background-color: rgba(22, 22, 26, 0.9);
+             box-shadow: 0 0 0 2px rgba(127, 90, 240, 0.3);
              outline: none;
         }
          #orderFormContainer select option {
@@ -701,7 +672,7 @@
                 </button>
             </div>
         </div>
-        <div id="mobileMenu" class="hidden md:hidden bg-gradient-to-b from-[rgba(81,103,65,0.9)] to-[rgba(67,87,57,0.9)] backdrop-blur-sm border-t border-[rgba(167,177,148,0.2)] p-4 absolute w-full shadow-lg">
+        <div id="mobileMenu" class="hidden md:hidden bg-gradient-to-b from-[rgba(36,38,41,0.9)] to-[rgba(22,22,26,0.9)] backdrop-blur-sm border-t border-[rgba(148,161,178,0.2)] p-4 absolute w-full shadow-lg">
             <div class="flex flex-col items-center space-y-4">
                 <a href="#products" class="nav-link block py-2" onclick="toggleMobileMenu()">Products</a>
                 <a href="#order" class="nav-link block py-2" onclick="toggleMobileMenu()">Place Order</a>
@@ -720,7 +691,7 @@
              <img src="GridArt_20250428_230202733.png" alt="The Highon's Logo" class="w-56 sm:w-72 md:w-80 mx-auto mb-8 animate__animated animate__fadeInDown" loading="lazy">
 
             <h1 class="text-4xl md:text-6xl font-bold mb-6 animate__animated animate__fadeInUp">
-                Ignite Your <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#687C61] to-[#D9DFCC]">Creativity</span>.
+                Ignite Your <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-emerald-400">Creativity</span>.
             </h1>
             <p class="text-lg md:text-xl mb-10 text-gray-300 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-1s">
                 Discover premium supplies in Navsari. Explore keychains, art materials, stationery, and more.
@@ -730,9 +701,9 @@
             </a>
         </div>
          <div class="mt-20 flex justify-center space-x-5 sm:space-x-8 opacity-80">
-           <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-[#687C61]/50 animate__animated animate__fadeIn animate__delay-3s" loading="lazy">
-           <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-[#D9DFCC]/50 animate__animated animate__fadeIn animate__delay-4s" loading="lazy" style="animation-delay: 0.4s;">
-           <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-[#687C61]/50 animate__animated animate__fadeIn animate__delay-5s" loading="lazy" style="animation-delay: 0.8s;">
+           <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-3s" loading="lazy">
+           <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-emerald-500/50 animate__animated animate__fadeIn animate__delay-4s" loading="lazy" style="animation-delay: 0.4s;">
+           <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-5s" loading="lazy" style="animation-delay: 0.8s;">
          </div>
     </section>
 
@@ -904,7 +875,7 @@
                         <h3 id="modalName" class="text-2xl lg:text-3xl font-bold mb-3"></h3>
                         <p id="modalDesc" class="text-sm lg:text-base mb-5"></p>
                         <p id="modalPrice" class="modal-price mb-6"></p>
-                        <p class="text-sm text-gray-400">To order this item, please go to the <a href="#products" onclick="closeModal()" class="text-[#687C61] hover:text-[#D9DFCC] underline">Our Collection section</a> and click 'Add' on the product card.</p>
+                        <p class="text-sm text-gray-400">To order this item, please go to the <a href="#products" onclick="closeModal()" class="text-purple-400 hover:text-emerald-400 underline">Our Collection section</a> and click 'Add' on the product card.</p>
                     </div>
                 </div>
              </div>
