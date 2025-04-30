@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="The Highon's - Premium creative supplies including keychains, art supplies, stationery, gadgets, and diaries available for inquiry and order in Navsari, Gujarat.">
+    <meta name="description" content="The Highon's - Premium creative supplies including keychains, art supplies, stationery, gadgets, and diaries available for inquiry in Navsari.">
     <title>The Highon's - Premium Creative Supplies | Navsari</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -11,27 +11,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* Define a local font or use a suitable web font fallback */
-        /* @font-face {
+        @font-face {
           font-family: 'Trajan Pro';
-          src: url('trajan-pro.woff2') format('woff2'), url('trajan-pro.woff') format('woff');
-          font-display: swap;
-        } */
-        /* Fallback font for brand name */
-        .brand-font {
-            font-family: 'Playfair Display', serif; /* Using Playfair Display for a sophisticated look */
+          /* src: url('trajan-pro.woff2') format('woff2'), url('trajan-pro.woff') format('woff'); */
+          font-display: swap; /* Improves perceived performance */
         }
-
         :root {
-          --bg-dark: #16161a; /* Deepest background */
-          --text-main: #fffffe; /* Main text color */
-          --text-secondary: #94a1b2; /* Secondary text/placeholder color */
-          --primary-accent: #7f5af0; /* Main interactive/highlight color (Violet) */
-          --secondary-accent: #2cb67d; /* Secondary interactive/highlight color (Emerald) */
-          --card-bg: #242629; /* Background for cards/containers */
-          --border-color: rgba(148, 161, 178, 0.2); /* Subtle border */
-          --danger-color: #f05a7f; /* Red for negative/increase */
-          --success-color: var(--secondary-accent); /* Green for positive/discount */
+          --bg-dark: #16161a; /* Off Black/Deep Indigo */
+          --text-main: #fffffe; /* Off White */
+          --text-secondary: #94a1b2; /* Greyish Blue */
+          --primary-accent: #7f5af0; /* Vibrant Violet */
+          --secondary-accent: #2cb67d; /* Emerald Green */
+          --card-bg: #242629; /* Dark Grey */
+          --border-color: rgba(148, 161, 178, 0.2); /* Subtle border based on text-secondary */
+           --danger-color: #f05a7f; /* Soft Red for errors/increases */
+           --success-color: var(--secondary-accent); /* Green for success/discounts */
         }
 
         /* Smooth Scrolling */
@@ -56,10 +50,10 @@
           font-weight: 600;
         }
         .brand-name {
-          font-family: 'Playfair Display', serif; /* Using Playfair Display */
+          font-family: 'Trajan Pro', 'Times New Roman', serif; /* Added fallback */
           letter-spacing: 1.5px;
           color: var(--text-main);
-          font-weight: 700; /* Make it slightly bolder */
+          font-weight: bold;
         }
 
         /* Header Styling */
@@ -75,11 +69,10 @@
           position: relative;
           color: var(--text-secondary);
           transition: all 0.3s ease;
-          padding: 0.5rem 0; /* Adjust padding for underline */
+          padding: 0.5rem 0.25rem;
           font-weight: 500;
-          margin: 0 0.5rem; /* Add spacing between links */
         }
-        .nav-link:hover, .nav-link.active {
+        .nav-link:hover {
           color: var(--text-main);
         }
         .nav-link::after {
@@ -87,15 +80,15 @@
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: -4px; /* Position below text */
+            bottom: 0;
             left: 50%;
             background-color: var(--primary-accent); /* Use accent color */
             transition: all 0.3s ease;
             transform: translateX(-50%);
             border-radius: 1px;
         }
-        .nav-link:hover::after, .nav-link.active::after {
-            width: 100%; /* Full underline effect */
+        .nav-link:hover::after {
+            width: 70%; /* Underline effect */
         }
 
         /* Hero Section */
@@ -103,46 +96,29 @@
             position: relative;
             overflow: hidden;
             background: radial-gradient(ellipse at bottom, var(--bg-dark) 0%, #1a1a2e 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
         }
-         .hero-section .max-w-4xl {
-             position: relative;
-             z-index: 10; /* Ensure content is above shapes */
-         }
-        /* Animated background shapes */
-        .hero-shapes {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            overflow: hidden;
-        }
+        /* Animated background shapes (Example) */
         .hero-shapes div {
             position: absolute;
             border-radius: 50%;
             background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
             opacity: 0.1;
-            filter: blur(30px); /* Blur the shapes */
             animation: drift 20s infinite linear alternate;
         }
-        .hero-shapes div:nth-child(1) { width: 200px; height: 200px; top: 5%; left: 10%; animation-duration: 25s; }
-        .hero-shapes div:nth-child(2) { width: 100px; height: 100px; top: 60%; left: 75%; animation-duration: 20s; animation-delay: 2s; }
-        .hero-shapes div:nth-child(3) { width: 150px; height: 150px; top: 30%; left: 45%; animation-duration: 28s; animation-delay: 4s; }
-        .hero-shapes div:nth-child(4) { width: 180px; height: 180px; top: 80%; left: 20%; animation-duration: 23s; animation-delay: 1s; }
-
+        .hero-shapes div:nth-child(1) { width: 150px; height: 150px; top: 10%; left: 15%; animation-duration: 22s;}
+        .hero-shapes div:nth-child(2) { width: 80px; height: 80px; top: 70%; left: 80%; animation-duration: 18s; animation-delay: 2s;}
+        .hero-shapes div:nth-child(3) { width: 120px; height: 120px; top: 40%; left: 50%; animation-duration: 25s; animation-delay: 4s;}
 
         @keyframes drift {
             from { transform: translateY(0px) translateX(0px) rotate(0deg) scale(1); }
-            to { transform: translateY(30px) translateX(-20px) rotate(30deg) scale(1.1); }
+            to { transform: translateY(20px) translateX(-15px) rotate(30deg) scale(1.1); }
         }
 
         /* Buttons */
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            display: inline-flex; /* Changed to flex for centering content */
+            align-items: center; /* Center text vertically */
+            justify-content: center; /* Center text horizontally */
             padding: 0.8rem 2rem;
             border-radius: 50px;
             font-weight: 600;
@@ -153,8 +129,7 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
-            white-space: nowrap;
-             box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+            white-space: nowrap; /* Prevent text wrapping */
         }
         .btn::before { /* Subtle shine effect on hover */
             content: "";
@@ -164,7 +139,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother shine */
+            transition: left 0.6s ease;
             z-index: -1;
         }
         .btn:hover::before {
@@ -172,20 +147,19 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-accent) 0%, #a787ff 100%);
+            background: linear-gradient(135deg, var(--primary-accent) 0%, #a787ff 100%); /* Violet gradient */
             color: var(--text-main);
-            box-shadow: 0 6px 20px rgba(127, 90, 240, 0.3); /* More prominent shadow */
+            box-shadow: 0 4px 15px rgba(127, 90, 240, 0.3);
         }
         .btn-primary:hover {
             transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 8px 25px rgba(127, 90, 240, 0.4);
+            box-shadow: 0 6px 20px rgba(127, 90, 240, 0.4);
         }
          .btn-primary:disabled {
              opacity: 0.6;
              cursor: not-allowed;
              transform: none;
-             box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Reset shadow when disabled */
-             pointer-events: none; /* Prevent shine on hover when disabled */
+             box-shadow: none;
          }
           .btn-primary:disabled::before {
                left: -100%; /* Disable shine effect */
@@ -196,28 +170,26 @@
             background-color: transparent;
             color: var(--primary-accent);
             border: 2px solid var(--primary-accent);
-            box-shadow: none; /* No shadow for secondary */
         }
         .btn-secondary:hover {
             background-color: rgba(127, 90, 240, 0.1);
             transform: translateY(-2px);
-            box-shadow: 0 2px 10px rgba(127, 90, 240, 0.1); /* Subtle shadow on hover */
         }
 
          /* Small buttons for quantity control */
          .btn-small {
-             padding: 0.3rem 0.8rem;
-             font-size: 0.9rem;
-             border-radius: 9999px;
+             padding: 0.3rem 0.8rem; /* Reduced padding */
+             font-size: 0.9rem; /* Smaller font */
+             border-radius: 9999px; /* Fully rounded */
          }
 
 
         /* Product Section */
          #products {
-            background: linear-gradient(to bottom, var(--bg-dark), #1a1a2e);
+            background: linear-gradient(to bottom, var(--bg-dark), #1a1a2e); /* Gradient background */
             position: relative;
-            padding-top: 6rem; /* Adjusted padding */
-            padding-bottom: 6rem; /* Adjusted padding */
+            padding-top: 8rem;
+            padding-bottom: 8rem;
          }
          #products::before { /* Top separator glow */
             content: '';
@@ -225,71 +197,65 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 150px; /* Increased size */
-            background: linear-gradient(to bottom, rgba(22, 22, 26, 0), rgba(127, 90, 240, 0.08)); /* Subtle gradient */
+            height: 100px;
+            background: linear-gradient(to bottom, rgba(22, 22, 26, 0), rgba(127, 90, 240, 0.1));
             pointer-events: none;
-            z-index: 1;
          }
 
         .category-title {
             background: linear-gradient(135deg, var(--primary-accent) 0%, var(--secondary-accent) 100%);
             color: var(--text-main);
-            padding: 10px 28px; /* Adjusted padding */
+            padding: 12px 32px;
             border-radius: 8px;
             display: inline-block;
-            margin: 20px 0 40px 0; /* Adjusted margin */
-            box-shadow: 0 4px 12px rgba(44, 182, 125, 0.2);
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(44, 182, 125, 0.2); /* Adjusted shadow */
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
-            font-size: 1.1rem; /* Slightly smaller */
-            text-transform: uppercase; /* Uppercase category titles */
-             letter-spacing: 0.5px;
+            font-size: 1.2rem;
         }
 
         /* Redesigned Product Card */
         .product-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 12px; /* Slightly less rounded than containers */
+            border-radius: 16px; /* More rounded */
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncier transition */
             position: relative;
-            transform-style: preserve-3d;
-            box-shadow: 0 8px 20px rgba(0,0,0, 0.2); /* More prominent shadow */
-            display: flex;
+            transform-style: preserve-3d; /* For tilt effect */
+            box-shadow: 0 5px 15px rgba(0,0,0, 0.2);
+            display: flex; /* Use flex to space content and controls */
             flex-direction: column;
-            justify-content: space-between;
-            cursor: pointer; /* Indicate clickability for details */
+            justify-content: space-between; /* Push controls to bottom */
         }
         .product-card:hover {
-            transform: translateY(-8px) rotateX(2deg) rotateY(-1deg); /* Less extreme tilt */
-            box-shadow: 0 18px 35px rgba(0,0,0, 0.35); /* Enhanced shadow on hover */
-            border-color: rgba(127, 90, 240, 0.6); /* Stronger accent border */
+            transform: translateY(-10px) rotateX(3deg) rotateY(-2deg); /* Slight tilt effect */
+            box-shadow: 0 15px 30px rgba(0,0,0, 0.3);
+            border-color: rgba(127, 90, 240, 0.5); /* Accent border on hover */
         }
          .product-card::after { /* Subtle glow effect */
              content: '';
              position: absolute;
              inset: -1px;
-             background: radial-gradient(ellipse at center, rgba(127, 90, 240, 0.25) 0%, transparent 70%); /* Stronger glow */
+             background: radial-gradient(ellipse at center, rgba(127, 90, 240, 0.2), transparent 70%);
              opacity: 0;
-             transition: opacity 0.5s ease; /* Slower glow transition */
-             z-index: 0; /* Behind content, above background */
-             border-radius: 12px;
+             transition: opacity 0.4s ease;
+             z-index: -1;
+             border-radius: 16px;
          }
          .product-card:hover::after {
              opacity: 1;
          }
 
         .product-image-wrapper {
-            height: 180px; /* Slightly reduced height */
-            background-color: rgba(255, 255, 255, 0.03); /* Subtler bg for image */
+            height: 200px; /* Fixed height */
+            background-color: rgba(255, 255, 255, 0.05); /* Slightly lighter bg for image */
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0.75rem; /* Reduced padding */
+            padding: 1rem;
             overflow: hidden;
-            position: relative;
-            z-index: 1; /* Ensure image is above glow */
         }
         .product-image-wrapper img {
             max-width: 100%;
@@ -298,26 +264,24 @@
             transition: transform 0.4s ease;
         }
         .product-card:hover .product-image-wrapper img {
-            transform: scale(1.05); /* Subtler zoom */
+            transform: scale(1.08);
         }
 
         .product-card-content {
-            padding: 1rem 1.25rem; /* Adjusted padding */
-            text-align: center;
-            flex-grow: 1;
+            padding: 1.25rem; /* Increased padding */
+            text-align: center; /* Center content */
+            flex-grow: 1; /* Allow content to take space */
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-             position: relative;
-             z-index: 1; /* Ensure text is above glow */
+            justify-content: flex-start; /* Align text to top */
         }
         .product-card h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem; /* Slightly smaller title */
+            font-family: 'Montserrat', sans-serif; /* Use body font for card title */
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 0.4rem; /* Adjusted margin */
+            margin-bottom: 0.5rem;
             color: var(--text-main);
-            min-height: 2.6em; /* Adjusted height */
+            min-height: 2.8em; /* Ensure consistent height over two lines */
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -325,10 +289,10 @@
             text-overflow: ellipsis;
         }
          .product-card p.product-desc {
-             font-size: 0.8rem; /* Smaller description text */
+             font-size: 0.85rem;
              color: var(--text-secondary);
-             margin-bottom: 0.8rem; /* Adjusted margin */
-             min-height: 3.2em; /* Adjusted height */
+             margin-bottom: 1rem;
+             min-height: 3.4em; /* Ensure consistent height over multiple lines */
              display: -webkit-box;
              -webkit-line-clamp: 3;
              -webkit-box-orient: vertical;
@@ -336,34 +300,32 @@
              text-overflow: ellipsis;
          }
         .product-card .product-price {
-            font-size: 1.3rem; /* Slightly smaller price */
+            font-size: 1.4rem;
             font-weight: 700;
-            color: var(--primary-accent);
-            margin-bottom: 1rem; /* Adjusted margin */
+            color: var(--primary-accent); /* Accent color for price */
+            margin-bottom: 1.25rem;
         }
         /* Product Controls - Centered at the bottom */
         .product-card-controls {
-            padding: 0 1.25rem 1.25rem;
+            padding: 0 1.25rem 1.25rem; /* Padding bottom matches content */
             display: flex;
-            justify-content: center;
+            justify-content: center; /* Center buttons */
             align-items: center;
             width: 100%;
-             position: relative;
-             z-index: 1; /* Ensure buttons are above glow */
         }
 
         .product-quantity-controls {
              display: flex;
              align-items: center;
-             gap: 0.6rem; /* Increased space */
-             width: 100%;
-             justify-content: center;
+             gap: 0.5rem; /* Space between buttons and quantity */
+             width: 100%; /* Allow controls to take full width for centering */
+             justify-content: center; /* Center controls group */
         }
          .product-quantity {
-             font-size: 1rem; /* Slightly smaller quantity font */
+             font-size: 1.1rem;
              font-weight: 700;
              color: var(--text-main);
-             min-width: 35px; /* Ensure enough width */
+             min-width: 30px; /* Ensure width for 1, 10, etc */
              text-align: center;
          }
 
@@ -372,26 +334,15 @@
             background-color: var(--card-bg);
             color: var(--text-main);
             border: 1px solid var(--border-color);
-            border-radius: 50px;
-            padding: 0.7rem 1.5rem; /* Adjusted padding */
+            border-radius: 50px; /* Pill shape */
+            padding: 0.8rem 1.5rem;
             transition: all 0.3s ease;
-            font-size: 0.95rem; /* Slightly smaller font */
         }
          #productSearch::placeholder, #couponCode::placeholder {
              color: var(--text-secondary);
              opacity: 0.8;
          }
-        #productSearch { padding-left: 2.8rem; } /* Space for icon */
-        .search-input-wrapper { position: relative; }
-         .search-input-wrapper .search-icon {
-             position: absolute;
-             left: 1rem;
-             top: 50%;
-             transform: translateY(-50%);
-             color: var(--text-secondary);
-             font-size: 1.1rem;
-             pointer-events: none; /* Don't block clicks */
-         }
+        #productSearch { padding-left: 3rem; } /* Space for icon */
         #categoryFilter {
           appearance: none;
           background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%2394a1b2"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>');
@@ -409,48 +360,45 @@
              border-color: var(--primary-accent);
              box-shadow: 0 0 0 2px rgba(127, 90, 240, 0.3);
              outline: none;
-             background-color: rgba(36, 38, 41, 0.8); /* Slightly darker on focus */
         }
          #couponCode:disabled {
              opacity: 0.6;
              cursor: not-allowed;
          }
-
+        .search-icon { color: var(--text-secondary); }
 
         /* Form Styling */
         .form-section {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-dark); /* Match body bg */
             position: relative;
             overflow: hidden;
-            padding-top: 6rem;
-            padding-bottom: 6rem;
         }
         .form-section::before { /* Aurora effect background */
              content: "";
              position: absolute;
              inset: 0;
-             background: radial-gradient(circle at 20% 70%, rgba(127, 90, 240, 0.12) 0%, transparent 30%),
-                         radial-gradient(circle at 80% 30%, rgba(44, 182, 125, 0.08) 0%, transparent 30%);
-             filter: blur(40px);
+             background: radial-gradient(circle at 30% 20%, rgba(127, 90, 240, 0.15) 0%, transparent 40%),
+                         radial-gradient(circle at 70% 80%, rgba(44, 182, 125, 0.1) 0%, transparent 40%);
+             filter: blur(50px);
              z-index: 0;
         }
 
         .form-container {
-            background-color: rgba(36, 38, 41, 0.8);
+            background-color: rgba(36, 38, 41, 0.8); /* Semi-transparent card bg */
             backdrop-filter: blur(5px);
              -webkit-backdrop-filter: blur(5px);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 2.5rem; /* Increased padding */
-            position: relative;
+            padding: 2rem;
+            position: relative; /* To stay above the ::before */
             z-index: 1;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.4); /* Increased shadow */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
         .form-container label {
              color: var(--text-secondary);
              font-weight: 500;
-             font-size: 0.95rem; /* Slightly larger label */
-             margin-bottom: 0.6rem; /* Increased margin */
+             font-size: 0.9rem;
+             margin-bottom: 0.5rem;
              display: block;
         }
         .form-container input[type="text"],
@@ -458,18 +406,17 @@
         .form-container input[type="tel"],
         .form-container textarea,
         .form-container select {
-            background-color: rgba(22, 22, 26, 0.7);
+            background-color: rgba(22, 22, 26, 0.7); /* Darker input bg */
             border: 1px solid var(--border-color);
             color: var(--text-main);
             border-radius: 8px;
             padding: 0.9rem 1rem;
              width: 100%;
              transition: all 0.3s ease;
-             font-size: 1rem;
         }
         .form-container input::placeholder,
         .form-container textarea::placeholder {
-            color: rgba(148, 161, 178, 0.6);
+            color: rgba(148, 161, 178, 0.6); /* Lighter placeholder */
         }
         .form-container input:focus,
         .form-container textarea:focus,
@@ -489,17 +436,15 @@
              background-color: rgba(22, 22, 26, 0.7);
              border: 1px solid var(--border-color);
              border-radius: 8px;
-             padding: 1.25rem; /* Increased padding */
+             padding: 1rem;
              margin-bottom: 1.5rem;
-             min-height: 100px; /* Increased minimum height */
+             min-height: 80px; /* Give it some minimum space */
              color: var(--text-main);
              font-size: 0.95rem;
-             box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); /* Inner shadow */
          }
          #orderSummaryDisplay p {
              color: var(--text-secondary);
              text-align: center;
-             padding: 1rem;
          }
          #orderSummaryDisplay ul {
              list-style: none;
@@ -507,8 +452,8 @@
              margin: 0;
          }
          #orderSummaryDisplay li {
-             padding: 0.6rem 0; /* Adjusted padding */
-             border-bottom: 1px dashed rgba(148, 161, 178, 0.15); /* Slightly stronger dashed line */
+             padding: 0.5rem 0;
+             border-bottom: 1px dashed rgba(148, 161, 178, 0.1);
               display: flex;
               justify-content: space-between;
               align-items: center;
@@ -520,140 +465,112 @@
              font-weight: 600;
              color: var(--text-main);
              flex-grow: 1;
-             margin-right: 0.75rem; /* Increased margin */
-              word-break: break-word; /* Prevent long names overflowing */
+             margin-right: 0.5rem;
          }
          #orderSummaryDisplay .order-item-quantity {
               color: var(--text-secondary);
-              font-size: 0.8rem; /* Smaller quantity text */
-               min-width: 30px; /* Ensure spacing */
-              text-align: right;
+              font-size: 0.85rem;
          }
          #orderSummaryDisplay .order-item-price {
               font-weight: 500;
               color: var(--text-main);
-              min-width: 60px; /* Ensure spacing */
-              text-align: right;
          }
           #orderSummaryDisplay .order-summary-line {
                display: flex;
                justify-content: space-between;
                align-items: center;
-               padding: 0.6rem 0; /* Adjusted padding */
-               border-bottom: 1px dashed rgba(148, 161, 178, 0.15);
-               font-weight: 500;
+               padding: 0.5rem 0;
+               border-bottom: 1px dashed rgba(148, 161, 178, 0.1);
           }
-           #orderSummaryDisplay .order-summary-line span:last-child {
-               text-align: right; /* Ensure value aligns right */
-           }
           #orderSummaryDisplay .order-summary-line:last-child {
               border-bottom: none;
           }
 
          #orderSummaryDisplay .order-total {
-              font-size: 1.3rem; /* Slightly larger total font */
+              font-size: 1.2rem;
               font-weight: 700;
               color: var(--secondary-accent);
               margin-top: 1rem;
               text-align: right;
-              padding-top: 0.75rem; /* Increased padding */
+              padding-top: 0.5rem;
               border-top: 1px solid var(--border-color);
          }
          #orderSummaryDisplay .discount-line {
-             color: var(--success-color);
-             font-weight: 600;
+             color: var(--success-color); /* Green for discount */
          }
           #orderSummaryDisplay .increase-line {
-              color: var(--danger-color);
-               font-weight: 600;
+              color: var(--danger-color); /* Red for increase */
           }
+
 
         /* Contact Section */
         #contact {
-            background-color: var(--card-bg);
-            padding-top: 6rem;
-            padding-bottom: 6rem;
+            background-color: var(--card-bg); /* Use card bg for contrast */
         }
         .contact-info-box {
-             background-color: rgba(22, 22, 26, 0.8);
+             background-color: rgba(22, 22, 26, 0.8); /* Darker box */
              border: 1px solid var(--border-color);
              border-radius: 12px;
-             padding: 2.5rem; /* Increased padding */
+             padding: 2rem;
              transition: all 0.3s ease;
-             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
         .contact-info-box:hover {
              border-color: var(--primary-accent);
              transform: translateY(-5px);
-             box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+             box-shadow: 0 8px 20px rgba(0,0,0,0.25);
         }
         .contact-info-box a {
             color: var(--primary-accent);
             transition: color 0.3s ease;
-            word-break: break-word; /* Allow long email to break line */
+            word-break: break-all; /* Allow long email to break line */
         }
         .contact-info-box a:hover {
             color: var(--secondary-accent);
-            text-decoration: underline;
         }
-         .contact-info-box p span {
-             color: var(--text-secondary); /* Slightly lighter font for labels */
-         }
         .social-icons a {
             color: var(--text-secondary);
-            font-size: 2rem; /* Larger icons */
+            font-size: 1.75rem; /* Larger icons */
             transition: all 0.3s ease;
-             padding: 0 10px; /* Add click area */
         }
         .social-icons a:hover {
              color: var(--primary-accent);
-             transform: scale(1.1) rotate(0deg); /* Simpler hover effect */
+             transform: scale(1.1) rotate(-5deg);
         }
 
         /* Footer */
         footer {
             background-color: var(--bg-dark);
             border-top: 1px solid var(--border-color);
-            padding-top: 3rem; /* Adjusted padding */
-            padding-bottom: 3rem; /* Adjusted padding */
         }
         footer .brand-name { color: var(--text-main); }
         footer a { color: var(--text-secondary); transition: color 0.3s ease; }
         footer a:hover { color: var(--primary-accent); }
-        footer .text-gray-500 { color: var(--text-secondary); opacity: 0.8; font-size: 0.75rem; }
+        footer .text-gray-500 { color: var(--text-secondary); opacity: 0.7; }
 
         /* Modal Styling */
         .modal-backdrop {
-             background-color: rgba(22, 22, 26, 0.85); /* Darker backdrop */
-             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-             transition: opacity 0.3s ease;
+             background-color: rgba(22, 22, 26, 0.7); /* Dark backdrop */
+             backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
         .modal-content {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             color: var(--text-main);
-             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); /* Stronger shadow */
-             animation-duration: 0.4s; /* Faster zoom */
+             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
         }
-        .modal-content img { border-radius: 8px; background-color: rgba(255,255,255,0.05); padding: 1rem;} /* Padding for image */
-        .modal-content h3 { color: var(--text-main); margin-bottom: 0.5rem; }
-        .modal-content p { color: var(--text-secondary); font-size: 0.9rem; }
-        .modal-content .modal-price { color: var(--primary-accent); font-size: 2rem; font-weight: 700; margin-top: 1rem; }
+        .modal-content img { border-radius: 8px; background-color: rgba(255,255,255,0.05); }
+        .modal-content h3 { color: var(--text-main); }
+        .modal-content p { color: var(--text-secondary); }
+        .modal-content .modal-price { color: var(--primary-accent); font-size: 1.8rem; font-weight: 700;}
         .modal-close-btn {
             color: var(--text-secondary);
             transition: all 0.3s ease;
-             top: 1.5rem; right: 1.5rem; /* Adjusted position */
-            font-size: 2rem; /* Adjusted size */
-            padding: 5px; /* Add click area */
-            background: rgba(36, 38, 41, 0.5); /* Background for visibility */
-            border-radius: 50%;
         }
         .modal-close-btn:hover {
              color: var(--text-main);
              transform: rotate(90deg);
-             background: rgba(36, 38, 41, 0.8);
         }
 
         /* Loader */
@@ -682,33 +599,81 @@
             transform: translateY(0);
         }
 
-         /* Small utility to make element not selectable */
-         .unselectable {
-            user-select: none;
-             -webkit-user-select: none;
-             -ms-user-select: none;
+        /* Order Form Styling */
+        #orderFormContainer {
+             background-color: var(--card-bg);
+             border: 1px solid var(--border-color);
+             border-radius: 16px;
+             padding: 2rem;
+             position: relative;
+             z-index: 1;
+             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+             max-width: 600px;
+             margin: 0 auto;
+        }
+         #orderFormContainer label {
+             color: var(--text-secondary);
+             font-weight: 500;
+             font-size: 0.9rem;
+             margin-bottom: 0.5rem;
+             display: block;
          }
-
+         #orderFormContainer input[type="text"],
+         #orderFormContainer input[type="email"],
+         #orderFormContainer input[type="tel"],
+         #orderFormContainer textarea,
+         #orderFormContainer select {
+            background-color: rgba(22, 22, 26, 0.7); /* Darker input bg */
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: 8px;
+            padding: 0.9rem 1rem;
+             width: 100%;
+             transition: all 0.3s ease;
+        }
+        #orderFormContainer input::placeholder,
+        #orderFormContainer textarea::placeholder {
+            color: rgba(148, 161, 178, 0.6); /* Lighter placeholder */
+        }
+        #orderFormContainer input:focus,
+        #orderFormContainer textarea:focus,
+        #orderFormContainer select:focus {
+            border-color: var(--primary-accent);
+            background-color: rgba(22, 22, 26, 0.9);
+             box-shadow: 0 0 0 2px rgba(127, 90, 240, 0.3);
+             outline: none;
+        }
+         #orderFormContainer select option {
+             background-color: var(--bg-dark);
+             color: var(--text-main);
+         }
+         #orderFormContainer .btn-primary {
+             margin-top: 1rem;
+         }
 
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
     <header class="sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto flex items-center justify-between p-4 lg:px-8"> <div class="flex items-center">
+        <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
+            <div class="flex items-center">
                 <a href="#" class="text-2xl tracking-wide brand-name">THE HIGHON'S</a>
             </div>
-            <nav class="hidden md:flex items-center space-x-4 lg:space-x-6"> <a href="#products" class="nav-link">Products</a>
+            <nav class="hidden md:flex items-center space-x-6 lg:space-x-8">
+                <a href="#products" class="nav-link">Products</a>
                 <a href="#order" class="nav-link">Place Order</a>
                 <a href="#request" class="nav-link">Request Product</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </nav>
             <div class="md:hidden flex items-center">
-                <button onclick="toggleMobileMenu()" class="text-gray-300 hover:text-white focus:outline-none p-2 rounded-md" aria-label="Toggle mobile menu"> <i class="fas fa-bars text-2xl"></i>
+                <button onclick="toggleMobileMenu()" class="text-gray-300 hover:text-white focus:outline-none" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
         </div>
-        <div id="mobileMenu" class="hidden md:hidden bg-gradient-to-b from-[rgba(36,38,41,0.95)] to-[rgba(22,22,26,0.95)] backdrop-blur-sm border-t border-[rgba(148,161,178,0.2)] p-4 absolute w-full shadow-lg z-40"> <div class="flex flex-col items-center space-y-4">
+        <div id="mobileMenu" class="hidden md:hidden bg-gradient-to-b from-[rgba(36,38,41,0.9)] to-[rgba(22,22,26,0.9)] backdrop-blur-sm border-t border-[rgba(148,161,178,0.2)] p-4 absolute w-full shadow-lg">
+            <div class="flex flex-col items-center space-y-4">
                 <a href="#products" class="nav-link block py-2" onclick="toggleMobileMenu()">Products</a>
                 <a href="#order" class="nav-link block py-2" onclick="toggleMobileMenu()">Place Order</a>
                 <a href="#request" class="nav-link block py-2" onclick="toggleMobileMenu()">Request Product</a>
@@ -718,28 +683,38 @@
     </header>
 
     <section class="hero-section text-center pt-28 pb-20 md:pt-36 md:pb-28 relative">
-        <div class="hero-shapes">
-            <div></div> <div></div> <div></div> <div></div> </div>
+        <div class="hero-shapes absolute inset-0 z-0">
+            <div></div> <div></div> <div></div>
+        </div>
 
         <div class="max-w-4xl mx-auto px-6 relative z-10">
-             <img src="GridArt_20250428_230202733.png" alt="The Highon's Brand Logo - Abstract, Creative" class="w-56 sm:w-72 md:w-80 mx-auto mb-8 animate__animated animate__fadeInDown" loading="lazy">
+             <img src="GridArt_20250428_230202733.png" alt="The Highon's Logo" class="w-56 sm:w-72 md:w-80 mx-auto mb-8 animate__animated animate__fadeInDown" loading="lazy">
 
             <h1 class="text-4xl md:text-6xl font-bold mb-6 animate__animated animate__fadeInUp">
                 Ignite Your <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-emerald-400">Creativity</span>.
             </h1>
-            <p class="text-lg md:text-xl mb-10 text-gray-300 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-0-5s"> Discover premium art supplies, stationery, keychains, and unique gadgets in Navsari.
+            <p class="text-lg md:text-xl mb-10 text-gray-300 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-1s">
+                Discover premium supplies in Navsari. Explore keychains, art materials, stationery, and more.
             </p>
-            <a href="#products" class="btn btn-primary text-lg px-10 py-4 animate__animated animate__fadeInUp animate__delay-1s"> Explore Collection
+            <a href="#products" class="btn btn-primary text-lg px-10 py-4 animate__animated animate__fadeInUp animate__delay-2s">
+                Explore Collection
             </a>
         </div>
-         <div class="mt-20 flex justify-center space-x-4 sm:space-x-6 opacity-80 relative z-10"> <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-1-5s" loading="lazy"> <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-emerald-500/50 animate__animated animate__fadeIn animate__delay-1-8s" loading="lazy"> <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-2-1s" loading="lazy"> </div>
+         <div class="mt-20 flex justify-center space-x-5 sm:space-x-8 opacity-80">
+           <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-3s" loading="lazy">
+           <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-emerald-500/50 animate__animated animate__fadeIn animate__delay-4s" loading="lazy" style="animation-delay: 0.4s;">
+           <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-5s" loading="lazy" style="animation-delay: 0.8s;">
+         </div>
     </section>
 
-    <section id="products" class="py-20 px-6 relative z-10"> <div class="max-w-7xl mx-auto">
+    <section id="products" class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
             <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center reveal">Our Collection</h2>
             <div class="flex flex-col md:flex-row justify-between items-center mb-16 gap-6 reveal">
-                <div class="relative w-full md:w-2/5 lg:w-1/3 search-input-wrapper"> <input type="text" id="productSearch" placeholder="Search products..." class="w-full" aria-label="Search products">
-                    <i class="fas fa-search search-icon"></i> </div>
+                <div class="relative w-full md:w-2/5 lg:w-1/3">
+                    <input type="text" id="productSearch" placeholder="Search products..." class="w-full" aria-label="Search products">
+                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 search-icon"></i>
+                </div>
                 <div class="filter-selector text-center md:text-right w-full md:w-auto">
                     <label for="categoryFilter" class="mr-2 font-semibold text-gray-400">Filter:</label>
                     <select id="categoryFilter" class="" aria-label="Select product category">
@@ -753,7 +728,8 @@
                 </div>
             </div>
             <div id="productsContainer" class="relative min-h-[300px]">
-                 <div class="loader"></div> </div>
+                 <div class="loader"></div>
+            </div>
         </div>
     </section>
 
@@ -761,7 +737,7 @@
         <div class="max-w-3xl mx-auto text-center reveal">
             <h2 class="text-4xl md:text-5xl font-bold mb-8">Place Your Order</h2>
             <div id="orderFormContainer" class="text-left">
-                <p class="text-gray-400 mb-6 text-center">Items added from the 'Our Collection' section will appear below. Fill in your details to place your order for delivery within Navsari (PIN: 396445).</p>
+                <p class="text-gray-400 mb-6">Items added from the 'Our Collection' section will appear below. Fill in your details to place your order for delivery within Navsari (PIN: 396445).</p>
 
                 <div>
                      <label class="mb-2 block text-secondary">Your Order Summary</label>
@@ -773,14 +749,20 @@
                  <div class="mt-6 mb-4">
                      <label for="couponCode" class="mb-2 block text-secondary">Have a Coupon Code?</label>
                      <input type="text" id="couponCode" placeholder="Enter coupon code (optional)" aria-label="Enter coupon code">
-                      <p id="couponFeedback" class="text-sm mt-2 min-h-[1.2em]"></p> </div>
+                      <p id="couponFeedback" class="text-sm mt-2 text-gray-400 min-h-[1.2em]"></p> </div>
 
 
                 <form id="orderForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
-                     <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL_FOR_ORDER">
+                     <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL/thank-you-order.html">
                      <input type="hidden" name="_captcha" value="false">
                      <input type="hidden" name="_subject" id="formSubject" value="New Order from The Highon's Site!">
-                     <input type="hidden" name="Order Details" id="hiddenOrderSummary" value=""> <div>
+                     <input type="hidden" name="Order Summary" id="hiddenOrderSummary" value="">
+                      <div>
+                        <label for="orderNotes">Additional Notes (Optional)</label>
+                         <textarea id="orderNotes" name="Additional Notes" rows="3" placeholder="Any specific instructions or details?" aria-label="Additional notes for order"></textarea>
+                    </div>
+
+                    <div>
                         <label for="orderName">Full Name</label>
                         <input type="text" id="orderName" name="name" placeholder="Enter your full name" required aria-label="Full Name for order">
                     </div>
@@ -801,10 +783,6 @@
                         Forget My Details
                     </button>
 
-                     <div>
-                        <label for="orderNotes">Additional Notes (Optional)</label>
-                         <textarea id="orderNotes" name="Additional Notes" rows="3" placeholder="Any specific instructions or details?" aria-label="Additional notes for order"></textarea>
-                    </div>
 
                     <div>
                         <label for="orderPayment">Payment Option</label>
@@ -827,7 +805,7 @@
             <p class="text-gray-400 mb-8 max-w-xl mx-auto">Can't find what you're looking for? Let us know, and we'll try our best to source it for you!</p>
             <div class="form-container">
                 <form id="requestForm" action="https://formsubmit.co/thehighonsofficial@gmail.com" method="POST" class="space-y-6 text-left">
-                    <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL_FOR_REQUEST">
+                    <input type="hidden" name="_next" value="YOUR_THANK_YOU_URL/thank-you-request.html">
                     <input type="hidden" name="_subject" value="New Product Request from The Highon's Site">
                     <input type="hidden" name="_captcha" value="false">
                     <div>
@@ -855,13 +833,13 @@
                 <div class="contact-info-box">
                     <h3 class="text-2xl font-semibold mb-6 text-center">Contact Information</h3>
                     <div class="space-y-4 text-center text-lg">
-                        <p><span class="font-medium">Email:</span> <a href="mailto:thehighonsofficial@gmail.com">thehighonsofficial@gmail.com</a></p>
-                        <p><span class="font-medium">Location:</span> Navsari, Gujarat - 396445</p>
+                        <p><span class="font-medium text-gray-400">Email:</span> <a href="mailto:thehighonsofficial@gmail.com">thehighonsofficial@gmail.com</a></p>
+                        <p><span class="font-medium text-gray-400">Location:</span> Navsari, Gujarat - 396445</p>
                          <p class="text-sm text-gray-500">(Online orders via this site for local delivery only)</p>
                     </div>
                     <div class="flex justify-center space-x-6 mt-8 social-icons">
                         <a href="https://instagram.com/thehighons" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
-                         </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -882,13 +860,18 @@
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-xs">
-                <p> <span id="footerYear"></span> The Highon's. All rights reserved.</p> </div>
+                <p> <span id="footerYear"></span> The Highon's.</p>
+            </div>
         </div>
     </footer>
 
-    <div id="productModal" class="fixed inset-0 z-[70] modal-backdrop flex items-center justify-center hidden p-4 opacity-0 pointer-events-none transition-opacity duration-300"> <div class="modal-content relative max-w-lg w-full mx-auto animate__animated animate__zoomIn animate__faster overflow-hidden transform scale-95 transition-transform duration-300"> <button type="button" onclick="closeModal()" class="modal-close-btn absolute z-10" aria-label="Close product details modal">&times;</button> <div class="p-6 sm:p-8 max-h-[80vh] overflow-y-auto">
+    <div id="productModal" class="fixed inset-0 z-[70] modal-backdrop flex items-center justify-center hidden p-4">
+        <div class="modal-content relative max-w-lg w-full mx-auto animate__animated animate__zoomIn animate__faster overflow-hidden">
+             <button onclick="closeModal()" class="modal-close-btn absolute top-4 right-4 text-3xl leading-none z-10" aria-label="Close product details modal">&times;</button>
+             <div class="p-6 sm:p-8 max-h-[80vh] overflow-y-auto">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <img id="modalImg" src="" alt="" class="w-full h-64 md:h-auto object-contain" loading="lazy"> <div class="flex flex-col justify-center">
+                    <img id="modalImg" src="" alt="" class="w-full h-64 md:h-full object-contain p-2" loading="lazy">
+                    <div class="flex flex-col justify-center">
                         <h3 id="modalName" class="text-2xl lg:text-3xl font-bold mb-3"></h3>
                         <p id="modalDesc" class="text-sm lg:text-base mb-5"></p>
                         <p id="modalPrice" class="modal-price mb-6"></p>
@@ -944,12 +927,11 @@
          const coupons = {
              "JIANSPECIAL": { type: "percentage_increase", value: 20 }, // 20% increase (Example from original code)
              "NSL10": { type: "percentage_discount", value: 10 } // 10% discount (Requested by user)
-             // Add more coupons here
-             // "FIXED50OFF": { type: "fixed_discount", value: 50 }
          };
 
 
         // --- State Variables ---
+        let currentModalProduct = null; // { category: string, index: number, id: string }
         let currentCategoryFilter = 'all';
         let orderItems = {}; // Stores product ID and quantity: { "productId": quantity, ... }
 
@@ -978,12 +960,8 @@
 
          function saveCart() {
              try {
-                 // Filter out items with quantity 0 before saving
-                 const itemsToSave = Object.fromEntries(
-                    Object.entries(orderItems).filter(([id, quantity]) => quantity > 0)
-                 );
-                 localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(itemsToSave));
-                 console.log("Cart saved:", itemsToSave);
+                 localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(orderItems));
+                 console.log("Cart saved:", orderItems);
              } catch (e) {
                  console.error("Error saving cart to localStorage:", e);
              }
@@ -1023,7 +1001,7 @@
 
             container.innerHTML = '<div class="loader"></div>'; // Show loader
 
-            // Use a small delay to allow loader to show and avoid blocking the UI
+            // Use a small delay to allow loader to show and avoid blocking
             setTimeout(() => {
                  try {
                     container.innerHTML = ''; // Clear loader/previous content
@@ -1044,12 +1022,12 @@
                             section.className = 'mb-16';
                             const title = catKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
                             if (category === 'all' || category === catKey) {
-                                // Only add category title if displaying 'all' or the specific category
                                 section.innerHTML = `<h3 class="category-title reveal">${escapeHtml(title)}</h3>`;
                             }
 
                             const grid = document.createElement('div');
-                            grid.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8'; // Improved grid
+                            // Using Tailwind classes for responsive grid (1 col on small, 2+ on larger)
+                            grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10';
                             grid.id = `${catKey}Grid`;
                             section.appendChild(grid);
                             container.appendChild(section);
@@ -1060,10 +1038,9 @@
                                 observeElement(card); // Add to observer for reveal animation
                             });
                             // Observe title only if it's explicitly created for this category section
-                            const categoryTitleElement = section.querySelector('.category-title');
-                             if (categoryTitleElement) {
-                                observeElement(categoryTitleElement);
-                             }
+                            if (category === 'all' || category === catKey) {
+                                observeElement(section.querySelector('.category-title'));
+                            }
                         }
                     };
 
@@ -1072,12 +1049,11 @@
                             createCategorySection(catKey, items);
                         });
                     } else if (products[category]) {
-                        // When filtering by a specific category, don't show the category title again within the section
                         createCategorySection(category, products[category]);
                     }
 
                     if (!hasProducts) {
-                         container.innerHTML = '<p class="text-center text-gray-400 py-12 text-lg">No products found matching your criteria.</p>';
+                        container.innerHTML = '<p class="text-center text-gray-400 py-12 text-lg">No products found matching your criteria.</p>';
                     }
 
                  } catch (error) {
@@ -1101,13 +1077,14 @@
             const quantity = orderItems[product.id] || 0; // Get current quantity from state
 
             card.innerHTML = `
-                <div class="product-image-wrapper">
-                    <img src="${productImgSafe}" alt="${productNameSafe}" loading="lazy" class="product-img unselectable">
+                <div class="product-image-wrapper cursor-pointer">
+                    <img src="${productImgSafe}" alt="${productNameSafe}" loading="lazy" class="product-img">
                 </div>
-                <div class="product-card-content">
+                <div class="product-card-content cursor-pointer">
                     <div>
                         <h3 title="${productNameSafe}">${productNameSafe}</h3>
-                        <p class="product-desc" title="${productDescSafe}">${productDescSafe ? productDescSafe.substring(0, 120) + (productDescSafe.length > 120 ? '...' : '') : ''}</p> <span class="block product-price">₹${product.price}</span>
+                        <p class="product-desc" title="${productDescSafe}">${productDescSafe ? productDescSafe.substring(0, 80) + (productDescSafe.length > 80 ? '...' : '') : ''}</p>
+                        <span class="block product-price">₹${product.price}</span>
                     </div>
                 </div>
                 <div class="product-card-controls mt-auto">
@@ -1116,17 +1093,13 @@
                         : `
                             <div class="product-quantity-controls" data-product-id="${product.id}">
                                 <button type="button" class="btn btn-secondary btn-small btn-decrease" data-product-id="${product.id}" aria-label="Decrease quantity">-</button>
-                                <span class="product-quantity unselectable">${quantity}</span>
+                                <span class="product-quantity">${quantity}</span>
                                 <button type="button" class="btn btn-secondary btn-small btn-increase" data-product-id="${product.id}" aria-label="Increase quantity">+</button>
                             </div>
                         `
                     }
                 </div>
             `;
-
-            // Make the card clickable for modal, but exclude quantity controls
-            // This is handled by event delegation on the container
-
             return card;
         }
 
@@ -1188,7 +1161,7 @@
         function updateProductCardUI(productId) {
             const card = document.getElementById(`product-${productId}`);
             if (!card) {
-                 // console.warn(`Product card not found for ID: ${productId}. Cannot update UI.`);
+                 console.warn(`Product card not found for ID: ${productId}. Cannot update UI.`);
                  // This might happen if the user is on a filtered/searched view and updates an item not currently displayed
                  // We don't need to block, just log a warning. The state is still updated.
                  return;
@@ -1205,7 +1178,7 @@
                  controlsContainer.innerHTML = `
                     <div class="product-quantity-controls" data-product-id="${productId}">
                         <button type="button" class="btn btn-secondary btn-small btn-decrease" data-product-id="${productId}" aria-label="Decrease quantity">-</button>
-                                <span class="product-quantity unselectable">${quantity}</span>
+                                <span class="product-quantity">${quantity}</span>
                                 <button type="button" class="btn btn-secondary btn-small btn-increase" data-product-id="${productId}" aria-label="Increase quantity">+</button>
                             </div>
                  `;
@@ -1239,7 +1212,7 @@
                  formSubjectInput.value = 'New Order from The Highon\'s Site (Empty)';
                   couponCodeInput.disabled = true; // Disable coupon input if cart is empty
                   couponCodeInput.value = ''; // Clear coupon input if cart becomes empty
-                  couponFeedback.textContent = ''; // Clear feedback
+                  couponFeedback.textContent = '';
                   placeOrderBtn.disabled = true; // Disable order button
              } else {
                   couponCodeInput.disabled = false; // Enable coupon input if items are in cart
@@ -1297,14 +1270,16 @@
                              adjustmentLineHTML = `<div class="order-summary-line discount-line"><span>Coupon (${enteredCouponCode}):</span> <span>-₹${priceAdjustment.toFixed(2)}</span></div>`;
                              hiddenAdjustmentText = `\nCoupon Applied: ${enteredCouponCode} (-${coupon.value}% Discount) -₹${priceAdjustment.toFixed(2)}`;
                               couponFeedback.style.color = 'var(--success-color)'; // Green for discount
-                         } else if (coupon.type === 'fixed_discount') {
-                             priceAdjustment = coupon.value;
-                             finalTotal = subtotal - priceAdjustment;
-                             feedbackMessage = `Coupon "${enteredCouponCode}" applied: ₹${coupon.value} off!`;
-                             adjustmentLineHTML = `<div class="order-summary-line discount-line"><span>Coupon (${enteredCouponCode}):</span> <span>-₹${priceAdjustment.toFixed(2)}</span></div>`;
-                             hiddenAdjustmentText = `\nCoupon Applied: ${enteredCouponCode} (₹${coupon.value} Fixed Discount) -₹${priceAdjustment.toFixed(2)}`;
-                             couponFeedback.style.color = 'var(--success-color)'; // Green for discount
                          }
+                         // Add logic for other coupon types (fixed discount) here if needed
+                         // else if (coupon.type === 'fixed_discount') {
+                         //     priceAdjustment = coupon.value;
+                         //     finalTotal = subtotal - priceAdjustment;
+                         //     feedbackMessage = `Coupon "${enteredCouponCode}" applied: ₹${coupon.value} off!`;
+                         //     adjustmentLineHTML = `<div class="order-summary-line discount-line"><span>Coupon (${enteredCouponCode}):</span> <span>-₹${priceAdjustment.toFixed(2)}</span></div>`;
+                         //     hiddenAdjustmentText = `\nCoupon Applied: ${enteredCouponCode} (₹${coupon.value} Fixed Discount) -₹${priceAdjustment.toFixed(2)}`;
+                         //     couponFeedback.style.color = 'var(--success-color)'; // Green for discount
+                         // }
                          else {
                              feedbackMessage = `Coupon "${enteredCouponCode}" has an unknown type.`;
                              couponApplied = false; // Mark as not applied if type is unknown
@@ -1341,7 +1316,6 @@
              }
 
              summaryDisplay.innerHTML = displayHTML;
-             // Update the value of the hidden input field
              hiddenSummaryInput.value = hiddenText;
         }
 
@@ -1384,13 +1358,13 @@
 
             if (nameInput && emailInput && phoneInput && addressInput) {
                 const userDetails = {
-                    name: nameInput.value.trim(),
-                    email: emailInput.value.trim(),
-                    phone: phoneInput.value.trim(),
-                    address: addressInput.value.trim()
+                    name: nameInput.value,
+                    email: emailInput.value,
+                    phone: phoneInput.value,
+                    address: addressInput.value
                 };
-                 // Save only if required fields are provided
-                 if(userDetails.name && userDetails.email && userDetails.phone && userDetails.address) {
+                 // Save only if name and email are provided (basic check)
+                 if(userDetails.name && userDetails.email) {
                     try {
                          localStorage.setItem(USER_DETAILS_STORAGE_KEY, JSON.stringify(userDetails));
                          console.log("User details saved.");
@@ -1401,7 +1375,7 @@
                          console.error("Error saving user details to localStorage:", e);
                     }
                  } else {
-                     console.log("User details not saved: Required fields missing.");
+                     console.log("User details not saved: Name or Email missing.");
                  }
             }
         }
@@ -1421,7 +1395,7 @@
             if (addressInput) addressInput.value = '';
             if (forgetButton) forgetButton.classList.add('hidden');
 
-            console.log("User details cleared from localStorage.");
+            console.log("User details cleared.");
         }
 
 
@@ -1452,42 +1426,21 @@
                 modalDesc.textContent = escapeHtml(product.desc);
                 modalPrice.textContent = `₹${product.price}`;
 
-                // Add class for animation and make visible
                 productModal.classList.remove('hidden');
-                 // Allow transition to complete before setting opacity
-                 requestAnimationFrame(() => {
-                     productModal.classList.add('opacity-100', 'pointer-events-auto');
-                      productModal.querySelector('.modal-content').classList.remove('scale-95'); // Reset scale for transition
-                 });
-
                 document.body.classList.add('overflow-hidden'); // Prevent body scroll
 
            } catch (error) {
                 console.error("Error showing modal:", error);
-                closeModal(); // Attempt to close modal on error
+                closeModal();
            }
         }
 
         function closeModal() {
           const productModal = document.getElementById('productModal');
-           if (!productModal) {
-               console.error("Modal element not found for closing.");
-               return;
-           }
-
-           // Add classes for animation and hide
-           productModal.classList.remove('opacity-100', 'pointer-events-auto');
-           productModal.querySelector('.modal-content').classList.add('scale-95'); // Scale down for transition
-
-           // Use a timeout to hide the modal after the transition completes
-           productModal.addEventListener('transitionend', function handler() {
-               productModal.classList.add('hidden');
-               productModal.removeEventListener('transitionend', handler);
-               document.body.classList.remove('overflow-hidden'); // Re-enable body scroll
-                // Reset modal content for next open
-                const modalImg = document.getElementById('modalImg');
-                if(modalImg) modalImg.src = '';
-           });
+          if (productModal) {
+            productModal.classList.add('hidden');
+          }
+          document.body.classList.remove('overflow-hidden'); // Re-enable body scroll
         }
 
         function toggleMobileMenu() {
@@ -1512,38 +1465,9 @@
         });
         function observeElement(element) {
             if (element) {
-                // Check if element already has the reveal class and is visible before observing
-                 // This prevents re-observing elements that are already animated
-                 if (!element.classList.contains('visible')) {
-                     element.classList.add('reveal'); // Ensure reveal class is present
-                     observer.observe(element);
-                 }
+                observer.observe(element);
             }
         }
-
-         // --- Scroll spy for active nav link ---
-         const sections = document.querySelectorAll('section[id]');
-         const navLinks = document.querySelectorAll('.nav-link');
-
-         function scrollSpy() {
-             let current = '';
-             sections.forEach(section => {
-                 const sectionTop = section.offsetTop;
-                 const sectionHeight = section.clientHeight;
-                 // Adjust offset based on header height (approx 80px)
-                 if (pageYOffset >= sectionTop - 80) {
-                     current = section.getAttribute('id');
-                 }
-             });
-
-             navLinks.forEach(link => {
-                 link.classList.remove('active');
-                 if (link.href.includes(`#${current}`)) {
-                     link.classList.add('active');
-                 }
-             });
-         }
-
 
         // --- Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
@@ -1557,7 +1481,7 @@
               loadUserDetails();
 
               // Initial render of products and order summary based on loaded cart
-              renderProducts('all', ''); // Pass initial filter and search terms
+              renderProducts('all', '');
               renderOrderSummary();
 
 
@@ -1571,8 +1495,8 @@
                        clearTimeout(searchTimeout);
                        const searchTerm = this.value;
                        searchTimeout = setTimeout(() => {
-                           renderProducts(currentCategoryFilter, searchTerm); // Use current filter
-                       }, 300); // Debounce search
+                           renderProducts(currentCategoryFilter, searchTerm);
+                       }, 300); // Slightly longer debounce
                    });
               } else { console.error("Product search input not found."); }
 
@@ -1581,7 +1505,7 @@
               if (categoryFilterSelect) {
                    categoryFilterSelect.addEventListener('change', function() {
                       const searchVal = document.getElementById('productSearch')?.value || '';
-                      renderProducts(this.value, searchVal); // Use current search term
+                      renderProducts(this.value, searchVal);
                    });
               } else { console.error("Category filter select not found."); }
 
@@ -1589,12 +1513,11 @@
                const productModal = document.getElementById('productModal');
                if (productModal) {
                    productModal.addEventListener('click', (event) => {
-                       // Check if the click occurred directly on the backdrop
                        if (event.target === productModal) {
                            closeModal();
                        }
                    });
-               } else { console.error("Product modal element not found."); }
+               }
 
                // --- Event Delegation for Product Card Controls and Modal Trigger ---
                const productsContainer = document.getElementById('productsContainer');
@@ -1603,30 +1526,26 @@
                        const target = event.target;
                        // Find the closest product card element to get the product ID
                        const productCard = target.closest('.product-card');
+                       const productId = productCard?.getAttribute('data-product-id');
 
-                       if (!productCard) return; // Not inside a product card
+                       if (!productId) return; // Not inside a product card or product ID missing
 
-                       const productId = productCard.getAttribute('data-product-id');
-                       if (!productId) {
-                           console.warn("Clicked element inside product card has no product ID:", target);
-                           return; // Product ID missing
-                       }
-
-                       // Check if the click was on a specific button class within controls
-                       const isControlClick = target.closest('.product-quantity-controls') || target.classList.contains('btn-add');
-
+                       // Check if the click was on a specific button class
                        if (target.classList.contains('btn-add')) {
                            addItemToOrder(productId);
                        } else if (target.classList.contains('btn-increase')) {
                            increaseQuantity(productId);
                        } else if (target.classList.contains('btn-decrease')) {
                            decreaseQuantity(productId);
-                       } else if (!isControlClick) {
-                           // If not a quantity button or the add button itself, show the modal
-                           // This covers clicks on the image, title, description, price
-                            showModal(productId);
+                       } else {
+                           // If not a quantity button, assume click is for modal if within card content/image
+                           // Check if the click target or its closest parent is specifically the image wrapper or content area,
+                           // NOT the controls area itself.
+                           const clickedArea = target.closest('.product-image-wrapper') || (target.closest('.product-card-content') && !target.closest('.product-card-controls'));
+                           if(clickedArea) {
+                                showModal(productId);
+                           }
                        }
-                       // If it was a control click, the specific button handlers already ran
                    });
                } else { console.error("productsContainer not found for event delegation."); }
 
@@ -1671,11 +1590,6 @@
                     forgetButton.addEventListener('click', clearUserDetails);
                 }
 
-                // --- Scroll Spy Listener ---
-                 window.addEventListener('scroll', scrollSpy);
-                 // Initial call to set active link on page load
-                 scrollSpy();
-
 
                // Observe elements with 'reveal' class initially present in HTML
                 document.querySelectorAll('.reveal').forEach(el => observeElement(el));
@@ -1686,7 +1600,7 @@
                // Use a more robust error display
                const errorDiv = document.createElement('div');
                errorDiv.style.cssText = "padding: 40px; text-align: center; font-family: sans-serif; color: white; background-color: #333; margin: 20px; border-radius: 8px;";
-               errorDiv.innerHTML = `<h1>Oops!</h1><p>Something went wrong while loading the page content.</p><p>Please <a href="javascript:location.reload();" style="color: var(--primary-accent); text-decoration: underline;">refresh</a> and try again.</p><p style="font-size: 0.8em; color: var(--text-secondary);">Error details: ${escapeHtml(error.message)}</p>`;
+               errorDiv.innerHTML = `<h1>Oops!</h1><p>Something went wrong while loading the page content.</p><p>Please <a href="javascript:location.reload();" style="color: #7f5af0; text-decoration: underline;">refresh</a> and try again.</p><p style="font-size: 0.8em; color: #94a1b2;">Error details: ${escapeHtml(error.message)}</p>`;
                document.body.innerHTML = ''; // Clear existing body content
                document.body.appendChild(errorDiv);
           }
