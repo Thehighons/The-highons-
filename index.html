@@ -26,6 +26,8 @@
           --border-color: rgba(148, 161, 178, 0.2); /* Subtle border based on text-secondary */
            --danger-color: #f05a7f; /* Soft Red for errors/increases */
            --success-color: var(--secondary-accent); /* Green for success/discounts */
+           /* CSS variable for staggered reveal delay */
+           --reveal-delay: 0s;
         }
 
         /* Smooth Scrolling */
@@ -38,7 +40,7 @@
           background-color: var(--bg-dark);
           color: var(--text-main);
           overflow-x: hidden; /* Prevent horizontal scroll */
-          perspective: 1000px; /* Add perspective for 3D effects on child elements */
+           /* Removed perspective from body, apply to specific sections instead for better control */
         }
         /* Prevent body scroll when modal is open */
         body.overflow-hidden {
@@ -63,7 +65,13 @@
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
           border-bottom: 1px solid var(--border-color);
+           position: sticky; /* Ensure header stays sticky */
+           top: 0;
+           z-index: 50;
         }
+         header > div {
+              transform-style: preserve-3d; /* Enable 3D space for children */
+         }
 
         /* Navigation Links */
         .nav-link {
@@ -72,6 +80,8 @@
           transition: all 0.3s ease;
           padding: 0.5rem 0.25rem;
           font-weight: 500;
+           transform: translateZ(1px); /* Nav links slightly forward */
+           display: inline-block; /* Needed for transform */
         }
         .nav-link:hover {
           color: var(--text-main);
@@ -92,58 +102,95 @@
             width: 70%; /* Underline effect */
         }
 
+        /* Sections */
+        section {
+            position: relative; /* Needed for child absolute positioning */
+            overflow: hidden; /* Hide parallax elements that move out of bounds */
+            /* Add perspective to sections that contain 3D animated elements */
+            perspective: 1500px; /* Increased perspective */
+        }
+
+
         /* Hero Section */
         .hero-section {
-            position: relative;
-            overflow: hidden;
             background: radial-gradient(ellipse at bottom, var(--bg-dark) 0%, #1a1a2e 100%);
-             /* Add perspective to the hero section itself */
-             perspective: 1000px;
+             perspective: 1000px; /* Specific perspective for hero */
         }
         /* Animated background shapes (Example) */
+        .hero-shapes {
+             position: absolute;
+             inset: 0;
+             z-index: 0;
+             transform-style: preserve-3d; /* Enable 3D for shapes */
+        }
         .hero-shapes div {
             position: absolute;
             border-radius: 50%;
             background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
             opacity: 0.1;
             animation: drift 20s infinite linear alternate;
+             transform: translateZ(-50px); /* Push shapes back in 3D space */
         }
         .hero-shapes div:nth-child(1) { width: 150px; height: 150px; top: 10%; left: 15%; animation-duration: 22s;}
         .hero-shapes div:nth-child(2) { width: 80px; height: 80px; top: 70%; left: 80%; animation-duration: 18s; animation-delay: 2s;}
         .hero-shapes div:nth-child(3) { width: 120px; height: 120px; top: 40%; left: 50%; animation-duration: 25s; animation-delay: 4s;}
 
         @keyframes drift {
-            from { transform: translateY(0px) translateX(0px) rotate(0deg) scale(1); }
-            to { transform: translateY(20px) translateX(-15px) rotate(30deg) scale(1.1); }
+            from { transform: translateY(0px) translateX(0px) rotate(0deg) scale(1) translateZ(-50px); }
+            to { transform: translateY(20px) translateX(-15px) rotate(30deg) scale(1.1) translateZ(-50px); }
         }
 
+         .hero-content > div { /* Wrapper for hero text/button */
+              position: relative;
+              z-index: 10; /* Ensure content is above shapes */
+              transform-style: preserve-3d;
+         }
+
         /* Hero image slight float */
-         .hero-section img[alt="The Highon's Logo"] {
+         .hero-content img[alt="The Highon's Logo"] {
              animation: float 4s ease-in-out infinite;
+             transform: translateZ(20px); /* Logo forward */
+             display: block; /* Needed for transform */
          }
           @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            0%, 100% { transform: translateY(0) translateZ(20px); }
+            50% { transform: translateY(-10px) translateZ(25px); }
           }
+
+         .hero-content h1 { transform-style: preserve-3d; }
+         .hero-content h1 span { transform: translateZ(10px); display: inline-block; } /* 'Creativity' forward */
+         .hero-content p { transform: translateZ(5px); } /* Hero text forward */
+         .hero-content .btn { transform: translateZ(15px); } /* Hero button forward */
+
+
+         .hero-section .rounded-full {
+              transform: translateZ(10px) rotateZ(var(--rotate-z, 0deg)); /* Hero small images forward, add rotate variable */
+              transition: transform 0.5s ease-in-out; /* Add transition */
+         }
+          /* Define the rotate-z variable for each image (can be set inline or with JS if dynamic) */
+         .hero-section .rounded-full:nth-child(1) { --rotate-z: -5deg; }
+         .hero-section .rounded-full:nth-child(2) { --rotate-z: 5deg; }
+         .hero-section .rounded-full:nth-child(3) { --rotate-z: -3deg; }
 
 
         /* Buttons */
         .btn {
-            display: inline-flex; /* Changed to flex for centering content */
-            align-items: center; /* Center text vertically */
-            justify-content: center; /* Center text horizontally */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             padding: 0.8rem 2rem;
             border-radius: 50px;
             font-weight: 600;
-            transition: all 0.3s ease; /* Added transform to transition */
+            transition: all 0.3s ease;
             cursor: pointer;
             text-align: center;
             border: none;
             position: relative;
             overflow: hidden;
             z-index: 1;
-            white-space: nowrap; /* Prevent text wrapping */
-             transform: translateZ(0); /* Promote to composite layer */
+            white-space: nowrap;
+             transform: translateZ(5px); /* Buttons slightly forward */
+             will-change: transform, box-shadow; /* Hint browser */
         }
         .btn::before { /* Subtle shine effect on hover */
             content: "";
@@ -160,18 +207,18 @@
             left: 100%;
         }
          .btn:active { /* Press effect */
-             transform: scale(0.98) translateY(1px);
+             transform: scale(0.98) translateY(1px) translateZ(3px); /* Press down and slightly back */
              box-shadow: inset 0 1px 3px rgba(0,0,0,0.3); /* Inner shadow for pressed look */
          }
 
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-accent) 0%, #a787ff 100%); /* Violet gradient */
+            background: linear-gradient(135deg, var(--primary-accent) 0%, #a787ff 100%);
             color: var(--text-main);
             box-shadow: 0 4px 15px rgba(127, 90, 240, 0.3);
         }
         .btn-primary:hover {
-            transform: translateY(-3px) scale(1.03);
+            transform: translateY(-3px) scale(1.03) translateZ(8px); /* Lift, scale, and move forward */
             box-shadow: 0 6px 20px rgba(127, 90, 240, 0.4);
         }
          .btn-primary:disabled {
@@ -192,30 +239,28 @@
         }
         .btn-secondary:hover {
             background-color: rgba(127, 90, 240, 0.1);
-            transform: translateY(-2px);
+            transform: translateY(-2px) translateZ(6px); /* Lift and move forward */
         }
          .btn-secondary:active { /* Press effect */
-             transform: scale(0.95); /* Slightly more pronounced press for small buttons */
+             transform: scale(0.95) translateZ(3px); /* Slightly more pronounced press for small buttons */
              box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
          }
 
 
          /* Small buttons for quantity control */
          .btn-small {
-             padding: 0.3rem 0.8rem; /* Reduced padding */
-             font-size: 0.9rem; /* Smaller font */
-             border-radius: 9999px; /* Fully rounded */
+             padding: 0.3rem 0.8rem;
+             font-size: 0.9rem;
+             border-radius: 9999px;
          }
 
 
         /* Product Section */
          #products {
             background: linear-gradient(to bottom, var(--bg-dark), #1a1a2e); /* Gradient background */
-            position: relative;
             padding-top: 8rem;
             padding-bottom: 8rem;
-             /* Add perspective to the products section */
-             perspective: 1200px;
+             perspective: 1200px; /* Specific perspective for products */
          }
          #products::before { /* Top separator glow */
             content: '';
@@ -232,8 +277,8 @@
          #products > .max-w-7xl {
              position: relative;
              z-index: 2;
+             transform-style: preserve-3d; /* Enable 3D for child elements like grid */
          }
-
 
         .category-title {
             background: linear-gradient(135deg, var(--primary-accent) 0%, var(--secondary-accent) 100%);
@@ -242,52 +287,48 @@
             border-radius: 8px;
             display: inline-block;
             margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(44, 182, 125, 0.2); /* Adjusted shadow */
+            box-shadow: 0 5px 15px rgba(44, 182, 125, 0.2);
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
             font-size: 1.2rem;
-             transform: translateZ(0); /* Promote for animation */
+             transform: translateZ(20px); /* Category title forward */
+             will-change: transform, opacity;
         }
 
         /* Redesigned Product Card */
         .product-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 16px; /* More rounded */
+            border-radius: 16px;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncier transition */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             transform-style: preserve-3d; /* For tilt effect */
             box-shadow: 0 5px 15px rgba(0,0,0, 0.2);
-            display: flex; /* Use flex to space content and controls */
+            display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Push controls to bottom */
+            justify-content: space-between;
              /* Initial state for reveal animation */
              opacity: 0;
-             transform: translateY(40px) rotateX(15deg) scale(0.95);
-             transform-origin: center bottom;
+             /* Start slightly below and scaled down */
+             transform: translateY(50px) scale(0.9);
+             transform-origin: center bottom; /* Rotate/scale from the bottom edge */
+             will-change: transform, opacity; /* Hint browser */
         }
          /* Product card visible state (controlled by JS observer) */
         .product-card.visible {
             opacity: 1;
-            transform: translateY(0) rotateX(0deg) scale(1);
-             transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bounce transition */
-            transition-delay: var(--reveal-delay, 0s); /* Use CSS variable for delay */
+            transform: translateY(0) scale(1); /* End at original position/scale */
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay), /* Use CSS variable for delay */
+                        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay); /* Use same curve */
         }
 
 
         .product-card:hover {
-            transform: translateY(-15px) rotateX(5deg) rotateY(-3deg) scale(1.03); /* More pronounced tilt and lift */
+            transform: translateY(-15px) rotateX(5deg) rotateY(-3deg) scale(1.03) translateZ(20px); /* More pronounced tilt, lift, and move forward */
             box-shadow: 0 15px 30px rgba(0,0,0, 0.3);
             border-color: rgba(127, 90, 240, 0.5); /* Accent border on hover */
-             /* Add slight continuous animation on hover, but subtle */
-             /* animation: cardHoverFloat 3s ease-in-out infinite; */ /* Optional: Add subtle float */
         }
-         /* @keyframes cardHoverFloat {
-             0%, 100% { transform: translateY(-15px) rotateX(5deg) rotateY(-3deg) scale(1.03); }
-             50% { transform: translateY(-18px) rotateX(5deg) rotateY(-3deg) scale(1.03); }
-         } */
-
 
          .product-card::after { /* Subtle glow effect */
              content: '';
@@ -304,8 +345,8 @@
          }
 
         .product-image-wrapper {
-            height: 200px; /* Fixed height */
-            background-color: rgba(255, 255, 255, 0.05); /* Slightly lighter bg for image */
+            height: 200px;
+            background-color: rgba(255, 255, 255, 0.05);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -319,92 +360,68 @@
             max-height: 100%;
             object-fit: contain;
             transition: transform 0.4s ease;
-             transform: translateZ(0); /* Promote image layer */
+             transform: translateZ(5px); /* Promote image layer */
+             will-change: transform;
         }
         .product-card:hover .product-image-wrapper img {
-            transform: scale(1.15) rotateZ(2deg); /* Slightly more dynamic zoom/rotate */
+            transform: scale(1.15) rotateZ(2deg) translateZ(10px); /* More dynamic zoom/rotate and move forward */
         }
 
         .product-card-content {
-            padding: 1.25rem; /* Increased padding */
-            text-align: center; /* Center content */
-            flex-grow: 1; /* Allow content to take space */
+            padding: 1.25rem;
+            text-align: center;
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Align text to top */
+            justify-content: flex-start;
+             transform-style: preserve-3d;
         }
-        .product-card h3 {
-            font-family: 'Montserrat', sans-serif; /* Use body font for card title */
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-main);
-            min-height: 2.8em; /* Ensure consistent height over two lines */
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .product-card-content h3 {
+             transform: translateZ(2px); /* Card title slightly forward */
+             will-change: transform;
         }
-         .product-card p.product-desc {
-             font-size: 0.85rem;
-             color: var(--text-secondary);
-             margin-bottom: 1rem;
-             min-height: 3.4em; /* Ensure consistent height over multiple lines */
-             display: -webkit-box;
-             -webkit-line-clamp: 3;
-             -webkit-box-orient: vertical;
-             overflow: hidden;
-             text-overflow: ellipsis;
+         .product-card-content p.product-desc {
+             transform: translateZ(1px); /* Card desc slightly forward */
+             will-change: transform;
          }
         .product-card .product-price {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary-accent); /* Accent color for price */
-            margin-bottom: 1.25rem;
-             transform: translateZ(0); /* Promote price layer */
+            transform: translateZ(3px); /* Price forward */
+             will-change: transform;
         }
         /* Product Controls - Centered at the bottom */
         .product-card-controls {
-            padding: 0 1.25rem 1.25rem; /* Padding bottom matches content */
+            padding: 0 1.25rem 1.25rem;
             display: flex;
-            justify-content: center; /* Center buttons */
+            justify-content: center;
             align-items: center;
             width: 100%;
              min-height: 40px; /* Reserve space to prevent jump */
+              transform-style: preserve-3d;
         }
 
-        .product-quantity-controls {
-             display: flex;
-             align-items: center;
-             gap: 0.5rem; /* Space between buttons and quantity */
-             width: 100%; /* Allow controls to take full width for centering */
-             justify-content: center; /* Center controls group */
-              /* Add/Remove animation handled by JS swapping - could animate opacity on container */
+        .product-card-controls .btn,
+        .product-card-controls .product-quantity-controls {
+             transform: translateZ(4px); /* Controls forward */
+             will-change: transform;
         }
-         .product-quantity {
-             font-size: 1.1rem;
-             font-weight: 700;
-             color: var(--text-main);
-             min-width: 30px; /* Ensure width for 1, 10, etc */
-             text-align: center;
-         }
+
 
         /* Filter/Search Styling */
         #productSearch, #categoryFilter, #couponCode {
             background-color: var(--card-bg);
             color: var(--text-main);
             border: 1px solid var(--border-color);
-            border-radius: 50px; /* Pill shape */
+            border-radius: 50px;
             padding: 0.8rem 1.5rem;
             transition: all 0.3s ease;
-             transform: translateZ(0); /* Promote input layers */
+             transform: translateZ(1px); /* Inputs slightly forward */
+             will-change: transform, box-shadow, border-color;
         }
          #productSearch::placeholder, #couponCode::placeholder {
              color: var(--text-secondary);
              opacity: 0.8;
          }
-        #productSearch { padding-left: 3rem; } /* Space for icon */
+        #productSearch { padding-left: 3rem; }
         #categoryFilter {
           appearance: none;
           background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%2394a1b2"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>');
@@ -422,7 +439,7 @@
              border-color: var(--primary-accent);
              box-shadow: 0 0 0 2px rgba(127, 90, 240, 0.3);
              outline: none;
-             transform: translateZ(5px); /* Slight lift on focus */
+             transform: translateZ(8px); /* More lift on focus */
         }
          #couponCode:disabled {
              opacity: 0.6;
@@ -430,13 +447,10 @@
          }
         .search-icon { color: var(--text-secondary); }
 
-        /* Form Section */
+        /* Form Styling */
         .form-section {
-            background-color: var(--bg-dark); /* Match body bg */
-            position: relative;
-            overflow: hidden;
-             /* Add perspective to form sections */
-             perspective: 1000px;
+            background-color: var(--bg-dark);
+             perspective: 1000px; /* Specific perspective for forms */
         }
         .form-section::before { /* Aurora effect background */
              content: "";
@@ -449,16 +463,17 @@
         }
 
         .form-container {
-            background-color: rgba(36, 38, 41, 0.8); /* Semi-transparent card bg */
+            background-color: rgba(36, 38, 41, 0.8);
             backdrop-filter: blur(5px);
              -webkit-backdrop-filter: blur(5px);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 2rem;
-            position: relative; /* To stay above the ::before */
+            position: relative;
             z-index: 1;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-             transform: translateZ(0); /* Promote container layer */
+             transform: translateZ(20px); /* Form container forward */
+             will-change: transform;
         }
         .form-container label {
              color: var(--text-secondary);
@@ -472,18 +487,19 @@
         .form-container input[type="tel"],
         .form-container textarea,
         .form-container select {
-            background-color: rgba(22, 22, 26, 0.7); /* Darker input bg */
+            background-color: rgba(22, 22, 26, 0.7);
             border: 1px solid var(--border-color);
             color: var(--text-main);
             border-radius: 8px;
             padding: 0.9rem 1rem;
              width: 100%;
              transition: all 0.3s ease;
-             transform: translateZ(0); /* Promote input layers */
+             transform: translateZ(1px); /* Inputs slightly forward */
+             will-change: transform, box-shadow, border-color;
         }
         .form-container input::placeholder,
         .form-container textarea::placeholder {
-            color: rgba(148, 161, 178, 0.6); /* Lighter placeholder */
+            color: rgba(148, 161, 178, 0.6);
         }
         .form-container input:focus,
         .form-container textarea:focus,
@@ -492,7 +508,7 @@
             background-color: rgba(22, 22, 26, 0.9);
              box-shadow: 0 0 0 2px rgba(127, 90, 240, 0.3);
              outline: none;
-             transform: translateZ(5px); /* Slight lift on focus */
+             transform: translateZ(8px); /* More lift on focus */
         }
          .form-container select option {
              background-color: var(--bg-dark);
@@ -506,10 +522,11 @@
              border-radius: 8px;
              padding: 1rem;
              margin-bottom: 1.5rem;
-             min-height: 80px; /* Give it some minimum space */
+             min-height: 80px;
              color: var(--text-main);
              font-size: 0.95rem;
-              transform: translateZ(0); /* Promote layer */
+              transform: translateZ(5px); /* Order summary forward */
+              will-change: transform;
          }
          #orderSummaryDisplay p {
              color: var(--text-secondary);
@@ -574,40 +591,45 @@
 
         /* Contact Section */
         #contact {
-            background-color: var(--card-bg); /* Use card bg for contrast */
-             /* Add perspective to contact section */
-             perspective: 800px;
+            background-color: var(--card-bg);
+             perspective: 800px; /* Specific perspective for contact */
         }
         .contact-info-box {
-             background-color: rgba(22, 22, 26, 0.8); /* Darker box */
+             background-color: rgba(22, 22, 26, 0.8);
              border: 1px solid var(--border-color);
              border-radius: 12px;
              padding: 2rem;
              transition: all 0.3s ease;
-             transform: translateZ(0); /* Promote layer */
+             transform: translateZ(10px); /* Contact info box forward */
+             will-change: transform, box-shadow, border-color;
         }
         .contact-info-box:hover {
              border-color: var(--primary-accent);
-             transform: translateY(-8px) scale(1.02) translateZ(10px); /* Lift and scale slightly */
+             transform: translateY(-8px) scale(1.02) translateZ(20px); /* Lift, scale, and move further forward */
              box-shadow: 0 8px 20px rgba(0,0,0,0.25);
         }
         .contact-info-box a {
             color: var(--primary-accent);
             transition: color 0.3s ease;
-            word-break: break-all; /* Allow long email to break line */
+            word-break: break-all;
+             transform: translateZ(2px); /* Contact links forward */
+             display: inline-block; /* Needed for transform */
+             will-change: transform;
         }
         .contact-info-box a:hover {
             color: var(--secondary-accent);
         }
         .social-icons a {
             color: var(--text-secondary);
-            font-size: 1.75rem; /* Larger icons */
+            font-size: 1.75rem;
             transition: all 0.3s ease;
-             transform: translateZ(0); /* Promote icons */
+             transform: translateZ(5px); /* Social icons forward */
+             display: inline-block; /* Needed for transform */
+             will-change: transform;
         }
         .social-icons a:hover {
              color: var(--primary-accent);
-             transform: scale(1.2) rotate(5deg) translateZ(5px); /* Scale, rotate, and lift */
+             transform: scale(1.2) rotate(5deg) translateZ(10px); /* Scale, rotate, and move further forward */
         }
 
         /* Footer */
@@ -622,20 +644,33 @@
 
         /* Modal Styling */
         .modal-backdrop {
-             background-color: rgba(22, 22, 26, 0.7); /* Dark backdrop */
+             background-color: rgba(22, 22, 26, 0.7);
              backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
              perspective: 800px; /* Perspective for modal content */
+             z-index: 70; /* Ensure modal is on top */
+             position: fixed; /* Keep fixed position */
+             inset: 0;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             padding: 1rem;
         }
+         /* Add animate__animated and animate__zoomIn directly to .modal-content for entry animation */
         .modal-content {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             color: var(--text-main);
              box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-             /* animate.css handles the entry animation (zoomIn) */
-             /* Add a subtle transform for better layering with backdrop perspective */
-             transform: translateZ(0);
+             position: relative;
+             max-width: lg; /* Use tailwind utility directly */
+             width: 100%;
+             margin: auto; /* Use auto margin for centering */
+             overflow: hidden;
+              /* Ensure modal content is far forward in 3D space */
+             transform: translateZ(200px);
+             will-change: transform, opacity; /* Hint browser */
         }
         .modal-content img { border-radius: 8px; background-color: rgba(255,255,255,0.05); }
         .modal-content h3 { color: var(--text-main); }
@@ -644,26 +679,37 @@
         .modal-close-btn {
             color: var(--text-secondary);
             transition: all 0.3s ease;
+             transform: translateZ(210px); /* Close button even closer */
+             position: absolute; /* Keep absolute position */
+             top: 1rem;
+             right: 1rem;
+             font-size: 1.875rem; /* Use tailwind utility size */
+             line-height: 1;
+             z-index: 10; /* Ensure close button is clickable */
+             background: rgba(36, 38, 41, 0.5); /* Add subtle background */
+             border-radius: 50%;
+             padding: 0.2rem 0.5rem;
         }
         .modal-close-btn:hover {
              color: var(--text-main);
-             transform: rotate(90deg) scale(1.1); /* Rotate and slightly scale */
+             transform: rotate(90deg) scale(1.1) translateZ(210px); /* Rotate, scale, and stay forward */
         }
 
         /* Loader */
         .loader {
-          border: 4px solid rgba(148, 161, 178, 0.2); /* Lighter grey border */
-          border-top: 4px solid var(--primary-accent); /* Accent color spinner */
+          border: 4px solid rgba(148, 161, 178, 0.2);
+          border-top: 4px solid var(--primary-accent);
           border-radius: 50%;
           width: 50px;
           height: 50px;
           animation: spin 1s linear infinite;
           margin: 80px auto;
-          transform: translateZ(0); /* Promote for smooth animation */
+           transform: translateZ(10px); /* Loader forward */
+           will-change: transform;
         }
         @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+          0% { transform: rotate(0deg) translateZ(10px); }
+          100% { transform: rotate(360deg) translateZ(10px); }
         }
 
         /* Animation Utilities */
@@ -671,21 +717,31 @@
         /* Modified reveal for a more pronounced 3D effect and bounce */
         .reveal {
             opacity: 0;
-            /* Start slightly below, slightly rotated, and scaled down */
-            transform: translateY(40px) rotateX(15deg) scale(0.95);
-            transform-origin: center bottom; /* Rotate from the bottom edge */
+            /* Start slightly below and scaled down */
+            transform: translateY(50px) scale(0.9);
+            transform-origin: center bottom; /* Rotate/scale from the bottom edge */
             /* transition properties will be set by JS for staggered effect */
-            transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
-                        transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s), /* Use CSS variable for delay */
+                        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s); /* Use same curve and delay */
              will-change: opacity, transform; /* Hint browser for performance */
-             transition-delay: 0s; /* Default, overridden by JS */
         }
         /* Final state when element is visible */
         .reveal.visible {
             opacity: 1;
-            transform: translateY(0) rotateX(0deg) scale(1); /* End at original position/scale */
+            transform: translateY(0) scale(1); /* End at original position/scale */
             /* transition-delay is now applied by JS */
         }
+
+        /* Special case for category titles - simpler reveal */
+        .category-title.reveal {
+             transform: translateY(30px) translateZ(20px); /* Keep simpler translateY but add translateZ */
+             transition: opacity 0.6s ease-out var(--reveal-delay, 0s),
+                         transform 0.6s ease-out var(--reveal-delay, 0s);
+        }
+        .category-title.reveal.visible {
+            transform: translateY(0) translateZ(20px);
+        }
+
 
         /* Order Form Styling (reuses .form-container styles) */
         #orderFormContainer {
@@ -694,21 +750,22 @@
              margin: 0 auto;
         }
 
-         /* Placeholder styles for elements revealed by JS */
-         #productsContainer > div {
-             /* Ensures any direct child divs within productsContainer (like category sections or loader)
-                also have perspective applied if needed for their children's animations.
-                Product cards within these divs have transform-style: preserve-3d; */
-             perspective: inherit; /* Inherit perspective from #products */
-             transform-style: preserve-3d; /* Allow 3D transformations of children (product cards) */
+
+         /* Ensure grids and direct children of productsContainer have preserve-3d */
+         #productsContainer > div.grid {
+             transform-style: preserve-3d;
          }
+
+         /* Ensure elements involved in parallax have will-change */
+         .hero-shapes { will-change: transform; }
+         #productsContainer { will-change: transform; }
 
 
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <header class="sticky top-0 z-50">
+    <header class="sticky">
         <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
             <div class="flex items-center">
                 <a href="#" class="text-2xl tracking-wide brand-name">THE HIGHON'S</a>
@@ -736,30 +793,27 @@
     </header>
 
     <section class="hero-section text-center pt-28 pb-20 md:pt-36 md:pb-28 relative">
-        <div class="hero-shapes absolute inset-0 z-0">
+        <div class="hero-shapes">
             <div></div> <div></div> <div></div>
         </div>
 
-        <div class="max-w-4xl mx-auto px-6 relative z-10">
-             <div class="animate__animated animate__fadeInDown" style="transform-style: preserve-3d;">
-                <img src="GridArt_20250428_230202733.png" alt="The Highon's Logo" class="w-56 sm:w-72 md:w-80 mx-auto mb-8" loading="lazy" style="transform: translateZ(20px);">
+        <div class="max-w-4xl mx-auto px-6 relative hero-content"> <div class="animate__animated animate__fadeInDown"> <img src="GridArt_20250428_230202733.png" alt="The Highon's Logo" class="w-56 sm:w-72 md:w-80 mx-auto mb-8" loading="lazy">
              </div>
 
 
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 animate__animated animate__fadeInUp" style="transform-style: preserve-3d;">
-                Ignite Your <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-emerald-400" style="transform: translateZ(10px); display: inline-block;">Creativity</span>.
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 animate__animated animate__fadeInUp">
+                Ignite Your <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-emerald-400">Creativity</span>.
             </h1>
-            <p class="text-lg md:text-xl mb-10 text-gray-300 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-1s" style="transform-style: preserve-3d;">
+            <p class="text-lg md:text-xl mb-10 text-gray-300 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-1s">
                 Discover premium supplies in Navsari. Explore keychains, art materials, stationery, and more.
             </p>
-            <a href="#products" class="btn btn-primary text-lg px-10 py-4 animate__animated animate__fadeInUp animate__delay-2s" style="transform-style: preserve-3d; transform: translateZ(15px);">
+            <a href="#products" class="btn btn-primary text-lg px-10 py-4 animate__animated animate__fadeInUp animate__delay-2s">
                 Explore Collection
             </a>
         </div>
-         <div class="mt-20 flex justify-center space-x-5 sm:space-x-8 opacity-80 relative z-10">
-           <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-3s" loading="lazy" style="transform: rotateZ(-5deg);">
-           <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-emerald-500/50 animate__animated animate__fadeIn animate__delay-4s" loading="lazy" style="animation-delay: 0.4s; transform: rotateZ(5deg);">
-           <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-5s" loading="lazy" style="animation-delay: 0.8s; transform: rotateZ(-3deg);">
+         <div class="mt-20 flex justify-center space-x-5 sm:space-x-8 opacity-80 relative z-10"> <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-3s" loading="lazy">
+           <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-emerald-500/50 animate__animated animate__fadeIn animate__delay-4s" loading="lazy" style="animation-delay: 0.4s;">
+           <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-5s" loading="lazy" style="animation-delay: 0.8s;">
          </div>
     </section>
 
@@ -792,7 +846,8 @@
      <section id="order" class="py-20 px-6 form-section">
         <div class="max-w-3xl mx-auto text-center reveal">
             <h2 class="text-4xl md:text-5xl font-bold mb-8">Place Your Order</h2>
-            <div id="orderFormContainer" class="text-left form-container"> <p class="text-gray-400 mb-6">Items added from the 'Our Collection' section will appear below. Fill in your details to place your order for delivery within Navsari (PIN: 396445).</p>
+            <div id="orderFormContainer" class="text-left form-container">
+                <p class="text-gray-400 mb-6">Items added from the 'Our Collection' section will appear below. Fill in your details to place your order for delivery within Navsari (PIN: 396445).</p>
 
                 <div>
                      <label class="mb-2 block text-secondary">Your Order Summary</label>
@@ -920,9 +975,9 @@
         </div>
     </footer>
 
-    <div id="productModal" class="fixed inset-0 z-[70] modal-backdrop flex items-center justify-center hidden p-4">
+    <div id="productModal" class="fixed inset-0 modal-backdrop flex items-center justify-center hidden p-4">
         <div class="modal-content relative max-w-lg w-full mx-auto animate__animated animate__zoomIn animate__faster overflow-hidden">
-             <button onclick="closeModal()" class="modal-close-btn absolute top-4 right-4 text-3xl leading-none z-10" aria-label="Close product details modal">&times;</button>
+             <button onclick="closeModal()" class="modal-close-btn absolute text-3xl leading-none z-10" aria-label="Close product details modal">&times;</button>
              <div class="p-6 sm:p-8 max-h-[80vh] overflow-y-auto">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <img id="modalImg" src="" alt="" class="w-full h-64 md:h-full object-contain p-2" loading="lazy">
@@ -1063,6 +1118,7 @@
                     let hasProducts = false;
                     const searchTermLower = searchTerm.toLowerCase().trim();
                     currentCategoryFilter = category;
+                    let revealIndex = 0; // Reset index for reveal animation stagger
 
                     const createCategorySection = (catKey, items) => {
                         const filtered = items.filter(item =>
@@ -1077,24 +1133,26 @@
                             section.className = 'mb-16';
                             const title = catKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
                             if (category === 'all' || category === catKey) {
-                                section.innerHTML = `<h3 class="category-title reveal">${escapeHtml(title)}</h3>`;
-                                 // Observe the category title immediately
-                                 observeElement(section.querySelector('.category-title'));
+                                 const titleElement = document.createElement('h3');
+                                 titleElement.className = 'category-title reveal'; // Add reveal class
+                                 titleElement.textContent = escapeHtml(title);
+                                 section.appendChild(titleElement);
+                                  observeElement(titleElement); // Observe the category title
                             }
 
                             const grid = document.createElement('div');
                             // Updated grid classes for more columns on larger screens and adjusted gaps
                             grid.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8';
                             grid.id = `${catKey}Grid`;
-                             // Add perspective/transform-style to the grid if needed for child animations
-                            grid.style.cssText = 'perspective: inherit; transform-style: preserve-3d;';
+                            grid.style.transformStyle = 'preserve-3d'; // Enable 3D space for cards
                             section.appendChild(grid);
                             container.appendChild(section);
 
-                            filtered.forEach((product, index) => { // Pass index here
-                                const card = createProductCard(product, index); // Pass index to card creation
+
+                            filtered.forEach((product) => { // No need for index here, handled in createProductCard
+                                const card = createProductCard(product, revealIndex++); // Pass cumulative index
                                 grid.appendChild(card);
-                                // Product cards are observed individually in createProductCard now
+                                // observeElement is called inside createProductCard now
                             });
 
                         }
@@ -1244,11 +1302,7 @@
 
              // Check if the controls HTML actually needs updating
              if (controlsContainer.innerHTML.trim() !== newControlsHTML.trim()) {
-                 // A simple way to animate the change: wrap the controls container in a div
-                 // and animate the opacity/scale of the inner content before swapping.
-                 // Or, simpler, just replace the HTML. The card's transform and the button/controls'
-                 // own transitions (if any added later) will provide some visual feedback.
-                 // Let's stick to replacing innerHTML for simplicity as per original code.
+                 // Replace the HTML
                  controlsContainer.innerHTML = newControlsHTML;
                  // Note: Event listeners need to be handled by delegation since HTML is replaced.
              } else {
@@ -1547,11 +1601,8 @@
                     }
                 } else {
                      // Optional: remove visible class and reset delay if you want elements to re-animate on scroll back up
-                     // Note: This might be jarring for users. Kept for demonstration if desired.
-                     // If unobserving above, this 'else' block is not needed for those elements.
-                     // For elements that are *not* unobserved, you might remove 'visible' here
                      // target.classList.remove('visible');
-                     // target.style.setProperty('--reveal-delay', '0s'); // Reset delay
+                     // target.style.setProperty('--reveal-delay', '0s'); // Reset delay when not intersecting
                 }
             });
         }, {
@@ -1566,6 +1617,72 @@
                  element.style.setProperty('--reveal-delay', '0s'); // Reset delay
                  observer.observe(element);
             }
+        }
+
+
+        // --- Parallax Effect ---
+        // This will add a subtle parallax to elements based on scroll position
+        // Adjust multiplier for intensity
+
+        function applyParallax() {
+            const heroShapes = document.querySelector('.hero-shapes');
+            const productsContainer = document.getElementById('productsContainer'); // The wrapper containing grids/loader
+
+            if (!heroShapes && !productsContainer) return;
+
+            let rafId = null;
+
+            const updateParallax = () => {
+                const currentScroll = window.scrollY;
+
+                // Parallax for Hero Shapes (move slightly against scroll)
+                if (heroShapes) {
+                    const heroRect = heroShapes.closest('section').getBoundingClientRect();
+                    // Apply effect only when hero section is somewhat in view
+                     if (heroRect.top < window.innerHeight && heroRect.bottom > 0) {
+                        const translateY = -currentScroll * 0.1; // 10% of scroll
+                        heroShapes.style.transform = `translateY(${translateY}px) translateZ(-50px)`; // Maintain original translateZ
+                     }
+                }
+
+                // Parallax for Products Grid Container (move slightly with scroll, giving foreground feel)
+                 if (productsContainer) {
+                    const productsRect = productsContainer.closest('section').getBoundingClientRect();
+                     // Apply effect when products section is in view
+                     if (productsRect.top < window.innerHeight && productsRect.bottom > 0) {
+                         // Calculate offset based on distance from viewport top, subtle effect
+                         const sectionScroll = currentScroll - (productsContainer.closest('section').offsetTop - window.innerHeight);
+                         const translateY = Math.max(0, sectionScroll) * 0.05; // 5% of scroll, capped at 0
+                         productsContainer.style.transform = `translateY(${translateY}px)`; // Apply translateY for parallax
+                     } else {
+                          productsContainer.style.transform = `translateY(0px)`; // Reset transform when out of view
+                     }
+                 }
+
+                rafId = requestAnimationFrame(updateParallax);
+            };
+
+            const startParallax = () => {
+                if (!rafId) {
+                    updateParallax(); // Initial update
+                }
+            };
+
+            const stopParallax = () => {
+                if (rafId) {
+                    cancelAnimationFrame(rafId);
+                    rafId = null;
+                }
+            };
+
+            // Start/stop parallax on scroll
+            window.addEventListener('scroll', startParallax);
+             // Also update on load and resize in case elements are already in view
+             window.addEventListener('load', updateParallax);
+             window.addEventListener('resize', updateParallax);
+
+             // Initial call
+             updateParallax();
         }
 
 
@@ -1615,6 +1732,7 @@
                const productModal = document.getElementById('productModal');
                if (productModal) {
                    productModal.addEventListener('click', (event) => {
+                       // Check if the click was directly on the backdrop (the modal container itself)
                        if (event.target === productModal) {
                            closeModal();
                        }
@@ -1696,10 +1814,19 @@
                // Observe elements with 'reveal' class initially present in HTML (non-product cards)
                 document.querySelectorAll('.reveal').forEach(el => {
                     // Product cards are observed individually in createProductCard
-                    if (!el.classList.contains('product-card')) {
+                    if (!el.classList.contains('product-card') && !el.classList.contains('category-title')) {
                        observeElement(el);
                     }
                 });
+
+                // Observe category titles already in the HTML (if not dynamically added)
+                 document.querySelectorAll('.category-title.reveal').forEach(el => {
+                     observeElement(el);
+                 });
+
+
+              // Start parallax effect
+              applyParallax();
 
 
           } catch (error) {
