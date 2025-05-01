@@ -38,6 +38,7 @@
           background-color: var(--bg-dark);
           color: var(--text-main);
           overflow-x: hidden; /* Prevent horizontal scroll */
+          perspective: 1000px; /* Add perspective for 3D effects on child elements */
         }
         /* Prevent body scroll when modal is open */
         body.overflow-hidden {
@@ -96,6 +97,8 @@
             position: relative;
             overflow: hidden;
             background: radial-gradient(ellipse at bottom, var(--bg-dark) 0%, #1a1a2e 100%);
+             /* Add perspective to the hero section itself */
+             perspective: 1000px;
         }
         /* Animated background shapes (Example) */
         .hero-shapes div {
@@ -114,6 +117,16 @@
             to { transform: translateY(20px) translateX(-15px) rotate(30deg) scale(1.1); }
         }
 
+        /* Hero image slight float */
+         .hero-section img[alt="The Highon's Logo"] {
+             animation: float 4s ease-in-out infinite;
+         }
+          @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+          }
+
+
         /* Buttons */
         .btn {
             display: inline-flex; /* Changed to flex for centering content */
@@ -122,7 +135,7 @@
             padding: 0.8rem 2rem;
             border-radius: 50px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease; /* Added transform to transition */
             cursor: pointer;
             text-align: center;
             border: none;
@@ -130,6 +143,7 @@
             overflow: hidden;
             z-index: 1;
             white-space: nowrap; /* Prevent text wrapping */
+             transform: translateZ(0); /* Promote to composite layer */
         }
         .btn::before { /* Subtle shine effect on hover */
             content: "";
@@ -145,6 +159,11 @@
         .btn:hover::before {
             left: 100%;
         }
+         .btn:active { /* Press effect */
+             transform: scale(0.98) translateY(1px);
+             box-shadow: inset 0 1px 3px rgba(0,0,0,0.3); /* Inner shadow for pressed look */
+         }
+
 
         .btn-primary {
             background: linear-gradient(135deg, var(--primary-accent) 0%, #a787ff 100%); /* Violet gradient */
@@ -175,6 +194,11 @@
             background-color: rgba(127, 90, 240, 0.1);
             transform: translateY(-2px);
         }
+         .btn-secondary:active { /* Press effect */
+             transform: scale(0.95); /* Slightly more pronounced press for small buttons */
+             box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
+         }
+
 
          /* Small buttons for quantity control */
          .btn-small {
@@ -190,6 +214,8 @@
             position: relative;
             padding-top: 8rem;
             padding-bottom: 8rem;
+             /* Add perspective to the products section */
+             perspective: 1200px;
          }
          #products::before { /* Top separator glow */
             content: '';
@@ -200,7 +226,14 @@
             height: 100px;
             background: linear-gradient(to bottom, rgba(22, 22, 26, 0), rgba(127, 90, 240, 0.1));
             pointer-events: none;
+            z-index: 1; /* Ensure separator is above section background but below content */
          }
+         /* Ensure products grid content is above separator */
+         #products > .max-w-7xl {
+             position: relative;
+             z-index: 2;
+         }
+
 
         .category-title {
             background: linear-gradient(135deg, var(--primary-accent) 0%, var(--secondary-accent) 100%);
@@ -213,6 +246,7 @@
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
             font-size: 1.2rem;
+             transform: translateZ(0); /* Promote for animation */
         }
 
         /* Redesigned Product Card */
@@ -228,12 +262,33 @@
             display: flex; /* Use flex to space content and controls */
             flex-direction: column;
             justify-content: space-between; /* Push controls to bottom */
+             /* Initial state for reveal animation */
+             opacity: 0;
+             transform: translateY(40px) rotateX(15deg) scale(0.95);
+             transform-origin: center bottom;
         }
+         /* Product card visible state (controlled by JS observer) */
+        .product-card.visible {
+            opacity: 1;
+            transform: translateY(0) rotateX(0deg) scale(1);
+             transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bounce transition */
+            transition-delay: var(--reveal-delay, 0s); /* Use CSS variable for delay */
+        }
+
+
         .product-card:hover {
-            transform: translateY(-10px) rotateX(3deg) rotateY(-2deg); /* Slight tilt effect */
+            transform: translateY(-15px) rotateX(5deg) rotateY(-3deg) scale(1.03); /* More pronounced tilt and lift */
             box-shadow: 0 15px 30px rgba(0,0,0, 0.3);
             border-color: rgba(127, 90, 240, 0.5); /* Accent border on hover */
+             /* Add slight continuous animation on hover, but subtle */
+             /* animation: cardHoverFloat 3s ease-in-out infinite; */ /* Optional: Add subtle float */
         }
+         /* @keyframes cardHoverFloat {
+             0%, 100% { transform: translateY(-15px) rotateX(5deg) rotateY(-3deg) scale(1.03); }
+             50% { transform: translateY(-18px) rotateX(5deg) rotateY(-3deg) scale(1.03); }
+         } */
+
+
          .product-card::after { /* Subtle glow effect */
              content: '';
              position: absolute;
@@ -256,15 +311,18 @@
             justify-content: center;
             padding: 1rem;
             overflow: hidden;
+            position: relative;
+            z-index: 1; /* Ensure image is above card glow */
         }
         .product-image-wrapper img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
             transition: transform 0.4s ease;
+             transform: translateZ(0); /* Promote image layer */
         }
         .product-card:hover .product-image-wrapper img {
-            transform: scale(1.08);
+            transform: scale(1.15) rotateZ(2deg); /* Slightly more dynamic zoom/rotate */
         }
 
         .product-card-content {
@@ -304,6 +362,7 @@
             font-weight: 700;
             color: var(--primary-accent); /* Accent color for price */
             margin-bottom: 1.25rem;
+             transform: translateZ(0); /* Promote price layer */
         }
         /* Product Controls - Centered at the bottom */
         .product-card-controls {
@@ -312,6 +371,7 @@
             justify-content: center; /* Center buttons */
             align-items: center;
             width: 100%;
+             min-height: 40px; /* Reserve space to prevent jump */
         }
 
         .product-quantity-controls {
@@ -320,6 +380,7 @@
              gap: 0.5rem; /* Space between buttons and quantity */
              width: 100%; /* Allow controls to take full width for centering */
              justify-content: center; /* Center controls group */
+              /* Add/Remove animation handled by JS swapping - could animate opacity on container */
         }
          .product-quantity {
              font-size: 1.1rem;
@@ -337,6 +398,7 @@
             border-radius: 50px; /* Pill shape */
             padding: 0.8rem 1.5rem;
             transition: all 0.3s ease;
+             transform: translateZ(0); /* Promote input layers */
         }
          #productSearch::placeholder, #couponCode::placeholder {
              color: var(--text-secondary);
@@ -360,6 +422,7 @@
              border-color: var(--primary-accent);
              box-shadow: 0 0 0 2px rgba(127, 90, 240, 0.3);
              outline: none;
+             transform: translateZ(5px); /* Slight lift on focus */
         }
          #couponCode:disabled {
              opacity: 0.6;
@@ -367,11 +430,13 @@
          }
         .search-icon { color: var(--text-secondary); }
 
-        /* Form Styling */
+        /* Form Section */
         .form-section {
             background-color: var(--bg-dark); /* Match body bg */
             position: relative;
             overflow: hidden;
+             /* Add perspective to form sections */
+             perspective: 1000px;
         }
         .form-section::before { /* Aurora effect background */
              content: "";
@@ -393,6 +458,7 @@
             position: relative; /* To stay above the ::before */
             z-index: 1;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+             transform: translateZ(0); /* Promote container layer */
         }
         .form-container label {
              color: var(--text-secondary);
@@ -413,6 +479,7 @@
             padding: 0.9rem 1rem;
              width: 100%;
              transition: all 0.3s ease;
+             transform: translateZ(0); /* Promote input layers */
         }
         .form-container input::placeholder,
         .form-container textarea::placeholder {
@@ -425,6 +492,7 @@
             background-color: rgba(22, 22, 26, 0.9);
              box-shadow: 0 0 0 2px rgba(127, 90, 240, 0.3);
              outline: none;
+             transform: translateZ(5px); /* Slight lift on focus */
         }
          .form-container select option {
              background-color: var(--bg-dark);
@@ -441,6 +509,7 @@
              min-height: 80px; /* Give it some minimum space */
              color: var(--text-main);
              font-size: 0.95rem;
+              transform: translateZ(0); /* Promote layer */
          }
          #orderSummaryDisplay p {
              color: var(--text-secondary);
@@ -506,6 +575,8 @@
         /* Contact Section */
         #contact {
             background-color: var(--card-bg); /* Use card bg for contrast */
+             /* Add perspective to contact section */
+             perspective: 800px;
         }
         .contact-info-box {
              background-color: rgba(22, 22, 26, 0.8); /* Darker box */
@@ -513,10 +584,11 @@
              border-radius: 12px;
              padding: 2rem;
              transition: all 0.3s ease;
+             transform: translateZ(0); /* Promote layer */
         }
         .contact-info-box:hover {
              border-color: var(--primary-accent);
-             transform: translateY(-5px);
+             transform: translateY(-8px) scale(1.02) translateZ(10px); /* Lift and scale slightly */
              box-shadow: 0 8px 20px rgba(0,0,0,0.25);
         }
         .contact-info-box a {
@@ -531,10 +603,11 @@
             color: var(--text-secondary);
             font-size: 1.75rem; /* Larger icons */
             transition: all 0.3s ease;
+             transform: translateZ(0); /* Promote icons */
         }
         .social-icons a:hover {
              color: var(--primary-accent);
-             transform: scale(1.1) rotate(-5deg);
+             transform: scale(1.2) rotate(5deg) translateZ(5px); /* Scale, rotate, and lift */
         }
 
         /* Footer */
@@ -552,6 +625,7 @@
              background-color: rgba(22, 22, 26, 0.7); /* Dark backdrop */
              backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
+             perspective: 800px; /* Perspective for modal content */
         }
         .modal-content {
             background-color: var(--card-bg);
@@ -559,6 +633,9 @@
             border-radius: 16px;
             color: var(--text-main);
              box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+             /* animate.css handles the entry animation (zoomIn) */
+             /* Add a subtle transform for better layering with backdrop perspective */
+             transform: translateZ(0);
         }
         .modal-content img { border-radius: 8px; background-color: rgba(255,255,255,0.05); }
         .modal-content h3 { color: var(--text-main); }
@@ -570,7 +647,7 @@
         }
         .modal-close-btn:hover {
              color: var(--text-main);
-             transform: rotate(90deg);
+             transform: rotate(90deg) scale(1.1); /* Rotate and slightly scale */
         }
 
         /* Loader */
@@ -582,6 +659,7 @@
           height: 50px;
           animation: spin 1s linear infinite;
           margin: 80px auto;
+          transform: translateZ(0); /* Promote for smooth animation */
         }
         @keyframes spin {
           0% { transform: rotate(0deg); }
@@ -590,71 +668,41 @@
 
         /* Animation Utilities */
         /* Initial state for elements that will be revealed */
+        /* Modified reveal for a more pronounced 3D effect and bounce */
         .reveal {
             opacity: 0;
-            transform: translateY(30px); /* Start slightly below */
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Base transition */
-            /* Add transition-delay property here, will be set by JS */
-            transition-delay: 0s;
+            /* Start slightly below, slightly rotated, and scaled down */
+            transform: translateY(40px) rotateX(15deg) scale(0.95);
+            transform-origin: center bottom; /* Rotate from the bottom edge */
+            /* transition properties will be set by JS for staggered effect */
+            transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+             will-change: opacity, transform; /* Hint browser for performance */
+             transition-delay: 0s; /* Default, overridden by JS */
         }
         /* Final state when element is visible */
         .reveal.visible {
             opacity: 1;
-            transform: translateY(0); /* End at original position */
-            /* transition-delay is now applied */
+            transform: translateY(0) rotateX(0deg) scale(1); /* End at original position/scale */
+            /* transition-delay is now applied by JS */
         }
 
-        /* Order Form Styling */
+        /* Order Form Styling (reuses .form-container styles) */
         #orderFormContainer {
-             background-color: var(--card-bg);
-             border: 1px solid var(--border-color);
-             border-radius: 16px;
-             padding: 2rem;
-             position: relative;
-             z-index: 1;
-             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+             /* Styles already defined under .form-container */
              max-width: 600px;
              margin: 0 auto;
         }
-         #orderFormContainer label {
-             color: var(--text-secondary);
-             font-weight: 500;
-             font-size: 0.9rem;
-             margin-bottom: 0.5rem;
-             display: block;
+
+         /* Placeholder styles for elements revealed by JS */
+         #productsContainer > div {
+             /* Ensures any direct child divs within productsContainer (like category sections or loader)
+                also have perspective applied if needed for their children's animations.
+                Product cards within these divs have transform-style: preserve-3d; */
+             perspective: inherit; /* Inherit perspective from #products */
+             transform-style: preserve-3d; /* Allow 3D transformations of children (product cards) */
          }
-         #orderFormContainer input[type="text"],
-         #orderFormContainer input[type="email"],
-         #orderFormContainer input[type="tel"],
-         #orderFormContainer textarea,
-         #orderFormContainer select {
-            background-color: rgba(22, 22, 26, 0.7); /* Darker input bg */
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            border-radius: 8px;
-            padding: 0.9rem 1rem;
-             width: 100%;
-             transition: all 0.3s ease;
-        }
-        #orderFormContainer input::placeholder,
-        #orderFormContainer textarea::placeholder {
-            color: rgba(148, 161, 178, 0.6); /* Lighter placeholder */
-        }
-        #orderFormContainer input:focus,
-        #orderFormContainer textarea:focus,
-        #orderFormContainer select:focus {
-            border-color: var(--primary-accent);
-            background-color: rgba(22, 22, 26, 0.9);
-             box-shadow: 0 0 0 2px rgba(127, 90, 240, 0.3);
-             outline: none;
-        }
-         #orderFormContainer select option {
-             background-color: var(--bg-dark);
-             color: var(--text-main);
-         }
-         #orderFormContainer .btn-primary {
-             margin-top: 1rem;
-         }
+
 
     </style>
 </head>
@@ -693,22 +741,25 @@
         </div>
 
         <div class="max-w-4xl mx-auto px-6 relative z-10">
-             <img src="GridArt_20250428_230202733.png" alt="The Highon's Logo" class="w-56 sm:w-72 md:w-80 mx-auto mb-8 animate__animated animate__fadeInDown" loading="lazy">
+             <div class="animate__animated animate__fadeInDown" style="transform-style: preserve-3d;">
+                <img src="GridArt_20250428_230202733.png" alt="The Highon's Logo" class="w-56 sm:w-72 md:w-80 mx-auto mb-8" loading="lazy" style="transform: translateZ(20px);">
+             </div>
 
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 animate__animated animate__fadeInUp">
-                Ignite Your <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-emerald-400">Creativity</span>.
+
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 animate__animated animate__fadeInUp" style="transform-style: preserve-3d;">
+                Ignite Your <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-emerald-400" style="transform: translateZ(10px); display: inline-block;">Creativity</span>.
             </h1>
-            <p class="text-lg md:text-xl mb-10 text-gray-300 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-1s">
+            <p class="text-lg md:text-xl mb-10 text-gray-300 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-1s" style="transform-style: preserve-3d;">
                 Discover premium supplies in Navsari. Explore keychains, art materials, stationery, and more.
             </p>
-            <a href="#products" class="btn btn-primary text-lg px-10 py-4 animate__animated animate__fadeInUp animate__delay-2s">
+            <a href="#products" class="btn btn-primary text-lg px-10 py-4 animate__animated animate__fadeInUp animate__delay-2s" style="transform-style: preserve-3d; transform: translateZ(15px);">
                 Explore Collection
             </a>
         </div>
-         <div class="mt-20 flex justify-center space-x-5 sm:space-x-8 opacity-80">
-           <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-3s" loading="lazy">
-           <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-emerald-500/50 animate__animated animate__fadeIn animate__delay-4s" loading="lazy" style="animation-delay: 0.4s;">
-           <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-5s" loading="lazy" style="animation-delay: 0.8s;">
+         <div class="mt-20 flex justify-center space-x-5 sm:space-x-8 opacity-80 relative z-10">
+           <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-3s" loading="lazy" style="transform: rotateZ(-5deg);">
+           <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-emerald-500/50 animate__animated animate__fadeIn animate__delay-4s" loading="lazy" style="animation-delay: 0.4s; transform: rotateZ(5deg);">
+           <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-5s" loading="lazy" style="animation-delay: 0.8s; transform: rotateZ(-3deg);">
          </div>
     </section>
 
@@ -741,8 +792,7 @@
      <section id="order" class="py-20 px-6 form-section">
         <div class="max-w-3xl mx-auto text-center reveal">
             <h2 class="text-4xl md:text-5xl font-bold mb-8">Place Your Order</h2>
-            <div id="orderFormContainer" class="text-left">
-                <p class="text-gray-400 mb-6">Items added from the 'Our Collection' section will appear below. Fill in your details to place your order for delivery within Navsari (PIN: 396445).</p>
+            <div id="orderFormContainer" class="text-left form-container"> <p class="text-gray-400 mb-6">Items added from the 'Our Collection' section will appear below. Fill in your details to place your order for delivery within Navsari (PIN: 396445).</p>
 
                 <div>
                      <label class="mb-2 block text-secondary">Your Order Summary</label>
@@ -1028,25 +1078,25 @@
                             const title = catKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
                             if (category === 'all' || category === catKey) {
                                 section.innerHTML = `<h3 class="category-title reveal">${escapeHtml(title)}</h3>`;
+                                 // Observe the category title immediately
+                                 observeElement(section.querySelector('.category-title'));
                             }
 
                             const grid = document.createElement('div');
                             // Updated grid classes for more columns on larger screens and adjusted gaps
                             grid.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8';
                             grid.id = `${catKey}Grid`;
+                             // Add perspective/transform-style to the grid if needed for child animations
+                            grid.style.cssText = 'perspective: inherit; transform-style: preserve-3d;';
                             section.appendChild(grid);
                             container.appendChild(section);
 
                             filtered.forEach((product, index) => { // Pass index here
                                 const card = createProductCard(product, index); // Pass index to card creation
                                 grid.appendChild(card);
-                                observeElement(card); // Add to observer for reveal animation
+                                // Product cards are observed individually in createProductCard now
                             });
-                            // Observe title only if it's explicitly created for this category section
-                            const categoryTitle = section.querySelector('.category-title');
-                             if (categoryTitle) {
-                                 observeElement(categoryTitle);
-                             }
+
                         }
                     };
 
@@ -1075,7 +1125,7 @@
             card.id = `product-${product.id}`; // Add ID for easy lookup
             card.className = "product-card reveal"; // Add reveal class
             card.setAttribute('data-product-id', product.id);
-             card.setAttribute('data-index', index); // Add data-index
+             card.setAttribute('data-index', index); // Add data-index for staggered reveal delay
 
             const productNameSafe = escapeHtml(product.name);
             const productDescSafe = escapeHtml(product.desc);
@@ -1107,6 +1157,10 @@
                     }
                 </div>
             `;
+
+             // Add observer to this newly created card
+             observeElement(card);
+
             return card;
         }
 
@@ -1177,20 +1231,33 @@
             const controlsContainer = card.querySelector('.product-card-controls');
             const quantity = orderItems[productId] || 0;
 
-            controlsContainer.innerHTML = ''; // Clear current controls
+             // Create the new control HTML
+             const newControlsHTML = quantity === 0
+                 ? `<button type="button" class="btn btn-primary btn-add w-full" data-product-id="${productId}">Add</button>`
+                 : `
+                     <div class="product-quantity-controls" data-product-id="${productId}">
+                         <button type="button" class="btn btn-secondary btn-small btn-decrease" data-product-id="${productId}" aria-label="Decrease quantity">-</button>
+                         <span class="product-quantity">${quantity}</span>
+                         <button type="button" class="btn btn-secondary btn-small btn-increase" data-product-id="${productId}" aria-label="Increase quantity">+</button>
+                     </div>
+                  `;
 
-            if (quantity === 0) {
-                controlsContainer.innerHTML = `<button type="button" class="btn btn-primary btn-add w-full" data-product-id="${productId}">Add</button>`;
-            } else {
-                 controlsContainer.innerHTML = `
-                    <div class="product-quantity-controls" data-product-id="${productId}">
-                        <button type="button" class="btn btn-secondary btn-small btn-decrease" data-product-id="${productId}" aria-label="Decrease quantity">-</button>
-                                <span class="product-quantity">${quantity}</span>
-                                <button type="button" class="btn btn-secondary btn-small btn-increase" data-product-id="${productId}" aria-label="Increase quantity">+</button>
-                            </div>
-                 `;
-            }
-             // Event listeners for these buttons are handled by delegation on productsContainer
+             // Check if the controls HTML actually needs updating
+             if (controlsContainer.innerHTML.trim() !== newControlsHTML.trim()) {
+                 // A simple way to animate the change: wrap the controls container in a div
+                 // and animate the opacity/scale of the inner content before swapping.
+                 // Or, simpler, just replace the HTML. The card's transform and the button/controls'
+                 // own transitions (if any added later) will provide some visual feedback.
+                 // Let's stick to replacing innerHTML for simplicity as per original code.
+                 controlsContainer.innerHTML = newControlsHTML;
+                 // Note: Event listeners need to be handled by delegation since HTML is replaced.
+             } else {
+                  // If the structure didn't change (e.g., quantity updated from 1 to 2), just update the quantity span
+                 const quantitySpan = controlsContainer.querySelector('.product-quantity');
+                 if(quantitySpan) {
+                     quantitySpan.textContent = quantity;
+                 }
+             }
         }
 
 
@@ -1463,35 +1530,44 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const target = entry.target;
-                    const index = target.getAttribute('data-index');
-                    // Calculate delay based on index (adjust multiplier for desired effect)
-                    const delay = index * 50; // 50ms delay per element
+                    // Get index for stagger only for product cards
+                    const index = target.classList.contains('product-card') ? parseInt(target.getAttribute('data-index'), 10) : 0;
+                    const delay = index * 50; // 50ms delay per card
 
-                    // Apply the calculated delay
-                    target.style.transitionDelay = `${delay}ms`;
+                    // Apply the calculated delay using CSS variable
+                    target.style.setProperty('--reveal-delay', `${delay}ms`);
 
                     // Add the visible class to trigger the animation
                     target.classList.add('visible');
 
                     // Optional: unobserve after revealing to save resources if element won't be hidden again
-                    // observer.unobserve(entry.target);
+                     // For one-time reveal on scroll down:
+                    if (!target.classList.contains('animate__animated')) { // Don't unobserve animate.css elements
+                         observer.unobserve(entry.target);
+                    }
                 } else {
                      // Optional: remove visible class and reset delay if you want elements to re-animate on scroll back up
+                     // Note: This might be jarring for users. Kept for demonstration if desired.
+                     // If unobserving above, this 'else' block is not needed for those elements.
+                     // For elements that are *not* unobserved, you might remove 'visible' here
                      // target.classList.remove('visible');
-                     // target.style.transitionDelay = '0s'; // Reset delay when not intersecting
+                     // target.style.setProperty('--reveal-delay', '0s'); // Reset delay
                 }
             });
         }, {
             threshold: 0.1 // Trigger when 10% of the element is visible
         });
+
+        // Function to add element to observer
         function observeElement(element) {
-            if (element) {
-                // Reset initial state before observing if the element might be re-added (like after filtering/searching)
+            if (element && !element.classList.contains('visible')) { // Only observe if not already visible
+                 // Reset initial state before observing
                  element.classList.remove('visible');
-                 element.style.transitionDelay = '0s';
-                observer.observe(element);
+                 element.style.setProperty('--reveal-delay', '0s'); // Reset delay
+                 observer.observe(element);
             }
         }
+
 
         // --- Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
@@ -1519,6 +1595,7 @@
                        clearTimeout(searchTimeout);
                        const searchTerm = this.value;
                        searchTimeout = setTimeout(() => {
+                           // When rendering products after search/filter, re-observe all new/remaining elements
                            renderProducts(currentCategoryFilter, searchTerm);
                        }, 300); // Slightly longer debounce
                    });
@@ -1529,6 +1606,7 @@
               if (categoryFilterSelect) {
                    categoryFilterSelect.addEventListener('change', function() {
                       const searchVal = document.getElementById('productSearch')?.value || '';
+                       // When rendering products after search/filter, re-observe all new/remaining elements
                       renderProducts(this.value, searchVal);
                    });
               } else { console.error("Category filter select not found."); }
@@ -1615,10 +1693,9 @@
                 }
 
 
-               // Observe elements with 'reveal' class initially present in HTML
-                // These are non-product card elements like titles, headers, etc.
+               // Observe elements with 'reveal' class initially present in HTML (non-product cards)
                 document.querySelectorAll('.reveal').forEach(el => {
-                    // Don't observe product cards here, they are handled in renderProducts
+                    // Product cards are observed individually in createProductCard
                     if (!el.classList.contains('product-card')) {
                        observeElement(el);
                     }
