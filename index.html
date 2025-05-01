@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,35 +73,6 @@
               transform-style: preserve-3d; /* Enable 3D space for children */
          }
 
-        /* Navigation Links */
-        .nav-link {
-          position: relative;
-          color: var(--text-secondary);
-          transition: all 0.3s ease;
-          padding: 0.5rem 0.25rem;
-          font-weight: 500;
-           transform: translateZ(1px); /* Nav links slightly forward */
-           display: inline-block; /* Needed for transform */
-        }
-        .nav-link:hover {
-          color: var(--text-main);
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 50%;
-            background-color: var(--primary-accent); /* Use accent color */
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-            border-radius: 1px;
-        }
-        .nav-link:hover::after {
-            width: 70%; /* Underline effect */
-        }
-
         /* Sections */
         section {
             position: relative; /* Needed for child absolute positioning */
@@ -123,6 +93,8 @@
              inset: 0;
              z-index: 0;
              transform-style: preserve-3d; /* Enable 3D for shapes */
+              /* Initial transform for parallax - maintains original z */
+              transform: translateZ(-50px);
         }
         .hero-shapes div {
             position: absolute;
@@ -130,45 +102,50 @@
             background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
             opacity: 0.1;
             animation: drift 20s infinite linear alternate;
-             transform: translateZ(-50px); /* Push shapes back in 3D space */
         }
-        .hero-shapes div:nth-child(1) { width: 150px; height: 150px; top: 10%; left: 15%; animation-duration: 22s;}
-        .hero-shapes div:nth-child(2) { width: 80px; height: 80px; top: 70%; left: 80%; animation-duration: 18s; animation-delay: 2s;}
-        .hero-shapes div:nth-child(3) { width: 120px; height: 120px; top: 40%; left: 50%; animation-duration: 25s; animation-delay: 4s;}
-
+        /* Remove translateZ from drift keyframes, it's on the container */
         @keyframes drift {
-            from { transform: translateY(0px) translateX(0px) rotate(0deg) scale(1) translateZ(-50px); }
-            to { transform: translateY(20px) translateX(-15px) rotate(30deg) scale(1.1) translateZ(-50px); }
+            from { transform: translateY(0px) translateX(0px) rotate(0deg) scale(1); }
+            to { transform: translateY(20px) translateX(-15px) rotate(30deg) scale(1.1); }
         }
 
-         .hero-content > div { /* Wrapper for hero text/button */
+
+         .hero-content { /* Wrapper for hero text/button/images */
               position: relative;
               z-index: 10; /* Ensure content is above shapes */
               transform-style: preserve-3d;
          }
 
-        /* Hero image slight float */
+        /* Hero logo animation and 3D position */
          .hero-content img[alt="The Highon's Logo"] {
-             animation: float 4s ease-in-out infinite;
-             transform: translateZ(20px); /* Logo forward */
+             animation: float 5s ease-in-out infinite; /* Adjusted timing */
+             transform: translateZ(30px); /* Logo further forward */
              display: block; /* Needed for transform */
+             will-change: transform; /* Hint browser */
          }
           @keyframes float {
-            0%, 100% { transform: translateY(0) translateZ(20px); }
-            50% { transform: translateY(-10px) translateZ(25px); }
+            0%, 100% { transform: translateY(0) translateZ(30px); }
+            50% { transform: translateY(-15px) translateZ(35px); } /* More pronounced float */
           }
 
-         .hero-content h1 { transform-style: preserve-3d; }
-         .hero-content h1 span { transform: translateZ(10px); display: inline-block; } /* 'Creativity' forward */
-         .hero-content p { transform: translateZ(5px); } /* Hero text forward */
-         .hero-content .btn { transform: translateZ(15px); } /* Hero button forward */
+         .hero-content h1 { transform-style: preserve-3d; will-change: transform; }
+         .hero-content h1 span { transform: translateZ(15px); display: inline-block; will-change: transform; } /* 'Creativity' more forward */
+         .hero-content p { transform: translateZ(8px); will-change: transform; } /* Hero text more forward */
+         .hero-content .btn { transform: translateZ(25px); will-change: transform; } /* Hero button much more forward */
 
 
+         /* Hero small circular images 3D position and animation */
+         .hero-content .flex.relative.z-10 { transform-style: preserve-3d; } /* Container for small images */
          .hero-section .rounded-full {
-              transform: translateZ(10px) rotateZ(var(--rotate-z, 0deg)); /* Hero small images forward, add rotate variable */
-              transition: transform 0.5s ease-in-out; /* Add transition */
+              animation: subtle-circle-float 8s ease-in-out infinite alternate; /* Add a new animation */
+              transform: translateZ(10px) rotateZ(var(--rotate-z, 0deg)); /* Initial transform */
+              will-change: transform; /* Hint browser */
          }
-          /* Define the rotate-z variable for each image (can be set inline or with JS if dynamic) */
+          @keyframes subtle-circle-float {
+            0%, 100% { transform: translateY(0) translateZ(10px) rotateZ(var(--rotate-z, 0deg)); }
+            50% { transform: translateY(-5px) translateZ(12px) rotateZ(var(--rotate-z, 0deg)); }
+          }
+          /* Define the rotate-z variable for each image */
          .hero-section .rounded-full:nth-child(1) { --rotate-z: -5deg; }
          .hero-section .rounded-full:nth-child(2) { --rotate-z: 5deg; }
          .hero-section .rounded-full:nth-child(3) { --rotate-z: -3deg; }
@@ -190,7 +167,7 @@
             overflow: hidden;
             z-index: 1;
             white-space: nowrap;
-             transform: translateZ(5px); /* Buttons slightly forward */
+             transform: translateZ(10px); /* Buttons more forward */
              will-change: transform, box-shadow; /* Hint browser */
         }
         .btn::before { /* Subtle shine effect on hover */
@@ -208,7 +185,7 @@
             left: 100%;
         }
          .btn:active { /* Press effect */
-             transform: scale(0.98) translateY(1px) translateZ(3px); /* Press down and slightly back */
+             transform: scale(0.98) translateY(1px) translateZ(8px); /* Press down and slightly back */
              box-shadow: inset 0 1px 3px rgba(0,0,0,0.3); /* Inner shadow for pressed look */
          }
 
@@ -219,7 +196,7 @@
             box-shadow: 0 4px 15px rgba(127, 90, 240, 0.3);
         }
         .btn-primary:hover {
-            transform: translateY(-3px) scale(1.03) translateZ(8px); /* Lift, scale, and move forward */
+            transform: translateY(-3px) scale(1.03) translateZ(15px); /* Lift, scale, and move further forward */
             box-shadow: 0 6px 20px rgba(127, 90, 240, 0.4);
         }
          .btn-primary:disabled {
@@ -240,10 +217,10 @@
         }
         .btn-secondary:hover {
             background-color: rgba(127, 90, 240, 0.1);
-            transform: translateY(-2px) translateZ(6px); /* Lift and move forward */
+            transform: translateY(-2px) translateZ(12px); /* Lift and move further forward */
         }
          .btn-secondary:active { /* Press effect */
-             transform: scale(0.95) translateZ(3px); /* Slightly more pronounced press for small buttons */
+             transform: scale(0.95) translateZ(8px); /* Slightly more pronounced press for small buttons */
              box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
          }
 
@@ -292,17 +269,23 @@
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
             font-size: 1.2rem;
-             transform: translateZ(20px); /* Category title forward */
+             /* Category titles now use standard reveal */
+             transform: translateZ(20px); /* Apply translateZ directly */
              will-change: transform, opacity;
         }
 
+
         /* Redesigned Product Card */
+        @keyframes subtle-float {
+            0%, 100% { transform: translateY(0px) translateZ(0px); } /* Stay at base level in 3D space */
+            50% { transform: translateY(-3px) translateZ(2px); } /* Subtle vertical float and slightly forward */
+        }
+
         .product-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             transform-style: preserve-3d; /* For tilt effect */
             box-shadow: 0 5px 15px rgba(0,0,0, 0.2);
@@ -311,24 +294,34 @@
             justify-content: space-between;
              /* Initial state for reveal animation */
              opacity: 0;
-             /* Start slightly below and scaled down */
-             transform: translateY(50px) scale(0.9);
+             /* Start slightly below, scaled down, and slightly rotated */
+             transform: translateY(50px) scale(0.9) rotateX(10deg); /* Added rotateX */
              transform-origin: center bottom; /* Rotate/scale from the bottom edge */
-             will-change: transform, opacity; /* Hint browser */
+             will-change: opacity, transform; /* Hint browser */
+
+             /* Apply subtle continuous animation */
+             animation: subtle-float 6s ease-in-out infinite alternate;
+             /* Hover transition */
+             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
          /* Product card visible state (controlled by JS observer) */
         .product-card.visible {
             opacity: 1;
-            transform: translateY(0) scale(1); /* End at original position/scale */
-            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay), /* Use CSS variable for delay */
-                        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay); /* Use same curve */
+            transform: translateY(0) scale(1) rotateX(0deg); /* End at original position/scale/rotation */
+            /* Apply the reveal transition back explicitly here to ensure it runs */
+             transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+                         transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
+             /* The 'animation' property itself is not part of the transition,
+                the 'transform' property is affected by both.
+                The hover transition will override the animation's transform. */
         }
 
 
         .product-card:hover {
-            transform: translateY(-15px) rotateX(5deg) rotateY(-3deg) scale(1.03) translateZ(20px); /* More pronounced tilt, lift, and move forward */
-            box-shadow: 0 15px 30px rgba(0,0,0, 0.3);
-            border-color: rgba(127, 90, 240, 0.5); /* Accent border on hover */
+            transform: translateY(-15px) rotateX(5deg) rotateY(-3deg) scale(1.05) translateZ(30px); /* More pronounced tilt, lift, and move further forward */
+            box-shadow: 0 20px 40px rgba(0,0,0, 0.4); /* Larger shadow on hover */
+            border-color: rgba(127, 90, 240, 0.7); /* More prominent accent border */
+             animation: none; /* Pause the subtle float animation on hover */
         }
 
          .product-card::after { /* Subtle glow effect */
@@ -378,15 +371,19 @@
              transform-style: preserve-3d;
         }
         .product-card-content h3 {
-             transform: translateZ(2px); /* Card title slightly forward */
+             transform: translateZ(5px); /* Card title more forward */
              will-change: transform;
         }
          .product-card-content p.product-desc {
-             transform: translateZ(1px); /* Card desc slightly forward */
+             transform: translateZ(3px); /* Card desc more forward */
              will-change: transform;
          }
         .product-card .product-price {
-            transform: translateZ(3px); /* Price forward */
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-accent);
+            margin-bottom: 1.25rem;
+            transform: translateZ(8px); /* Price more forward */
              will-change: transform;
         }
         /* Product Controls - Centered at the bottom */
@@ -402,7 +399,7 @@
 
         .product-card-controls .btn,
         .product-card-controls .product-quantity-controls {
-             transform: translateZ(4px); /* Controls forward */
+             transform: translateZ(10px); /* Controls more forward */
              will-change: transform;
         }
 
@@ -415,7 +412,7 @@
             border-radius: 50px;
             padding: 0.8rem 1.5rem;
             transition: all 0.3s ease;
-             transform: translateZ(1px); /* Inputs slightly forward */
+             transform: translateZ(5px); /* Inputs more forward */
              will-change: transform, box-shadow, border-color;
         }
          #productSearch::placeholder, #couponCode::placeholder {
@@ -440,7 +437,7 @@
              border-color: var(--primary-accent);
              box-shadow: 0 0 0 2px rgba(127, 90, 240, 0.3);
              outline: none;
-             transform: translateZ(8px); /* More lift on focus */
+             transform: translateZ(15px); /* More lift on focus */
         }
          #couponCode:disabled {
              opacity: 0.6;
@@ -473,7 +470,7 @@
             position: relative;
             z-index: 1;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-             transform: translateZ(20px); /* Form container forward */
+             transform: translateZ(30px); /* Form container more forward */
              will-change: transform;
         }
         .form-container label {
@@ -601,19 +598,19 @@
              border-radius: 12px;
              padding: 2rem;
              transition: all 0.3s ease;
-             transform: translateZ(10px); /* Contact info box forward */
+             transform: translateZ(20px); /* Contact info box more forward */
              will-change: transform, box-shadow, border-color;
         }
         .contact-info-box:hover {
              border-color: var(--primary-accent);
-             transform: translateY(-8px) scale(1.02) translateZ(20px); /* Lift, scale, and move further forward */
+             transform: translateY(-8px) scale(1.02) translateZ(30px); /* Lift, scale, and move further forward */
              box-shadow: 0 8px 20px rgba(0,0,0,0.25);
         }
         .contact-info-box a {
             color: var(--primary-accent);
             transition: color 0.3s ease;
             word-break: break-all;
-             transform: translateZ(2px); /* Contact links forward */
+             transform: translateZ(5px); /* Contact links more forward */
              display: inline-block; /* Needed for transform */
              will-change: transform;
         }
@@ -624,13 +621,13 @@
             color: var(--text-secondary);
             font-size: 1.75rem;
             transition: all 0.3s ease;
-             transform: translateZ(5px); /* Social icons forward */
+             transform: translateZ(10px); /* Social icons more forward */
              display: inline-block; /* Needed for transform */
              will-change: transform;
         }
         .social-icons a:hover {
              color: var(--primary-accent);
-             transform: scale(1.2) rotate(5deg) translateZ(10px); /* Scale, rotate, and move further forward */
+             transform: scale(1.2) rotate(5deg) translateZ(20px); /* Scale, rotate, and move further forward */
         }
 
         /* Footer */
@@ -665,7 +662,7 @@
             color: var(--text-main);
              box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
              position: relative;
-             max-width: lg; /* Use tailwind utility directly */
+             max-width: 500px; /* Use max-width utility directly */
              width: 100%;
              margin: auto; /* Use auto margin for centering */
              overflow: hidden;
@@ -705,12 +702,12 @@
           height: 50px;
           animation: spin 1s linear infinite;
           margin: 80px auto;
-           transform: translateZ(10px); /* Loader forward */
+           transform: translateZ(20px); /* Loader more forward */
            will-change: transform;
         }
         @keyframes spin {
-          0% { transform: rotate(0deg) translateZ(10px); }
-          100% { transform: rotate(360deg) translateZ(10px); }
+          0% { transform: rotate(0deg) translateZ(20px); }
+          100% { transform: rotate(360deg) translateZ(20px); }
         }
 
         /* Animation Utilities */
@@ -718,30 +715,31 @@
         /* Modified reveal for a more pronounced 3D effect and bounce */
         .reveal {
             opacity: 0;
-            /* Start slightly below and scaled down */
-            transform: translateY(50px) scale(0.9);
+            /* Start slightly below, scaled down, and slightly rotated */
+            transform: translateY(50px) scale(0.9) rotateX(10deg); /* Added rotateX */
             transform-origin: center bottom; /* Rotate/scale from the bottom edge */
             /* transition properties will be set by JS for staggered effect */
-            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s), /* Use CSS variable for delay */
-                        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s); /* Use same curve and delay */
-             will-change: opacity, transform; /* Hint browser for performance */
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+                        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
+             will-change: opacity, transform; /* Hint browser */
         }
         /* Final state when element is visible */
         .reveal.visible {
             opacity: 1;
-            transform: translateY(0) scale(1); /* End at original position/scale */
+            transform: translateY(0) scale(1) rotateX(0deg); /* End at original position/scale/rotation */
             /* transition-delay is now applied by JS */
         }
 
-        /* Special case for category titles - simpler reveal */
+        /* Category titles will use the standard reveal now */
         .category-title.reveal {
-             transform: translateY(30px) translateZ(20px); /* Keep simpler translateY but add translateZ */
+             /* Apply translateZ directly */
+             transform: translateY(30px) translateZ(20px);
              transition: opacity 0.6s ease-out var(--reveal-delay, 0s),
                          transform 0.6s ease-out var(--reveal-delay, 0s);
         }
-        .category-title.reveal.visible {
-            transform: translateY(0) translateZ(20px);
-        }
+         .category-title.reveal.visible {
+             transform: translateY(0) translateZ(20px);
+         }
 
 
         /* Order Form Styling (reuses .form-container styles) */
@@ -753,13 +751,21 @@
 
 
          /* Ensure grids and direct children of productsContainer have preserve-3d */
-         #productsContainer > div.grid {
+         #productsContainer {
+            transform-style: preserve-3d; /* Apply to the container itself */
+            will-change: transform; /* Hint browser for parallax */
+         }
+         #productsContainer > div.mb-16 { /* Category section div */
+             transform-style: preserve-3d;
+         }
+         #productsContainer > div.mb-16 > div.grid {
              transform-style: preserve-3d;
          }
 
+
          /* Ensure elements involved in parallax have will-change */
          .hero-shapes { will-change: transform; }
-         #productsContainer { will-change: transform; }
+
 
 
     </style>
@@ -976,8 +982,7 @@
         </div>
     </footer>
 
-    <div id="productModal" class="fixed inset-0 modal-backdrop flex items-center justify-center hidden p-4">
-        <div class="modal-content relative max-w-lg w-full mx-auto animate__animated animate__zoomIn animate__faster overflow-hidden">
+    <div id="productModal" class="fixed inset-0 modal-backdrop flex items-center justify-center hidden p-4 animate__animated animate__zoomIn animate__faster"> <div class="modal-content relative max-w-lg w-full mx-auto overflow-hidden">
              <button onclick="closeModal()" class="modal-close-btn absolute text-3xl leading-none z-10" aria-label="Close product details modal">&times;</button>
              <div class="p-6 sm:p-8 max-h-[80vh] overflow-y-auto">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1556,6 +1561,11 @@
                 modalPrice.textContent = `₹${product.price}`;
 
                 productModal.classList.remove('hidden');
+                 // Re-add animate__zoomIn to trigger animation each time
+                 productModal.classList.remove('animate__zoomOut', 'animate__zoomIn'); // Remove potential conflicting classes
+                 void productModal.offsetWidth; // Trigger reflow
+                 productModal.classList.add('animate__zoomIn');
+
                 document.body.classList.add('overflow-hidden'); // Prevent body scroll
 
            } catch (error) {
@@ -1567,7 +1577,17 @@
         function closeModal() {
           const productModal = document.getElementById('productModal');
           if (productModal) {
-            productModal.classList.add('hidden');
+             // Add zoomOut animation before hiding
+             productModal.classList.remove('animate__zoomIn');
+             productModal.classList.add('animate__zoomOut');
+
+             // Hide the modal after the animation completes
+             productModal.addEventListener('animationend', function handleAnimationEnd() {
+                 productModal.classList.add('hidden');
+                 productModal.classList.remove('animate__zoomOut'); // Clean up animation class
+                 productModal.removeEventListener('animationend', handleAnimationEnd);
+             });
+
           }
           document.body.classList.remove('overflow-hidden'); // Re-enable body scroll
         }
@@ -1585,9 +1605,9 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const target = entry.target;
-                    // Get index for stagger only for product cards
-                    const index = target.classList.contains('product-card') ? parseInt(target.getAttribute('data-index'), 10) : 0;
-                    const delay = index * 50; // 50ms delay per card
+                    // Get index for stagger only for product cards and titles
+                    const index = target.classList.contains('product-card') || target.classList.contains('category-title') ? parseInt(target.getAttribute('data-index'), 10) : 0;
+                    const delay = index * 50; // 50ms delay per element
 
                     // Apply the calculated delay using CSS variable
                     target.style.setProperty('--reveal-delay', `${delay}ms`);
@@ -1595,11 +1615,13 @@
                     // Add the visible class to trigger the animation
                     target.classList.add('visible');
 
-                    // Optional: unobserve after revealing to save resources if element won't be hidden again
-                     // For one-time reveal on scroll down:
+                    // Optional: unobserve after revealing to save resources for one-time animations
+                    // Don't unobserve if you want elements to re-animate on scroll back up,
+                    // but this can impact performance. Sticking to one-time for now.
                     if (!target.classList.contains('animate__animated')) { // Don't unobserve animate.css elements
-                         observer.unobserve(entry.target);
+                        observer.unobserve(entry.target);
                     }
+
                 } else {
                      // Optional: remove visible class and reset delay if you want elements to re-animate on scroll back up
                      // target.classList.remove('visible');
@@ -1622,9 +1644,6 @@
 
 
         // --- Parallax Effect ---
-        // This will add a subtle parallax to elements based on scroll position
-        // Adjust multiplier for intensity
-
         function applyParallax() {
             const heroShapes = document.querySelector('.hero-shapes');
             const productsContainer = document.getElementById('productsContainer'); // The wrapper containing grids/loader
@@ -1632,58 +1651,60 @@
             if (!heroShapes && !productsContainer) return;
 
             let rafId = null;
+            let lastScrollY = window.scrollY;
 
             const updateParallax = () => {
-                const currentScroll = window.scrollY;
+                const currentScrollY = window.scrollY;
 
-                // Parallax for Hero Shapes (move slightly against scroll)
+                // Parallax for Hero Shapes (move slightly against scroll, stronger effect)
                 if (heroShapes) {
                     const heroRect = heroShapes.closest('section').getBoundingClientRect();
-                    // Apply effect only when hero section is somewhat in view
+                     // Apply effect only when hero section is somewhat in view
                      if (heroRect.top < window.innerHeight && heroRect.bottom > 0) {
-                        const translateY = -currentScroll * 0.1; // 10% of scroll
-                        heroShapes.style.transform = `translateY(${translateY}px) translateZ(-50px)`; // Maintain original translateZ
+                        const translateY = -currentScrollY * 0.2; // 20% of scroll (increased intensity)
+                        // Apply translateY while maintaining the original translateZ from CSS
+                        heroShapes.style.transform = `translateY(${translateY}px) translateZ(-50px)`;
+                     } else {
+                         // Reset transform when fully out of view for performance/cleanliness
+                         heroShapes.style.transform = `translateY(0px) translateZ(-50px)`;
                      }
                 }
 
-                // Parallax for Products Grid Container (move slightly with scroll, giving foreground feel)
+                // Parallax for Products Grid Container (move slightly with scroll, giving foreground feel, stronger effect)
                  if (productsContainer) {
                     const productsRect = productsContainer.closest('section').getBoundingClientRect();
                      // Apply effect when products section is in view
-                     if (productsRect.top < window.innerHeight && productsRect.bottom > 0) {
-                         // Calculate offset based on distance from viewport top, subtle effect
-                         const sectionScroll = currentScroll - (productsContainer.closest('section').offsetTop - window.innerHeight);
-                         const translateY = Math.max(0, sectionScroll) * 0.05; // 5% of scroll, capped at 0
+                     if (productsRect.top < window.innerHeight && productsRect.bottom > 0) { // Apply effect when products section is in view
+                         // Calculate offset based on distance from viewport top
+                         // The further down the page, the more it follows the scroll
+                         const sectionTop = productsContainer.closest('section').offsetTop;
+                         const sectionScroll = currentScrollY - sectionTop;
+                         const translateY = Math.max(0, sectionScroll) * 0.08; // 8% of scroll relative to section top (increased intensity)
                          productsContainer.style.transform = `translateY(${translateY}px)`; // Apply translateY for parallax
                      } else {
                           productsContainer.style.transform = `translateY(0px)`; // Reset transform when out of view
                      }
                  }
 
-                rafId = requestAnimationFrame(updateParallax);
+                lastScrollY = currentScrollY; // Update last scroll position
+                rafId = null; // Clear the animation frame ID
             };
 
-            const startParallax = () => {
+            const onScroll = () => {
                 if (!rafId) {
-                    updateParallax(); // Initial update
+                    rafId = requestAnimationFrame(updateParallax);
                 }
             };
 
-            const stopParallax = () => {
-                if (rafId) {
-                    cancelAnimationFrame(rafId);
-                    rafId = null;
-                }
-            };
+            // Use a dedicated scroll event listener that calls onScroll
+            window.addEventListener('scroll', onScroll);
 
-            // Start/stop parallax on scroll
-            window.addEventListener('scroll', startParallax);
-             // Also update on load and resize in case elements are already in view
+             // Update on load and resize
              window.addEventListener('load', updateParallax);
              window.addEventListener('resize', updateParallax);
 
-             // Initial call
-             updateParallax();
+             // Initial call to set position correctly on load
+             updateParallax(); // Call immediately on script load
         }
 
 
@@ -1814,13 +1835,13 @@
 
                // Observe elements with 'reveal' class initially present in HTML (non-product cards)
                 document.querySelectorAll('.reveal').forEach(el => {
-                    // Product cards are observed individually in createProductCard
+                    // Product cards and category titles are observed individually in renderProducts or above
                     if (!el.classList.contains('product-card') && !el.classList.contains('category-title')) {
                        observeElement(el);
                     }
                 });
 
-                // Observe category titles already in the HTML (if not dynamically added)
+                // Observe category titles initially present in the HTML (if not dynamically added)
                  document.querySelectorAll('.category-title.reveal').forEach(el => {
                      observeElement(el);
                  });
