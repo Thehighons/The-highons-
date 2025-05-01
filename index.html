@@ -589,14 +589,19 @@
         }
 
         /* Animation Utilities */
+        /* Initial state for elements that will be revealed */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transform: translateY(30px); /* Start slightly below */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Base transition */
+            /* Add transition-delay property here, will be set by JS */
+            transition-delay: 0s;
         }
+        /* Final state when element is visible */
         .reveal.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0); /* End at original position */
+            /* transition-delay is now applied */
         }
 
         /* Order Form Styling */
@@ -1032,15 +1037,16 @@
                             section.appendChild(grid);
                             container.appendChild(section);
 
-                            filtered.forEach((product) => {
-                                const card = createProductCard(product);
+                            filtered.forEach((product, index) => { // Pass index here
+                                const card = createProductCard(product, index); // Pass index to card creation
                                 grid.appendChild(card);
                                 observeElement(card); // Add to observer for reveal animation
                             });
                             // Observe title only if it's explicitly created for this category section
-                            if (category === 'all' || category === catKey) {
-                                observeElement(section.querySelector('.category-title'));
-                            }
+                            const categoryTitle = section.querySelector('.category-title');
+                             if (categoryTitle) {
+                                 observeElement(categoryTitle);
+                             }
                         }
                     };
 
@@ -1064,11 +1070,12 @@
         }
 
 
-        function createProductCard(product) {
+        function createProductCard(product, index) { // Accept index
             const card = document.createElement("div");
             card.id = `product-${product.id}`; // Add ID for easy lookup
-            card.className = "product-card reveal";
+            card.className = "product-card reveal"; // Add reveal class
             card.setAttribute('data-product-id', product.id);
+             card.setAttribute('data-index', index); // Add data-index
 
             const productNameSafe = escapeHtml(product.name);
             const productDescSafe = escapeHtml(product.desc);
@@ -1455,9 +1462,23 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    // Optional: unobserve after revealing to save resources
+                    const target = entry.target;
+                    const index = target.getAttribute('data-index');
+                    // Calculate delay based on index (adjust multiplier for desired effect)
+                    const delay = index * 50; // 50ms delay per element
+
+                    // Apply the calculated delay
+                    target.style.transitionDelay = `${delay}ms`;
+
+                    // Add the visible class to trigger the animation
+                    target.classList.add('visible');
+
+                    // Optional: unobserve after revealing to save resources if element won't be hidden again
                     // observer.unobserve(entry.target);
+                } else {
+                     // Optional: remove visible class and reset delay if you want elements to re-animate on scroll back up
+                     // target.classList.remove('visible');
+                     // target.style.transitionDelay = '0s'; // Reset delay when not intersecting
                 }
             });
         }, {
@@ -1465,6 +1486,9 @@
         });
         function observeElement(element) {
             if (element) {
+                // Reset initial state before observing if the element might be re-added (like after filtering/searching)
+                 element.classList.remove('visible');
+                 element.style.transitionDelay = '0s';
                 observer.observe(element);
             }
         }
@@ -1592,7 +1616,13 @@
 
 
                // Observe elements with 'reveal' class initially present in HTML
-                document.querySelectorAll('.reveal').forEach(el => observeElement(el));
+                // These are non-product card elements like titles, headers, etc.
+                document.querySelectorAll('.reveal').forEach(el => {
+                    // Don't observe product cards here, they are handled in renderProducts
+                    if (!el.classList.contains('product-card')) {
+                       observeElement(el);
+                    }
+                });
 
 
           } catch (error) {
