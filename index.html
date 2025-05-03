@@ -6,27 +6,25 @@
     <meta name="description" content="The Highon's - Premium creative supplies including keychains, art supplies, stationery, gadgets, and diaries available for inquiry in Navsari.">
     <title>The Highon's - Premium Creative Supplies | Navsari</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        @font-face {
-          font-family: 'Trajan Pro';
-          /* src: url('trajan-pro.woff2') format('woff2'), url('trajan-pro.woff') format('woff'); */
-          font-display: swap; /* Improves perceived performance */
-        }
+        /* Removed Trajan Pro as it doesn't fit the new aesthetic */
+        /* @font-face { ... } */
+
         :root {
-          /* Updated Color Palette */
-          --bg-dark: #22223B; /* Dark Greyish-Blue */
-          --text-main: #F2E9E4; /* Light Beige */
-          --text-secondary: #A9A7A2; /* Lighter shade of main text */
-          --primary-accent: #FF7F50; /* Coral */
-          --secondary-accent: #FFA07A; /* Light Salmon */
-          --card-bg: #393E46; /* Medium Grey */
-          --border-color: rgba(169, 167, 162, 0.2); /* Subtle border based on text-secondary */
-           --danger-color: #f05a7f; /* Soft Red for errors/increases */
-           --success-color: var(--secondary-accent); /* Green for success/discounts */
+          /* Color Palette based on the puffer jacket image: Dark background, light text, gold accent */
+          --bg-dark: #111; /* Very dark background */
+          --text-main: #EEE; /* Off-white text */
+          --text-secondary: #AAA; /* Lighter grey text */
+          --primary-accent: #D4AF37; /* Gold */
+          --secondary-accent: #FFD700; /* Brighter Gold/Yellow */
+          --card-bg: #1A1A1A; /* Slightly lighter dark for cards */
+          --border-color: rgba(212, 175, 55, 0.3); /* Subtle border based on accent */
+           --danger-color: #E57373; /* Soft Red for errors/increases */
+           --success-color: #81C784; /* Green for success/discounts */
         }
 
         /* Smooth Scrolling */
@@ -35,7 +33,7 @@
         }
 
         body {
-          font-family: 'Montserrat', sans-serif;
+          font-family: 'Inter', sans-serif; /* Using Inter for body text */
           background-color: var(--bg-dark);
           color: var(--text-main);
           overflow-x: hidden; /* Prevent horizontal scroll */
@@ -46,20 +44,20 @@
         }
 
         h1, h2, h3, h4, h5, h6 {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Roboto', sans-serif; /* Using Roboto for headings */
           color: var(--text-main);
-          font-weight: 600;
+          font-weight: 700; /* Bold headings */
         }
         .brand-name {
-          font-family: 'Trajan Pro', 'Times New Roman', serif; /* Added fallback */
-          letter-spacing: 1.5px;
-          color: var(--text-main);
-          font-weight: bold;
+          font-family: 'Roboto', sans-serif; /* Consistent sans-serif for brand */
+          letter-spacing: 2px; /* Increased letter spacing */
+          color: var(--primary-accent); /* Accent color for brand */
+          font-weight: 700;
         }
 
         /* Header Styling */
         header {
-          background-color: rgba(34, 34, 59, 0.8); /* Slightly transparent dark bg based on new --bg-dark */
+          background-color: rgba(17, 17, 17, 0.9); /* Semi-transparent dark bg */
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
           border-bottom: 1px solid var(--border-color);
@@ -72,9 +70,10 @@
           transition: all 0.3s ease;
           padding: 0.5rem 0.25rem;
           font-weight: 500;
+          letter-spacing: 1px; /* Added letter spacing */
         }
         .nav-link:hover {
-          color: var(--text-main);
+          color: var(--primary-accent); /* Hover uses accent color */
         }
         .nav-link::after {
             content: '';
@@ -83,7 +82,7 @@
             height: 2px;
             bottom: 0;
             left: 50%;
-            background-color: var(--primary-accent); /* Use accent color */
+            background-color: var(--secondary-accent); /* Use brighter accent color */
             transition: all 0.3s ease;
             transform: translateX(-50%);
             border-radius: 1px;
@@ -96,32 +95,32 @@
         .hero-section {
             position: relative;
             overflow: hidden;
-            background: radial-gradient(ellipse at bottom, var(--bg-dark) 0%, #1a1a2e 100%); /* Kept original bottom color for depth */
+            background: linear-gradient(to bottom, var(--bg-dark) 0%, #000 100%); /* Dark gradient */
         }
         /* Animated background shapes (Example) */
         .hero-shapes div {
             position: absolute;
             border-radius: 50%;
             background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
-            opacity: 0.1;
-            animation: drift 20s infinite linear alternate;
+            opacity: 0.05; /* Very subtle opacity */
+            animation: drift 25s infinite linear alternate; /* Slower animation */
         }
-        .hero-shapes div:nth-child(1) { width: 150px; height: 150px; top: 10%; left: 15%; animation-duration: 22s;}
-        .hero-shapes div:nth-child(2) { width: 80px; height: 80px; top: 70%; left: 80%; animation-duration: 18s; animation-delay: 2s;}
-        .hero-shapes div:nth-child(3) { width: 120px; height: 120px; top: 40%; left: 50%; animation-duration: 25s; animation-delay: 4s;}
+        .hero-shapes div:nth-child(1) { width: 200px; height: 200px; top: 5%; left: 10%; animation-duration: 28s;}
+        .hero-shapes div:nth-child(2) { width: 100px; height: 100px; top: 75%; left: 85%; animation-duration: 20s; animation-delay: 3s;}
+        .hero-shapes div:nth-child(3) { width: 150px; height: 150px; top: 30%; left: 40%; animation-duration: 30s; animation-delay: 5s;}
 
         @keyframes drift {
             from { transform: translateY(0px) translateX(0px) rotate(0deg) scale(1); }
-            to { transform: translateY(20px) translateX(-15px) rotate(30deg) scale(1.1); }
+            to { transform: translateY(30px) translateX(-20px) rotate(45deg) scale(1.1); }
         }
 
         /* Buttons */
         .btn {
-            display: inline-flex; /* Changed to flex for centering content */
-            align-items: center; /* Center text vertically */
-            justify-content: center; /* Center text horizontally */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             padding: 0.8rem 2rem;
-            border-radius: 50px;
+            border-radius: 3px; /* Less rounded corners */
             font-weight: 600;
             transition: all 0.3s ease;
             cursor: pointer;
@@ -130,34 +129,39 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
-            white-space: nowrap; /* Prevent text wrapping */
+            white-space: nowrap;
+            text-transform: uppercase; /* Uppercase text */
+            letter-spacing: 1px;
         }
-        .btn::before { /* Subtle shine effect on hover */
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s ease;
-            z-index: -1;
-        }
-        .btn:hover::before {
-            left: 100%;
-        }
+         /* Subtle shine effect - simplified */
+        .btn::before {
+             content: "";
+             position: absolute;
+             top: 0;
+             left: -100%;
+             width: 100%;
+             height: 100%;
+             background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+             transition: left 0.6s ease;
+             z-index: -1;
+         }
+         .btn:hover::before {
+             left: 100%;
+         }
+
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-accent) 0%, var(--secondary-accent) 100%); /* Gradient using new accents */
-            color: var(--text-main);
-            box-shadow: 0 4px 15px rgba(255, 127, 80, 0.3); /* Shadow based on new primary */
+            background-color: var(--primary-accent); /* Solid accent color */
+            color: var(--bg-dark); /* Dark text on accent */
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); /* Shadow based on accent */
         }
         .btn-primary:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 6px 20px rgba(255, 127, 80, 0.4); /* Shadow based on new primary */
+            background-color: var(--secondary-accent); /* Brighter accent on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4); /* Shadow based on secondary accent */
         }
          .btn-primary:disabled {
-             opacity: 0.6;
+             opacity: 0.5;
              cursor: not-allowed;
              transform: none;
              box-shadow: none;
@@ -170,88 +174,78 @@
         .btn-secondary {
             background-color: transparent;
             color: var(--primary-accent);
-            border: 2px solid var(--primary-accent);
+            border: 1px solid var(--primary-accent); /* Thinner border */
+            box-shadow: none;
         }
         .btn-secondary:hover {
-            background-color: rgba(255, 127, 80, 0.1); /* Hover effect based on new primary */
-            transform: translateY(-2px);
+            background-color: rgba(212, 175, 55, 0.1); /* Subtle hover background */
+            transform: translateY(-1px);
         }
 
          /* Small buttons for quantity control */
          .btn-small {
-             padding: 0.3rem 0.8rem; /* Reduced padding */
-             font-size: 0.9rem; /* Smaller font */
-             border-radius: 9999px; /* Fully rounded */
+             padding: 0.3rem 0.6rem; /* Reduced padding */
+             font-size: 0.8rem; /* Smaller font */
+             border-radius: 2px; /* Less rounded */
          }
 
 
         /* Product Section */
          #products {
-            background: linear-gradient(to bottom, var(--bg-dark), #1a1a2e); /* Gradient background - kept original bottom */
+            background: linear-gradient(to bottom, var(--bg-dark), #000); /* Dark gradient */
             position: relative;
-            padding-top: 8rem;
-            padding-bottom: 8rem;
+            padding-top: 6rem; /* Reduced top padding */
+            padding-bottom: 6rem; /* Reduced bottom padding */
          }
-         #products::before { /* Top separator glow */
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100px;
-            background: linear-gradient(to bottom, rgba(34, 34, 59, 0), rgba(255, 127, 80, 0.1)); /* Based on new colors */
-            pointer-events: none;
+         #products::before { /* Removed top separator glow */
+            content: none;
          }
 
         .category-title {
-            background: linear-gradient(135deg, var(--primary-accent) 0%, var(--secondary-accent) 100%); /* Gradient using new accents */
-            color: var(--text-main);
-            padding: 12px 32px;
-            border-radius: 8px;
-            display: inline-block;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(255, 160, 122, 0.2); /* Adjusted shadow based on secondary */
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 1.2rem;
+            background: none; /* Removed background gradient */
+            color: var(--primary-accent); /* Accent color for category titles */
+            padding: 0; /* Removed padding */
+            border-radius: 0; /* Removed border-radius */
+            display: block; /* Block display */
+            text-align: left; /* Align left */
+            margin: 40px 0 20px 0; /* Adjusted margin */
+            box-shadow: none; /* Removed shadow */
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem; /* Larger font size */
+            border-bottom: 1px solid var(--border-color); /* Subtle separator line */
+             padding-bottom: 10px;
+             text-transform: uppercase; /* Uppercase */
         }
 
         /* Redesigned Product Card */
         .product-card {
             background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px; /* More rounded */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+            border-radius: 5px; /* Slightly rounded */
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncier transition */
+            transition: all 0.3s ease; /* Smoother transition */
             position: relative;
-            transform-style: preserve-3d; /* For tilt effect */
-            box-shadow: 0 5px 15px rgba(0,0,0, 0.2);
-            display: flex; /* Use flex to space content and controls */
+            transform-style: preserve-3d;
+            box-shadow: 0 2px 10px rgba(0,0,0, 0.4); /* Softer shadow */
+            display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Push controls to bottom */
+            justify-content: space-between;
+             cursor: pointer; /* Indicate clickable */
         }
         .product-card:hover {
-            transform: translateY(-10px) rotateX(3deg) rotateY(-2deg); /* Slight tilt effect */
-            box-shadow: 0 15px 30px rgba(0,0,0, 0.3);
-            border-color: rgba(255, 127, 80, 0.5); /* Accent border on hover based on new primary */
+            transform: translateY(-5px); /* Lift effect */
+            box-shadow: 0 8px 20px rgba(0,0,0, 0.6);
+            border-color: var(--primary-accent); /* Accent border on hover */
         }
-         .product-card::after { /* Subtle glow effect */
-             content: '';
-             position: absolute;
-             inset: -1px;
-             background: radial-gradient(ellipse at center, rgba(255, 127, 80, 0.2), transparent 70%); /* Based on new primary */
-             opacity: 0;
-             transition: opacity 0.4s ease;
-             z-index: -1;
-             border-radius: 16px;
-         }
-         .product-card:hover::after {
-             opacity: 1;
+         .product-card::after { /* Removed subtle glow effect */
+             content: none;
          }
 
+
         .product-image-wrapper {
-            height: 200px; /* Fixed height */
-            background-color: rgba(242, 233, 228, 0.05); /* Slightly lighter bg based on new text-main */
+            height: 220px; /* Slightly taller fixed height */
+            background-color: rgba(255, 255, 255, 0.03); /* Very subtle light bg */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -262,38 +256,41 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            transition: transform 0.4s ease;
+            transition: transform 0.3s ease;
         }
         .product-card:hover .product-image-wrapper img {
-            transform: scale(1.08);
+            transform: scale(1.05); /* Subtle zoom on hover */
         }
 
         .product-card-content {
-            padding: 1.25rem; /* Increased padding */
-            text-align: center; /* Center content */
-            flex-grow: 1; /* Allow content to take space */
+            padding: 1rem; /* Reduced padding */
+            text-align: left; /* Align content left */
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Align text to top */
+            justify-content: flex-start;
         }
         .product-card h3 {
-            font-family: 'Montserrat', sans-serif; /* Use body font for card title */
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            font-family: 'Roboto', sans-serif; /* Use heading font for card title */
+            font-size: 1rem; /* Smaller font size */
+            font-weight: 700;
+            margin-bottom: 0.3rem; /* Reduced margin */
             color: var(--text-main);
-            min-height: 2.8em; /* Ensure consistent height over two lines */
+            min-height: 2.6em; /* Adjusted height */
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
+             text-transform: uppercase; /* Uppercase title */
+             letter-spacing: 0.5px;
         }
          .product-card p.product-desc {
-             font-size: 0.85rem;
+             font-family: 'Inter', sans-serif; /* Use body font for description */
+             font-size: 0.8rem; /* Smaller font size */
              color: var(--text-secondary);
-             margin-bottom: 1rem;
-             min-height: 3.4em; /* Ensure consistent height over multiple lines */
+             margin-bottom: 0.8rem; /* Reduced margin */
+             min-height: 3em; /* Adjusted height */
              display: -webkit-box;
              -webkit-line-clamp: 3;
              -webkit-box-orient: vertical;
@@ -301,14 +298,15 @@
              text-overflow: ellipsis;
          }
         .product-card .product-price {
-            font-size: 1.4rem;
+            font-family: 'Roboto', sans-serif; /* Heading font for price */
+            font-size: 1.2rem; /* Adjusted size */
             font-weight: 700;
-            color: var(--primary-accent); /* Accent color for price */
-            margin-bottom: 1.25rem;
+            color: var(--secondary-accent); /* Brighter accent color for price */
+            margin-bottom: 1rem; /* Adjusted margin */
         }
         /* Product Controls - Centered at the bottom */
         .product-card-controls {
-            padding: 0 1.25rem 1.25rem; /* Padding bottom matches content */
+            padding: 0 1rem 1rem; /* Padding bottom matches content */
             display: flex;
             justify-content: center; /* Center buttons */
             align-items: center;
@@ -318,15 +316,16 @@
         .product-quantity-controls {
              display: flex;
              align-items: center;
-             gap: 0.5rem; /* Space between buttons and quantity */
-             width: 100%; /* Allow controls to take full width for centering */
-             justify-content: center; /* Center controls group */
+             gap: 0.5rem;
+             width: 100%;
+             justify-content: center;
         }
          .product-quantity {
-             font-size: 1.1rem;
+             font-family: 'Roboto', sans-serif; /* Heading font for quantity */
+             font-size: 1rem; /* Adjusted size */
              font-weight: 700;
              color: var(--text-main);
-             min-width: 30px; /* Ensure width for 1, 10, etc */
+             min-width: 25px; /* Adjusted width */
              text-align: center;
          }
 
@@ -334,98 +333,103 @@
         #productSearch, #categoryFilter, #couponCode {
             background-color: var(--card-bg);
             color: var(--text-main);
-            border: 1px solid var(--border-color);
-            border-radius: 50px; /* Pill shape */
-            padding: 0.8rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+            border-radius: 3px; /* Less rounded */
+            padding: 0.8rem 1.2rem; /* Adjusted padding */
             transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
         }
          #productSearch::placeholder, #couponCode::placeholder {
              color: var(--text-secondary);
-             opacity: 0.8;
+             opacity: 0.7;
          }
-        #productSearch { padding-left: 3rem; } /* Space for icon */
+        #productSearch { padding-left: 2.5rem; } /* Space for icon */
         #categoryFilter {
           appearance: none;
           /* Updated background image color to match new text-secondary */
-          background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%23A9A7A2"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>');
+          background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%23AAAAAA"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>');
           background-repeat: no-repeat;
           background-position: right 1rem center;
-          background-size: 1em 1em;
-          padding-right: 3rem;
+          background-size: 0.9em 0.9em; /* Slightly smaller icon */
+          padding-right: 2.5rem;
         }
          #categoryFilter option {
-             background-color: var(--card-bg);
+             background-color: var(--bg-dark); /* Dark background for options */
              color: var(--text-main);
          }
 
         #productSearch:focus, #categoryFilter:focus, #couponCode:focus {
-             border-color: var(--primary-accent);
-             box-shadow: 0 0 0 2px rgba(255, 127, 80, 0.3); /* Based on new primary */
+             border-color: var(--primary-accent); /* Accent border on focus */
+             box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.5); /* Subtle accent glow */
              outline: none;
+             background-color: rgba(26, 26, 26, 0.9); /* Slightly darker input bg on focus */
         }
          #couponCode:disabled {
              opacity: 0.6;
              cursor: not-allowed;
+             background-color: rgba(26, 26, 26, 0.5);
          }
-        .search-icon { color: var(--text-secondary); }
+        .search-icon { color: var(--text-secondary); left: 1rem; font-size: 0.9rem;} /* Adjusted icon position and size */
 
         /* Form Styling */
         .form-section {
-            background-color: var(--bg-dark); /* Match body bg */
+            background-color: var(--bg-dark);
             position: relative;
             overflow: hidden;
+            padding-top: 6rem; /* Reduced padding */
+            padding-bottom: 6rem; /* Reduced padding */
         }
-        .form-section::before { /* Aurora effect background - updated colors */
-             content: "";
-             position: absolute;
-             inset: 0;
-             background: radial-gradient(circle at 30% 20%, rgba(255, 127, 80, 0.15) 0%, transparent 40%),
-                         radial-gradient(circle at 70% 80%, rgba(255, 160, 122, 0.1) 0%, transparent 40%);
-             filter: blur(50px);
-             z-index: 0;
+        .form-section::before { /* Removed aurora effect background */
+             content: none;
         }
 
         .form-container {
-            background-color: rgba(57, 62, 70, 0.8); /* Semi-transparent card bg based on new card-bg */
-            backdrop-filter: blur(5px);
-             -webkit-backdrop-filter: blur(5px);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 2rem;
-            position: relative; /* To stay above the ::before */
+            background-color: var(--card-bg); /* Use card background */
+            /* Removed backdrop-filter as it doesn't fit minimalist dark theme */
+            /* backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+            border-radius: 5px; /* Less rounded */
+            padding: 2.5rem; /* Adjusted padding */
+            position: relative;
             z-index: 1;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
         }
         .form-container label {
              color: var(--text-secondary);
              font-weight: 500;
-             font-size: 0.9rem;
-             margin-bottom: 0.5rem;
+             font-size: 0.85rem; /* Smaller label font */
+             margin-bottom: 0.4rem; /* Reduced margin */
              display: block;
+             text-transform: uppercase; /* Uppercase labels */
+             letter-spacing: 0.5px;
         }
         .form-container input[type="text"],
         .form-container input[type="email"],
         .form-container input[type="tel"],
         .form-container textarea,
         .form-container select {
-            background-color: rgba(34, 34, 59, 0.7); /* Darker input bg based on new bg-dark */
-            border: 1px solid var(--border-color);
+            background-color: rgba(26, 26, 26, 0.7); /* Darker input bg */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
             color: var(--text-main);
-            border-radius: 8px;
+            border-radius: 3px; /* Less rounded */
             padding: 0.9rem 1rem;
              width: 100%;
              transition: all 0.3s ease;
+             font-family: 'Inter', sans-serif;
+             font-size: 0.9rem;
         }
         .form-container input::placeholder,
         .form-container textarea::placeholder {
-            color: rgba(169, 167, 162, 0.6); /* Lighter placeholder based on new text-secondary */
+            color: var(--text-secondary);
+            opacity: 0.6;
         }
         .form-container input:focus,
         .form-container textarea:focus,
         .form-container select:focus {
-            border-color: var(--primary-accent);
-            background-color: rgba(34, 34, 59, 0.9); /* Darker input bg on focus */
-             box-shadow: 0 0 0 2px rgba(255, 127, 80, 0.3); /* Based on new primary */
+            border-color: var(--primary-accent); /* Accent border on focus */
+            background-color: rgba(26, 26, 26, 0.9); /* Darker input bg on focus */
+             box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.5); /* Subtle accent glow */
              outline: none;
         }
          .form-container select option {
@@ -435,14 +439,14 @@
 
         /* Order Summary Display */
          #orderSummaryDisplay {
-             background-color: rgba(34, 34, 59, 0.7); /* Based on new bg-dark */
-             border: 1px solid var(--border-color);
-             border-radius: 8px;
-             padding: 1rem;
+             background-color: rgba(26, 26, 26, 0.7); /* Based on card bg */
+             border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+             border-radius: 5px; /* Less rounded */
+             padding: 1.2rem; /* Adjusted padding */
              margin-bottom: 1.5rem;
-             min-height: 80px; /* Give it some minimum space */
+             min-height: 80px;
              color: var(--text-main);
-             font-size: 0.95rem;
+             font-size: 0.9rem; /* Slightly smaller font */
          }
          #orderSummaryDisplay p {
              color: var(--text-secondary);
@@ -454,8 +458,8 @@
              margin: 0;
          }
          #orderSummaryDisplay li {
-             padding: 0.5rem 0;
-             border-bottom: 1px dashed rgba(169, 167, 162, 0.1); /* Based on new text-secondary */
+             padding: 0.6rem 0; /* Adjusted padding */
+             border-bottom: 1px dashed rgba(255, 255, 255, 0.08); /* More subtle dashed border */
               display: flex;
               justify-content: space-between;
               align-items: center;
@@ -467,117 +471,130 @@
              font-weight: 600;
              color: var(--text-main);
              flex-grow: 1;
-             margin-right: 0.5rem;
+             margin-right: 0.8rem; /* Increased margin */
          }
          #orderSummaryDisplay .order-item-quantity {
               color: var(--text-secondary);
-              font-size: 0.85rem;
+              font-size: 0.8rem; /* Smaller quantity font */
          }
          #orderSummaryDisplay .order-item-price {
               font-weight: 500;
               color: var(--text-main);
+              min-width: 60px; /* Ensure price column alignment */
+              text-align: right;
          }
           #orderSummaryDisplay .order-summary-line {
                display: flex;
                justify-content: space-between;
                align-items: center;
-               padding: 0.5rem 0;
-               border-bottom: 1px dashed rgba(169, 167, 162, 0.1); /* Based on new text-secondary */
+               padding: 0.6rem 0;
+               border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
           }
           #orderSummaryDisplay .order-summary-line:last-child {
               border-bottom: none;
           }
 
          #orderSummaryDisplay .order-total {
-              font-size: 1.2rem;
+              font-size: 1.3rem; /* Adjusted total font size */
               font-weight: 700;
-              color: var(--secondary-accent);
-              margin-top: 1rem;
+              color: var(--secondary-accent); /* Brighter accent for total */
+              margin-top: 1.2rem; /* Adjusted margin */
               text-align: right;
-              padding-top: 0.5rem;
-              border-top: 1px solid var(--border-color);
+              padding-top: 0.8rem; /* Adjusted padding */
+              border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
          }
          #orderSummaryDisplay .discount-line {
-             color: var(--success-color); /* Green for discount */
+             color: var(--success-color);
          }
           #orderSummaryDisplay .increase-line {
-              color: var(--danger-color); /* Red for increase */
+              color: var(--danger-color);
           }
 
 
         /* Contact Section */
         #contact {
-            background-color: var(--card-bg); /* Use card bg for contrast */
+            background-color: var(--card-bg); /* Use card bg */
+            padding-top: 6rem; /* Reduced padding */
+            padding-bottom: 6rem; /* Reduced padding */
         }
         .contact-info-box {
-             background-color: rgba(34, 34, 59, 0.8); /* Darker box based on new bg-dark */
-             border: 1px solid var(--border-color);
-             border-radius: 12px;
-             padding: 2rem;
+             background-color: rgba(26, 26, 26, 0.8); /* Slightly darker box */
+             border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+             border-radius: 5px; /* Less rounded */
+             padding: 2.5rem; /* Adjusted padding */
              transition: all 0.3s ease;
         }
         .contact-info-box:hover {
-             border-color: var(--primary-accent);
-             transform: translateY(-5px);
-             box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+             border-color: var(--primary-accent); /* Accent border on hover */
+             transform: translateY(-3px); /* Softer lift */
+             box-shadow: 0 6px 15px rgba(0,0,0,0.35); /* Softer shadow */
+        }
+        .contact-info-box h3 {
+             text-align: left; /* Align left */
+             border-bottom: 1px solid var(--border-color); /* Subtle separator */
+             padding-bottom: 10px;
+             margin-bottom: 20px;
         }
         .contact-info-box a {
             color: var(--primary-accent);
             transition: color 0.3s ease;
-            word-break: break-all; /* Allow long email to break line */
+            word-break: break-all;
         }
         .contact-info-box a:hover {
-            color: var(--secondary-accent);
+            color: var(--secondary-accent); /* Brighter accent on hover */
         }
         .social-icons a {
             color: var(--text-secondary);
-            font-size: 1.75rem; /* Larger icons */
+            font-size: 2rem; /* Larger icons */
             transition: all 0.3s ease;
         }
         .social-icons a:hover {
              color: var(--primary-accent);
-             transform: scale(1.1) rotate(-5deg);
+             transform: scale(1.1); /* No rotation */
         }
 
         /* Footer */
         footer {
             background-color: var(--bg-dark);
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+            padding-top: 2rem; /* Adjusted padding */
+            padding-bottom: 2rem; /* Adjusted padding */
         }
-        footer .brand-name { color: var(--text-main); }
+        footer .brand-name { color: var(--primary-accent); }
         footer a { color: var(--text-secondary); transition: color 0.3s ease; }
         footer a:hover { color: var(--primary-accent); }
-        footer .text-gray-500 { color: var(--text-secondary); opacity: 0.7; }
+        footer .text-gray-500 { color: var(--text-secondary); opacity: 0.7; font-size: 0.75rem; } /* Adjusted size */
 
         /* Modal Styling */
         .modal-backdrop {
-             background-color: rgba(34, 34, 59, 0.7); /* Dark backdrop based on new bg-dark */
-             backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+             background-color: rgba(0, 0, 0, 0.8); /* Darker backdrop */
+             backdrop-filter: blur(5px); /* Softer blur */
+            -webkit-backdrop-filter: blur(5px);
         }
         .modal-content {
             background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+            border-radius: 5px; /* Less rounded */
             color: var(--text-main);
-             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
-        .modal-content img { border-radius: 8px; background-color: rgba(242, 233, 228, 0.05); } /* Based on new text-main */
-        .modal-content h3 { color: var(--text-main); }
-        .modal-content p { color: var(--text-secondary); }
-        .modal-content .modal-price { color: var(--primary-accent); font-size: 1.8rem; font-weight: 700;}
+        .modal-content img { border-radius: 3px; background-color: rgba(255, 255, 255, 0.03); padding: 0.5rem; } /* Adjusted styling */
+        .modal-content h3 { color: var(--text-main); font-family: 'Roboto', sans-serif; font-size: 1.8rem; font-weight: 700; } /* Adjusted font */
+        .modal-content p { color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.9rem; } /* Adjusted font */
+        .modal-content .modal-price { color: var(--secondary-accent); font-family: 'Roboto', sans-serif; font-size: 2rem; font-weight: 700;} /* Adjusted font */
         .modal-close-btn {
             color: var(--text-secondary);
             transition: all 0.3s ease;
+             font-size: 2rem; /* Adjusted size */
         }
         .modal-close-btn:hover {
-             color: var(--text-main);
-             transform: rotate(90deg);
+             color: var(--primary-accent); /* Accent color on hover */
+             transform: rotate(0deg); /* No rotation */
         }
 
         /* Loader */
         .loader {
-          border: 4px solid rgba(169, 167, 162, 0.2); /* Lighter grey border based on new text-secondary */
+          border: 4px solid rgba(255, 255, 255, 0.1); /* Subtle border */
           border-top: 4px solid var(--primary-accent); /* Accent color spinner */
           border-radius: 50%;
           width: 50px;
@@ -591,63 +608,64 @@
         }
 
         /* Animation Utilities */
-        /* Initial state for elements that will be revealed */
         .reveal {
             opacity: 0;
-            transform: translateY(30px); /* Start slightly below */
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Base transition */
-            /* Add transition-delay property here, will be set by JS */
+            transform: translateY(20px); /* Start slightly below */
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Softer transition */
             transition-delay: 0s;
         }
-        /* Final state when element is visible */
         .reveal.visible {
             opacity: 1;
-            transform: translateY(0); /* End at original position */
-            /* transition-delay is now applied */
+            transform: translateY(0);
         }
 
-        /* Order Form Styling */
+        /* Order Form Styling (matches form-container) */
         #orderFormContainer {
              background-color: var(--card-bg);
-             border: 1px solid var(--border-color);
-             border-radius: 16px;
-             padding: 2rem;
+             border: 1px solid rgba(255, 255, 255, 0.1);
+             border-radius: 5px;
+             padding: 2.5rem;
              position: relative;
              z-index: 1;
              box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-             max-width: 600px;
+             max-width: 700px; /* Wider form container */
              margin: 0 auto;
         }
          #orderFormContainer label {
              color: var(--text-secondary);
              font-weight: 500;
-             font-size: 0.9rem;
-             margin-bottom: 0.5rem;
+             font-size: 0.85rem;
+             margin-bottom: 0.4rem;
              display: block;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
          }
          #orderFormContainer input[type="text"],
          #orderFormContainer input[type="email"],
          #orderFormContainer input[type="tel"],
          #orderFormContainer textarea,
          #orderFormContainer select {
-            background-color: rgba(34, 34, 59, 0.7); /* Darker input bg based on new bg-dark */
-            border: 1px solid var(--border-color);
+            background-color: rgba(26, 26, 26, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-main);
-            border-radius: 8px;
+            border-radius: 3px;
             padding: 0.9rem 1rem;
              width: 100%;
              transition: all 0.3s ease;
+             font-family: 'Inter', sans-serif;
+             font-size: 0.9rem;
         }
         #orderFormContainer input::placeholder,
         #orderFormContainer textarea::placeholder {
-            color: rgba(169, 167, 162, 0.6); /* Lighter placeholder based on new text-secondary */
+            color: var(--text-secondary);
+            opacity: 0.6;
         }
         #orderFormContainer input:focus,
         #orderFormContainer textarea:focus,
         #orderFormContainer select:focus {
             border-color: var(--primary-accent);
-            background-color: rgba(34, 34, 59, 0.9); /* Darker input bg on focus */
-             box-shadow: 0 0 0 2px rgba(255, 127, 80, 0.3); /* Based on new primary */
+            background-color: rgba(26, 26, 26, 0.9);
+             box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.5);
              outline: none;
         }
          #orderFormContainer select option {
@@ -655,8 +673,12 @@
              color: var(--text-main);
          }
          #orderFormContainer .btn-primary {
-             margin-top: 1rem;
+             margin-top: 1.5rem; /* Adjusted margin */
          }
+         #orderFormContainer .text-gray-500 {
+              color: var(--text-secondary); /* Ensure consistent text color */
+         }
+
 
     </style>
 </head>
@@ -679,7 +701,7 @@
                 </button>
             </div>
         </div>
-        <div id="mobileMenu" class="hidden md:hidden bg-gradient-to-b from-[rgba(57,62,70,0.9)] to-[rgba(34,34,59,0.9)] backdrop-blur-sm border-t border-[rgba(169,167,162,0.2)] p-4 absolute w-full shadow-lg">
+        <div id="mobileMenu" class="hidden md:hidden bg-[rgba(17,17,17,0.95)] backdrop-blur-sm border-t border-[rgba(255,255,255,0.1)] p-4 absolute w-full shadow-lg">
             <div class="flex flex-col items-center space-y-4">
                 <a href="#products" class="nav-link block py-2" onclick="toggleMobileMenu()">Products</a>
                 <a href="#order" class="nav-link block py-2" onclick="toggleMobileMenu()">Place Order</a>
@@ -698,8 +720,7 @@
              <img src="GridArt_20250428_230202733.png" alt="The Highon's Logo" class="w-56 sm:w-72 md:w-80 mx-auto mb-8 animate__animated animate__fadeInDown" loading="lazy">
 
             <h1 class="text-4xl md:text-6xl font-bold mb-6 animate__animated animate__fadeInUp">
-                Ignite Your <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-emerald-400">Creativity</span>.
-            </h1>
+                Ignite Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-gold-500">Creativity</span>. </h1>
             <p class="text-lg md:text-xl mb-10 text-gray-300 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-1s">
                 Discover premium supplies in Navsari. Explore keychains, art materials, stationery, and more.
             </p>
@@ -707,18 +728,12 @@
                 Explore Collection
             </a>
         </div>
-         <div class="mt-20 flex justify-center space-x-5 sm:space-x-8 opacity-80">
-           <img src="Screenshot_20250422_132243_Meesho.jpg" alt="Keychain product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-3s" loading="lazy">
-           <img src="Screenshot_20250424_134214_Meesho.jpg" alt="Art supplies" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-emerald-500/50 animate__animated animate__fadeIn animate__delay-4s" loading="lazy" style="animation-delay: 0.4s;">
-           <img src="81EROqfMQBL._AC_UF1000,1000_QL80_.jpg" alt="Diary product" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover shadow-lg border-2 border-purple-500/50 animate__animated animate__fadeIn animate__delay-5s" loading="lazy" style="animation-delay: 0.8s;">
-         </div>
-    </section>
+         </section>
 
     <section id="products" class="py-20 px-6">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center reveal">Our Collection</h2>
-            <div class="flex flex-col md:flex-row justify-between items-center mb-16 gap-6 reveal">
-                <div class="relative w-full md:w-2/5 lg:w-1/3">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-6 reveal"> <div class="relative w-full md:w-2/5 lg:w-1/3">
                     <input type="text" id="productSearch" placeholder="Search products..." class="w-full" aria-label="Search products">
                     <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 search-icon"></i>
                 </div>
@@ -894,7 +909,7 @@
         const USER_DETAILS_STORAGE_KEY = 'highonsUserDetails'; // Key for localStorage
         const CART_STORAGE_KEY = 'highonsCartItems'; // Key for localStorage
 
-        // --- Product Data ---
+        // --- Product Data (Kept from original code) ---
         const products = {
              keychains: [
                 { id: "kc001", name: "Thor Loki Keychain", price: 99, img: "Screenshot_20250422_132243_Meesho.jpg", desc: "High-quality metal keychain featuring Thor and Loki designs" },
@@ -930,20 +945,20 @@
             ]
         };
 
-         // --- Coupon Data (Code: { type: 'percentage_discount' | 'fixed_discount' | 'percentage_increase', value: number }) ---
+         // --- Coupon Data (Code: { type: 'percentage_discount' | 'fixed_discount' | 'percentage_increase', value: number }) (Kept from original code) ---
          const coupons = {
              "JIANSPECIAL": { type: "percentage_increase", value: 20 }, // 20% increase (Example from original code)
              "NSL10": { type: "percentage_discount", value: 10 } // 10% discount (Requested by user)
          };
 
 
-        // --- State Variables ---
+        // --- State Variables (Kept from original code) ---
         let currentModalProduct = null; // { category: string, index: number, id: string }
         let currentCategoryFilter = 'all';
         let orderItems = {}; // Stores product ID and quantity: { "productId": quantity, ... }
 
 
-        // --- Utility Functions ---
+        // --- Utility Functions (Kept from original code) ---
         function escapeHtml(unsafe) {
             if (typeof unsafe !== 'string') return unsafe;
             return unsafe
@@ -1001,7 +1016,7 @@
          }
 
 
-        // --- Product Rendering ---
+        // --- Product Rendering (Adapted for new styling) ---
         function renderProducts(category = 'all', searchTerm = '') {
             const container = document.getElementById("productsContainer");
             if (!container) { console.error("productsContainer not found!"); return; }
@@ -1086,11 +1101,9 @@
             const quantity = orderItems[product.id] || 0; // Get current quantity from state
 
             card.innerHTML = `
-                <div class="product-image-wrapper cursor-pointer">
-                    <img src="${productImgSafe}" alt="${productNameSafe}" loading="lazy" class="product-img">
+                <div class="product-image-wrapper"> <img src="${productImgSafe}" alt="${productNameSafe}" loading="lazy" class="product-img">
                 </div>
-                <div class="product-card-content cursor-pointer">
-                    <div>
+                <div class="product-card-content"> <div>
                         <h3 title="${productNameSafe}">${productNameSafe}</h3>
                         <p class="product-desc" title="${productDescSafe}">${productDescSafe ? productDescSafe.substring(0, 80) + (productDescSafe.length > 80 ? '...' : '') : ''}</p>
                         <span class="block product-price">₹${product.price}</span>
@@ -1109,10 +1122,19 @@
                     }
                 </div>
             `;
+             // Add click listener directly to the card for modal
+             card.addEventListener('click', (event) => {
+                 // Check if the click target is NOT one of the quantity control buttons
+                 const target = event.target;
+                 if (!target.closest('.product-card-controls') && !target.classList.contains('btn-add')) {
+                      showModal(product.id);
+                 }
+             });
+
             return card;
         }
 
-        // --- Order Management Functions ---
+        // --- Order Management Functions (Kept from original code) ---
         function addItemToOrder(productId) {
             const product = findProduct(productId);
             if (!product) {
@@ -1171,8 +1193,6 @@
             const card = document.getElementById(`product-${productId}`);
             if (!card) {
                  console.warn(`Product card not found for ID: ${productId}. Cannot update UI.`);
-                 // This might happen if the user is on a filtered/searched view and updates an item not currently displayed
-                 // We don't need to block, just log a warning. The state is still updated.
                  return;
             }
 
@@ -1328,7 +1348,7 @@
              hiddenSummaryInput.value = hiddenText;
         }
 
-        // --- User Details Management (using localStorage) ---
+        // --- User Details Management (using localStorage) (Kept from original code) ---
         function loadUserDetails() {
             const userDetails = localStorage.getItem(USER_DETAILS_STORAGE_KEY);
             const nameInput = document.getElementById('orderName');
@@ -1408,7 +1428,7 @@
         }
 
 
-        // --- UI Interaction Functions ---
+        // --- UI Interaction Functions (Kept from original code, adapted for new styling) ---
 
         function showModal(productId) {
            try {
@@ -1460,7 +1480,7 @@
         }
 
 
-        // --- Scroll Animation Observer ---
+        // --- Scroll Animation Observer (Kept from original code) ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1558,20 +1578,17 @@
 
                        // Check if the click was on a specific button class
                        if (target.classList.contains('btn-add')) {
+                           // Stop propagation if it's an add button click, so it doesn't also trigger the modal
+                           event.stopPropagation();
                            addItemToOrder(productId);
                        } else if (target.classList.contains('btn-increase')) {
+                            event.stopPropagation();
                            increaseQuantity(productId);
                        } else if (target.classList.contains('btn-decrease')) {
+                            event.stopPropagation();
                            decreaseQuantity(productId);
-                       } else {
-                           // If not a quantity button, assume click is for modal if within card content/image
-                           // Check if the click target or its closest parent is specifically the image wrapper or content area,
-                           // NOT the controls area itself.
-                           const clickedArea = target.closest('.product-image-wrapper') || (target.closest('.product-card-content') && !target.closest('.product-card-controls'));
-                           if(clickedArea) {
-                                showModal(productId);
-                           }
                        }
+                        // Modal click is handled by the click listener added directly to the card in createProductCard function
                    });
                } else { console.error("productsContainer not found for event delegation."); }
 
@@ -1632,7 +1649,7 @@
                // Use a more robust error display
                const errorDiv = document.createElement('div');
                errorDiv.style.cssText = "padding: 40px; text-align: center; font-family: sans-serif; color: white; background-color: #333; margin: 20px; border-radius: 8px;";
-               errorDiv.innerHTML = `<h1>Oops!</h1><p>Something went wrong while loading the page content.</p><p>Please <a href="javascript:location.reload();" style="color: #7f5af0; text-decoration: underline;">refresh</a> and try again.</p><p style="font-size: 0.8em; color: #94a1b2;">Error details: ${escapeHtml(error.message)}</p>`;
+               errorDiv.innerHTML = `<h1>Oops!</h1><p>Something went wrong while loading the page content.</p><p>Please <a href="javascript:location.reload();" style="color: #D4AF37; text-decoration: underline;">refresh</a> and try again.</p><p style="font-size: 0.8em; color: #AAA;">Error details: ${escapeHtml(error.message)}</p>`;
                document.body.innerHTML = ''; // Clear existing body content
                document.body.appendChild(errorDiv);
           }
