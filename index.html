@@ -276,13 +276,34 @@
              overflow: hidden;
              text-overflow: ellipsis;
          }
-        .product-card .product-price {
+        .product-card .product-price-info {
+            margin-bottom: 1rem;
+        }
+         .product-card .product-price-info .original-price {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-decoration: line-through;
+            margin-right: 8px;
+         }
+         .product-card .product-price-info .discounted-price {
             font-family: 'Roboto', sans-serif;
             font-size: 1.2rem;
             font-weight: 700;
             color: var(--secondary-accent);
-            margin-bottom: 1rem;
-        }
+            display: inline-block;
+         }
+         .product-card .product-price-info .discount-percentage {
+             font-family: 'Inter', sans-serif;
+             font-size: 0.75rem;
+             font-weight: 600;
+             color: var(--success-color);
+             margin-left: 5px;
+             vertical-align: top;
+             white-space: nowrap;
+         }
+
+
         .product-card-controls {
             padding: 0 1rem 1rem;
             display: flex;
@@ -564,6 +585,33 @@
              color: var(--primary-accent);
              transform: rotate(0deg);
         }
+         .modal-price-info {
+            margin-bottom: 1.5rem; /* Increased space */
+         }
+         .modal-price-info .original-price {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem; /* Slightly larger */
+            color: var(--text-secondary);
+            text-decoration: line-through;
+            margin-right: 10px;
+         }
+         .modal-price-info .discounted-price {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2rem; /* Matches modal-price */
+            font-weight: 700;
+            color: var(--secondary-accent);
+            display: inline-block;
+         }
+         .modal-price-info .discount-percentage {
+             font-family: 'Inter', sans-serif;
+             font-size: 0.9rem; /* Slightly larger */
+             font-weight: 600;
+             color: var(--success-color);
+             margin-left: 8px;
+             vertical-align: top;
+             white-space: nowrap;
+         }
+
 
         /* Specific styling for Terms Modal Content */
         #termsModal .modal-content {
@@ -758,7 +806,7 @@
             <h2 class="text-4xl font-bold">Terms and Conditions</h2>
             <p class="text-sm text-gray-500 text-center mt-2">Effective Date: May 4, 2025</p>
 
-            <p>Welcome to The Highon's Website (the "https://thehighons.github.io/The-highons-/"). This Website is an experimental and educational project created and operated by two individuals aged 15-16.</p>
+            <p>Welcome to The Highon's Website (the "Website"). This Website is an experimental and educational project created and operated by two individuals aged 15-16.</p>
 
             <p>Please read these Terms and Conditions ("Terms") carefully before using our Website. By accessing or using the Website, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree to these Terms, you may not access or use the Website.</p>
 
@@ -809,11 +857,11 @@
             <p>The Website may contain links to third-party websites or services that are not owned or controlled by the Website operators. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services. You access these at your own risk.</p>
 
             <h3>9. Disclaimer of Website Warranties</h3>
-            <p>THIS WEBSITE IS PROVIDED FOR EDUCATIONAL AND EXPERIMENTAL PURPOSES ONLY, "AS IS" AND "AS AVAILABLE," WITHOUT ANY WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. THIS INCLUDES BUT IS NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, ACCURACY, RELIABILITY, OR COMPLETENESS OF THE WEBSITE CONTENT OR FUNCTIONALITY.</p>
-            <p>WE DO NOT WARRANT THAT THE WEBSITE WILL BE UNINTERRUPTED, SECURE, OR ERROR-FREE, OR THAT ANY DEFECTS WILL BE CORRECTED. YOU USE THE WEBSITE AT YOUR OWN SOLE RISK.</p>
+            <p>THIS WEBSITE IS PROVIDED FOR EDUCATIONAL AND EXPERIMENTAL PURPOSES ONLY, "AS IS" AND "AS AVAILABLE," WITHOUT ANY WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. THIS INCLUDES BUT IS NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, ACCURACY, RELIABILITY, OR COMPLETENESS OF THE WEBSITE CONTENT OR FUNCTIONALITY.</P>
+            <p>WE DO NOT WARRANT THAT THE WEBSITE WILL BE UNINTERRUPTED, SECURE, OR ERROR-FREE, OR THAT ANY DEFECTS WILL BE CORRECTED. YOU USE THE WEBSITE AT YOUR OWN SOLE RISK.</P>
 
             <h3>10. Limitation of Liability</h3>
-             <p>GIVEN THE EXPERIMENTAL AND NON-COMMERCIAL NATURE OF THIS WEBSITE AND THE AGE OF THE OPERATORS, IN NO EVENT SHALL THE WEBSITE OPERATORS, OR ANYONE ASSOCIATED WITH THEM, BE LIABLE FOR ANY DAMAGES OF ANY KIND, UNDER ANY LEGAL THEORY, ARISING OUT OF OR IN CONNECTION WITH YOUR USE, OR INABILITY TO USE, THE WEBSITE, ANY WEBSITES LINKED TO IT, ANY CONTENT ON THE WEBSITE, OR ANY ITEMS ORDERED THROUGH THE WEBSITE. THIS INCLUDES ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO, PERSONAL INJURY, PAIN AND SUFFERING, EMOTIONAL DISTRESS, LOSS OF REVENUE, LOSS OF PROFITS, LOSS OF BUSINESS OR ANTICIPATED SAVINGS, LOSS OF USE, LOSS OF GOODWILL, LOSS OF DATA, AND WHETHER CAUSED BY TORT (INCLUDING NEGLIGENCE), BREACH OF CONTRACT, OR OTHERWISE, EVEN IF FORESEEABLE.</p>
+             <p>GIVEN THE EXPERIMENTAL AND NON-COMMERCIAL NATURE OF THIS WEBSITE AND THE AGE OF THE OPERATORS, IN NO EVENT SHALL THE WEBSITE OPERATORS, OR ANYONE ASSOCIATED WITH THEM, BE LIABLE FOR ANY DAMAGES OF ANY KIND, UNDER ANY LEGAL THEORY, ARISING OUT OF OR IN CONNECTION WITH YOUR USE, OR INABILITY TO USE, THE WEBSITE, ANY WEBSITES LINKED TO IT, ANY CONTENT ON THE WEBSITE, OR ANY ITEMS ORDERED THROUGH THE WEBSITE. THIS INCLUDES ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO, PERSONAL INJURY, PAIN AND SUFFERING, EMOTIONAL DISTRESS, LOSS OF REVENUE, LOSS OF PROFITS, LOSS OF BUSINESS OR ANTICIPATED SAVINGS, LOSS OF USE, LOSS OF GOODWILL, LOSS OF DATA, AND WHETHER CAUSED BY TORT (INCLUDING NEGLIGENCE), BREACH OF CONTRACT, OR OTHERWISE, EVEN IF FORESEEABLE.</P>
 
             <h3>11. Indemnification</h3>
              <p>You agree to defend, indemnify, and hold harmless the Website operators, and anyone associated with them, from and against any claims, liabilities, damages, judgments, awards, losses, costs, expenses, or fees (including reasonable attorneys' fees) arising out of or relating to your violation of these Terms or your use of the Website or items obtained through the Website.</p>
@@ -1055,7 +1103,8 @@
                     <div class="flex flex-col justify-center">
                         <h3 id="modalName" class="text-2xl lg:text-3xl font-bold mb-3"></h3>
                         <p id="modalDesc" class="text-sm lg:text-base mb-5"></p>
-                        <p id="modalPrice" class="modal-price mb-6"></p>
+                        <div id="modalPriceInfo" class="modal-price-info">
+                             </div>
                         <p class="text-sm text-gray-400">To order this item, please go to the <a href="#products" onclick="closeModal()" class="text-purple-400 hover:text-emerald-400 underline">Our Collection section</a> and click 'Add' on the product card.</p>
                     </div>
                 </div>
@@ -1072,38 +1121,39 @@
         // --- Product Data (Kept from original code) ---
         const products = {
              keychains: [
-                { id: "kc001", name: "Thor Loki Keychain", price: 99, img: "Screenshot_20250422_132243_Meesho.jpg", desc: "High-quality metal keychain featuring Thor and Loki designs" },
-                { id: "kc002", name: "Thor Hammer Keychain", price: 89, img: "Screenshot_20250422_131740_Meesho.jpg", desc: "Durable Mjolnir keychain with detailed engraving" },
-                { id: "kc003", name: "Demon slayer katana keychain", price: 159, img: "Screenshot_20250424_141150_Meesho.jpg", desc: "Miniature katana keychain from Demon Slayer anime" },
-                { id: "kc004", name: "Pikachu Keychain", price: 109, img: "Screenshot_20250422_131948_Meesho.jpg", desc: "Cute Pikachu keychain with enamel finish" }
+                { id: "kc001", name: "Thor Loki Keychain", originalPrice: 217, price: 99, img: "Screenshot_20250422_132243_Meesho.jpg", desc: "High-quality metal keychain featuring Thor and Loki designs" },
+                { id: "kc002", name: "Thor Hammer Keychain", originalPrice: 130, price: 89, img: "Screenshot_20250422_131740_Meesho.jpg", desc: "Durable Mjolnir keychain with detailed engraving" },
+                { id: "kc003", name: "Demon slayer katana keychain", originalPrice: 200, price: 159, img: "Screenshot_20250424_141150_Meesho.jpg", desc: "Miniature katana keychain from Demon Slayer anime" },
+                { id: "kc004", name: "Pikachu Keychain", originalPrice: 200, price: 109, img: "Screenshot_20250422_131948_Meesho.jpg", desc: "Cute Pikachu keychain with enamel finish" }
             ],
             artSupplies: [
-                { id: "as001", name: "Camel water colour tube", price: 169, img: "Screenshot_20250424_134214_Meesho.jpg", desc: "Professional-grade watercolor tubes, set of 12 vibrant colors" },
-                { id: "as002", name: "FLAIR Acrylic marker", price: 359, img: "Screenshot_20250423_144509_Meesho.jpg", desc: "Premium acrylic paint markers, fine tip for detailed work" },
-                { id: "as003", name: "Levin Acrylic Markers", price: 409, img: "Screenshot_20250423_140558_Meesho.jpg", desc: "Dual-tip acrylic markers with broad and fine tips" },
-                { id: "as004", name: "Marker Set of 48", price: 299, img: "Touch-48-Color-Marker-Pen-Set-Kids-Art-Essentials-Double-Ended-Vibrant-Colors-Non-Bleeding-Wholesale-Discount-.webp", desc: "48-color marker set with dual tips for versatility" },
-                { id: "as005", name: "Markers Set of 24", price: 179, img: "81B5uZXhYEL._AC_UF1000,1000_QL80_.jpg", desc: "24-color marker set, perfect for beginners" },
-                { id: "as006", name: "Paint Brush 12 sizes", price: 99, img: "Screenshot_20250423_195924_Meesho.jpg", desc: "Professional paint brush set with 12 different sizes" },
-                { id: "as007", name: "Sponge Dabbing Brush 5 Piece Set", price: 99, img: "41fvlzAzMWL._AC_.jpg", desc: "Sponge brush set for texture painting and special effects" },
-                { id: "as008", name: "artist gesso + Decor varnish combo", price: 259, img: "camel-combo.jpg", desc: "Premium gesso (100ml) and varnish combo for art projects" }
+                { id: "as001", name: "Camel water colour tube", originalPrice: 200, price: 169, img: "Screenshot_20250424_134214_Meesho.jpg", desc: "Professional-grade watercolor tubes, set of 12 vibrant colors" },
+                { id: "as002", name: "FLAIR Acrylic marker", originalPrice: 380, price: 359, img: "Screenshot_20250423_144509_Meesho.jpg", desc: "Premium acrylic paint markers, fine tip for detailed work" },
+                { id: "as003", name: "Levin Acrylic Markers", originalPrice: 700, price: 409, img: "Screenshot_20250423_140558_Meesho.jpg", desc: "Dual-tip acrylic markers with broad and fine tips" },
+                { id: "as004", name: "Marker Set of 48", originalPrice: 430, price: 299, img: "Touch-48-Color-Marker-Pen-Set-Kids-Art-Essentials-Double-Ended-Vibrant-Colors-Non-Bleeding-Wholesale-Discount-.webp", desc: "48-color marker set with dual tips for versatility" },
+                { id: "as005", name: "Markers Set of 24", originalPrice: 250, price: 179, img: "81B5uZXhYEL._AC_UF1000,1000_QL80_.jpg", desc: "24-color marker set, perfect for beginners" },
+                { id: "as006", name: "Paint Brush 12 sizes", originalPrice: 250, price: 99, img: "Screenshot_20250423_195924_Meesho.jpg", desc: "Professional paint brush set with 12 different sizes" },
+                { id: "as007", name: "Sponge Dabbing Brush 5 Piece Set", originalPrice: 160, price: 99, img: "41fvlzAzMWL._AC_.jpg", desc: "Sponge brush set for texture painting and special effects" },
+                { id: "as008", name: "artist gesso + Decor varnish combo", originalPrice: 400, price: 259, img: "camel-combo.jpg", desc: "Premium gesso (100ml) and varnish combo for art projects" }
             ],
             stationery: [
-                { id: "st001", name: "Correction Tape", price: 70, img: "51l7S8XUY0L.jpg", desc: "Smooth correction tape for error-free writing" },
-                { id: "st002", name: "Hot Melt Glue Gun ", price: 220, img: "71xHhYjWcIL.jpg", desc: "glue gun for more effective bond for crafts" },
-                { id: "st003", name: "Sketch Kit", price: 619, img: "Screenshot_20250423_205027_Meesho.jpg", desc: "Complete sketching kit with pencils, erasers and sharpeners" },
-                { id: "st004", name: "Luxury Pen", price: 199, img: "Screenshot_20250422_001401.jpg", desc: "Premium metal body pen with smooth ink flow" },
-                { id: "st005", name: "Sketch book A5 (100pg)", price: 119, img: "Screenshot_20250423_204415_Meesho.jpg", desc: "A5 size sketchbook with 100gsm paper, 100 pages" }
+                { id: "st001", name: "Correction Tape", originalPrice: 75, price: 70, img: "51l7S8XUY0L.jpg", desc: "Smooth correction tape for error-free writing" },
+                { id: "st002", name: "Hot Melt Glue Gun ", originalPrice: 300, price: 220, img: "71xHhYjWcIL.jpg", desc: "glue gun for more effective bond for crafts" },
+                { id: "st003", name: "Sketch Kit", originalPrice: 1000, price: 619, img: "Screenshot_20250423_205027_Meesho.jpg", desc: "Complete sketching kit with pencils, erasers and sharpeners" },
+                { id: "st004", name: "Luxury Pen", originalPrice: 220, price: 199, img: "Screenshot_20250422_001401.jpg", desc: "Premium metal body pen with smooth ink flow" },
+                { id: "st005", name: "Sketch book A5 (100pg)", originalPrice: 150, price: 119, img: "Screenshot_20250423_204415_Meesho.jpg", desc: "A5 size sketchbook with 100gsm paper, 100 pages" }
             ],
             diaries: [
-                { id: "di001", name: "Hardcover Diary", price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg", desc: "Classic hardcover diary with premium paper" },
-                { id: "di002", name: "Premium  Diary", price: 319, img: "IMG-20250422-WA0005.jpg", desc: "Premium leather-bound diary" },
-                { id: "di003", name: "Mini Diary", price: 219, img: "Screenshot_20250422_215326_Meesho.jpg", desc: "diary with compact size" },
-                { id: "di004", name: "Vintage Leather Journal", price: 499, img: "Screenshot_20250426_225225_Amazon.jpg", desc: "Premium leather diary with good quality paper" }
+                { id: "di001", name: "Hardcover Diary", originalPrice: 400, price: 249, img: "81EROqfMQBL._AC_UF1000,1000_QL80_.jpg", desc: "Classic hardcover diary with premium paper" },
+                { id: "di002", name: "Premium  Diary", originalPrice: 400, price: 319, img: "IMG-20250422-WA0005.jpg", desc: "Premium leather-bound diary" },
+                { id: "di003", name: "Mini Diary", originalPrice: 300, price: 219, img: "Screenshot_20250422_215326_Meesho.jpg", desc: "diary with compact size" },
+                { id: "di004", name: "Vintage Leather Journal", originalPrice: 800, price: 499, img: "Screenshot_20250426_225225_Amazon.jpg", desc: "Premium leather diary with good quality paper" }
             ],
             gadgets: [
-                 { id: "ga001", name: "Mini Thermal Printer", price: 899, img: "placeholder-gadget.png", desc: "Compact thermal printer for labels, notes & fun prints. Bluetooth connectivity." }
+                 { id: "ga001", name: "Mini Thermal Printer", originalPrice: 1200, price: 899, img: "placeholder-gadget.png", desc: "Compact thermal printer for labels, notes & fun prints. Bluetooth connectivity." }
             ]
         };
+
 
          // --- Coupon Data (Code: { type: 'percentage_discount' | 'fixed_discount' | 'percentage_increase', value: number }) (Kept from original code) ---
          const coupons = {
@@ -1188,6 +1238,14 @@
                  document.body.classList.remove('overflow-hidden');
              }
         }
+
+         // Calculate discount percentage
+         function calculateDiscountPercentage(originalPrice, discountedPrice) {
+             if (originalPrice > discountedPrice && originalPrice > 0) {
+                 return Math.round(((originalPrice - discountedPrice) / originalPrice) * 100);
+             }
+             return 0; // No discount or invalid prices
+         }
 
 
         // --- Product Rendering (Adapted for new styling) ---
@@ -1274,13 +1332,23 @@
 
             const quantity = orderItems[product.id] || 0; // Get current quantity from state
 
+             const hasDiscount = product.originalPrice && product.originalPrice > product.price;
+             const discountPercentage = hasDiscount ? calculateDiscountPercentage(product.originalPrice, product.price) : 0;
+
+             const priceDisplay = hasDiscount ?
+                `<span class="original-price">₹${product.originalPrice}</span>
+                 <span class="discounted-price">₹${product.price}</span>
+                 <span class="discount-percentage">${discountPercentage}% OFF</span>` :
+                `<span class="discounted-price">₹${product.price}</span>`; // Use discounted-price class even if no discount for consistent styling
+
+
             card.innerHTML = `
                 <div class="product-image-wrapper"> <img src="${productImgSafe}" alt="${productNameSafe}" loading="lazy" class="product-img">
                 </div>
                 <div class="product-card-content"> <div>
                         <h3 title="${productNameSafe}">${productNameSafe}</h3>
                         <p class="product-desc" title="${productDescSafe}">${productDescSafe ? productDescSafe.substring(0, 80) + (productDescSafe.length > 80 ? '...' : '') : ''}</p>
-                        <span class="block product-price">₹${product.price}</span>
+                        <div class="product-price-info">${priceDisplay}</div>
                     </div>
                 </div>
                 <div class="product-card-controls mt-auto">
@@ -1606,10 +1674,10 @@
                 const modalImg = document.getElementById('modalImg');
                 const modalName = document.getElementById('modalName');
                 const modalDesc = document.getElementById('modalDesc');
-                const modalPrice = document.getElementById('modalPrice');
+                const modalPriceInfo = document.getElementById('modalPriceInfo'); // Target the price info div
                 const productModal = document.getElementById('productModal');
 
-                if (!modalImg || !modalName || !modalDesc || !modalPrice || !productModal) {
+                if (!modalImg || !modalName || !modalDesc || !modalPriceInfo || !productModal) {
                      console.error("Product modal elements missing!");
                      return;
                 }
@@ -1618,7 +1686,17 @@
                 modalImg.alt = escapeHtml(product.name);
                 modalName.textContent = escapeHtml(product.name);
                 modalDesc.textContent = escapeHtml(product.desc);
-                modalPrice.textContent = `₹${product.price}`;
+
+                // Generate price display for modal
+                const hasDiscount = product.originalPrice && product.originalPrice > product.price;
+                const discountPercentage = hasDiscount ? calculateDiscountPercentage(product.originalPrice, product.price) : 0;
+
+                modalPriceInfo.innerHTML = hasDiscount ?
+                   `<span class="original-price">₹${product.originalPrice}</span>
+                    <span class="discounted-price">₹${product.price}</span>
+                    <span class="discount-percentage">${discountPercentage}% OFF</span>` :
+                   `<span class="discounted-price">₹${product.price}</span>`;
+
 
                 productModal.classList.remove('hidden');
                 updateBodyOverflow(); // Update overflow based on *all* modals
@@ -1846,7 +1924,7 @@
                      renderOrderSummary();
 
                      // Optional: Disable the submit button to prevent double clicks
-                     const submitButton = orderForm.querySelector('button[type="submit"]');
+                     const submitButton = orderForm.querySelector('button[type="submit]');
                      if(submitButton) {
                          submitButton.disabled = true;
                          submitButton.textContent = 'Placing Order...';
