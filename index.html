@@ -11,69 +11,62 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* Removed Trajan Pro as it doesn't fit the new aesthetic */
-        /* @font-face { ... } */
-
         :root {
-          /* Color Palette based on the puffer jacket image: Dark background, light text, gold accent */
-          --bg-dark: #111; /* Very dark background */
-          --text-main: #EEE; /* Off-white text */
-          --text-secondary: #AAA; /* Lighter grey text */
+          --bg-dark: #111;
+          --text-main: #EEE;
+          --text-secondary: #AAA;
           --primary-accent: #D4AF37; /* Gold */
           --secondary-accent: #FFD700; /* Brighter Gold/Yellow */
-          --card-bg: #1A1A1A; /* Slightly lighter dark for cards */
-          --border-color: rgba(212, 175, 55, 0.3); /* Subtle border based on accent */
-           --danger-color: #E57373; /* Soft Red for errors/increases */
-           --success-color: #81C784; /* Green for success/discounts */
+          --card-bg: #1A1A1A;
+          --border-color: rgba(212, 175, 55, 0.3);
+           --danger-color: #E57373;
+           --success-color: #81C784;
         }
 
-        /* Smooth Scrolling */
         html {
           scroll-behavior: smooth;
         }
 
         body {
-          font-family: 'Inter', sans-serif; /* Using Inter for body text */
+          font-family: 'Inter', sans-serif;
           background-color: var(--bg-dark);
           color: var(--text-main);
-          overflow-x: hidden; /* Prevent horizontal scroll */
+          overflow-x: hidden;
         }
-        /* Prevent body scroll when modal or overlay is open */
+        /* Prevent body scroll when modal is open */
         body.overflow-hidden {
             overflow: hidden;
         }
 
         h1, h2, h3, h4, h5, h6 {
-          font-family: 'Roboto', sans-serif; /* Using Roboto for headings */
+          font-family: 'Roboto', sans-serif;
           color: var(--text-main);
-          font-weight: 700; /* Bold headings */
+          font-weight: 700;
         }
         .brand-name {
-          font-family: 'Roboto', sans-serif; /* Consistent sans-serif for brand */
-          letter-spacing: 2px; /* Increased letter spacing */
-          color: var(--primary-accent); /* Accent color for brand */
+          font-family: 'Roboto', sans-serif;
+          letter-spacing: 2px;
+          color: var(--primary-accent);
           font-weight: 700;
         }
 
-        /* Header Styling */
         header {
-          background-color: rgba(17, 17, 17, 0.9); /* Semi-transparent dark bg */
+          background-color: rgba(17, 17, 17, 0.9);
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
           border-bottom: 1px solid var(--border-color);
         }
 
-        /* Navigation Links */
         .nav-link {
           position: relative;
           color: var(--text-secondary);
           transition: all 0.3s ease;
           padding: 0.5rem 0.25rem;
           font-weight: 500;
-          letter-spacing: 1px; /* Added letter spacing */
+          letter-spacing: 1px;
         }
         .nav-link:hover {
-          color: var(--primary-accent); /* Hover uses accent color */
+          color: var(--primary-accent);
         }
         .nav-link::after {
             content: '';
@@ -82,28 +75,26 @@
             height: 2px;
             bottom: 0;
             left: 50%;
-            background-color: var(--secondary-accent); /* Use brighter accent color */
+            background-color: var(--secondary-accent);
             transition: all 0.3s ease;
             transform: translateX(-50%);
             border-radius: 1px;
         }
         .nav-link:hover::after {
-            width: 70%; /* Underline effect */
+            width: 70%;
         }
 
-        /* Hero Section */
         .hero-section {
             position: relative;
             overflow: hidden;
-            background: linear-gradient(to bottom, var(--bg-dark) 0%, #000 100%); /* Dark gradient */
+            background: linear-gradient(to bottom, var(--bg-dark) 0%, #000 100%);
         }
-        /* Animated background shapes (Example) */
         .hero-shapes div {
             position: absolute;
             border-radius: 50%;
             background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
-            opacity: 0.05; /* Very subtle opacity */
-            animation: drift 25s infinite linear alternate; /* Slower animation */
+            opacity: 0.05;
+            animation: drift 25s infinite linear alternate;
         }
         .hero-shapes div:nth-child(1) { width: 200px; height: 200px; top: 5%; left: 10%; animation-duration: 28s;}
         .hero-shapes div:nth-child(2) { width: 100px; height: 100px; top: 75%; left: 85%; animation-duration: 20s; animation-delay: 3s;}
@@ -114,13 +105,12 @@
             to { transform: translateY(30px) translateX(-20px) rotate(45deg) scale(1.1); }
         }
 
-        /* Buttons */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 0.8rem 2rem;
-            border-radius: 3px; /* Less rounded corners */
+            border-radius: 3px;
             font-weight: 600;
             transition: all 0.3s ease;
             cursor: pointer;
@@ -130,11 +120,10 @@
             overflow: hidden;
             z-index: 1;
             white-space: nowrap;
-            text-transform: uppercase; /* Uppercase text */
+            text-transform: uppercase;
             letter-spacing: 1px;
         }
-         /* Subtle shine effect - simplified */
-        .btn::before {
+         .btn::before {
              content: "";
              position: absolute;
              top: 0;
@@ -151,14 +140,14 @@
 
 
         .btn-primary {
-            background-color: var(--primary-accent); /* Solid accent color */
-            color: var(--bg-dark); /* Dark text on accent */
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); /* Shadow based on accent */
+            background-color: var(--primary-accent);
+            color: var(--bg-dark);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
         .btn-primary:hover {
-            background-color: var(--secondary-accent); /* Brighter accent on hover */
+            background-color: var(--secondary-accent);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4); /* Shadow based on secondary accent */
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
         }
          .btn-primary:disabled {
              opacity: 0.5;
@@ -167,85 +156,75 @@
              box-shadow: none;
          }
           .btn-primary:disabled::before {
-               left: -100%; /* Disable shine effect */
+               left: -100%;
           }
 
 
         .btn-secondary {
             background-color: transparent;
             color: var(--primary-accent);
-            border: 1px solid var(--primary-accent); /* Thinner border */
+            border: 1px solid var(--primary-accent);
             box-shadow: none;
         }
         .btn-secondary:hover {
-            background-color: rgba(212, 175, 55, 0.1); /* Subtle hover background */
+            background-color: rgba(212, 175, 55, 0.1);
             transform: translateY(-1px);
         }
 
-         /* Small buttons for quantity control */
          .btn-small {
-             padding: 0.3rem 0.6rem; /* Reduced padding */
-             font-size: 0.8rem; /* Smaller font */
-             border-radius: 2px; /* Less rounded */
+             padding: 0.3rem 0.6rem;
+             font-size: 0.8rem;
+             border-radius: 2px;
          }
 
 
-        /* Product Section */
-         #products {
-            background: linear-gradient(to bottom, var(--bg-dark), #000); /* Dark gradient */
+        #products {
+            background: linear-gradient(to bottom, var(--bg-dark), #000);
             position: relative;
-            padding-top: 6rem; /* Reduced top padding */
-            padding-bottom: 6rem; /* Reduced bottom padding */
-         }
-         #products::before { /* Removed top separator glow */
-            content: none;
+            padding-top: 6rem;
+            padding-bottom: 6rem;
          }
 
         .category-title {
-            background: none; /* Removed background gradient */
-            color: var(--primary-accent); /* Accent color for category titles */
-            padding: 0; /* Removed padding */
-            border-radius: 0; /* Removed border-radius */
-            display: block; /* Block display */
-            text-align: left; /* Align left */
-            margin: 40px 0 20px 0; /* Adjusted margin */
-            box-shadow: none; /* Removed shadow */
+            background: none;
+            color: var(--primary-accent);
+            padding: 0;
+            border-radius: 0;
+            display: block;
+            text-align: left;
+            margin: 40px 0 20px 0;
+            box-shadow: none;
             font-family: 'Roboto', sans-serif;
             font-weight: 700;
-            font-size: 1.8rem; /* Larger font size */
-            border-bottom: 1px solid var(--border-color); /* Subtle separator line */
+            font-size: 1.8rem;
+            border-bottom: 1px solid var(--border-color);
              padding-bottom: 10px;
-             text-transform: uppercase; /* Uppercase */
+             text-transform: uppercase;
         }
 
-        /* Redesigned Product Card */
         .product-card {
             background-color: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
-            border-radius: 5px; /* Slightly rounded */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
             overflow: hidden;
-            transition: all 0.3s ease; /* Smoother transition */
+            transition: all 0.3s ease;
             position: relative;
             transform-style: preserve-3d;
-            box-shadow: 0 2px 10px rgba(0,0,0, 0.4); /* Softer shadow */
+            box-shadow: 0 2px 10px rgba(0,0,0, 0.4);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-             cursor: pointer; /* Indicate clickable */
+             cursor: pointer;
         }
         .product-card:hover {
-            transform: translateY(-5px); /* Lift effect */
+            transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0,0,0, 0.6);
-            border-color: var(--primary-accent); /* Accent border on hover */
+            border-color: var(--primary-accent);
         }
-         .product-card::after { /* Removed subtle glow effect */
-             content: none;
-         }
-
 
         .product-image-wrapper {
-            height: 220px; /* Slightly taller fixed height */
-            background-color: rgba(255, 255, 255, 0.03); /* Very subtle light bg */
+            height: 220px;
+            background-color: rgba(255, 255, 255, 0.03);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -259,38 +238,38 @@
             transition: transform 0.3s ease;
         }
         .product-card:hover .product-image-wrapper img {
-            transform: scale(1.05); /* Subtle zoom on hover */
+            transform: scale(1.05);
         }
 
         .product-card-content {
-            padding: 1rem; /* Reduced padding */
-            text-align: left; /* Align content left */
+            padding: 1rem;
+            text-align: left;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
         }
         .product-card h3 {
-            font-family: 'Roboto', sans-serif; /* Use heading font for card title */
-            font-size: 1rem; /* Smaller font size */
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
             font-weight: 700;
-            margin-bottom: 0.3rem; /* Reduced margin */
+            margin-bottom: 0.3rem;
             color: var(--text-main);
-            min-height: 2.6em; /* Adjusted height */
+            min-height: 2.6em;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
-             text-transform: uppercase; /* Uppercase title */
+             text-transform: uppercase;
              letter-spacing: 0.5px;
         }
          .product-card p.product-desc {
-             font-family: 'Inter', sans-serif; /* Use body font for description */
-             font-size: 0.8rem; /* Smaller font size */
+             font-family: 'Inter', sans-serif;
+             font-size: 0.8rem;
              color: var(--text-secondary);
-             margin-bottom: 0.8rem; /* Reduced margin */
-             min-height: 3em; /* Adjusted height */
+             margin-bottom: 0.8rem;
+             min-height: 3em;
              display: -webkit-box;
              -webkit-line-clamp: 3;
              -webkit-box-orient: vertical;
@@ -298,17 +277,16 @@
              text-overflow: ellipsis;
          }
         .product-card .product-price {
-            font-family: 'Roboto', sans-serif; /* Heading font for price */
-            font-size: 1.2rem; /* Adjusted size */
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.2rem;
             font-weight: 700;
-            color: var(--secondary-accent); /* Brighter accent color for price */
-            margin-bottom: 1rem; /* Adjusted margin */
+            color: var(--secondary-accent);
+            margin-bottom: 1rem;
         }
-        /* Product Controls - Centered at the bottom */
         .product-card-controls {
-            padding: 0 1rem 1rem; /* Padding bottom matches content */
+            padding: 0 1rem 1rem;
             display: flex;
-            justify-content: center; /* Center buttons */
+            justify-content: center;
             align-items: center;
             width: 100%;
         }
@@ -321,21 +299,20 @@
              justify-content: center;
         }
          .product-quantity {
-             font-family: 'Roboto', sans-serif; /* Heading font for quantity */
-             font-size: 1rem; /* Adjusted size */
+             font-family: 'Roboto', sans-serif;
+             font-size: 1rem;
              font-weight: 700;
              color: var(--text-main);
-             min-width: 25px; /* Adjusted width */
+             min-width: 25px;
              text-align: center;
          }
 
-        /* Filter/Search Styling */
         #productSearch, #categoryFilter, #couponCode {
             background-color: var(--card-bg);
             color: var(--text-main);
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
-            border-radius: 3px; /* Less rounded */
-            padding: 0.8rem 1.2rem; /* Adjusted padding */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            padding: 0.8rem 1.2rem;
             transition: all 0.3s ease;
             font-family: 'Inter', sans-serif;
             font-size: 0.9rem;
@@ -344,53 +321,46 @@
              color: var(--text-secondary);
              opacity: 0.7;
          }
-        #productSearch { padding-left: 2.5rem; } /* Space for icon */
+        #productSearch { padding-left: 2.5rem; }
         #categoryFilter {
           appearance: none;
-          /* Updated background image color to match new text-secondary */
           background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%23AAAAAA"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>');
           background-repeat: no-repeat;
           background-position: right 1rem center;
-          background-size: 0.9em 0.9em; /* Slightly smaller icon */
+          background-size: 0.9em 0.9em;
           padding-right: 2.5rem;
         }
          #categoryFilter option {
-             background-color: var(--bg-dark); /* Dark background for options */
+             background-color: var(--bg-dark);
              color: var(--text-main);
          }
 
         #productSearch:focus, #categoryFilter:focus, #couponCode:focus {
-             border-color: var(--primary-accent); /* Accent border on focus */
-             box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.5); /* Subtle accent glow */
+             border-color: var(--primary-accent);
+             box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.5);
              outline: none;
-             background-color: rgba(26, 26, 26, 0.9); /* Slightly darker input bg on focus */
+             background-color: rgba(26, 26, 26, 0.9);
         }
          #couponCode:disabled {
              opacity: 0.6;
              cursor: not-allowed;
              background-color: rgba(26, 26, 26, 0.5);
          }
-        .search-icon { color: var(--text-secondary); left: 1rem; font-size: 0.9rem;} /* Adjusted icon position and size */
+        .search-icon { color: var(--text-secondary); left: 1rem; font-size: 0.9rem;}
 
-        /* Form Styling */
         .form-section {
             background-color: var(--bg-dark);
             position: relative;
             overflow: hidden;
-            padding-top: 6rem; /* Reduced padding */
-            padding-bottom: 6rem; /* Reduced padding */
-        }
-        .form-section::before { /* Removed aurora effect background */
-             content: none;
+            padding-top: 6rem;
+            padding-bottom: 6rem;
         }
 
         .form-container {
-            background-color: var(--card-bg); /* Use card background */
-            /* Removed backdrop-filter as it doesn't fit minimalist dark theme */
-            /* backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); */
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
-            border-radius: 5px; /* Less rounded */
-            padding: 2.5rem; /* Adjusted padding */
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            padding: 2.5rem;
             position: relative;
             z-index: 1;
             box-shadow: 0 5px 15px rgba(0,0,0,0.4);
@@ -398,10 +368,10 @@
         .form-container label {
              color: var(--text-secondary);
              font-weight: 500;
-             font-size: 0.85rem; /* Smaller label font */
-             margin-bottom: 0.4rem; /* Reduced margin */
+             font-size: 0.85rem;
+             margin-bottom: 0.4rem;
              display: block;
-             text-transform: uppercase; /* Uppercase labels */
+             text-transform: uppercase;
              letter-spacing: 0.5px;
         }
         .form-container input[type="text"],
@@ -409,10 +379,10 @@
         .form-container input[type="tel"],
         .form-container textarea,
         .form-container select {
-            background-color: rgba(26, 26, 26, 0.7); /* Darker input bg */
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+            background-color: rgba(26, 26, 26, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-main);
-            border-radius: 3px; /* Less rounded */
+            border-radius: 3px;
             padding: 0.9rem 1rem;
              width: 100%;
              transition: all 0.3s ease;
@@ -427,9 +397,9 @@
         .form-container input:focus,
         .form-container textarea:focus,
         .form-container select:focus {
-            border-color: var(--primary-accent); /* Accent border on focus */
-            background-color: rgba(26, 26, 26, 0.9); /* Darker input bg on focus */
-             box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.5); /* Subtle accent glow */
+            border-color: var(--primary-accent);
+            background-color: rgba(26, 26, 26, 0.9);
+             box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.5);
              outline: none;
         }
          .form-container select option {
@@ -437,16 +407,15 @@
              color: var(--text-main);
          }
 
-        /* Order Summary Display */
          #orderSummaryDisplay {
-             background-color: rgba(26, 26, 26, 0.7); /* Based on card bg */
-             border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
-             border-radius: 5px; /* Less rounded */
-             padding: 1.2rem; /* Adjusted padding */
+             background-color: rgba(26, 26, 26, 0.7);
+             border: 1px solid rgba(255, 255, 255, 0.1);
+             border-radius: 5px;
+             padding: 1.2rem;
              margin-bottom: 1.5rem;
              min-height: 80px;
              color: var(--text-main);
-             font-size: 0.9rem; /* Slightly smaller font */
+             font-size: 0.9rem;
          }
          #orderSummaryDisplay p {
              color: var(--text-secondary);
@@ -458,8 +427,8 @@
              margin: 0;
          }
          #orderSummaryDisplay li {
-             padding: 0.6rem 0; /* Adjusted padding */
-             border-bottom: 1px dashed rgba(255, 255, 255, 0.08); /* More subtle dashed border */
+             padding: 0.6rem 0;
+             border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
               display: flex;
               justify-content: space-between;
               align-items: center;
@@ -471,16 +440,16 @@
              font-weight: 600;
              color: var(--text-main);
              flex-grow: 1;
-             margin-right: 0.8rem; /* Increased margin */
+             margin-right: 0.8rem;
          }
          #orderSummaryDisplay .order-item-quantity {
               color: var(--text-secondary);
-              font-size: 0.8rem; /* Smaller quantity font */
+              font-size: 0.8rem;
          }
          #orderSummaryDisplay .order-item-price {
               font-weight: 500;
               color: var(--text-main);
-              min-width: 60px; /* Ensure price column alignment */
+              min-width: 60px;
               text-align: right;
          }
           #orderSummaryDisplay .order-summary-line {
@@ -495,13 +464,13 @@
           }
 
          #orderSummaryDisplay .order-total {
-              font-size: 1.3rem; /* Adjusted total font size */
+              font-size: 1.3rem;
               font-weight: 700;
-              color: var(--secondary-accent); /* Brighter accent for total */
-              margin-top: 1.2rem; /* Adjusted margin */
+              color: var(--secondary-accent);
+              margin-top: 1.2rem;
               text-align: right;
-              padding-top: 0.8rem; /* Adjusted padding */
-              border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+              padding-top: 0.8rem;
+              border-top: 1px solid rgba(255, 255, 255, 0.1);
          }
          #orderSummaryDisplay .discount-line {
              color: var(--success-color);
@@ -511,27 +480,26 @@
           }
 
 
-        /* Contact Section */
         #contact {
-            background-color: var(--card-bg); /* Use card bg */
-            padding-top: 6rem; /* Reduced padding */
-            padding-bottom: 6rem; /* Reduced padding */
+            background-color: var(--card-bg);
+            padding-top: 6rem;
+            padding-bottom: 6rem;
         }
         .contact-info-box {
-             background-color: rgba(26, 26, 26, 0.8); /* Slightly darker box */
-             border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
-             border-radius: 5px; /* Less rounded */
-             padding: 2.5rem; /* Adjusted padding */
+             background-color: rgba(26, 26, 26, 0.8);
+             border: 1px solid rgba(255, 255, 255, 0.1);
+             border-radius: 5px;
+             padding: 2.5rem;
              transition: all 0.3s ease;
         }
         .contact-info-box:hover {
-             border-color: var(--primary-accent); /* Accent border on hover */
-             transform: translateY(-3px); /* Softer lift */
-             box-shadow: 0 6px 15px rgba(0,0,0,0.35); /* Softer shadow */
+             border-color: var(--primary-accent);
+             transform: translateY(-3px);
+             box-shadow: 0 6px 15px rgba(0,0,0,0.35);
         }
         .contact-info-box h3 {
-             text-align: left; /* Align left */
-             border-bottom: 1px solid var(--border-color); /* Subtle separator */
+             text-align: left;
+             border-bottom: 1px solid var(--border-color);
              padding-bottom: 10px;
              margin-bottom: 20px;
         }
@@ -541,61 +509,149 @@
             word-break: break-all;
         }
         .contact-info-box a:hover {
-            color: var(--secondary-accent); /* Brighter accent on hover */
+            color: var(--secondary-accent);
         }
         .social-icons a {
             color: var(--text-secondary);
-            font-size: 2rem; /* Larger icons */
+            font-size: 2rem;
             transition: all 0.3s ease;
         }
         .social-icons a:hover {
              color: var(--primary-accent);
-             transform: scale(1.1); /* No rotation */
+             transform: scale(1.1);
         }
 
-        /* Footer */
         footer {
             background-color: var(--bg-dark);
-            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
-            padding-top: 2rem; /* Adjusted padding */
-            padding-bottom: 2rem; /* Adjusted padding */
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            padding-bottom: 2rem;
         }
         footer .brand-name { color: var(--primary-accent); }
         footer a { color: var(--text-secondary); transition: color 0.3s ease; }
         footer a:hover { color: var(--primary-accent); }
-        footer .text-gray-500 { color: var(--text-secondary); opacity: 0.7; font-size: 0.75rem; } /* Adjusted size */
+        footer .text-gray-500 { color: var(--text-secondary); opacity: 0.7; font-size: 0.75rem; }
 
-        /* Modal Styling */
+        /* Modal Styling (Reused for both product and terms) */
         .modal-backdrop {
-             background-color: rgba(0, 0, 0, 0.8); /* Darker backdrop */
-             backdrop-filter: blur(5px); /* Softer blur */
+             background-color: rgba(0, 0, 0, 0.8);
+             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
         }
         .modal-content {
             background-color: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
-            border-radius: 5px; /* Less rounded */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
             color: var(--text-main);
              box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+             padding: 2.5rem; /* Standard padding */
         }
-        .modal-content img { border-radius: 3px; background-color: rgba(255, 255, 255, 0.03); padding: 0.5rem; } /* Adjusted styling */
-        .modal-content h3 { color: var(--text-main); font-family: 'Roboto', sans-serif; font-size: 1.8rem; font-weight: 700; } /* Adjusted font */
-        .modal-content p { color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.9rem; } /* Adjusted font */
-        .modal-content .modal-price { color: var(--secondary-accent); font-family: 'Roboto', sans-serif; font-size: 2rem; font-weight: 700;} /* Adjusted font */
+        .modal-content img { border-radius: 3px; background-color: rgba(255, 255, 255, 0.03); padding: 0.5rem; }
+        .modal-content h3 { color: var(--text-main); font-family: 'Roboto', sans-serif; font-size: 1.8rem; font-weight: 700; }
+        .modal-content p { color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.9rem; }
+        .modal-content .modal-price { color: var(--secondary-accent); font-family: 'Roboto', sans-serif; font-size: 2rem; font-weight: 700;}
         .modal-close-btn {
             color: var(--text-secondary);
             transition: all 0.3s ease;
-             font-size: 2rem; /* Adjusted size */
+             font-size: 2rem;
+             position: absolute;
+             top: 1rem; /* Adjusted position */
+             right: 1rem; /* Adjusted position */
+             line-height: 1; /* Ensure 'x' is centered vertically */
+             padding: 0.5rem; /* Make clickable area larger */
         }
         .modal-close-btn:hover {
-             color: var(--primary-accent); /* Accent color on hover */
-             transform: rotate(0deg); /* No rotation */
+             color: var(--primary-accent);
+             transform: rotate(0deg);
         }
 
-        /* Loader */
+        /* Specific styling for Terms Modal Content */
+        #termsModal .modal-content {
+            text-align: center;
+            max-width: 500px; /* Narrower for a pop-up feel */
+             padding: 3rem 2rem; /* More padding */
+        }
+         #termsModal .modal-content h3 {
+             font-size: 1.5rem; /* Smaller title */
+             margin-bottom: 1.5rem;
+         }
+         #termsModal .modal-content p {
+             font-size: 1rem; /* Slightly larger text */
+             line-height: 1.6;
+             margin-bottom: 2rem;
+         }
+          #termsModal .modal-content a {
+              color: var(--primary-accent);
+              text-decoration: underline;
+              transition: color 0.3s ease;
+          }
+           #termsModal .modal-content a:hover {
+               color: var(--secondary-accent);
+           }
+
+
+        /* Full Terms and Conditions Section */
+        #termsAndConditionsFull {
+             position: fixed;
+             inset: 0;
+             z-index: 90; /* Higher than modals */
+             background-color: var(--bg-dark);
+             color: var(--text-main);
+             overflow-y: auto;
+             padding: 80px 20px 40px 20px; /* Padding top for header, bottom for content */
+             transition: opacity 0.3s ease;
+        }
+         #termsAndConditionsFull .full-terms-container {
+             max-width: 800px; /* Readable width */
+             margin: 0 auto;
+             padding-top: 20px; /* Space below title */
+         }
+         #termsAndConditionsFull h2 {
+             font-size: 2.5rem;
+             text-align: center;
+             margin-bottom: 1.5rem;
+             color: var(--primary-accent); /* Accent color for title */
+             border-bottom: 1px solid var(--border-color);
+             padding-bottom: 15px;
+         }
+          #termsAndConditionsFull h3 {
+             font-size: 1.5rem;
+             margin-top: 1.5rem;
+             margin-bottom: 0.8rem;
+             color: var(--text-main);
+          }
+         #termsAndConditionsFull p, #termsAndConditionsFull li {
+             font-family: 'Inter', sans-serif;
+             font-size: 0.95rem;
+             line-height: 1.7;
+             color: var(--text-secondary);
+             margin-bottom: 1rem;
+         }
+          #termsAndConditionsFull ul {
+              list-style: disc inside;
+              padding-left: 1.5rem;
+              margin-bottom: 1rem;
+          }
+          #termsAndConditionsFull a {
+             color: var(--primary-accent);
+             text-decoration: underline;
+             transition: color 0.3s ease;
+          }
+           #termsAndConditionsFull a:hover {
+              color: var(--secondary-accent);
+           }
+
+         #termsAndConditionsFull .btn-back {
+             margin-top: 2rem;
+             display: inline-block; /* Center the button */
+             margin-left: auto;
+             margin-right: auto;
+         }
+
+
         .loader {
-          border: 4px solid rgba(255, 255, 255, 0.1); /* Subtle border */
-          border-top: 4px solid var(--primary-accent); /* Accent color spinner */
+          border: 4px solid rgba(255, 255, 255, 0.1);
+          border-top: 4px solid var(--primary-accent);
           border-radius: 50%;
           width: 50px;
           height: 50px;
@@ -607,11 +663,10 @@
           100% { transform: rotate(360deg); }
         }
 
-        /* Animation Utilities */
         .reveal {
             opacity: 0;
-            transform: translateY(20px); /* Start slightly below */
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Softer transition */
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
             transition-delay: 0s;
         }
         .reveal.visible {
@@ -619,7 +674,6 @@
             transform: translateY(0);
         }
 
-        /* Order Form Styling (matches form-container) */
         #orderFormContainer {
              background-color: var(--card-bg);
              border: 1px solid rgba(255, 255, 255, 0.1);
@@ -628,7 +682,7 @@
              position: relative;
              z-index: 1;
              box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-             max-width: 700px; /* Wider form container */
+             max-width: 700px;
              margin: 0 auto;
         }
          #orderFormContainer label {
@@ -673,222 +727,120 @@
              color: var(--text-main);
          }
          #orderFormContainer .btn-primary {
-             margin-top: 1.5rem; /* Adjusted margin */
+             margin-top: 1.5rem;
          }
          #orderFormContainer .text-gray-500 {
-              color: var(--text-secondary); /* Ensure consistent text color */
+              color: var(--text-secondary);
          }
-
-        /* Terms Agreement Overlay Styles */
-        #termsOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9); /* Darker overlay */
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100; /* Ensure it's on top of everything */
-            padding: 20px;
-             /* Initially hidden by JS */
-        }
-
-        #termsModalContent {
-            background-color: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 30px;
-            max-width: 600px; /* Increased width */
-            width: 100%;
-            text-align: center;
-            color: var(--text-main);
-            position: relative;
-            max-height: 90vh; /* Limit height */
-            overflow-y: auto; /* Add scrolling for content */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-        }
-
-        #termsModalContent p {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        #termsModalContent a.terms-link {
-            color: #60a5fa; /* Tailwind blue-400 or similar */
-            text-decoration: underline;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-
-        #termsModalContent a.terms-link:hover {
-            color: #3b82f6; /* Tailwind blue-500 */
-        }
-
-        #termsModalContent .btn-enter {
-            padding: 12px 30px; /* Slightly larger button */
-            font-size: 1.1rem;
-             margin-top: 10px; /* Space above button */
-        }
-
-         /* Style for the full T&C text within the modal */
-         #fullTermsText {
-             text-align: left; /* Align T&C text left */
-             font-size: 0.95rem; /* Slightly smaller font */
-             color: var(--text-secondary); /* Use secondary text color */
-             line-height: 1.8; /* Increased line height */
-         }
-         #fullTermsText h2 {
-              color: var(--primary-accent); /* Accent color for T&C headings */
-             margin-top: 25px;
-             margin-bottom: 10px;
-             font-size: 1.4rem;
-         }
-         #fullTermsText strong {
-              color: var(--text-main); /* Main color for strong text */
-         }
-          #fullTermsText ul {
-              padding-left: 20px;
-              list-style: disc; /* Use disc for lists */
-          }
-          #fullTermsText li {
-               margin-bottom: 8px;
-          }
-         #fullTermsText .disclaimer {
-              border-color: rgba(255, 193, 7, 0.5); /* Lighter border */
-              background-color: rgba(255, 193, 7, 0.1); /* Subtle background */
-              color: var(--text-main); /* Main text color */
-              padding: 15px;
-              margin: 15px 0;
-              border-radius: 5px;
-              font-size: 0.9em;
-         }
-          #fullTermsText .highlight {
-              color: var(--danger-color); /* Red for highlight */
-              font-weight: bold;
-          }
-          #fullTermsText .ai-statement {
-               font-size: 0.85em;
-               color: var(--text-secondary);
-               margin-top: 20px;
-               padding-top: 15px;
-               border-top: 1px dashed rgba(255, 255, 255, 0.1);
-          }
-          #termsModalContent .btn-back {
-              margin-top: 20px;
-               padding: 8px 15px;
-               font-size: 0.9rem;
-          }
 
 
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <div id="termsOverlay" class="hidden">
-        <div id="termsModalContent">
-            <div id="agreementPrompt">
-                <p>By clicking the 'Enter' button, you confirm that you have read and agree to our <a href="#" id="viewTermsLink" class="terms-link">Terms and Conditions</a>.</p>
-                <button id="enterWebsiteBtn" class="btn btn-primary btn-enter">Enter</button>
-            </div>
-            <div id="fullTermsText" class="hidden">
-                <h2>Terms and Conditions - The Highon's</h2>
-                <p><strong>Effective Date: May 4, 2025</strong></p>
+    <div id="termsModal" class="fixed inset-0 z-[80] modal-backdrop flex items-center justify-center hidden p-4">
+        <div class="modal-content relative w-full mx-auto animate__animated animate__zoomIn animate__faster overflow-hidden">
+             <button type="button" onclick="exitWebsite()" class="modal-close-btn" aria-label="Exit website">&times;</button>
 
-                <p>Welcome to The Highon's Website (the "https://thehighons.github.io/The-highons-/"). This Website is an experimental and educational project created and operated by two individuals aged 15-16.</p>
-
-                <p>Please read these Terms and Conditions ("Terms") carefully before using our Website. By accessing or using the Website, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree to these Terms, you may not access or use the Website.</p>
-
-                <div class="disclaimer">
-                    <p><strong class="highlight">Important Note:</strong> This Website is intended for educational and experimental purposes only. It is not a commercial enterprise, and its content and functionality, including any items offered for order, are provided without formal legal protections, warranties, or guarantees. Operations are limited to local delivery within Navsari (PIN: 396445).</p>
-                </div>
-
-                <h2>1. Acceptance of Terms</h2>
-                <p>By accessing or using our Website, you agree to comply with and be bound by these Terms. If you do not agree to these Terms, please do not use our Website.</p>
-
-                <h2>2. About the Website and Operators</h2>
-                <p>This Website is a non-commercial project developed for learning and experimental purposes by two individuals who are currently 15-16 years old. A significant portion of the Website's content and code has been generated with the assistance of artificial intelligence.
+             <div class="text-center">
+                <h3 class="text-2xl font-bold mb-4">Terms & Conditions</h3>
+                <p class="text-gray-300 mb-6">
+                    By tapping on the "Enter" button, you confirm that you have read and agree to our
+                    <a href="#" id="viewTermsLink" class="text-purple-400 hover:text-emerald-400 underline">Terms and Conditions</a>.
                 </p>
-
-                <h2>3. Changes to Terms</h2>
-                <p>We reserve the right to modify or replace these Terms at any time. We will indicate at the top of the Terms the date on which they were last updated. Your continued use of the Website after any such changes constitutes your acceptance of the new Terms.</p>
-
-                <h2>4. Access and Use of the Website</h2>
-                <p>You may use the Website for lawful purposes only and in accordance with these Terms. You agree not to use the Website:</p>
-                <ul>
-                    <li>In any way that violates any applicable national, state, local, or international law or regulation.</li>
-                    <li>To engage in any conduct that restricts or inhibits anyone's use or enjoyment of the Website.</li>
-                    <li>To transmit, or procure the sending of, any unsolicited advertising or promotional material.</li>
-                    <li>To impersonate or attempt to impersonate the Website operators or any other person or entity.</li>
-                </ul>
-
-                <h2>5. Content and Intellectual Property</h2>
-                <p>The content on this Website, including text, graphics, images, and other materials, is provided for informational and experimental purposes only.</p>
-
-                <div class="disclaimer">
-                    <p><strong class="highlight">Disclaimer Regarding Intellectual Property:</strong> Please be advised that <span class="highlight">no licenses (including copyright or trademark licenses) have been purchased or formally obtained</span> for the content used on this Website. While efforts are made to respect existing rights, the legal status of much of the content in terms of copyright and usage permissions has not been formally verified or licensed. You should assume that content on this site is not licensed for your reuse.</p>
-                    <p>A significant portion of the content and underlying code of this Website has been generated with the assistance of artificial intelligence. We do not guarantee the accuracy, completeness, or originality of AI-generated content.</p>
-                </div>
-
-                <p>You may view and use the content for your personal, non-commercial use related to the experimental nature of this Website. You must not reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any of the material on our Website for commercial purposes or without acknowledging the experimental nature and the intellectual property disclaimer mentioned herein.</p>
-
-                <h2>6. Product Orders (Experimental)</h2>
-                <p>This Website allows users within Navsari (PIN: 396445) to place experimental orders for items listed on the Website. Please note that all items are offered on an "as is" basis. The descriptions are for identification purposes only.</p>
-                <div class="disclaimer">
-                 <p><strong class="highlight">Disclaimer of Product Warranties:</strong> <span class="highlight">We provide no guarantees, warranties, or representations, express or implied, regarding the quality, fitness for a particular purpose, or any other characteristic of the items available for order on this Website.</span> All sales are final unless otherwise explicitly stated at the time of order confirmation (which is handled offline after submission).</p>
-                </div>
-                <p>The ordering functionality is part of the experiment, and fulfillment is subject to availability and the discretion of the operators.</p>
-
-                <h2>7. Prohibited Activities</h2>
-                 <p>When using the Website, you agree not to:</p>
-                  <ul>
-                      <li>Violate any applicable local, state, national, or international law or regulation.</li>
-                      <li>Infringe upon the rights of others, including their intellectual property rights.</li>
-                      <li>Transmit any malware, viruses, or other harmful computer code.</li>
-                      <li>Engage in spamming, phishing, or other fraudulent activities.</li>
-                      <li>Attempt to gain unauthorized access to the Website or its systems.</li>
-                      <li>Harass, abuse, or harm other users.</li>
-                      <li>Use the Website for any commercial purposes without our express written consent (outside of placing experimental orders as permitted herein).</li>
-                  </ul>
-
-                <h2>8. Third-Party Links</h2>
-                <p>The Website may contain links to third-party websites or services that are not owned or controlled by the Website operators. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services. You access these at your own risk.</p>
-
-                <h2>9. Disclaimer of Website Warranties</h2>
-                <p>THIS WEBSITE IS PROVIDED FOR EDUCATIONAL AND EXPERIMENTAL PURPOSES ONLY, "AS IS" AND "AS AVAILABLE," WITHOUT ANY WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. THIS INCLUDES BUT IS NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, ACCURACY, RELIABILITY, OR COMPLETENESS OF THE WEBSITE CONTENT OR FUNCTIONALITY.</P>
-                <p>WE DO NOT WARRANT THAT THE WEBSITE WILL BE UNINTERRUPTED, SECURE, OR ERROR-FREE, OR THAT ANY DEFECTS WILL BE CORRECTED. YOU USE THE WEBSITE AT YOUR OWN SOLE RISK.</p>
-
-                <h2>10. Limitation of Liability</h2>
-                <p>GIVEN THE EXPERIMENTAL AND NON-COMMERCIAL NATURE OF THIS WEBSITE AND THE AGE OF THE OPERATORS, IN NO EVENT SHALL THE WEBSITE OPERATORS, OR ANYONE ASSOCIATED WITH THEM, BE LIABLE FOR ANY DAMAGES OF ANY KIND, UNDER ANY LEGAL THEORY, ARISING OUT OF OR IN CONNECTION WITH YOUR USE, OR INABILITY TO USE, THE WEBSITE, ANY WEBSITES LINKED TO IT, ANY CONTENT ON THE WEBSITE, OR ANY ITEMS ORDERED THROUGH THE WEBSITE. THIS INCLUDES ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO, PERSONAL INJURY, PAIN AND SUFFERING, EMOTIONAL DISTRESS, LOSS OF REVENUE, LOSS OF PROFITS, LOSS OF BUSINESS OR ANTICIPATED SAVINGS, LOSS OF USE, LOSS OF GOODWILL, LOSS OF DATA, AND WHETHER CAUSED BY TORT (INCLUDING NEGLIGENCE), BREACH OF CONTRACT, OR OTHERWISE, EVEN IF FORESEEABLE.</p>
-
-                <h2>11. Indemnification</h2>
-                <p>You agree to defend, indemnify, and hold harmless the Website operators, and anyone associated with them, from and against any claims, liabilities, damages, judgments, awards, losses, costs, expenses, or fees (including reasonable attorneys' fees) arising out of or relating to your violation of these Terms or your use of the Website or items obtained through the Website.</p>
-
-                <h2>12. Governing Law</h2>
-                <p>While this is an experimental project, your use of the Website may be subject to applicable laws in India, particularly within Navsari, Gujarat. These Terms shall be governed by and construed in accordance with the laws applicable in Navsari, Gujarat, India. However, due to the experimental nature and the age of the operators, formal legal disputes are not anticipated or supported through this platform.</p>
-
-                <h2>13. Termination</h2>
-                <p>We may terminate or suspend your access to the Website at any time, without prior notice or liability, for any reason whatsoever, including without limitation if you breach these Terms.</p>
-
-                <h2>14. Severability</h2>
-                <p>If any provision of these Terms is held by a court or other tribunal of competent jurisdiction to be invalid, illegal, or unenforceable for any reason, such provision shall be eliminated or limited to the minimum extent such that the remaining provisions of the Terms will continue in full force and effect.</p>
-
-                <h2>15. Entire Agreement</h2>
-                <p>These Terms constitute the sole and entire agreement between you and the Website operators regarding the Website.</p>
-
-                <h2>16. Contact Information</h2>
-                <p>To ask questions or comment about these Terms and Conditions, please contact us at:</p>
-                <p>thehighonsofficial@gmail.com</p>
-
-                <p class="ai-statement">Please note that these Terms and Conditions were drafted with the assistance of artificial intelligence based on the information you provided about your experimental website. For any queries regarding these terms, please contact us at the email address above.</p>
-
-                <button id="backToAgreementBtn" class="btn btn-secondary btn-back">Back to Agreement</button>
-            </div>
+                <button type="button" id="acceptTermsBtn" class="btn btn-primary">Enter</button>
+             </div>
         </div>
     </div>
+
+     <section id="termsAndConditionsFull" class="hidden">
+        <div class="full-terms-container">
+            <h2 class="text-4xl font-bold">Terms and Conditions</h2>
+            <p class="text-sm text-gray-500 text-center mt-2">Effective Date: May 4, 2025</p>
+
+            <p>Welcome to The Highon's Website (the "Website"). This Website is an experimental and educational project created and operated by two individuals aged 15-16.</p>
+
+            <p>Please read these Terms and Conditions ("Terms") carefully before using our Website. By accessing or using the Website, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree to these Terms, you may not access or use the Website.</p>
+
+            <p class="text-gray-400 italic">Important Note: This Website is intended for educational and experimental purposes only. It is not a commercial enterprise, and its content and functionality, including any items offered for order, are provided without formal legal protections, warranties, or guarantees. Operations are limited to local delivery within Navsari (PIN: 396445).</p>
+
+            <h3>1. Acceptance of Terms</h3>
+            <p>By accessing or using our Website, you agree to comply with and be bound by these Terms. If you do not agree to these Terms, please do not use our Website.</p>
+
+            <h3>2. About the Website and Operators</h3>
+            <p>This Website is a non-commercial project developed for learning and experimental purposes by two individuals who are currently 15-16 years old. A significant portion of the Website's content and code has been generated with the assistance of artificial intelligence.</p>
+
+            <h3>3. Changes to Terms</h3>
+            <p>We reserve the right to modify or replace these Terms at any time. We will indicate at the top of the Terms the date on which they were last updated. Your continued use of the Website after any such changes constitutes your acceptance of the new Terms.</p>
+
+            <h3>4. Access and Use of the Website</h3>
+            <p>You may use the Website for lawful purposes only and in accordance with these Terms. You agree not to use the Website:</p>
+            <ul>
+                 <li>In any way that violates any applicable national, state, local, or international law or regulation.</li>
+                 <li>To engage in any conduct that restricts or inhibits anyone's use or enjoyment of the Website.</li>
+                 <li>To transmit, or procure the sending of, any unsolicited advertising or promotional material.</li>
+                 <li>To impersonate or attempt to impersonate the Website operators or any other person or entity.</li>
+            </ul>
+
+            <h3>5. Content and Intellectual Property</h3>
+            <p>The content on this Website, including text, graphics, images, and other materials, is provided for informational and experimental purposes only.</p>
+            <p class="text-gray-400 italic">Disclaimer Regarding Intellectual Property: Please be advised that no licenses (including copyright or trademark licenses) have been purchased or formally obtained for the content used on this Website. While efforts are made to respect existing rights, the legal status of much of the content in terms of copyright and usage permissions has not been formally verified or licensed. You should assume that content on this site is not licensed for your reuse.</p>
+            <p>A significant portion of the content and underlying code of this Website has been generated with the assistance of artificial intelligence. We do not guarantee the accuracy, completeness, or originality of AI-generated content.</p>
+            <p>You may view and use the content for your personal, non-commercial use related to the experimental nature of this Website. You must not reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any of the material on our Website for commercial purposes or without acknowledging the experimental nature and the intellectual property disclaimer mentioned herein.</p>
+
+            <h3>6. Product Orders (Experimental)</h3>
+            <p>This Website allows users within Navsari (PIN: 396445) to place experimental orders for items listed on the Website. Please note that all items are offered on an "as is" basis. The descriptions are for identification purposes only.</p>
+             <p class="text-gray-400 italic">Disclaimer of Product Warranties: We provide no guarantees, warranties, or representations, express or implied, regarding the quality, fitness for a particular purpose, or any other characteristic of the items available for order on this Website. All sales are final unless otherwise explicitly stated at the time of order confirmation (which is handled offline after submission).</p>
+            <p>The ordering functionality is part of the experiment, and fulfillment is subject to availability and the discretion of the operators.</p>
+
+            <h3>7. Prohibited Activities</h3>
+            <p>When using the Website, you agree not to:</p>
+             <ul>
+                 <li>Violate any applicable local, state, national, or international law or regulation.</li>
+                 <li>Infringe upon the rights of others, including their intellectual property rights.</li>
+                 <li>Transmit any malware, viruses, or other harmful computer code.</li>
+                 <li>Engage in spamming, phishing, or other fraudulent activities.</li>
+                 <li>Attempt to gain unauthorized access to the Website or its systems.</li>
+                 <li>Harass, abuse, or harm other users.</li>
+                 <li>Use the Website for any commercial purposes without our express written consent (outside of placing experimental orders as permitted herein).</li>
+            </ul>
+
+            <h3>8. Third-Party Links</h3>
+            <p>The Website may contain links to third-party websites or services that are not owned or controlled by the Website operators. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services. You access these at your own risk.</p>
+
+            <h3>9. Disclaimer of Website Warranties</h3>
+            <p>THIS WEBSITE IS PROVIDED FOR EDUCATIONAL AND EXPERIMENTAL PURPOSES ONLY, "AS IS" AND "AS AVAILABLE," WITHOUT ANY WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. THIS INCLUDES BUT IS NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, ACCURACY, RELIABILITY, OR COMPLETENESS OF THE WEBSITE CONTENT OR FUNCTIONALITY.</p>
+            <p>WE DO NOT WARRANT THAT THE WEBSITE WILL BE UNINTERRUPTED, SECURE, OR ERROR-FREE, OR THAT ANY DEFECTS WILL BE CORRECTED. YOU USE THE WEBSITE AT YOUR OWN SOLE RISK.</p>
+
+            <h3>10. Limitation of Liability</h3>
+             <p>GIVEN THE EXPERIMENTAL AND NON-COMMERCIAL NATURE OF THIS WEBSITE AND THE AGE OF THE OPERATORS, IN NO EVENT SHALL THE WEBSITE OPERATORS, OR ANYONE ASSOCIATED WITH THEM, BE LIABLE FOR ANY DAMAGES OF ANY KIND, UNDER ANY LEGAL THEORY, ARISING OUT OF OR IN CONNECTION WITH YOUR USE, OR INABILITY TO USE, THE WEBSITE, ANY WEBSITES LINKED TO IT, ANY CONTENT ON THE WEBSITE, OR ANY ITEMS ORDERED THROUGH THE WEBSITE. THIS INCLUDES ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO, PERSONAL INJURY, PAIN AND SUFFERING, EMOTIONAL DISTRESS, LOSS OF REVENUE, LOSS OF PROFITS, LOSS OF BUSINESS OR ANTICIPATED SAVINGS, LOSS OF USE, LOSS OF GOODWILL, LOSS OF DATA, AND WHETHER CAUSED BY TORT (INCLUDING NEGLIGENCE), BREACH OF CONTRACT, OR OTHERWISE, EVEN IF FORESEEABLE.</p>
+
+            <h3>11. Indemnification</h3>
+             <p>You agree to defend, indemnify, and hold harmless the Website operators, and anyone associated with them, from and against any claims, liabilities, damages, judgments, awards, losses, costs, expenses, or fees (including reasonable attorneys' fees) arising out of or relating to your violation of these Terms or your use of the Website or items obtained through the Website.</p>
+
+            <h3>12. Governing Law</h3>
+             <p>While this is an experimental project, your use of the Website may be subject to applicable laws in India, particularly within Navsari, Gujarat. These Terms shall be governed by and construed in accordance with the laws applicable in Navsari, Gujarat, India. However, due to the experimental nature and the age of the operators, formal legal disputes are not anticipated or supported through this platform.</p>
+
+            <h3>13. Termination</h3>
+            <p>We may terminate or suspend your access to the Website at any time, without prior notice or liability, for any reason whatsoever, including without limitation if you breach these Terms.</p>
+
+            <h3>14. Severability</h3>
+            <p>If any provision of these Terms is held by a court or other tribunal of competent jurisdiction to be invalid, illegal, or unenforceable for any reason, such provision shall be eliminated or limited to the minimum extent such that the remaining provisions of the Terms will continue in full force and effect.</p>
+
+            <h3>15. Entire Agreement</h3>
+            <p>These Terms constitute the sole and entire agreement between you and the Website operators regarding the Website.</p>
+
+            <h3>16. Contact Information</h3>
+            <p>To ask questions or comment about these Terms and Conditions, please contact us at:</p>
+             <p><a href="mailto:thehighonsofficial@gmail.com">thehighonsofficial@gmail.com</a></p>
+             <p class="text-sm text-gray-500 mt-4">Please note that these Terms and Conditions were drafted with the assistance of artificial intelligence based on the information you provided about your experimental website. For any queries regarding these terms, please contact us at the email address above.</p>
+
+             <div class="text-center">
+                  <button type="button" id="backToSiteBtn" class="btn btn-secondary btn-back">Back to Site</button>
+             </div>
+
+        </div>
+    </section>
 
 
     <header class="sticky top-0 z-50">
@@ -1096,7 +1048,7 @@
 
     <div id="productModal" class="fixed inset-0 z-[70] modal-backdrop flex items-center justify-center hidden p-4">
         <div class="modal-content relative max-w-lg w-full mx-auto animate__animated animate__zoomIn animate__faster overflow-hidden">
-             <button onclick="closeModal()" class="modal-close-btn absolute top-4 right-4 text-3xl leading-none z-10" aria-label="Close product details modal">&times;</button>
+             <button onclick="closeModal()" class="modal-close-btn" aria-label="Close product details modal">&times;</button>
              <div class="p-6 sm:p-8 max-h-[80vh] overflow-y-auto">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <img id="modalImg" src="" alt="" class="w-full h-64 md:h-full object-contain p-2" loading="lazy">
@@ -1113,9 +1065,9 @@
 
     <script>
         // --- Constants ---
-        const USER_DETAILS_STORAGE_KEY = 'highonsUserDetails'; // Key for localStorage
-        const CART_STORAGE_KEY = 'highonsCartItems'; // Key for localStorage
-        const TERMS_AGREED_STORAGE_KEY = 'highonsTermsAgreed'; // Key for terms agreement
+        const USER_DETAILS_STORAGE_KEY = 'highonsUserDetails';
+        const CART_STORAGE_KEY = 'highonsCartItems';
+        const TERMS_ACCEPTED_STORAGE_KEY = 'highonsTermsAccepted'; // New key for T&C
 
         // --- Product Data (Kept from original code) ---
         const products = {
@@ -1155,8 +1107,8 @@
 
          // --- Coupon Data (Code: { type: 'percentage_discount' | 'fixed_discount' | 'percentage_increase', value: number }) (Kept from original code) ---
          const coupons = {
-             "JIANSPECIAL": { type: "percentage_increase", value: 20 }, // 20% increase (Example from original code)
-             "NSL10": { type: "percentage_discount", value: 10 } // 10% discount (Requested by user)
+             "JIANSPECIAL": { type: "percentage_increase", value: 20 }, // 20% increase
+             "NSL10": { type: "percentage_discount", value: 10 } // 10% discount
          };
 
 
@@ -1222,6 +1174,19 @@
                  orderItems = {}; // Start with empty cart on error
              }
          }
+
+        // Function to manage body overflow based on visible modals
+        function updateBodyOverflow() {
+             const productModal = document.getElementById('productModal');
+             const termsModal = document.getElementById('termsModal');
+             const termsFull = document.getElementById('termsAndConditionsFull');
+
+             if (!(productModal?.classList.contains('hidden')) || !(termsModal?.classList.contains('hidden')) || !(termsFull?.classList.contains('hidden'))) {
+                 document.body.classList.add('overflow-hidden');
+             } else {
+                 document.body.classList.remove('overflow-hidden');
+             }
+        }
 
 
         // --- Product Rendering (Adapted for new styling) ---
@@ -1332,7 +1297,7 @@
             `;
              // Add click listener directly to the card for modal
              card.addEventListener('click', (event) => {
-                 // Check if the click target is NOT one of the quantity control buttons
+                 // Check if the click target is NOT one of the quantity control buttons or the card control area itself
                  const target = event.target;
                  if (!target.closest('.product-card-controls') && !target.classList.contains('btn-add')) {
                       showModal(product.id);
@@ -1508,31 +1473,22 @@
                              hiddenAdjustmentText = `\nCoupon Applied: ${enteredCouponCode} (-${coupon.value}% Discount) -₹${priceAdjustment.toFixed(2)}`;
                               couponFeedback.style.color = 'var(--success-color)'; // Green for discount
                          }
-                         // Add logic for other coupon types (fixed discount) here if needed
-                         // else if (coupon.type === 'fixed_discount') {
-                         //     priceAdjustment = coupon.value;
-                         //     finalTotal = subtotal - priceAdjustment;
-                         //     feedbackMessage = `Coupon "${enteredCouponCode}" applied: ₹${coupon.value} off!`;
-                         //     adjustmentLineHTML = `<div class="order-summary-line discount-line"><span>Coupon (${enteredCouponCode}):</span> <span>-₹${priceAdjustment.toFixed(2)}</span></div>`;
-                         //     hiddenAdjustmentText = `\nCoupon Applied: ${enteredCouponCode} (₹${coupon.value} Fixed Discount) -₹${priceAdjustment.toFixed(2)}`;
-                         //     couponFeedback.style.color = 'var(--success-color)'; // Green for discount
-                         // }
-                         else {
+                         else { // Handle unknown coupon types
                              feedbackMessage = `Coupon "${enteredCouponCode}" has an unknown type.`;
-                             couponApplied = false; // Mark as not applied if type is unknown
-                              couponFeedback.style.color = 'var(--text-secondary)'; // Default color
+                             couponApplied = false;
+                             couponFeedback.style.color = 'var(--text-secondary)';
                          }
                      } else {
                          feedbackMessage = `Invalid coupon code: "${enteredCouponCode}"`;
-                          couponFeedback.style.color = 'var(--text-secondary)'; // Default color
+                          couponFeedback.style.color = 'var(--text-secondary)';
                      }
                  } else {
                      // No coupon code entered or code was cleared
-                     feedbackMessage = ''; // Clear feedback
-                      couponFeedback.style.color = 'var(--text-secondary)'; // Default color
+                     feedbackMessage = '';
+                      couponFeedback.style.color = 'var(--text-secondary)';
                  }
 
-                 // Ensure total doesn't go below zero due to fixed discounts (percentage discounts won't)
+                 // Ensure total doesn't go below zero
                  finalTotal = Math.max(0, finalTotal);
 
                  // Append adjustment line if applicable
@@ -1653,7 +1609,7 @@
                 const productModal = document.getElementById('productModal');
 
                 if (!modalImg || !modalName || !modalDesc || !modalPrice || !productModal) {
-                     console.error("Modal elements missing!");
+                     console.error("Product modal elements missing!");
                      return;
                 }
 
@@ -1664,7 +1620,7 @@
                 modalPrice.textContent = `₹${product.price}`;
 
                 productModal.classList.remove('hidden');
-                document.body.classList.add('overflow-hidden'); // Prevent body scroll
+                updateBodyOverflow(); // Update overflow based on *all* modals
 
            } catch (error) {
                 console.error("Error showing modal:", error);
@@ -1677,7 +1633,7 @@
           if (productModal) {
             productModal.classList.add('hidden');
           }
-          document.body.classList.remove('overflow-hidden'); // Re-enable body scroll
+           updateBodyOverflow(); // Update overflow based on *all* modals
         }
 
         function toggleMobileMenu() {
@@ -1688,14 +1644,72 @@
         }
 
 
+        // --- Terms and Conditions Functions ---
+        function showTermsModal() {
+            const termsModal = document.getElementById('termsModal');
+            if (termsModal) {
+                termsModal.classList.remove('hidden');
+                updateBodyOverflow();
+            } else {
+                console.error("Terms modal element not found.");
+            }
+        }
+
+        function hideTermsModal() {
+            const termsModal = document.getElementById('termsModal');
+            if (termsModal) {
+                termsModal.classList.add('hidden');
+                updateBodyOverflow();
+            }
+        }
+
+        function showFullTerms() {
+             const termsFull = document.getElementById('termsAndConditionsFull');
+             if(termsFull) {
+                 termsFull.classList.remove('hidden');
+                  updateBodyOverflow();
+                  // Optional: Scroll to top of terms page
+                  termsFull.scrollTop = 0; // For the section itself
+                  window.scrollTo(0, 0); // For overall page scroll
+             } else {
+                 console.error("Full terms and conditions section not found.");
+             }
+        }
+
+        function hideFullTerms() {
+             const termsFull = document.getElementById('termsAndConditionsFull');
+             if(termsFull) {
+                 termsFull.classList.add('hidden');
+                  updateBodyOverflow();
+             }
+        }
+
+        function exitWebsite() {
+            // Attempt to close the window. Note: This often only works for windows
+            // that were opened via script (e.g., window.open()).
+            // A more reliable approach for a standard tab is to redirect or show a message.
+             // Redirecting to a blank page simulates "exiting" without leaving the user on an error page.
+            if (window.opener) { // If this window was opened by another script
+                window.close();
+            } else { // For a standard tab or window not opened by script
+                 // You could show a message or redirect
+                 alert("Thank you for visiting! The website will now close or navigate away.");
+                 window.location.href = 'about:blank'; // Redirect to a blank page
+                 // Alternatively, you could redirect to a simple "Goodbye" page on your site
+                 // window.location.href = '/goodbye.html';
+            }
+        }
+
+
         // --- Scroll Animation Observer (Kept from original code) ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const target = entry.target;
                     const index = target.getAttribute('data-index');
-                    // Calculate delay based on index (adjust multiplier for desired effect)
-                    const delay = index * 50; // 50ms delay per element
+                    // Apply the calculated delay only if data-index exists (for product cards)
+                    // or use a small default delay for others.
+                    const delay = index !== null ? index * 50 : 50;
 
                     // Apply the calculated delay
                     target.style.transitionDelay = `${delay}ms`;
@@ -1704,6 +1718,7 @@
                     target.classList.add('visible');
 
                     // Optional: unobserve after revealing to save resources if element won't be hidden again
+                     // This is generally good practice for static elements once animated
                     // observer.unobserve(entry.target);
                 } else {
                      // Optional: remove visible class and reset delay if you want elements to re-animate on scroll back up
@@ -1712,8 +1727,9 @@
                 }
             });
         }, {
-            threshold: 0.1 // Trigger when 10% of the element is visible
+            threshold: 0.1
         });
+
         function observeElement(element) {
             if (element) {
                 // Reset initial state before observing if the element might be re-added (like after filtering/searching)
@@ -1723,383 +1739,205 @@
             }
         }
 
-        // --- Terms Agreement Overlay Logic ---
-        function showTermsOverlay() {
-            const termsOverlay = document.getElementById('termsOverlay');
-            const agreementPrompt = document.getElementById('agreementPrompt');
-            const fullTermsText = document.getElementById('fullTermsText');
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+          try {
+              // Check if terms have been accepted on first visit
+              const termsAccepted = localStorage.getItem(TERMS_ACCEPTED_STORAGE_KEY);
 
-            if (termsOverlay && agreementPrompt && fullTermsText) {
-                agreementPrompt.classList.remove('hidden');
-                fullTermsText.classList.add('hidden');
-                termsOverlay.classList.remove('hidden');
-                document.body.classList.add('overflow-hidden'); // Prevent background scroll
-            } else {
-                 console.error("Terms overlay elements not found in showTermsOverlay!");
-            }
-        }
+              // Get references to T&C elements
+              const termsModal = document.getElementById('termsModal');
+              const acceptTermsBtn = document.getElementById('acceptTermsBtn');
+              const viewTermsLink = document.getElementById('viewTermsLink');
+              const termsAndConditionsFull = document.getElementById('termsAndConditionsFull');
+              const backToSiteBtn = document.getElementById('backToSiteBtn');
 
-        function hideTermsOverlay() {
-            const termsOverlay = document.getElementById('termsOverlay');
-            if (termsOverlay) {
-                termsOverlay.classList.add('hidden');
-                document.body.classList.remove('overflow-hidden'); // Allow background scroll
-            } else {
-                console.error("Terms overlay element not found in hideTermsOverlay!");
-            }
-        }
-
-        function agreeToTerms() {
-             console.log("agreeToTerms function started.");
-             try {
-                localStorage.setItem(TERMS_AGREED_STORAGE_KEY, 'true');
-                console.log("Terms agreement saved to localStorage.");
-
-                hideTermsOverlay();
-                console.log("Terms overlay hidden.");
-
-                // Now that terms are agreed, proceed with normal website initialization
-                console.log("Calling initializeWebsite().");
-                initializeWebsite();
-
-             } catch (error) {
-                 console.error("Error during agreeToTerms:", error);
-                 // Optionally show a user-friendly error message
-                 alert("An error occurred while trying to accept terms. Please check the console for details.");
-                 hideTermsOverlay(); // Attempt to hide overlay even if initialization fails
-             }
-             console.log("agreeToTerms function finished.");
-        }
-
-        function viewFullTerms() {
-             console.log("viewFullTerms function started.");
-             try {
-                const agreementPrompt = document.getElementById('agreementPrompt');
-                const fullTermsText = document.getElementById('fullTermsText');
-                 const termsModalContent = document.getElementById('termsModalContent');
-                 const backBtn = document.getElementById('backToAgreementBtn');
-
-                 if (agreementPrompt && fullTermsText && termsModalContent && backBtn) {
-                    agreementPrompt.classList.add('hidden');
-                    fullTermsText.classList.remove('hidden');
-                     // Scroll T&C text to top when viewed
-                     termsModalContent.scrollTop = 0;
-
-                     // Attach listener to the back button *now* that it's potentially visible
-                     // Use .onclick = null to remove previous handlers before assigning
-                     backBtn.onclick = null; // Remove any previously attached listeners
-                     backBtn.onclick = backToAgreement; // Assign the handler
-                     console.log("Back button listener attached in viewFullTerms.");
-
-                } else {
-                     console.error("Terms modal content elements missing in viewFullTerms!");
-                }
-             } catch (error) {
-                 console.error("Error during viewFullTerms:", error);
-             }
-             console.log("viewFullTerms function finished.");
-        }
-
-        function backToAgreement() {
-             console.log("backToAgreement function started.");
-             try {
-                 const agreementPrompt = document.getElementById('agreementPrompt');
-                 const fullTermsText = document.getElementById('fullTermsText');
-                 if (agreementPrompt && fullTermsText) {
-                    agreementPrompt.classList.remove('hidden');
-                    fullTermsText.classList.add('hidden');
-                    console.log("Switched back to agreement prompt.");
-                } else {
-                     console.error("Terms modal content elements missing in backToAgreement!");
-                }
-             } catch (error) {
-                 console.error("Error during backToAgreement:", error);
-             }
-             console.log("backToAgreement function finished.");
-        }
+              if (!termsModal || !acceptTermsBtn || !viewTermsLink || !termsAndConditionsFull || !backToSiteBtn) {
+                  console.error("Missing one or more Terms & Conditions elements.");
+                  // Continue loading the site but log the error
+              }
 
 
-        // --- Website Initialization Function ---
-        function initializeWebsite() {
-             console.log("initializeWebsite function started.");
-             try {
-                 // Set footer year
-                 const footerYear = document.getElementById('footerYear');
-                 if (footerYear) footerYear.textContent = new Date().getFullYear();
-                 console.log("Footer year set.");
+              if (termsAccepted !== 'true') {
+                  // Show the terms modal only on the first visit
+                  if (termsModal) showTermsModal();
 
-
-                 // Load cart and user details from local storage
-                 loadCart(); // This function has internal error logging
-                 loadUserDetails(); // This function has internal error logging
-                 console.log("Cart and user details loaded.");
-
-
-                 // Initial render of products and order summary based on loaded cart
-                 renderProducts('all', ''); // This function already has a try/catch
-                 console.log("Initial products rendered.");
-
-                 renderOrderSummary(); // This function has internal error logging
-                 console.log("Initial order summary rendered.");
-
-
-                 // --- Event Listeners Setup for Main Website ---
-
-                 // Product Search Input
-                 const productSearchInput = document.getElementById('productSearch');
-                 if (productSearchInput) {
-                      let searchTimeout;
-                      productSearchInput.addEventListener('input', function() {
-                           try {
-                               console.log("Product search input changed:", this.value);
-                               clearTimeout(searchTimeout);
-                               const searchTerm = this.value;
-                               searchTimeout = setTimeout(() => {
-                                   renderProducts(currentCategoryFilter, searchTerm);
-                               }, 300); // Slightly longer debounce
-                           } catch (error) {
-                               console.error("Error in product search input handler:", error);
-                           }
-                      });
-                      console.log("Product search input listener attached.");
-                 } else { console.error("Product search input not found."); }
-
-                 // Category Filter Select
-                 const categoryFilterSelect = document.getElementById('categoryFilter');
-                 if (categoryFilterSelect) {
-                      categoryFilterSelect.addEventListener('change', function() {
-                         try {
-                           console.log("Category filter changed:", this.value);
-                           const searchVal = document.getElementById('productSearch')?.value || '';
-                           renderProducts(this.value, searchVal);
-                         } catch (error) {
-                           console.error("Error in category filter handler:", error);
-                         }
-                      });
-                      console.log("Category filter listener attached.");
-                 } else { console.error("Category filter select not found."); }
-
-                  // Modal close on background click (Product Modal)
-                  const productModal = document.getElementById('productModal');
-                  if (productModal) {
-                      productModal.addEventListener('click', (event) => {
-                           try {
-                               if (event.target === productModal) {
-                                   closeModal();
-                                   console.log("Product modal closed by backdrop click.");
-                               }
-                           } catch (error) {
-                              console.error("Error in product modal background click handler:", error);
-                           }
-                      });
-                      console.log("Product modal backdrop listener attached.");
+                  // Set up listeners for the terms modal buttons
+                  if (acceptTermsBtn) {
+                       acceptTermsBtn.addEventListener('click', () => {
+                           localStorage.setItem(TERMS_ACCEPTED_STORAGE_KEY, 'true');
+                           hideTermsModal();
+                           // Now that terms are accepted, load the main site content
+                           loadSiteContent();
+                       });
                   }
-
-
-                   // --- Event Delegation for Product Card Controls and Modal Trigger ---
-                   const productsContainer = document.getElementById('productsContainer');
-                   if (productsContainer) {
-                       // Add event listener once to the container
-                       productsContainer.addEventListener('click', (event) => {
-                            try {
-                                const target = event.target;
-                                // Find the closest button or the card itself
-                                const addButton = target.closest('.btn-add');
-                                const increaseButton = target.closest('.btn-increase');
-                                const decreaseButton = target.closest('.btn-decrease');
-                                const productCard = target.closest('.product-card'); // Get the card
-
-                                // Get product ID from the button or the card
-                                const productId = addButton?.getAttribute('data-product-id') ||
-                                                    increaseButton?.getAttribute('data-product-id') ||
-                                                    decreaseButton?.getAttribute('data-product-id') ||
-                                                    productCard?.getAttribute('data-product-id');
-
-
-                                if (!productId) return; // Not inside a relevant element with product ID
-
-                                if (addButton) {
-                                    console.log("Add button clicked for product:", productId);
-                                    event.stopPropagation(); // Prevent card click handler
-                                    addItemToOrder(productId);
-                                } else if (increaseButton) {
-                                     console.log("Increase button clicked for product:", productId);
-                                     event.stopPropagation(); // Prevent card click handler
-                                    increaseQuantity(productId);
-                                } else if (decreaseButton) {
-                                     console.log("Decrease button clicked for product:", productId);
-                                     event.stopPropagation(); // Prevent card click handler
-                                    decreaseQuantity(productId);
-                                }
-                                 // Card click handler (for showing product modal) is attached directly to the card in createProductCard
-                            } catch (error) {
-                               console.error("Error in products container click handler:", error);
-                            }
+                  if (viewTermsLink) {
+                       viewTermsLink.addEventListener('click', (event) => {
+                           event.preventDefault(); // Stop the link from doing anything else
+                           hideTermsModal();
+                           showFullTerms();
                        });
-                       console.log("Product container click delegation attached.");
-                   } else { console.error("productsContainer not found for event delegation."); }
+                  }
+                  // The exitWebsite function is called via onclick attribute in HTML
+              } else {
+                  // Terms were already accepted, load the main site content directly
+                   loadSiteContent();
+              }
+
+              // Listener for the "Back to Site" button on the full T&C page
+              if (backToSiteBtn) {
+                   backToSiteBtn.addEventListener('click', () => {
+                       hideFullTerms();
+                       // Optionally scroll back to the top or hero section
+                       window.scrollTo(0, 0);
+                   });
+              }
+
+              // --- Main Site Content Loading Function ---
+              // Put all the loading and event listener setup for the main site here
+              function loadSiteContent() {
+                    // Set footer year
+                    const footerYear = document.getElementById('footerYear');
+                    if (footerYear) footerYear.textContent = new Date().getFullYear();
+
+                    // Load cart and user details from local storage
+                    loadCart();
+                    loadUserDetails();
+
+                    // Initial render of products and order summary based on loaded cart
+                    renderProducts('all', '');
+                    renderOrderSummary();
 
 
-                   // --- Coupon Input Listener ---
-                   const couponCodeInput = document.getElementById('couponCode');
-                   if (couponCodeInput) {
-                       couponCodeInput.addEventListener('input', function() {
-                            try {
-                                console.log("Coupon code input changed:", this.value);
-                                renderOrderSummary(); // Update summary on input change
-                            } catch (error) {
-                                console.error("Error in coupon input handler:", error);
-                            }
-                       });
-                       console.log("Coupon input listener attached.");
-                   } else { console.error("Coupon code input not found."); }
+                    // --- Event Listeners Setup (for main site) ---
+
+                    // Product Search Input
+                    const productSearchInput = document.getElementById('productSearch');
+                    if (productSearchInput) {
+                         let searchTimeout;
+                         productSearchInput.addEventListener('input', function() {
+                             clearTimeout(searchTimeout);
+                             const searchTerm = this.value;
+                             searchTimeout = setTimeout(() => {
+                                 renderProducts(currentCategoryFilter, searchTerm);
+                             }, 300); // Slightly longer debounce
+                         });
+                    } else { console.error("Product search input not found."); }
+
+                    // Category Filter Select
+                    const categoryFilterSelect = document.getElementById('categoryFilter');
+                    if (categoryFilterSelect) {
+                         categoryFilterSelect.addEventListener('change', function() {
+                            const searchVal = document.getElementById('productSearch')?.value || '';
+                            renderProducts(this.value, searchVal);
+                         });
+                    } else { console.error("Category filter select not found."); }
+
+                     // Modal close on background click (for product modal)
+                     const productModal = document.getElementById('productModal');
+                     if (productModal) {
+                         productModal.addEventListener('click', (event) => {
+                             if (event.target === productModal) {
+                                 closeModal();
+                             }
+                         });
+                     }
+
+                     // --- Event Delegation for Product Card Controls and Modal Trigger ---
+                     const productsContainer = document.getElementById('productsContainer');
+                     if (productsContainer) {
+                         productsContainer.addEventListener('click', (event) => {
+                             const target = event.target;
+                             // Find the closest product card element to get the product ID
+                             const productCard = target.closest('.product-card');
+                             const productId = productCard?.getAttribute('data-product-id');
+
+                             if (!productId) return; // Not inside a product card or product ID missing
+
+                             // Check if the click was on a specific button class
+                             if (target.classList.contains('btn-add')) {
+                                 // Stop propagation if it's an add button click, so it doesn't also trigger the modal
+                                 event.stopPropagation();
+                                 addItemToOrder(productId);
+                             } else if (target.classList.contains('btn-increase')) {
+                                  event.stopPropagation();
+                                 increaseQuantity(productId);
+                             } else if (target.classList.contains('btn-decrease')) {
+                                  event.stopPropagation();
+                                 decreaseQuantity(productId);
+                             }
+                              // Modal click is handled by the click listener added directly to the card in createProductCard function
+                         });
+                     } else { console.error("productsContainer not found for event delegation."); }
+
+                      // --- Coupon Input Listener ---
+                      const couponCodeInput = document.getElementById('couponCode');
+                      if (couponCodeInput) {
+                          couponCodeInput.addEventListener('input', renderOrderSummary); // Update summary on input change
+                      } else { console.error("Coupon code input not found."); }
 
 
-                  // --- Order Form Submission Listener ---
-                  const orderForm = document.getElementById('orderForm');
-                  if (orderForm) {
-                      orderForm.addEventListener('submit', function(event) {
-                           try {
-                               console.log("Order form submitted.");
-                               // Basic validation: Check if any items are in the order
-                               if (Object.keys(orderItems).length === 0) {
-                                    alert("Your order list is empty. Please add items from the collection before placing an order.");
-                                    console.warn("Order form submission blocked: Order list empty.");
-                                    event.preventDefault(); // Prevent form submission
-                                    return; // Stop here if order is empty
-                               }
+                     // --- Order Form Submission Listener ---
+                     const orderForm = document.getElementById('orderForm');
+                     if (orderForm) {
+                         orderForm.addEventListener('submit', function(event) {
+                             // Basic validation: Check if any items are in the order
+                             if (Object.keys(orderItems).length === 0) {
+                                  alert("Your order list is empty. Please add items from the collection before placing an order.");
+                                  event.preventDefault(); // Prevent form submission
+                                  return; // Stop here if order is empty
+                             }
 
-                                // Save user details before submitting
-                               saveUserDetails(); // This function has internal logging
+                              // Save user details before submitting
+                             saveUserDetails();
 
-                               // Ensure the hidden order summary is populated just before submitting
-                               // This also re-calculates based on the final coupon input value
-                               renderOrderSummary(); // This function has internal error logging
-                               console.log("Order summary updated before submission.");
+                             // Ensure the hidden order summary is populated just before submitting
+                             // This also re-calculates based on the final coupon input value
+                             renderOrderSummary();
+
+                             // Optional: Disable the submit button to prevent double clicks
+                             const submitButton = orderForm.querySelector('button[type="submit"]');
+                             if(submitButton) {
+                                 submitButton.disabled = true;
+                                 submitButton.textContent = 'Placing Order...';
+                             }
+                             // FormSubmit.co handles the actual AJAX submission or page redirect
+                         });
+                     } else { console.error("Order form not found."); }
+
+                      // --- Forget My Details Button Listener ---
+                      const forgetButton = document.getElementById('forgetMyDetailsBtn');
+                      if(forgetButton) {
+                          forgetButton.addEventListener('click', clearUserDetails);
+                      }
 
 
-                               // Optional: Disable the submit button to prevent double clicks
-                               const submitButton = orderForm.querySelector('button[type="submit"]');
-                               if(submitButton) {
-                                   submitButton.disabled = true;
-                                   submitButton.textContent = 'Placing Order...';
-                                   console.log("Submit button disabled.");
-                               }
-                               // FormSubmit.co handles the actual AJAX submission or page redirect
-                           } catch (error) {
-                               console.error("Error in order form submit handler:", error);
-                               alert("An error occurred while submitting your order. Please try again.");
-                               event.preventDefault(); // Prevent form submission on error
-                           }
+                     // Observe elements with 'reveal' class initially present in HTML
+                      // These are non-product card elements like titles, headers, etc.
+                      document.querySelectorAll('.reveal').forEach(el => {
+                          // Don't observe product cards here, they are handled in renderProducts
+                          // Also don't observe the full terms section if it's initially hidden
+                          if (!el.classList.contains('product-card') && !el.closest('#termsAndConditionsFull')) {
+                             observeElement(el);
+                          }
                       });
-                      console.log("Order form submit listener attached.");
-                   } else { console.error("Order form not found."); }
 
-                // --- Forget My Details Button Listener ---
-                const forgetButton = document.getElementById('forgetMyDetailsBtn');
-                if(forgetButton) {
-                    forgetButton.addEventListener('click', clearUserDetails); // This function has internal logging
-                    console.log("Forget details button listener attached.");
-                }
+                      // Ensure body overflow is correct after loading content (should not be hidden if terms accepted)
+                       updateBodyOverflow();
+
+              } // End of loadSiteContent function
 
 
-               // Observe elements with 'reveal' class initially present in HTML
-               // These are non-product card elements like titles, headers, etc.
-               document.querySelectorAll('.reveal').forEach(el => {
-                   // Don't observe product cards here, they are handled in renderProducts
-                   if (!el.classList.contains('product-card')) {
-                      observeElement(el);
-                   }
-               });
-               console.log("Reveal elements observed.");
-
-
-               console.log("Website initialization complete successfully.");
-
-            } catch (error) {
-               console.error("Critical error during website initialization:", error);
-               // Use a more robust error display if initialization fails
+          } catch (error) {
+               console.error("Critical error during DOMContentLoaded initialization:", error);
+               // Use a more robust error display
                const errorDiv = document.createElement('div');
                errorDiv.style.cssText = "padding: 40px; text-align: center; font-family: sans-serif; color: white; background-color: #333; margin: 20px; border-radius: 8px;";
-               errorDiv.innerHTML = `<h1>Oops!</h1><p>Something went wrong while loading the page content.</p><p>Please <a href="javascript:location.reload();" style="color: #D4AF37; text-decoration: underline;">refresh</a> and try again.</p><p style="font-size: 0.8em; color: #AAA;">Error details: ${escapeHtml(error.message)}</p>`;
-               // Attempt to clear existing body content before appending error
-               const body = document.body;
-               if(body) {
-                   while(body.firstChild){
-                       body.removeChild(body.firstChild);
-                   }
-                   body.appendChild(errorDiv);
-               } else {
-                   // Fallback if body is somehow not available
-                   document.documentElement.innerHTML = '';
-                   document.documentElement.appendChild(errorDiv);
-               }
-                console.log("Critical error display shown.");
-           }
-        }
-
-
-        // --- DOMContentLoaded - Check for terms agreement before initializing the website ---
-        document.addEventListener('DOMContentLoaded', () => {
-             console.log("DOMContentLoaded fired.");
-             try {
-                const termsAgreed = localStorage.getItem(TERMS_AGREED_STORAGE_KEY);
-                console.log("Terms agreed status from localStorage:", termsAgreed);
-
-                if (termsAgreed === 'true') {
-                    // Terms already agreed, initialize the website normally
-                    console.log("Terms already agreed. Initializing website directly.");
-                    initializeWebsite();
-                } else {
-                    // Terms not agreed, show the agreement overlay
-                    console.log("Terms not agreed. Showing terms overlay.");
-                    showTermsOverlay();
-
-                    // Set up listeners for the terms overlay buttons
-                    const enterBtn = document.getElementById('enterWebsiteBtn');
-                    const viewTermsLink = document.getElementById('viewTermsLink');
-                    // The back button listener will be set up in viewFullTerms() when it becomes visible
-
-                    if (enterBtn) {
-                         enterBtn.addEventListener('click', agreeToTerms);
-                         console.log("Enter button listener attached.");
-                    } else {
-                         console.error("Enter button not found!");
-                    }
-
-                    if (viewTermsLink) {
-                         viewTermsLink.addEventListener('click', (e) => {
-                             e.preventDefault(); // Prevent the default link behavior
-                             viewFullTerms(); // Calls the function to show terms
-                             console.log("View Terms link clicked.");
-                         });
-                         console.log("View Terms link listener attached.");
-                    } else {
-                         console.error("View Terms link not found!");
-                    }
-
-                    // The back button listener is now attached within viewFullTerms when the full text is shown.
-                }
-             } catch (error) {
-                 console.error("Critical error during DOMContentLoaded execution:", error);
-                  // Fallback error display if even DOMContentLoaded fails badly
-                  const errorDiv = document.createElement('div');
-                  errorDiv.style.cssText = "padding: 40px; text-align: center; font-family: sans-serif; color: white; background-color: #333; margin: 20px; border-radius: 8px;";
-                  errorDiv.innerHTML = `<h1>Oops!</h1><p>A critical error occurred very early.</p><p>Please try <a href="javascript:location.reload();" style="color: #D4AF37; text-decoration: underline;">refreshing</a> the page.</p><p style="font-size: 0.8em; color: #AAA;">Error details: ${escapeHtml(error.message)}</p>`;
-                  const body = document.body;
-                  if(body) {
-                      while(body.firstChild){
-                          body.removeChild(body.firstChild);
-                      }
-                      body.appendChild(errorDiv);
-                  } else {
-                       document.documentElement.innerHTML = ''; // Fallback if body not found
-                       document.documentElement.appendChild(errorDiv);
-                   }
-                 console.log("Critical error display shown during DOMContentLoaded.");
-             }
+               errorDiv.innerHTML = `<h1>Oops!</h1><p>Something went wrong while loading the page content.</p><p>Please <a href="javascript:location.reload();" style="color: var(--primary-accent); text-decoration: underline;">refresh</a> and try again.</p><p style="font-size: 0.8em; color: var(--text-secondary);">Error details: ${escapeHtml(error.message)}</p>`;
+               document.body.innerHTML = ''; // Clear existing body content
+               document.body.appendChild(errorDiv);
+          }
         });
-
     </script>
 
 </body>
