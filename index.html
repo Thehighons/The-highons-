@@ -38,7 +38,7 @@
           color: var(--text-main);
           overflow-x: hidden; /* Prevent horizontal scroll */
         }
-        /* Prevent body scroll when modal is open */
+        /* Prevent body scroll when modal or overlay is open */
         body.overflow-hidden {
             overflow: hidden;
         }
@@ -679,10 +679,215 @@
               color: var(--text-secondary); /* Ensure consistent text color */
          }
 
+        /* Terms Agreement Overlay Styles */
+        #termsOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* Darker overlay */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100; /* Ensure it's on top of everything */
+            padding: 20px;
+        }
+
+        #termsModalContent {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 600px; /* Increased width */
+            width: 100%;
+            text-align: center;
+            color: var(--text-main);
+            position: relative;
+            max-height: 90vh; /* Limit height */
+            overflow-y: auto; /* Add scrolling for content */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        #termsModalContent p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        #termsModalContent a.terms-link {
+            color: #60a5fa; /* Tailwind blue-400 or similar */
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        #termsModalContent a.terms-link:hover {
+            color: #3b82f6; /* Tailwind blue-500 */
+        }
+
+        #termsModalContent .btn-enter {
+            padding: 12px 30px; /* Slightly larger button */
+            font-size: 1.1rem;
+             margin-top: 10px; /* Space above button */
+        }
+
+         /* Style for the full T&C text within the modal */
+         #fullTermsText {
+             text-align: left; /* Align T&C text left */
+             font-size: 0.95rem; /* Slightly smaller font */
+             color: var(--text-secondary); /* Use secondary text color */
+             line-height: 1.8; /* Increased line height */
+         }
+         #fullTermsText h2 {
+              color: var(--primary-accent); /* Accent color for T&C headings */
+             margin-top: 25px;
+             margin-bottom: 10px;
+             font-size: 1.4rem;
+         }
+         #fullTermsText strong {
+              color: var(--text-main); /* Main color for strong text */
+         }
+          #fullTermsText ul {
+              padding-left: 20px;
+              list-style: disc; /* Use disc for lists */
+          }
+          #fullTermsText li {
+               margin-bottom: 8px;
+          }
+         #fullTermsText .disclaimer {
+              border-color: rgba(255, 193, 7, 0.5); /* Lighter border */
+              background-color: rgba(255, 193, 7, 0.1); /* Subtle background */
+              color: var(--text-main); /* Main text color */
+              padding: 15px;
+              margin: 15px 0;
+              border-radius: 5px;
+              font-size: 0.9em;
+         }
+          #fullTermsText .highlight {
+              color: var(--danger-color); /* Red for highlight */
+              font-weight: bold;
+          }
+          #fullTermsText .ai-statement {
+               font-size: 0.85em;
+               color: var(--text-secondary);
+               margin-top: 20px;
+               padding-top: 15px;
+               border-top: 1px dashed rgba(255, 255, 255, 0.1);
+          }
+          #termsModalContent .btn-back {
+              margin-top: 20px;
+               padding: 8px 15px;
+               font-size: 0.9rem;
+          }
+
 
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
+
+    <div id="termsOverlay" class="hidden">
+        <div id="termsModalContent">
+            <div id="agreementPrompt">
+                <p>By clicking the 'Enter' button, you confirm that you have read and agree to our <a href="#" id="viewTermsLink" class="terms-link">Terms and Conditions</a>.</p>
+                <button id="enterWebsiteBtn" class="btn btn-primary btn-enter">Enter</button>
+            </div>
+            <div id="fullTermsText" class="hidden">
+                <h2>Terms and Conditions - The Highon's</h2>
+                <p><strong>Effective Date: May 4, 2025</strong></p>
+
+                <p>Welcome to The Highon's Website (the "https://thehighons.github.io/The-highons-/"). This Website is an experimental and educational project created and operated by two individuals aged 15-16.</p>
+
+                <p>Please read these Terms and Conditions ("Terms") carefully before using our Website. By accessing or using the Website, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree to these Terms, you may not access or use the Website.</p>
+
+                <div class="disclaimer">
+                    <p><strong class="highlight">Important Note:</strong> This Website is intended for educational and experimental purposes only. It is not a commercial enterprise, and its content and functionality, including any items offered for order, are provided without formal legal protections, warranties, or guarantees. Operations are limited to local delivery within Navsari (PIN: 396445).</p>
+                </div>
+
+                <h2>1. Acceptance of Terms</h2>
+                <p>By accessing or using our Website, you agree to comply with and be bound by these Terms. If you do not agree to these Terms, please do not use our Website.</p>
+
+                <h2>2. About the Website and Operators</h2>
+                <p>This Website is a non-commercial project developed for learning and experimental purposes by two individuals who are currently 15-16 years old. A significant portion of the Website's content and code has been generated with the assistance of artificial intelligence.</p>
+
+                <h2>3. Changes to Terms</h2>
+                <p>We reserve the right to modify or replace these Terms at any time. We will indicate at the top of the Terms the date on which they were last updated. Your continued use of the Website after any such changes constitutes your acceptance of the new Terms.</p>
+
+                <h2>4. Access and Use of the Website</h2>
+                <p>You may use the Website for lawful purposes only and in accordance with these Terms. You agree not to use the Website:</p>
+                <ul>
+                    <li>In any way that violates any applicable national, state, local, or international law or regulation.</li>
+                    <li>To engage in any conduct that restricts or inhibits anyone's use or enjoyment of the Website.</li>
+                    <li>To transmit, or procure the sending of, any unsolicited advertising or promotional material.</li>
+                    <li>To impersonate or attempt to impersonate the Website operators or any other person or entity.</li>
+                </ul>
+
+                <h2>5. Content and Intellectual Property</h2>
+                <p>The content on this Website, including text, graphics, images, and other materials, is provided for informational and experimental purposes only.</p>
+
+                <div class="disclaimer">
+                    <p><strong class="highlight">Disclaimer Regarding Intellectual Property:</strong> Please be advised that <span class="highlight">no licenses (including copyright or trademark licenses) have been purchased or formally obtained</span> for the content used on this Website. While efforts are made to respect existing rights, the legal status of much of the content in terms of copyright and usage permissions has not been formally verified or licensed. You should assume that content on this site is not licensed for your reuse.</p>
+                    <p>A significant portion of the content and underlying code of this Website has been generated with the assistance of artificial intelligence. We do not guarantee the accuracy, completeness, or originality of AI-generated content.</p>
+                </div>
+
+                <p>You may view and use the content for your personal, non-commercial use related to the experimental nature of this Website. You must not reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any of the material on our Website for commercial purposes or without acknowledging the experimental nature and the intellectual property disclaimer mentioned herein.</p>
+
+                <h2>6. Product Orders (Experimental)</h2>
+                <p>This Website allows users within Navsari (PIN: 396445) to place experimental orders for items listed on the Website. Please note that all items are offered on an "as is" basis. The descriptions are for identification purposes only.</p>
+                <div class="disclaimer">
+                 <p><strong class="highlight">Disclaimer of Product Warranties:</strong> <span class="highlight">We provide no guarantees, warranties, or representations, express or implied, regarding the quality, fitness for a particular purpose, or any other characteristic of the items available for order on this Website.</span> All sales are final unless otherwise explicitly stated at the time of order confirmation (which is handled offline after submission).</p>
+                </div>
+                <p>The ordering functionality is part of the experiment, and fulfillment is subject to availability and the discretion of the operators.</p>
+
+                <h2>7. Prohibited Activities</h2>
+                 <p>When using the Website, you agree not to:</p>
+                  <ul>
+                      <li>Violate any applicable local, state, national, or international law or regulation.</li>
+                      <li>Infringe upon the rights of others, including their intellectual property rights.</li>
+                      <li>Transmit any malware, viruses, or other harmful computer code.</li>
+                      <li>Engage in spamming, phishing, or other fraudulent activities.</li>
+                      <li>Attempt to gain unauthorized access to the Website or its systems.</li>
+                      <li>Harass, abuse, or harm other users.</li>
+                      <li>Use the Website for any commercial purposes without our express written consent (outside of placing experimental orders as permitted herein).</li>
+                  </ul>
+
+                <h2>8. Third-Party Links</h2>
+                <p>The Website may contain links to third-party websites or services that are not owned or controlled by the Website operators. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services. You access these at your own risk.</p>
+
+                <h2>9. Disclaimer of Website Warranties</h2>
+                <p>THIS WEBSITE IS PROVIDED FOR EDUCATIONAL AND EXPERIMENTAL PURPOSES ONLY, "AS IS" AND "AS AVAILABLE," WITHOUT ANY WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. THIS INCLUDES BUT IS NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, ACCURACY, RELIABILITY, OR COMPLETENESS OF THE WEBSITE CONTENT OR FUNCTIONALITY.</p>
+                <p>WE DO NOT WARRANT THAT THE WEBSITE WILL BE UNINTERRUPTED, SECURE, OR ERROR-FREE, OR THAT ANY DEFECTS WILL BE CORRECTED. YOU USE THE WEBSITE AT YOUR OWN SOLE RISK.</p>
+
+                <h2>10. Limitation of Liability</h2>
+                <p>GIVEN THE EXPERIMENTAL AND NON-COMMERCIAL NATURE OF THIS WEBSITE AND THE AGE OF THE OPERATORS, IN NO EVENT SHALL THE WEBSITE OPERATORS, OR ANYONE ASSOCIATED WITH THEM, BE LIABLE FOR ANY DAMAGES OF ANY KIND, UNDER ANY LEGAL THEORY, ARISING OUT OF OR IN CONNECTION WITH YOUR USE, OR INABILITY TO USE, THE WEBSITE, ANY WEBSITES LINKED TO IT, ANY CONTENT ON THE WEBSITE, OR ANY ITEMS ORDERED THROUGH THE WEBSITE. THIS INCLUDES ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO, PERSONAL INJURY, PAIN AND SUFFERING, EMOTIONAL DISTRESS, LOSS OF REVENUE, LOSS OF PROFITS, LOSS OF BUSINESS OR ANTICIPATED SAVINGS, LOSS OF USE, LOSS OF GOODWILL, LOSS OF DATA, AND WHETHER CAUSED BY TORT (INCLUDING NEGLIGENCE), BREACH OF CONTRACT, OR OTHERWISE, EVEN IF FORESEEABLE.</p>
+
+                <h2>11. Indemnification</h2>
+                <p>You agree to defend, indemnify, and hold harmless the Website operators, and anyone associated with them, from and against any claims, liabilities, damages, judgments, awards, losses, costs, expenses, or fees (including reasonable attorneys' fees) arising out of or relating to your violation of these Terms or your use of the Website or items obtained through the Website.</p>
+
+                <h2>12. Governing Law</h2>
+                <p>While this is an experimental project, your use of the Website may be subject to applicable laws in India, particularly within Navsari, Gujarat. These Terms shall be governed by and construed in accordance with the laws applicable in Navsari, Gujarat, India. However, due to the experimental nature and the age of the operators, formal legal disputes are not anticipated or supported through this platform.</p>
+
+                <h2>13. Termination</h2>
+                <p>We may terminate or suspend your access to the Website at any time, without prior notice or liability, for any reason whatsoever, including without limitation if you breach these Terms.</p>
+
+                <h2>14. Severability</h2>
+                <p>If any provision of these Terms is held by a court or other tribunal of competent jurisdiction to be invalid, illegal, or unenforceable for any reason, such provision shall be eliminated or limited to the minimum extent such that the remaining provisions of the Terms will continue in full force and effect.</p>
+
+                <h2>15. Entire Agreement</h2>
+                <p>These Terms constitute the sole and entire agreement between you and the Website operators regarding the Website.</p>
+
+                <h2>16. Contact Information</h2>
+                <p>To ask questions or comment about these Terms and Conditions, please contact us at:</p>
+                <p>thehighonsofficial@gmail.com</p>
+
+                <p class="ai-statement">Please note that these Terms and Conditions were drafted with the assistance of artificial intelligence based on the information you provided about your experimental website. For any queries regarding these terms, please contact us at the email address above.</p>
+
+                <button id="backToAgreementBtn" class="btn btn-secondary btn-back">Back to Agreement</button>
+            </div>
+        </div>
+    </div>
+
 
     <header class="sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex items-center justify-between p-4">
@@ -908,6 +1113,7 @@
         // --- Constants ---
         const USER_DETAILS_STORAGE_KEY = 'highonsUserDetails'; // Key for localStorage
         const CART_STORAGE_KEY = 'highonsCartItems'; // Key for localStorage
+        const TERMS_AGREED_STORAGE_KEY = 'highonsTermsAgreed'; // Key for terms agreement
 
         // --- Product Data (Kept from original code) ---
         const products = {
@@ -1515,145 +1721,233 @@
             }
         }
 
-        // --- Initialization ---
+        // --- Terms Agreement Overlay Logic ---
+        function showTermsOverlay() {
+            const termsOverlay = document.getElementById('termsOverlay');
+            const agreementPrompt = document.getElementById('agreementPrompt');
+            const fullTermsText = document.getElementById('fullTermsText');
+
+            if (termsOverlay && agreementPrompt && fullTermsText) {
+                agreementPrompt.classList.remove('hidden');
+                fullTermsText.classList.add('hidden');
+                termsOverlay.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden'); // Prevent background scroll
+            } else {
+                 console.error("Terms overlay elements not found!");
+            }
+        }
+
+        function hideTermsOverlay() {
+            const termsOverlay = document.getElementById('termsOverlay');
+            if (termsOverlay) {
+                termsOverlay.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden'); // Allow background scroll
+            }
+        }
+
+        function agreeToTerms() {
+            localStorage.setItem(TERMS_AGREED_STORAGE_KEY, 'true');
+            hideTermsOverlay();
+            // Now that terms are agreed, proceed with normal website initialization
+            initializeWebsite();
+        }
+
+        function viewFullTerms() {
+            const agreementPrompt = document.getElementById('agreementPrompt');
+            const fullTermsText = document.getElementById('fullTermsText');
+             const termsModalContent = document.getElementById('termsModalContent');
+
+             if (agreementPrompt && fullTermsText && termsModalContent) {
+                agreementPrompt.classList.add('hidden');
+                fullTermsText.classList.remove('hidden');
+                 // Scroll T&C text to top when viewed
+                 termsModalContent.scrollTop = 0;
+            } else {
+                 console.error("Terms modal content elements not found!");
+            }
+        }
+
+        function backToAgreement() {
+             const agreementPrompt = document.getElementById('agreementPrompt');
+             const fullTermsText = document.getElementById('fullTermsText');
+             if (agreementPrompt && fullTermsText) {
+                agreementPrompt.classList.remove('hidden');
+                fullTermsText.classList.add('hidden');
+            } else {
+                 console.error("Terms modal content elements not found!");
+            }
+        }
+
+
+        // --- Website Initialization Function ---
+        function initializeWebsite() {
+             try {
+                 // Set footer year
+                 const footerYear = document.getElementById('footerYear');
+                 if (footerYear) footerYear.textContent = new Date().getFullYear();
+
+                 // Load cart and user details from local storage
+                 loadCart();
+                 loadUserDetails();
+
+                 // Initial render of products and order summary based on loaded cart
+                 renderProducts('all', '');
+                 renderOrderSummary();
+
+                 // --- Event Listeners Setup ---
+
+                 // Product Search Input
+                 const productSearchInput = document.getElementById('productSearch');
+                 if (productSearchInput) {
+                      let searchTimeout;
+                      productSearchInput.addEventListener('input', function() {
+                          clearTimeout(searchTimeout);
+                          const searchTerm = this.value;
+                          searchTimeout = setTimeout(() => {
+                              renderProducts(currentCategoryFilter, searchTerm);
+                          }, 300); // Slightly longer debounce
+                      });
+                 } else { console.error("Product search input not found."); }
+
+                 // Category Filter Select
+                 const categoryFilterSelect = document.getElementById('categoryFilter');
+                 if (categoryFilterSelect) {
+                      categoryFilterSelect.addEventListener('change', function() {
+                         const searchVal = document.getElementById('productSearch')?.value || '';
+                         renderProducts(this.value, searchVal);
+                      });
+                 } else { console.error("Category filter select not found."); }
+
+                  // Modal close on background click
+                  const productModal = document.getElementById('productModal');
+                  if (productModal) {
+                      productModal.addEventListener('click', (event) => {
+                          if (event.target === productModal) {
+                              closeModal();
+                          }
+                      });
+                  }
+
+                  // --- Event Delegation for Product Card Controls and Modal Trigger ---
+                  const productsContainer = document.getElementById('productsContainer');
+                  if (productsContainer) {
+                      productsContainer.addEventListener('click', (event) => {
+                          const target = event.target;
+                          // Find the closest product card element to get the product ID
+                          const productCard = target.closest('.product-card');
+                          const productId = productCard?.getAttribute('data-product-id');
+
+                          if (!productId) return; // Not inside a product card or product ID missing
+
+                          // Check if the click was on a specific button class
+                          if (target.classList.contains('btn-add')) {
+                              // Stop propagation if it's an add button click, so it doesn't also trigger the modal
+                              event.stopPropagation();
+                              addItemToOrder(productId);
+                          } else if (target.classList.contains('btn-increase')) {
+                               event.stopPropagation();
+                              increaseQuantity(productId);
+                          } else if (target.classList.contains('btn-decrease')) {
+                               event.stopPropagation();
+                              decreaseQuantity(productId);
+                          }
+                           // Modal click is handled by the click listener added directly to the card in createProductCard function
+                      });
+                  } else { console.error("productsContainer not found for event delegation."); }
+
+                   // --- Coupon Input Listener ---
+                   const couponCodeInput = document.getElementById('couponCode');
+                   if (couponCodeInput) {
+                       couponCodeInput.addEventListener('input', renderOrderSummary); // Update summary on input change
+                   } else { console.error("Coupon code input not found."); }
+
+
+                  // --- Order Form Submission Listener ---
+                  const orderForm = document.getElementById('orderForm');
+                  if (orderForm) {
+                      orderForm.addEventListener('submit', function(event) {
+                          // Basic validation: Check if any items are in the order
+                          if (Object.keys(orderItems).length === 0) {
+                               alert("Your order list is empty. Please add items from the collection before placing an order.");
+                               event.preventDefault(); // Prevent form submission
+                               return; // Stop here if order is empty
+                          }
+
+                           // Save user details before submitting
+                          saveUserDetails();
+
+                          // Ensure the hidden order summary is populated just before submitting
+                          // This also re-calculates based on the final coupon input value
+                          renderOrderSummary();
+
+                          // Optional: Disable the submit button to prevent double clicks
+                          const submitButton = orderForm.querySelector('button[type="submit"]');
+                          if(submitButton) {
+                              submitButton.disabled = true;
+                              submitButton.textContent = 'Placing Order...';
+                          }
+                          // FormSubmit.co handles the actual AJAX submission or page redirect
+                      });
+                  } else { console.error("Order form not found."); }
+
+                   // --- Forget My Details Button Listener ---
+                   const forgetButton = document.getElementById('forgetMyDetailsBtn');
+                   if(forgetButton) {
+                       forgetButton.addEventListener('click', clearUserDetails);
+                   }
+
+
+                  // Observe elements with 'reveal' class initially present in HTML
+                   // These are non-product card elements like titles, headers, etc.
+                   document.querySelectorAll('.reveal').forEach(el => {
+                       // Don't observe product cards here, they are handled in renderProducts
+                       if (!el.classList.contains('product-card')) {
+                          observeElement(el);
+                       }
+                   });
+
+
+            } catch (error) {
+                console.error("Critical error during website initialization:", error);
+                // Use a more robust error display
+                const errorDiv = document.createElement('div');
+                errorDiv.style.cssText = "padding: 40px; text-align: center; font-family: sans-serif; color: white; background-color: #333; margin: 20px; border-radius: 8px;";
+                errorDiv.innerHTML = `<h1>Oops!</h1><p>Something went wrong while loading the page content.</p><p>Please <a href="javascript:location.reload();" style="color: #D4AF37; text-decoration: underline;">refresh</a> and try again.</p><p style="font-size: 0.8em; color: #AAA;">Error details: ${escapeHtml(error.message)}</p>`;
+                document.body.innerHTML = ''; // Clear existing body content
+                document.body.appendChild(errorDiv);
+           }
+        }
+
+
+        // --- DOMContentLoaded - Check for terms agreement before initializing the website ---
         document.addEventListener('DOMContentLoaded', () => {
-          try {
-              // Set footer year
-              const footerYear = document.getElementById('footerYear');
-              if (footerYear) footerYear.textContent = new Date().getFullYear();
+            const termsAgreed = localStorage.getItem(TERMS_AGREED_STORAGE_KEY);
+            if (termsAgreed === 'true') {
+                // Terms already agreed, initialize the website normally
+                initializeWebsite();
+            } else {
+                // Terms not agreed, show the agreement overlay
+                showTermsOverlay();
 
-              // Load cart and user details from local storage
-              loadCart();
-              loadUserDetails();
+                // Set up listeners for the terms overlay buttons
+                const enterBtn = document.getElementById('enterWebsiteBtn');
+                const viewTermsLink = document.getElementById('viewTermsLink');
+                const backBtn = document.getElementById('backToAgreementBtn');
 
-              // Initial render of products and order summary based on loaded cart
-              renderProducts('all', '');
-              renderOrderSummary();
+                if (enterBtn) enterBtn.addEventListener('click', agreeToTerms);
+                else console.error("Enter button not found!");
 
-
-              // --- Event Listeners Setup ---
-
-              // Product Search Input
-              const productSearchInput = document.getElementById('productSearch');
-              if (productSearchInput) {
-                   let searchTimeout;
-                   productSearchInput.addEventListener('input', function() {
-                       clearTimeout(searchTimeout);
-                       const searchTerm = this.value;
-                       searchTimeout = setTimeout(() => {
-                           renderProducts(currentCategoryFilter, searchTerm);
-                       }, 300); // Slightly longer debounce
-                   });
-              } else { console.error("Product search input not found."); }
-
-              // Category Filter Select
-              const categoryFilterSelect = document.getElementById('categoryFilter');
-              if (categoryFilterSelect) {
-                   categoryFilterSelect.addEventListener('change', function() {
-                      const searchVal = document.getElementById('productSearch')?.value || '';
-                      renderProducts(this.value, searchVal);
-                   });
-              } else { console.error("Category filter select not found."); }
-
-               // Modal close on background click
-               const productModal = document.getElementById('productModal');
-               if (productModal) {
-                   productModal.addEventListener('click', (event) => {
-                       if (event.target === productModal) {
-                           closeModal();
-                       }
-                   });
-               }
-
-               // --- Event Delegation for Product Card Controls and Modal Trigger ---
-               const productsContainer = document.getElementById('productsContainer');
-               if (productsContainer) {
-                   productsContainer.addEventListener('click', (event) => {
-                       const target = event.target;
-                       // Find the closest product card element to get the product ID
-                       const productCard = target.closest('.product-card');
-                       const productId = productCard?.getAttribute('data-product-id');
-
-                       if (!productId) return; // Not inside a product card or product ID missing
-
-                       // Check if the click was on a specific button class
-                       if (target.classList.contains('btn-add')) {
-                           // Stop propagation if it's an add button click, so it doesn't also trigger the modal
-                           event.stopPropagation();
-                           addItemToOrder(productId);
-                       } else if (target.classList.contains('btn-increase')) {
-                            event.stopPropagation();
-                           increaseQuantity(productId);
-                       } else if (target.classList.contains('btn-decrease')) {
-                            event.stopPropagation();
-                           decreaseQuantity(productId);
-                       }
-                        // Modal click is handled by the click listener added directly to the card in createProductCard function
-                   });
-               } else { console.error("productsContainer not found for event delegation."); }
-
-                // --- Coupon Input Listener ---
-                const couponCodeInput = document.getElementById('couponCode');
-                if (couponCodeInput) {
-                    couponCodeInput.addEventListener('input', renderOrderSummary); // Update summary on input change
-                } else { console.error("Coupon code input not found."); }
-
-
-               // --- Order Form Submission Listener ---
-               const orderForm = document.getElementById('orderForm');
-               if (orderForm) {
-                   orderForm.addEventListener('submit', function(event) {
-                       // Basic validation: Check if any items are in the order
-                       if (Object.keys(orderItems).length === 0) {
-                            alert("Your order list is empty. Please add items from the collection before placing an order.");
-                            event.preventDefault(); // Prevent form submission
-                            return; // Stop here if order is empty
-                       }
-
-                        // Save user details before submitting
-                       saveUserDetails();
-
-                       // Ensure the hidden order summary is populated just before submitting
-                       // This also re-calculates based on the final coupon input value
-                       renderOrderSummary();
-
-                       // Optional: Disable the submit button to prevent double clicks
-                       const submitButton = orderForm.querySelector('button[type="submit"]');
-                       if(submitButton) {
-                           submitButton.disabled = true;
-                           submitButton.textContent = 'Placing Order...';
-                       }
-                       // FormSubmit.co handles the actual AJAX submission or page redirect
-                   });
-               } else { console.error("Order form not found."); }
-
-                // --- Forget My Details Button Listener ---
-                const forgetButton = document.getElementById('forgetMyDetailsBtn');
-                if(forgetButton) {
-                    forgetButton.addEventListener('click', clearUserDetails);
-                }
-
-
-               // Observe elements with 'reveal' class initially present in HTML
-                // These are non-product card elements like titles, headers, etc.
-                document.querySelectorAll('.reveal').forEach(el => {
-                    // Don't observe product cards here, they are handled in renderProducts
-                    if (!el.classList.contains('product-card')) {
-                       observeElement(el);
-                    }
+                if (viewTermsLink) viewTermsLink.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent the default link behavior
+                    viewFullTerms();
                 });
+                else console.error("View Terms link not found!");
 
-
-          } catch (error) {
-               console.error("Critical error during DOMContentLoaded initialization:", error);
-               // Use a more robust error display
-               const errorDiv = document.createElement('div');
-               errorDiv.style.cssText = "padding: 40px; text-align: center; font-family: sans-serif; color: white; background-color: #333; margin: 20px; border-radius: 8px;";
-               errorDiv.innerHTML = `<h1>Oops!</h1><p>Something went wrong while loading the page content.</p><p>Please <a href="javascript:location.reload();" style="color: #D4AF37; text-decoration: underline;">refresh</a> and try again.</p><p style="font-size: 0.8em; color: #AAA;">Error details: ${escapeHtml(error.message)}</p>`;
-               document.body.innerHTML = ''; // Clear existing body content
-               document.body.appendChild(errorDiv);
-          }
+                if (backBtn) backBtn.addEventListener('click', backToAgreement);
+                 else console.error("Back button not found!");
+            }
         });
+
     </script>
 
 </body>
