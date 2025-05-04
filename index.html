@@ -758,7 +758,7 @@
             <h2 class="text-4xl font-bold">Terms and Conditions</h2>
             <p class="text-sm text-gray-500 text-center mt-2">Effective Date: May 4, 2025</p>
 
-            <p>Welcome to The Highon's Website (the "Website"). This Website is an experimental and educational project created and operated by two individuals aged 15-16.</p>
+            <p>Welcome to The Highon's Website (the "https://thehighons.github.io/The-highons-/"). This Website is an experimental and educational project created and operated by two individuals aged 15-16.</p>
 
             <p>Please read these Terms and Conditions ("Terms") carefully before using our Website. By accessing or using the Website, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree to these Terms, you may not access or use the Website.</p>
 
@@ -1116,6 +1116,7 @@
         let currentModalProduct = null; // { category: string, index: number, id: string }
         let currentCategoryFilter = 'all';
         let orderItems = {}; // Stores product ID and quantity: { "productId": quantity, ... }
+        let siteLoaded = false; // Flag to track if the main site content has been loaded
 
 
         // --- Utility Functions (Kept from original code) ---
@@ -1175,7 +1176,7 @@
              }
          }
 
-        // Function to manage body overflow based on visible modals
+        // Function to manage body overflow based on visible modals/full terms
         function updateBodyOverflow() {
              const productModal = document.getElementById('productModal');
              const termsModal = document.getElementById('termsModal');
@@ -1739,12 +1740,147 @@
             }
         }
 
+        // --- Main Site Content Loading Function ---
+        // Put all the loading and event listener setup for the main site here
+        function loadSiteContent() {
+            if (siteLoaded) return; // Prevent double loading
+            siteLoaded = true; // Set flag
+
+            // Set footer year
+            const footerYear = document.getElementById('footerYear');
+            if (footerYear) footerYear.textContent = new Date().getFullYear();
+
+            // Load cart and user details from local storage
+            loadCart();
+            loadUserDetails();
+
+            // Initial render of products and order summary based on loaded cart
+            renderProducts('all', '');
+            renderOrderSummary();
+
+
+            // --- Event Listeners Setup (for main site) ---
+
+            // Product Search Input
+            const productSearchInput = document.getElementById('productSearch');
+            if (productSearchInput) {
+                 let searchTimeout;
+                 productSearchInput.addEventListener('input', function() {
+                     clearTimeout(searchTimeout);
+                     const searchTerm = this.value;
+                     searchTimeout = setTimeout(() => {
+                         renderProducts(currentCategoryFilter, searchTerm);
+                     }, 300); // Slightly longer debounce
+                 });
+            } else { console.error("Product search input not found."); }
+
+            // Category Filter Select
+            const categoryFilterSelect = document.getElementById('categoryFilter');
+            if (categoryFilterSelect) {
+                 categoryFilterSelect.addEventListener('change', function() {
+                    const searchVal = document.getElementById('productSearch')?.value || '';
+                    renderProducts(this.value, searchVal);
+                 });
+            } else { console.error("Category filter select not found."); }
+
+             // Modal close on background click (for product modal)
+             const productModal = document.getElementById('productModal');
+             if (productModal) {
+                 productModal.addEventListener('click', (event) => {
+                     if (event.target === productModal) {
+                         closeModal();
+                     }
+                 });
+             }
+
+             // --- Event Delegation for Product Card Controls and Modal Trigger ---
+             const productsContainer = document.getElementById('productsContainer');
+             if (productsContainer) {
+                 productsContainer.addEventListener('click', (event) => {
+                     const target = event.target;
+                     // Find the closest product card element to get the product ID
+                     const productCard = target.closest('.product-card');
+                     const productId = productCard?.getAttribute('data-product-id');
+
+                     if (!productId) return; // Not inside a product card or product ID missing
+
+                     // Check if the click was on a specific button class
+                     if (target.classList.contains('btn-add')) {
+                         // Stop propagation if it's an add button click, so it doesn't also trigger the modal
+                         event.stopPropagation();
+                         addItemToOrder(productId);
+                     } else if (target.classList.contains('btn-increase')) {
+                          event.stopPropagation();
+                         increaseQuantity(productId);
+                     } else if (target.classList.contains('btn-decrease')) {
+                          event.stopPropagation();
+                         decreaseQuantity(productId);
+                     }
+                      // Modal click is handled by the click listener added directly to the card in createProductCard function
+                 });
+             } else { console.error("productsContainer not found for event delegation."); }
+
+              // --- Coupon Input Listener ---
+              const couponCodeInput = document.getElementById('couponCode');
+              if (couponCodeInput) {
+                  couponCodeInput.addEventListener('input', renderOrderSummary); // Update summary on input change
+              } else { console.error("Coupon code input not found."); }
+
+
+             // --- Order Form Submission Listener ---
+             const orderForm = document.getElementById('orderForm');
+             if (orderForm) {
+                 orderForm.addEventListener('submit', function(event) {
+                     // Basic validation: Check if any items are in the order
+                     if (Object.keys(orderItems).length === 0) {
+                          alert("Your order list is empty. Please add items from the collection before placing an order.");
+                          event.preventDefault(); // Prevent form submission
+                          return; // Stop here if order is empty
+                     }
+
+                      // Save user details before submitting
+                     saveUserDetails();
+
+                     // Ensure the hidden order summary is populated just before submitting
+                     // This also re-calculates based on the final coupon input value
+                     renderOrderSummary();
+
+                     // Optional: Disable the submit button to prevent double clicks
+                     const submitButton = orderForm.querySelector('button[type="submit"]');
+                     if(submitButton) {
+                         submitButton.disabled = true;
+                         submitButton.textContent = 'Placing Order...';
+                     }
+                     // FormSubmit.co handles the actual AJAX submission or page redirect
+                 });
+             } else { console.error("Order form not found."); }
+
+              // --- Forget My Details Button Listener ---
+              const forgetButton = document.getElementById('forgetMyDetailsBtn');
+              if(forgetButton) {
+                  forgetButton.addEventListener('click', clearUserDetails);
+              }
+
+
+             // Observe elements with 'reveal' class initially present in HTML
+              // These are non-product card elements like titles, headers, etc.
+              document.querySelectorAll('.reveal').forEach(el => {
+                  // Don't observe product cards here, they are handled in renderProducts
+                  // Also don't observe the full terms section if it's initially hidden
+                  if (!el.classList.contains('product-card') && !el.closest('#termsAndConditionsFull')) {
+                     observeElement(el);
+                  }
+              });
+
+              // Ensure body overflow is correct after loading content (should not be hidden if terms accepted)
+               updateBodyOverflow();
+
+        } // End of loadSiteContent function
+
+
         // --- Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
           try {
-              // Check if terms have been accepted on first visit
-              const termsAccepted = localStorage.getItem(TERMS_ACCEPTED_STORAGE_KEY);
-
               // Get references to T&C elements
               const termsModal = document.getElementById('termsModal');
               const acceptTermsBtn = document.getElementById('acceptTermsBtn');
@@ -1753,179 +1889,50 @@
               const backToSiteBtn = document.getElementById('backToSiteBtn');
 
               if (!termsModal || !acceptTermsBtn || !viewTermsLink || !termsAndConditionsFull || !backToSiteBtn) {
-                  console.error("Missing one or more Terms & Conditions elements.");
-                  // Continue loading the site but log the error
+                  console.error("Missing one or more Terms & Conditions elements. Site may not function as expected.");
+                  // Proceed to load site content anyway, but the T&C feature might be broken.
+                  loadSiteContent();
+                  return; // Stop further T&C setup
               }
 
+              // Check if terms have been accepted on first visit
+              const termsAccepted = localStorage.getItem(TERMS_ACCEPTED_STORAGE_KEY);
 
               if (termsAccepted !== 'true') {
                   // Show the terms modal only on the first visit
-                  if (termsModal) showTermsModal();
+                  showTermsModal();
 
                   // Set up listeners for the terms modal buttons
-                  if (acceptTermsBtn) {
-                       acceptTermsBtn.addEventListener('click', () => {
-                           localStorage.setItem(TERMS_ACCEPTED_STORAGE_KEY, 'true');
-                           hideTermsModal();
-                           // Now that terms are accepted, load the main site content
-                           loadSiteContent();
-                       });
-                  }
-                  if (viewTermsLink) {
-                       viewTermsLink.addEventListener('click', (event) => {
-                           event.preventDefault(); // Stop the link from doing anything else
-                           hideTermsModal();
-                           showFullTerms();
-                       });
-                  }
-                  // The exitWebsite function is called via onclick attribute in HTML
+                  acceptTermsBtn.addEventListener('click', () => {
+                       localStorage.setItem(TERMS_ACCEPTED_STORAGE_KEY, 'true');
+                       hideTermsModal();
+                       // Now that terms are accepted, load the main site content
+                       loadSiteContent();
+                   });
+
+                   viewTermsLink.addEventListener('click', (event) => {
+                       event.preventDefault(); // Stop the link from doing anything else
+                       hideTermsModal();
+                       showFullTerms();
+                   });
+
+                  // The exitWebsite function is called via onclick attribute in HTML on the close button
+
               } else {
                   // Terms were already accepted, load the main site content directly
                    loadSiteContent();
               }
 
               // Listener for the "Back to Site" button on the full T&C page
-              if (backToSiteBtn) {
-                   backToSiteBtn.addEventListener('click', () => {
-                       hideFullTerms();
-                       // Optionally scroll back to the top or hero section
-                       window.scrollTo(0, 0);
-                   });
-              }
+              // This listener will ALWAYS show the initial terms modal again, regardless
+              // of whether terms were previously accepted via the modal.
+              backToSiteBtn.addEventListener('click', () => {
+                  hideFullTerms();
+                  showTermsModal(); // Show the initial modal again
 
-              // --- Main Site Content Loading Function ---
-              // Put all the loading and event listener setup for the main site here
-              function loadSiteContent() {
-                    // Set footer year
-                    const footerYear = document.getElementById('footerYear');
-                    if (footerYear) footerYear.textContent = new Date().getFullYear();
-
-                    // Load cart and user details from local storage
-                    loadCart();
-                    loadUserDetails();
-
-                    // Initial render of products and order summary based on loaded cart
-                    renderProducts('all', '');
-                    renderOrderSummary();
-
-
-                    // --- Event Listeners Setup (for main site) ---
-
-                    // Product Search Input
-                    const productSearchInput = document.getElementById('productSearch');
-                    if (productSearchInput) {
-                         let searchTimeout;
-                         productSearchInput.addEventListener('input', function() {
-                             clearTimeout(searchTimeout);
-                             const searchTerm = this.value;
-                             searchTimeout = setTimeout(() => {
-                                 renderProducts(currentCategoryFilter, searchTerm);
-                             }, 300); // Slightly longer debounce
-                         });
-                    } else { console.error("Product search input not found."); }
-
-                    // Category Filter Select
-                    const categoryFilterSelect = document.getElementById('categoryFilter');
-                    if (categoryFilterSelect) {
-                         categoryFilterSelect.addEventListener('change', function() {
-                            const searchVal = document.getElementById('productSearch')?.value || '';
-                            renderProducts(this.value, searchVal);
-                         });
-                    } else { console.error("Category filter select not found."); }
-
-                     // Modal close on background click (for product modal)
-                     const productModal = document.getElementById('productModal');
-                     if (productModal) {
-                         productModal.addEventListener('click', (event) => {
-                             if (event.target === productModal) {
-                                 closeModal();
-                             }
-                         });
-                     }
-
-                     // --- Event Delegation for Product Card Controls and Modal Trigger ---
-                     const productsContainer = document.getElementById('productsContainer');
-                     if (productsContainer) {
-                         productsContainer.addEventListener('click', (event) => {
-                             const target = event.target;
-                             // Find the closest product card element to get the product ID
-                             const productCard = target.closest('.product-card');
-                             const productId = productCard?.getAttribute('data-product-id');
-
-                             if (!productId) return; // Not inside a product card or product ID missing
-
-                             // Check if the click was on a specific button class
-                             if (target.classList.contains('btn-add')) {
-                                 // Stop propagation if it's an add button click, so it doesn't also trigger the modal
-                                 event.stopPropagation();
-                                 addItemToOrder(productId);
-                             } else if (target.classList.contains('btn-increase')) {
-                                  event.stopPropagation();
-                                 increaseQuantity(productId);
-                             } else if (target.classList.contains('btn-decrease')) {
-                                  event.stopPropagation();
-                                 decreaseQuantity(productId);
-                             }
-                              // Modal click is handled by the click listener added directly to the card in createProductCard function
-                         });
-                     } else { console.error("productsContainer not found for event delegation."); }
-
-                      // --- Coupon Input Listener ---
-                      const couponCodeInput = document.getElementById('couponCode');
-                      if (couponCodeInput) {
-                          couponCodeInput.addEventListener('input', renderOrderSummary); // Update summary on input change
-                      } else { console.error("Coupon code input not found."); }
-
-
-                     // --- Order Form Submission Listener ---
-                     const orderForm = document.getElementById('orderForm');
-                     if (orderForm) {
-                         orderForm.addEventListener('submit', function(event) {
-                             // Basic validation: Check if any items are in the order
-                             if (Object.keys(orderItems).length === 0) {
-                                  alert("Your order list is empty. Please add items from the collection before placing an order.");
-                                  event.preventDefault(); // Prevent form submission
-                                  return; // Stop here if order is empty
-                             }
-
-                              // Save user details before submitting
-                             saveUserDetails();
-
-                             // Ensure the hidden order summary is populated just before submitting
-                             // This also re-calculates based on the final coupon input value
-                             renderOrderSummary();
-
-                             // Optional: Disable the submit button to prevent double clicks
-                             const submitButton = orderForm.querySelector('button[type="submit"]');
-                             if(submitButton) {
-                                 submitButton.disabled = true;
-                                 submitButton.textContent = 'Placing Order...';
-                             }
-                             // FormSubmit.co handles the actual AJAX submission or page redirect
-                         });
-                     } else { console.error("Order form not found."); }
-
-                      // --- Forget My Details Button Listener ---
-                      const forgetButton = document.getElementById('forgetMyDetailsBtn');
-                      if(forgetButton) {
-                          forgetButton.addEventListener('click', clearUserDetails);
-                      }
-
-
-                     // Observe elements with 'reveal' class initially present in HTML
-                      // These are non-product card elements like titles, headers, etc.
-                      document.querySelectorAll('.reveal').forEach(el => {
-                          // Don't observe product cards here, they are handled in renderProducts
-                          // Also don't observe the full terms section if it's initially hidden
-                          if (!el.classList.contains('product-card') && !el.closest('#termsAndConditionsFull')) {
-                             observeElement(el);
-                          }
-                      });
-
-                      // Ensure body overflow is correct after loading content (should not be hidden if terms accepted)
-                       updateBodyOverflow();
-
-              } // End of loadSiteContent function
+                  // Optional: Scroll to top of page when returning to the modal
+                  window.scrollTo(0, 0);
+              });
 
 
           } catch (error) {
