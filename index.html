@@ -694,6 +694,7 @@
             justify-content: center;
             z-index: 100; /* Ensure it's on top of everything */
             padding: 20px;
+             /* Initially hidden by JS */
         }
 
         #termsModalContent {
@@ -809,7 +810,8 @@
                 <p>By accessing or using our Website, you agree to comply with and be bound by these Terms. If you do not agree to these Terms, please do not use our Website.</p>
 
                 <h2>2. About the Website and Operators</h2>
-                <p>This Website is a non-commercial project developed for learning and experimental purposes by two individuals who are currently 15-16 years old. A significant portion of the Website's content and code has been generated with the assistance of artificial intelligence.</p>
+                <p>This Website is a non-commercial project developed for learning and experimental purposes by two individuals who are currently 15-16 years old. A significant portion of the Website's content and code has been generated with the assistance of artificial intelligence.
+                </p>
 
                 <h2>3. Changes to Terms</h2>
                 <p>We reserve the right to modify or replace these Terms at any time. We will indicate at the top of the Terms the date on which they were last updated. Your continued use of the Website after any such changes constitutes your acceptance of the new Terms.</p>
@@ -856,7 +858,7 @@
                 <p>The Website may contain links to third-party websites or services that are not owned or controlled by the Website operators. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services. You access these at your own risk.</p>
 
                 <h2>9. Disclaimer of Website Warranties</h2>
-                <p>THIS WEBSITE IS PROVIDED FOR EDUCATIONAL AND EXPERIMENTAL PURPOSES ONLY, "AS IS" AND "AS AVAILABLE," WITHOUT ANY WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. THIS INCLUDES BUT IS NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, ACCURACY, RELIABILITY, OR COMPLETENESS OF THE WEBSITE CONTENT OR FUNCTIONALITY.</p>
+                <p>THIS WEBSITE IS PROVIDED FOR EDUCATIONAL AND EXPERIMENTAL PURPOSES ONLY, "AS IS" AND "AS AVAILABLE," WITHOUT ANY WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. THIS INCLUDES BUT IS NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, ACCURACY, RELIABILITY, OR COMPLETENESS OF THE WEBSITE CONTENT OR FUNCTIONALITY.</P>
                 <p>WE DO NOT WARRANT THAT THE WEBSITE WILL BE UNINTERRUPTED, SECURE, OR ERROR-FREE, OR THAT ANY DEFECTS WILL BE CORRECTED. YOU USE THE WEBSITE AT YOUR OWN SOLE RISK.</p>
 
                 <h2>10. Limitation of Liability</h2>
@@ -1733,7 +1735,7 @@
                 termsOverlay.classList.remove('hidden');
                 document.body.classList.add('overflow-hidden'); // Prevent background scroll
             } else {
-                 console.error("Terms overlay elements not found!");
+                 console.error("Terms overlay elements not found in showTermsOverlay!");
             }
         }
 
@@ -1742,123 +1744,214 @@
             if (termsOverlay) {
                 termsOverlay.classList.add('hidden');
                 document.body.classList.remove('overflow-hidden'); // Allow background scroll
+            } else {
+                console.error("Terms overlay element not found in hideTermsOverlay!");
             }
         }
 
         function agreeToTerms() {
-            localStorage.setItem(TERMS_AGREED_STORAGE_KEY, 'true');
-            hideTermsOverlay();
-            // Now that terms are agreed, proceed with normal website initialization
-            initializeWebsite();
+             console.log("agreeToTerms function started.");
+             try {
+                localStorage.setItem(TERMS_AGREED_STORAGE_KEY, 'true');
+                console.log("Terms agreement saved to localStorage.");
+
+                hideTermsOverlay();
+                console.log("Terms overlay hidden.");
+
+                // Now that terms are agreed, proceed with normal website initialization
+                console.log("Calling initializeWebsite().");
+                initializeWebsite();
+
+             } catch (error) {
+                 console.error("Error during agreeToTerms:", error);
+                 // Optionally show a user-friendly error message
+                 alert("An error occurred while trying to accept terms. Please check the console for details.");
+                 hideTermsOverlay(); // Attempt to hide overlay even if initialization fails
+             }
+             console.log("agreeToTerms function finished.");
         }
 
         function viewFullTerms() {
-            const agreementPrompt = document.getElementById('agreementPrompt');
-            const fullTermsText = document.getElementById('fullTermsText');
-             const termsModalContent = document.getElementById('termsModalContent');
+             console.log("viewFullTerms function started.");
+             try {
+                const agreementPrompt = document.getElementById('agreementPrompt');
+                const fullTermsText = document.getElementById('fullTermsText');
+                 const termsModalContent = document.getElementById('termsModalContent');
+                 const backBtn = document.getElementById('backToAgreementBtn');
 
-             if (agreementPrompt && fullTermsText && termsModalContent) {
-                agreementPrompt.classList.add('hidden');
-                fullTermsText.classList.remove('hidden');
-                 // Scroll T&C text to top when viewed
-                 termsModalContent.scrollTop = 0;
-            } else {
-                 console.error("Terms modal content elements not found!");
-            }
+                 if (agreementPrompt && fullTermsText && termsModalContent && backBtn) {
+                    agreementPrompt.classList.add('hidden');
+                    fullTermsText.classList.remove('hidden');
+                     // Scroll T&C text to top when viewed
+                     termsModalContent.scrollTop = 0;
+
+                     // Attach listener to the back button *now* that it's potentially visible
+                     // Use .onclick = null to remove previous handlers before assigning
+                     backBtn.onclick = null; // Remove any previously attached listeners
+                     backBtn.onclick = backToAgreement; // Assign the handler
+                     console.log("Back button listener attached in viewFullTerms.");
+
+                } else {
+                     console.error("Terms modal content elements missing in viewFullTerms!");
+                }
+             } catch (error) {
+                 console.error("Error during viewFullTerms:", error);
+             }
+             console.log("viewFullTerms function finished.");
         }
 
         function backToAgreement() {
-             const agreementPrompt = document.getElementById('agreementPrompt');
-             const fullTermsText = document.getElementById('fullTermsText');
-             if (agreementPrompt && fullTermsText) {
-                agreementPrompt.classList.remove('hidden');
-                fullTermsText.classList.add('hidden');
-            } else {
-                 console.error("Terms modal content elements not found!");
-            }
+             console.log("backToAgreement function started.");
+             try {
+                 const agreementPrompt = document.getElementById('agreementPrompt');
+                 const fullTermsText = document.getElementById('fullTermsText');
+                 if (agreementPrompt && fullTermsText) {
+                    agreementPrompt.classList.remove('hidden');
+                    fullTermsText.classList.add('hidden');
+                    console.log("Switched back to agreement prompt.");
+                } else {
+                     console.error("Terms modal content elements missing in backToAgreement!");
+                }
+             } catch (error) {
+                 console.error("Error during backToAgreement:", error);
+             }
+             console.log("backToAgreement function finished.");
         }
 
 
         // --- Website Initialization Function ---
         function initializeWebsite() {
+             console.log("initializeWebsite function started.");
              try {
                  // Set footer year
                  const footerYear = document.getElementById('footerYear');
                  if (footerYear) footerYear.textContent = new Date().getFullYear();
+                 console.log("Footer year set.");
+
 
                  // Load cart and user details from local storage
-                 loadCart();
-                 loadUserDetails();
+                 loadCart(); // This function has internal error logging
+                 loadUserDetails(); // This function has internal error logging
+                 console.log("Cart and user details loaded.");
+
 
                  // Initial render of products and order summary based on loaded cart
-                 renderProducts('all', '');
-                 renderOrderSummary();
+                 renderProducts('all', ''); // This function already has a try/catch
+                 console.log("Initial products rendered.");
 
-                 // --- Event Listeners Setup ---
+                 renderOrderSummary(); // This function has internal error logging
+                 console.log("Initial order summary rendered.");
+
+
+                 // --- Event Listeners Setup for Main Website ---
 
                  // Product Search Input
                  const productSearchInput = document.getElementById('productSearch');
                  if (productSearchInput) {
                       let searchTimeout;
                       productSearchInput.addEventListener('input', function() {
-                          clearTimeout(searchTimeout);
-                          const searchTerm = this.value;
-                          searchTimeout = setTimeout(() => {
-                              renderProducts(currentCategoryFilter, searchTerm);
-                          }, 300); // Slightly longer debounce
+                           try {
+                               console.log("Product search input changed:", this.value);
+                               clearTimeout(searchTimeout);
+                               const searchTerm = this.value;
+                               searchTimeout = setTimeout(() => {
+                                   renderProducts(currentCategoryFilter, searchTerm);
+                               }, 300); // Slightly longer debounce
+                           } catch (error) {
+                               console.error("Error in product search input handler:", error);
+                           }
                       });
+                      console.log("Product search input listener attached.");
                  } else { console.error("Product search input not found."); }
 
                  // Category Filter Select
                  const categoryFilterSelect = document.getElementById('categoryFilter');
                  if (categoryFilterSelect) {
                       categoryFilterSelect.addEventListener('change', function() {
-                         const searchVal = document.getElementById('productSearch')?.value || '';
-                         renderProducts(this.value, searchVal);
+                         try {
+                           console.log("Category filter changed:", this.value);
+                           const searchVal = document.getElementById('productSearch')?.value || '';
+                           renderProducts(this.value, searchVal);
+                         } catch (error) {
+                           console.error("Error in category filter handler:", error);
+                         }
                       });
+                      console.log("Category filter listener attached.");
                  } else { console.error("Category filter select not found."); }
 
-                  // Modal close on background click
+                  // Modal close on background click (Product Modal)
                   const productModal = document.getElementById('productModal');
                   if (productModal) {
                       productModal.addEventListener('click', (event) => {
-                          if (event.target === productModal) {
-                              closeModal();
-                          }
+                           try {
+                               if (event.target === productModal) {
+                                   closeModal();
+                                   console.log("Product modal closed by backdrop click.");
+                               }
+                           } catch (error) {
+                              console.error("Error in product modal background click handler:", error);
+                           }
                       });
+                      console.log("Product modal backdrop listener attached.");
                   }
 
-                  // --- Event Delegation for Product Card Controls and Modal Trigger ---
-                  const productsContainer = document.getElementById('productsContainer');
-                  if (productsContainer) {
-                      productsContainer.addEventListener('click', (event) => {
-                          const target = event.target;
-                          // Find the closest product card element to get the product ID
-                          const productCard = target.closest('.product-card');
-                          const productId = productCard?.getAttribute('data-product-id');
 
-                          if (!productId) return; // Not inside a product card or product ID missing
+                   // --- Event Delegation for Product Card Controls and Modal Trigger ---
+                   const productsContainer = document.getElementById('productsContainer');
+                   if (productsContainer) {
+                       // Add event listener once to the container
+                       productsContainer.addEventListener('click', (event) => {
+                            try {
+                                const target = event.target;
+                                // Find the closest button or the card itself
+                                const addButton = target.closest('.btn-add');
+                                const increaseButton = target.closest('.btn-increase');
+                                const decreaseButton = target.closest('.btn-decrease');
+                                const productCard = target.closest('.product-card'); // Get the card
 
-                          // Check if the click was on a specific button class
-                          if (target.classList.contains('btn-add')) {
-                              // Stop propagation if it's an add button click, so it doesn't also trigger the modal
-                              event.stopPropagation();
-                              addItemToOrder(productId);
-                          } else if (target.classList.contains('btn-increase')) {
-                               event.stopPropagation();
-                              increaseQuantity(productId);
-                          } else if (target.classList.contains('btn-decrease')) {
-                               event.stopPropagation();
-                              decreaseQuantity(productId);
-                          }
-                           // Modal click is handled by the click listener added directly to the card in createProductCard function
-                      });
-                  } else { console.error("productsContainer not found for event delegation."); }
+                                // Get product ID from the button or the card
+                                const productId = addButton?.getAttribute('data-product-id') ||
+                                                    increaseButton?.getAttribute('data-product-id') ||
+                                                    decreaseButton?.getAttribute('data-product-id') ||
+                                                    productCard?.getAttribute('data-product-id');
+
+
+                                if (!productId) return; // Not inside a relevant element with product ID
+
+                                if (addButton) {
+                                    console.log("Add button clicked for product:", productId);
+                                    event.stopPropagation(); // Prevent card click handler
+                                    addItemToOrder(productId);
+                                } else if (increaseButton) {
+                                     console.log("Increase button clicked for product:", productId);
+                                     event.stopPropagation(); // Prevent card click handler
+                                    increaseQuantity(productId);
+                                } else if (decreaseButton) {
+                                     console.log("Decrease button clicked for product:", productId);
+                                     event.stopPropagation(); // Prevent card click handler
+                                    decreaseQuantity(productId);
+                                }
+                                 // Card click handler (for showing product modal) is attached directly to the card in createProductCard
+                            } catch (error) {
+                               console.error("Error in products container click handler:", error);
+                            }
+                       });
+                       console.log("Product container click delegation attached.");
+                   } else { console.error("productsContainer not found for event delegation."); }
+
 
                    // --- Coupon Input Listener ---
                    const couponCodeInput = document.getElementById('couponCode');
                    if (couponCodeInput) {
-                       couponCodeInput.addEventListener('input', renderOrderSummary); // Update summary on input change
+                       couponCodeInput.addEventListener('input', function() {
+                            try {
+                                console.log("Coupon code input changed:", this.value);
+                                renderOrderSummary(); // Update summary on input change
+                            } catch (error) {
+                                console.error("Error in coupon input handler:", error);
+                            }
+                       });
+                       console.log("Coupon input listener attached.");
                    } else { console.error("Coupon code input not found."); }
 
 
@@ -1866,86 +1959,145 @@
                   const orderForm = document.getElementById('orderForm');
                   if (orderForm) {
                       orderForm.addEventListener('submit', function(event) {
-                          // Basic validation: Check if any items are in the order
-                          if (Object.keys(orderItems).length === 0) {
-                               alert("Your order list is empty. Please add items from the collection before placing an order.");
-                               event.preventDefault(); // Prevent form submission
-                               return; // Stop here if order is empty
-                          }
+                           try {
+                               console.log("Order form submitted.");
+                               // Basic validation: Check if any items are in the order
+                               if (Object.keys(orderItems).length === 0) {
+                                    alert("Your order list is empty. Please add items from the collection before placing an order.");
+                                    console.warn("Order form submission blocked: Order list empty.");
+                                    event.preventDefault(); // Prevent form submission
+                                    return; // Stop here if order is empty
+                               }
 
-                           // Save user details before submitting
-                          saveUserDetails();
+                                // Save user details before submitting
+                               saveUserDetails(); // This function has internal logging
 
-                          // Ensure the hidden order summary is populated just before submitting
-                          // This also re-calculates based on the final coupon input value
-                          renderOrderSummary();
+                               // Ensure the hidden order summary is populated just before submitting
+                               // This also re-calculates based on the final coupon input value
+                               renderOrderSummary(); // This function has internal error logging
+                               console.log("Order summary updated before submission.");
 
-                          // Optional: Disable the submit button to prevent double clicks
-                          const submitButton = orderForm.querySelector('button[type="submit"]');
-                          if(submitButton) {
-                              submitButton.disabled = true;
-                              submitButton.textContent = 'Placing Order...';
-                          }
-                          // FormSubmit.co handles the actual AJAX submission or page redirect
+
+                               // Optional: Disable the submit button to prevent double clicks
+                               const submitButton = orderForm.querySelector('button[type="submit"]');
+                               if(submitButton) {
+                                   submitButton.disabled = true;
+                                   submitButton.textContent = 'Placing Order...';
+                                   console.log("Submit button disabled.");
+                               }
+                               // FormSubmit.co handles the actual AJAX submission or page redirect
+                           } catch (error) {
+                               console.error("Error in order form submit handler:", error);
+                               alert("An error occurred while submitting your order. Please try again.");
+                               event.preventDefault(); // Prevent form submission on error
+                           }
                       });
-                  } else { console.error("Order form not found."); }
+                      console.log("Order form submit listener attached.");
+                   } else { console.error("Order form not found."); }
 
-                   // --- Forget My Details Button Listener ---
-                   const forgetButton = document.getElementById('forgetMyDetailsBtn');
-                   if(forgetButton) {
-                       forgetButton.addEventListener('click', clearUserDetails);
+                // --- Forget My Details Button Listener ---
+                const forgetButton = document.getElementById('forgetMyDetailsBtn');
+                if(forgetButton) {
+                    forgetButton.addEventListener('click', clearUserDetails); // This function has internal logging
+                    console.log("Forget details button listener attached.");
+                }
+
+
+               // Observe elements with 'reveal' class initially present in HTML
+               // These are non-product card elements like titles, headers, etc.
+               document.querySelectorAll('.reveal').forEach(el => {
+                   // Don't observe product cards here, they are handled in renderProducts
+                   if (!el.classList.contains('product-card')) {
+                      observeElement(el);
                    }
+               });
+               console.log("Reveal elements observed.");
 
 
-                  // Observe elements with 'reveal' class initially present in HTML
-                   // These are non-product card elements like titles, headers, etc.
-                   document.querySelectorAll('.reveal').forEach(el => {
-                       // Don't observe product cards here, they are handled in renderProducts
-                       if (!el.classList.contains('product-card')) {
-                          observeElement(el);
-                       }
-                   });
-
+               console.log("Website initialization complete successfully.");
 
             } catch (error) {
-                console.error("Critical error during website initialization:", error);
-                // Use a more robust error display
-                const errorDiv = document.createElement('div');
-                errorDiv.style.cssText = "padding: 40px; text-align: center; font-family: sans-serif; color: white; background-color: #333; margin: 20px; border-radius: 8px;";
-                errorDiv.innerHTML = `<h1>Oops!</h1><p>Something went wrong while loading the page content.</p><p>Please <a href="javascript:location.reload();" style="color: #D4AF37; text-decoration: underline;">refresh</a> and try again.</p><p style="font-size: 0.8em; color: #AAA;">Error details: ${escapeHtml(error.message)}</p>`;
-                document.body.innerHTML = ''; // Clear existing body content
-                document.body.appendChild(errorDiv);
+               console.error("Critical error during website initialization:", error);
+               // Use a more robust error display if initialization fails
+               const errorDiv = document.createElement('div');
+               errorDiv.style.cssText = "padding: 40px; text-align: center; font-family: sans-serif; color: white; background-color: #333; margin: 20px; border-radius: 8px;";
+               errorDiv.innerHTML = `<h1>Oops!</h1><p>Something went wrong while loading the page content.</p><p>Please <a href="javascript:location.reload();" style="color: #D4AF37; text-decoration: underline;">refresh</a> and try again.</p><p style="font-size: 0.8em; color: #AAA;">Error details: ${escapeHtml(error.message)}</p>`;
+               // Attempt to clear existing body content before appending error
+               const body = document.body;
+               if(body) {
+                   while(body.firstChild){
+                       body.removeChild(body.firstChild);
+                   }
+                   body.appendChild(errorDiv);
+               } else {
+                   // Fallback if body is somehow not available
+                   document.documentElement.innerHTML = '';
+                   document.documentElement.appendChild(errorDiv);
+               }
+                console.log("Critical error display shown.");
            }
         }
 
 
         // --- DOMContentLoaded - Check for terms agreement before initializing the website ---
         document.addEventListener('DOMContentLoaded', () => {
-            const termsAgreed = localStorage.getItem(TERMS_AGREED_STORAGE_KEY);
-            if (termsAgreed === 'true') {
-                // Terms already agreed, initialize the website normally
-                initializeWebsite();
-            } else {
-                // Terms not agreed, show the agreement overlay
-                showTermsOverlay();
+             console.log("DOMContentLoaded fired.");
+             try {
+                const termsAgreed = localStorage.getItem(TERMS_AGREED_STORAGE_KEY);
+                console.log("Terms agreed status from localStorage:", termsAgreed);
 
-                // Set up listeners for the terms overlay buttons
-                const enterBtn = document.getElementById('enterWebsiteBtn');
-                const viewTermsLink = document.getElementById('viewTermsLink');
-                const backBtn = document.getElementById('backToAgreementBtn');
+                if (termsAgreed === 'true') {
+                    // Terms already agreed, initialize the website normally
+                    console.log("Terms already agreed. Initializing website directly.");
+                    initializeWebsite();
+                } else {
+                    // Terms not agreed, show the agreement overlay
+                    console.log("Terms not agreed. Showing terms overlay.");
+                    showTermsOverlay();
 
-                if (enterBtn) enterBtn.addEventListener('click', agreeToTerms);
-                else console.error("Enter button not found!");
+                    // Set up listeners for the terms overlay buttons
+                    const enterBtn = document.getElementById('enterWebsiteBtn');
+                    const viewTermsLink = document.getElementById('viewTermsLink');
+                    // The back button listener will be set up in viewFullTerms() when it becomes visible
 
-                if (viewTermsLink) viewTermsLink.addEventListener('click', (e) => {
-                    e.preventDefault(); // Prevent the default link behavior
-                    viewFullTerms();
-                });
-                else console.error("View Terms link not found!");
+                    if (enterBtn) {
+                         enterBtn.addEventListener('click', agreeToTerms);
+                         console.log("Enter button listener attached.");
+                    } else {
+                         console.error("Enter button not found!");
+                    }
 
-                if (backBtn) backBtn.addEventListener('click', backToAgreement);
-                 else console.error("Back button not found!");
-            }
+                    if (viewTermsLink) {
+                         viewTermsLink.addEventListener('click', (e) => {
+                             e.preventDefault(); // Prevent the default link behavior
+                             viewFullTerms(); // Calls the function to show terms
+                             console.log("View Terms link clicked.");
+                         });
+                         console.log("View Terms link listener attached.");
+                    } else {
+                         console.error("View Terms link not found!");
+                    }
+
+                    // The back button listener is now attached within viewFullTerms when the full text is shown.
+                }
+             } catch (error) {
+                 console.error("Critical error during DOMContentLoaded execution:", error);
+                  // Fallback error display if even DOMContentLoaded fails badly
+                  const errorDiv = document.createElement('div');
+                  errorDiv.style.cssText = "padding: 40px; text-align: center; font-family: sans-serif; color: white; background-color: #333; margin: 20px; border-radius: 8px;";
+                  errorDiv.innerHTML = `<h1>Oops!</h1><p>A critical error occurred very early.</p><p>Please try <a href="javascript:location.reload();" style="color: #D4AF37; text-decoration: underline;">refreshing</a> the page.</p><p style="font-size: 0.8em; color: #AAA;">Error details: ${escapeHtml(error.message)}</p>`;
+                  const body = document.body;
+                  if(body) {
+                      while(body.firstChild){
+                          body.removeChild(body.firstChild);
+                      }
+                      body.appendChild(errorDiv);
+                  } else {
+                       document.documentElement.innerHTML = ''; // Fallback if body not found
+                       document.documentElement.appendChild(errorDiv);
+                   }
+                 console.log("Critical error display shown during DOMContentLoaded.");
+             }
         });
 
     </script>
