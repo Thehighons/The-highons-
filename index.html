@@ -899,7 +899,7 @@
             <p>WE DO NOT WARRANT THAT THE WEBSITE WILL BE UNINTERRUPTED, SECURE, OR ERROR-FREE, OR THAT ANY DEFECTS WILL BE CORRECTED. YOU USE THE WEBSITE AT YOUR OWN SOLE RISK.</P>
 
             <h3>10. Limitation of Liability</h3>
-             <p>GIVEN THE EXPERIMENTAL AND NON-COMMERCIAL NATURE OF THIS WEBSITE AND THE AGE OF THE OPERATORS, IN NO EVENT SHALL THE WEBSITE OPERATORS, OR ANYONE ASSOCIATED WITH THEM, BE LIABLE FOR ANY DAMAGES OF ANY KIND, UNDER ANY LEGAL THEORY, ARISING OUT OF OR IN CONNECTION WITH YOUR USE, OR INABILITY TO USE, THE WEBSITE, ANY WEBSITES LINKED TO IT, ANY CONTENT ON THE WEBSITE, OR ANY ITEMS ORDERED THROUGH THE WEBSITE. THIS INCLUDES ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO, PERSONAL INJURY, PAIN AND SUFFERING, EMOTIONAL DISTRESS, LOSS OF REVENUE, LOSS OF PROFITS, LOSS OF BUSINESS OR ANTICIPATED SAVINGS, LOSS OF USE, LOSS OF GOODWILL, LOSS OF DATA, AND WHETHER CAUSED BY TORT (INCLUDING NEGLIGENCE), BREACH OF CONTRACT, OR OTHERWISE, EVEN IF FORESEEABLE.</P>
+             <p>GIVEN THE EXPERIMENTAL AND NON-COMMERCIAL NATURE OF THIS WEBSITE AND THE AGE OF THE OPERATORS, IN NO EVENT SHALL THE WEBSITE OPERATORS, OR ANYONE ASSOCIATED WITH THEM, BE LIABLE FOR ANY DAMAGES OF ANY KIND, UNDER ANY LEGAL THEORY, ARISING OUT OF or IN CONNECTION WITH YOUR USE, OR INABILITY TO USE, THE WEBSITE, ANY WEBSITES LINKED TO IT, ANY CONTENT ON THE WEBSITE, OR ANY ITEMS ORDERED THROUGH THE WEBSITE. THIS INCLUDES ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO, PERSONAL INJURY, PAIN AND SUFFERING, EMOTIONAL DISTRESS, LOSS OF REVENUE, LOSS OF PROFITS, LOSS OF BUSINESS OR ANTICIPATED SAVINGS, LOSS OF USE, LOSS OF GOODWILL, LOSS OF DATA, AND WHETHER CAUSED BY TORT (INCLUDING NEGLIGENCE), BREACH OF CONTRACT, OR OTHERWISE, EVEN IF FORESEEABLE.</P>
 
             <h3>11. Indemnification</h3>
              <p>You agree to defend, indemnify, and hold harmless the Website operators, and anyone associated with them, from and against any claims, liabilities, damages, judgments, awards, losses, costs, expenses, or fees (including reasonable attorneys' fees) arising out of or relating to your violation of these Terms or your use of the Website or items obtained through the Website.</p>
@@ -1062,13 +1062,7 @@
                     <button type="submit" class="btn btn-primary w-full" id="placeOrderBtn">Place Order</button>
                 </form>
 
-                <div id="orderSuccessMessage" class="hidden mt-6 p-6 bg-green-800 text-white border border-green-600 rounded-md text-center">
-                    <h3 class="text-2xl font-bold mb-3">Order Received Successfully!</h3>
-                    <p id="submissionStatusMessage" class="text-lg"></p>
-                     <p class="text-sm mt-4">Thank you for your order!</p>
-                </div>
-
-                <div id="upiPaymentInstructions" class="hidden mt-6 p-6 bg-card-bg border border-border-color rounded-md text-center">
+                 <div id="upiPaymentInstructions" class="hidden mt-6 p-6 bg-card-bg border border-border-color rounded-md text-center">
                     <h4 class="text-xl font-bold mb-4 text-primary-accent">Complete Your UPI Payment</h4>
                      <p class="text-gray-300 mb-4">Your order has been recorded. Please complete the payment using the details below.</p>
 
@@ -1087,6 +1081,13 @@
                           You will receive confirmation via email/phone once payment is verified and your order is ready for processing.
                      </p>
                 </div>
+
+                 <div id="orderSuccessMessage" class="hidden mt-6 p-6 bg-green-800 text-white border border-green-600 rounded-md text-center">
+                    <h3 class="text-2xl font-bold mb-3">Order Received Successfully!</h3>
+                    <p id="submissionStatusMessage" class="text-lg"></p>
+                     <p class="text-sm mt-4">Thank you for your order!</p>
+                </div>
+
 
             </div>
         </div>
@@ -1982,6 +1983,20 @@
 
              if (orderForm && placeOrderBtn && orderFormContainer && orderSuccessMessageDiv && submissionStatusMessageP && upiPaymentInstructionsDiv && orderPaymentSelect) {
 
+                  // Add event listener to the payment select to show/hide UPI instructions dynamically
+                 orderPaymentSelect.addEventListener('change', function() {
+                      renderOrderSummary(); // Keep this to update any summary text if needed by payment method
+
+                      if (this.value === 'UPI') {
+                          upiPaymentInstructionsDiv.classList.remove('hidden');
+                           // Optional: Scroll to the UPI instructions section
+                           upiPaymentInstructionsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      } else {
+                          upiPaymentInstructionsDiv.classList.add('hidden');
+                      }
+                 });
+
+
                  orderForm.addEventListener('submit', function(event) {
                      event.preventDefault(); // Prevent the default form submission/page redirect
 
@@ -2043,21 +2058,20 @@
 
                          // Hide the form and show the success message
                          orderForm.classList.add('hidden'); // Hide the form itself
-                         // Optionally hide the whole container div or just the form content
-                         // orderFormContainer.classList.add('hidden'); // Or hide the parent container if needed
+                         // Hide the UPI instructions as the order is now submitted
+                         upiPaymentInstructionsDiv.classList.add('hidden');
+
 
                          orderSuccessMessageDiv.classList.remove('hidden');
 
                          // Set the status message based on payment method
                          if (selectedPaymentMethod === 'UPI') {
-                             submissionStatusMessageP.textContent = "Please complete your UPI payment using the instructions below.";
-                             upiPaymentInstructionsDiv.classList.remove('hidden'); // Show UPI instructions
+                             submissionStatusMessageP.textContent = "Your order details have been sent. Please ensure you have completed the UPI payment using the details provided above. We will manually verify your payment and contact you regarding order confirmation.";
                               orderSuccessMessageDiv.style.backgroundColor = 'var(--secondary-accent)'; // Gold color for UPI success
                               orderSuccessMessageDiv.style.borderColor = 'var(--primary-accent)';
 
                          } else { // COD
                               submissionStatusMessageP.textContent = "You selected Cash on Delivery. We will contact you to confirm your order.";
-                              upiPaymentInstructionsDiv.classList.add('hidden'); // Ensure UPI instructions are hidden
                               orderSuccessMessageDiv.style.backgroundColor = 'var(--success-color)'; // Green color for COD success
                                orderSuccessMessageDiv.style.borderColor = 'darkgreen';
 
@@ -2082,12 +2096,15 @@
                          loadUserDetails();
                          // Re-render order summary to reflect current cart state (which wasn't cleared)
                          renderOrderSummary();
+                          // Keep UPI instructions visible if UPI was selected and submission failed
+                           if (orderPaymentSelect.value === 'UPI') {
+                                upiPaymentInstructionsDiv.classList.remove('hidden');
+                           }
+
 
                      });
                  });
 
-                 // Add event listener to the payment select to update summary message
-                 orderPaymentSelect.addEventListener('change', renderOrderSummary); // Although renderSummary doesn't do much for this, it's good practice if it were expanded.
 
              } else { console.error("Order form, button, or other required elements not found for submission handling."); }
 
