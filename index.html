@@ -1067,8 +1067,8 @@
                      <p class="text-gray-300 mb-4">Your order has been recorded. Please complete the payment using the details below.</p>
 
                     <div class="space-y-3 mb-6">
-                         <p><span class="font-semibold text-gray-400">UPI ID (VPA):</span> <span class="text-secondary-accent break-all">-9328337760@fam</span></p>
-                         <img src="-IMG_20250505_125804_715.jpg" alt="Your UPI QR Code" class="mx-auto w-48 h-48 object-contain border border-gray-700 p-2 rounded" loading="lazy">
+                         <p><span class="font-semibold text-gray-400">UPI ID (VPA):</span> <span class="text-secondary-accent break-all">9328337760@fam</span></p>
+                         <img src="IMG_20250505_125804_715.jpg" alt="Your UPI QR Code" class="mx-auto w-48 h-48 object-contain border border-gray-700 p-2 rounded" loading="lazy">
                     </div>
 
                      <p class="text-sm text-gray-400 italic">
@@ -1422,9 +1422,9 @@
                         ? `<button type="button" class="btn btn-primary btn-add w-full" data-product-id="${product.id}">Add</button>`
                         : `
                             <div class="product-quantity-controls" data-product-id="${product.id}">
-                                <button type="button" class="btn btn-secondary btn-small btn-decrease" data-product-id="${product.id}" aria-label="Decrease quantity">-</button>
+                                <button type="button" class="btn btn-secondary btn-small btn-decrease" data-product-id="${productId}" aria-label="Decrease quantity">-</button>
                                 <span class="product-quantity">${quantity}</span>
-                                <button type="button" class="btn btn-secondary btn-small btn-increase" data-product-id="${product.id}" aria-label="Increase quantity">+</button>
+                                <button type="button" class="btn btn-secondary btn-small btn-increase" data-product-id="${productId}" aria-label="Increase quantity">+</button>
                             </div>
                         `
                     }
@@ -1995,6 +1995,10 @@
                           upiPaymentInstructionsDiv.classList.add('hidden');
                       }
                  });
+
+                 // Trigger the change event listener once on load to show/hide UPI based on default selection
+                 // This is important if UPI is the default or if state is loaded from local storage
+                 orderPaymentSelect.dispatchEvent(new Event('change'));
 
 
                  orderForm.addEventListener('submit', function(event) {
