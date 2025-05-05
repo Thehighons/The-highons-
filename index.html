@@ -345,7 +345,7 @@
         #productSearch { padding-left: 2.5rem; }
         #categoryFilter {
           appearance: none;
-          background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%23AAAAAA"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 0 01-1.414 0l-4-4a1 0 010-1.414z" clip-rule="evenodd" /></svg>');
+          background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%23AAAAAA"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>');
           background-repeat: no-repeat;
           background-position: right 1rem center;
           background-size: 0.9em 0.9em;
@@ -742,11 +742,11 @@
               text-transform: uppercase;
               letter-spacing: 0.5px;
          }
-         #orderFormContainer input[type="text"],
-         #orderFormContainer input[type="email"],
-         #orderFormContainer input[type="tel"],
-         #orderFormContainer textarea,
-         #orderFormContainer select {
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="tel"],
+        .form-container textarea,
+        .form-container select {
             background-color: rgba(26, 26, 26, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-main);
@@ -757,20 +757,20 @@
              font-family: 'Inter', sans-serif;
              font-size: 0.9rem;
         }
-        #orderFormContainer input::placeholder,
-        #orderFormContainer textarea::placeholder {
+        .form-container input::placeholder,
+        .form-container textarea::placeholder {
             color: var(--text-secondary);
             opacity: 0.6;
         }
-        #orderFormContainer input:focus,
-        #orderFormContainer textarea:focus,
-        #orderFormContainer select:focus {
+        .form-container input:focus,
+        .form-container textarea:focus,
+        .form-container select:focus {
             border-color: var(--primary-accent); /* Teal focus border */
             background-color: rgba(26, 26, 26, 0.9);
              box-shadow: 0 0 0 1px rgba(168, 213, 227, 0.5); /* Transparent Teal shadow */
              outline: none;
         }
-         #orderFormContainer select option {
+         .form-container select option {
              background-color: var(--bg-dark);
              color: var(--text-main);
          }
@@ -819,6 +819,11 @@
                 font-weight: 600;
             }
 
+
+        /* Style for the "Creativity" span in the hero section */
+        .hero-section h1 span {
+            text-shadow: 0 0 8px rgba(242, 240, 234, 0.6); /* Cream shadow */
+        }
 
     </style>
 </head>
@@ -1466,12 +1471,12 @@
              }
             if (orderItems[productId] !== undefined) {
                 orderItems[productId]++;
+                if (orderItems[productId] <= 0) {
+                    delete orderItems[productId];
+                }
                  saveCart();
                  updateProductCardUI(productId);
                  renderOrderSummary();
-            } else {
-                 // This case shouldn't happen if UI is in sync with state, but handle defensively
-                 addItemToOrder(productId);
             }
              console.log('Order Items:', orderItems);
         }
