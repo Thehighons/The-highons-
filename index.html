@@ -12,15 +12,15 @@
 
     <style>
         :root {
-          --bg-dark: #111;
-          --text-main: #EEE;
-          --text-secondary: #AAA;
-          --primary-accent: #D4AF37; /* Gold */
-          --secondary-accent: #FFD700; /* Brighter Gold/Yellow */
-          --card-bg: #1A1A1A;
-          --border-color: rgba(212, 175, 55, 0.3);
-           --danger-color: #E57373;
-           --success-color: #81C784;
+          --bg-dark: #111; /* Kept dark background */
+          --text-main: #F2F0EA; /* Cream for main text */
+          --text-secondary: #AAA; /* Kept secondary text color for contrast */
+          --primary-accent: #A8D5E3; /* Teal as primary accent */
+          --secondary-accent: #FF78AC; /* Pink as secondary accent */
+          --card-bg: #1A1A1A; /* Kept dark card background */
+          --border-color: rgba(168, 213, 227, 0.3); /* Transparent Teal border */
+           --danger-color: #E57373; /* Kept danger color */
+           --success-color: #81C784; /* Kept success color */
         }
 
         html {
@@ -142,12 +142,12 @@
         .btn-primary {
             background-color: var(--primary-accent);
             color: var(--bg-dark);
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 15px rgba(168, 213, 227, 0.3); /* Updated shadow color */
         }
         .btn-primary:hover {
-            background-color: var(--secondary-accent);
+            background-color: var(--secondary-accent); /* Pink on hover */
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 6px 20px rgba(255, 120, 172, 0.4); /* Updated shadow color */
         }
          .btn-primary:disabled {
              opacity: 0.5;
@@ -167,7 +167,7 @@
             box-shadow: none;
         }
         .btn-secondary:hover {
-            background-color: rgba(212, 175, 55, 0.1);
+            background-color: rgba(168, 213, 227, 0.1); /* Transparent Teal on hover */
             transform: translateY(-1px);
         }
 
@@ -290,7 +290,7 @@
             font-family: 'Roboto', sans-serif;
             font-size: 1.2rem;
             font-weight: 700;
-            color: var(--secondary-accent);
+            color: var(--secondary-accent); /* Pink for discounted price */
             display: inline-block;
          }
          .product-card .product-price-info .discount-percentage {
@@ -345,7 +345,7 @@
         #productSearch { padding-left: 2.5rem; }
         #categoryFilter {
           appearance: none;
-          background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%23AAAAAA"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>');
+          background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%23AAAAAA"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 0 01-1.414 0l-4-4a1 0 010-1.414z" clip-rule="evenodd" /></svg>');
           background-repeat: no-repeat;
           background-position: right 1rem center;
           background-size: 0.9em 0.9em;
@@ -357,8 +357,8 @@
          }
 
         #productSearch:focus, #categoryFilter:focus, #couponCode:focus {
-             border-color: var(--primary-accent);
-             box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.5);
+             border-color: var(--primary-accent); /* Teal focus border */
+             box-shadow: 0 0 0 1px rgba(168, 213, 227, 0.5); /* Transparent Teal shadow */
              outline: none;
              background-color: rgba(26, 26, 26, 0.9);
         }
@@ -392,9 +392,9 @@
              font-size: 0.85rem;
              margin-bottom: 0.4rem;
              display: block;
-             text-transform: uppercase;
-             letter-spacing: 0.5px;
-        }
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+         }
         .form-container input[type="text"],
         .form-container input[type="email"],
         .form-container input[type="tel"],
@@ -418,9 +418,9 @@
         .form-container input:focus,
         .form-container textarea:focus,
         .form-container select:focus {
-            border-color: var(--primary-accent);
+            border-color: var(--primary-accent); /* Teal focus border */
             background-color: rgba(26, 26, 26, 0.9);
-             box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.5);
+             box-shadow: 0 0 0 1px rgba(168, 213, 227, 0.5); /* Transparent Teal shadow */
              outline: none;
         }
          .form-container select option {
@@ -487,7 +487,7 @@
          #orderSummaryDisplay .order-total {
               font-size: 1.3rem;
               font-weight: 700;
-              color: var(--secondary-accent);
+              color: var(--secondary-accent); /* Pink for total */
               margin-top: 1.2rem;
               text-align: right;
               padding-top: 0.8rem;
@@ -514,23 +514,23 @@
              transition: all 0.3s ease;
         }
         .contact-info-box:hover {
-             border-color: var(--primary-accent);
+             border-color: var(--primary-accent); /* Teal hover border */
              transform: translateY(-3px);
              box-shadow: 0 6px 15px rgba(0,0,0,0.35);
         }
         .contact-info-box h3 {
              text-align: left;
-             border-bottom: 1px solid var(--border-color);
+             border-bottom: 1px solid var(--border-color); /* Transparent Teal border */
              padding-bottom: 10px;
              margin-bottom: 20px;
         }
         .contact-info-box a {
-            color: var(--primary-accent);
+            color: var(--primary-accent); /* Teal links */
             transition: color 0.3s ease;
             word-break: break-all;
         }
         .contact-info-box a:hover {
-            color: var(--secondary-accent);
+            color: var(--secondary-accent); /* Pink on hover */
         }
         .social-icons a {
             color: var(--text-secondary);
@@ -538,7 +538,7 @@
             transition: all 0.3s ease;
         }
         .social-icons a:hover {
-             color: var(--primary-accent);
+             color: var(--primary-accent); /* Teal on hover */
              transform: scale(1.1);
         }
 
@@ -548,9 +548,9 @@
             padding-top: 2rem;
             padding-bottom: 2rem;
         }
-        footer .brand-name { color: var(--primary-accent); }
+        footer .brand-name { color: var(--primary-accent); /* Teal brand name */ }
         footer a { color: var(--text-secondary); transition: color 0.3s ease; }
-        footer a:hover { color: var(--primary-accent); }
+        footer a:hover { color: var(--primary-accent); /* Teal links on hover */ }
         footer .text-gray-500 { color: var(--text-secondary); opacity: 0.7; font-size: 0.75rem; }
 
         /* Modal Styling (Reused for both product and terms) */
@@ -570,7 +570,7 @@
         .modal-content img { border-radius: 3px; background-color: rgba(255, 255, 255, 0.03); padding: 0.5rem; }
         .modal-content h3 { color: var(--text-main); font-family: 'Roboto', sans-serif; font-size: 1.8rem; font-weight: 700; }
         .modal-content p { color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.9rem; }
-        .modal-content .modal-price { color: var(--secondary-accent); font-family: 'Roboto', sans-serif; font-size: 2rem; font-weight: 700;}
+        .modal-content .modal-price { color: var(--secondary-accent); /* Pink price in modal */ font-family: 'Roboto', sans-serif; font-size: 2rem; font-weight: 700;}
         .modal-close-btn {
             color: var(--text-secondary);
             transition: all 0.3s ease;
@@ -582,7 +582,7 @@
              padding: 0.5rem; /* Make clickable area larger */
         }
         .modal-close-btn:hover {
-             color: var(--primary-accent);
+             color: var(--primary-accent); /* Teal on hover */
              transform: rotate(0deg);
         }
          .modal-price-info {
@@ -599,7 +599,7 @@
             font-family: 'Roboto', sans-serif;
             font-size: 2rem; /* Matches modal-price */
             font-weight: 700;
-            color: var(--secondary-accent);
+            color: var(--secondary-accent); /* Pink price in modal */
             display: inline-block;
          }
          .modal-price-info .discount-percentage {
@@ -629,12 +629,12 @@
              margin-bottom: 2rem;
          }
           #termsModal .modal-content a {
-              color: var(--primary-accent);
+              color: var(--primary-accent); /* Teal links */
               text-decoration: underline;
               transition: color 0.3s ease;
           }
            #termsModal .modal-content a:hover {
-               color: var(--secondary-accent);
+               color: var(--secondary-accent); /* Pink on hover */
            }
 
 
@@ -658,8 +658,8 @@
              font-size: 2.5rem;
              text-align: center;
              margin-bottom: 1.5rem;
-             color: var(--primary-accent); /* Accent color for title */
-             border-bottom: 1px solid var(--border-color);
+             color: var(--primary-accent); /* Teal title */
+             border-bottom: 1px solid var(--border-color); /* Transparent Teal border */
              padding-bottom: 15px;
          }
           #termsAndConditionsFull h3 {
@@ -681,12 +681,12 @@
               margin-bottom: 1rem;
           }
           #termsAndConditionsFull a {
-             color: var(--primary-accent);
+             color: var(--primary-accent); /* Teal links */
              text-decoration: underline;
              transition: color 0.3s ease;
           }
            #termsAndConditionsFull a:hover {
-              color: var(--secondary-accent);
+              color: var(--secondary-accent); /* Pink on hover */
            }
 
          #termsAndConditionsFull .btn-back {
@@ -699,7 +699,7 @@
 
         .loader {
           border: 4px solid rgba(255, 255, 255, 0.1);
-          border-top: 4px solid var(--primary-accent);
+          border-top: 4px solid var(--primary-accent); /* Teal loader */
           border-radius: 50%;
           width: 50px;
           height: 50px;
@@ -765,9 +765,9 @@
         #orderFormContainer input:focus,
         #orderFormContainer textarea:focus,
         #orderFormContainer select:focus {
-            border-color: var(--primary-accent);
+            border-color: var(--primary-accent); /* Teal focus border */
             background-color: rgba(26, 26, 26, 0.9);
-             box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.5);
+             box-shadow: 0 0 0 1px rgba(168, 213, 227, 0.5); /* Transparent Teal shadow */
              outline: none;
         }
          #orderFormContainer select option {
@@ -805,17 +805,17 @@
 
            #upiPaymentInstructions {
                background-color: var(--card-bg);
-               border: 1px solid var(--border-color);
+               border: 1px solid var(--border-color); /* Transparent Teal border */
                color: var(--text-main);
            }
            #upiPaymentInstructions p, #upiPaymentInstructions span {
                 color: var(--text-secondary);
            }
            #upiPaymentInstructions .text-primary-accent {
-               color: var(--primary-accent);
+               color: var(--primary-accent); /* Teal */
            }
             #upiPaymentInstructions .text-secondary-accent {
-                color: var(--secondary-accent);
+                color: var(--secondary-accent); /* Pink */
                 font-weight: 600;
             }
 
@@ -832,8 +832,7 @@
                 <h3 class="text-2xl font-bold mb-4">Terms & Conditions</h3>
                 <p class="text-gray-300 mb-6">
                     By tapping on the "Enter" button, you confirm that you have read and agree to our
-                    <a href="#" id="viewTermsLink" class="text-purple-400 hover:text-emerald-400 underline">Terms and Conditions</a>.
-                </p>
+                    <a href="#" id="viewTermsLink" class="text-primary-accent hover:text-secondary-accent underline">Terms and Conditions</a>. </p>
                 <button type="button" id="acceptTermsBtn" class="btn btn-primary">Enter</button>
              </div>
         </div>
@@ -965,8 +964,7 @@
              <img src="GridArt_20250428_230202733.png" alt="The Highon's Logo" class="w-56 sm:w-72 md:w-80 mx-auto mb-8 animate__animated animate__fadeInDown" loading="lazy">
 
             <h1 class="text-4xl md:text-6xl font-bold mb-6 animate__animated animate__fadeInUp">
-                Ignite Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-gold-500">Creativity</span>. </h1>
-            <p class="text-lg md:text-xl mb-10 text-gray-300 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-1s">
+                Ignite Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-accent to-secondary-accent">Creativity</span>. </h1> <p class="text-lg md:text-xl mb-10 text-gray-300 max-w-2xl mx-auto animate__animated animate__fadeInUp animate__delay-1s">
                 Discover premium supplies in Navsari. Explore keychains, art materials, stationery, and more.
             </p>
             <a href="#products" class="btn btn-primary text-lg px-10 py-4 animate__animated animate__fadeInUp animate__delay-2s">
@@ -1171,8 +1169,7 @@
                         <p id="modalDesc" class="text-sm lg:text-base mb-5"></p>
                         <div id="modalPriceInfo" class="modal-price-info">
                              </div>
-                        <p class="text-sm text-gray-400">To order this item, please go to the <a href="#products" onclick="closeModal()" class="text-purple-400 hover:text-emerald-400 underline">Our Collection section</a> and click 'Add' on the product card.</p>
-                    </div>
+                        <p class="text-sm text-gray-400">To order this item, please go to the <a href="#products" onclick="closeModal()" class="text-primary-accent hover:text-secondary-accent underline">Our Collection section</a> and click 'Add' on the product card.</p> </div>
                 </div>
              </div>
         </div>
@@ -1184,7 +1181,7 @@
         const CART_STORAGE_KEY = 'highonsCartItems';
         const TERMS_ACCEPTED_STORAGE_KEY = 'highonsTermsAccepted'; // New key for T&C
 
-        // --- Product Data (Kept from original code) ---
+        // --- Product Data ---
         const products = {
              keychains: [
                 { id: "kc001", name: "Thor Loki Keychain", originalPrice: 217, price: 99, img: "Screenshot_20250422_132243_Meesho.jpg", desc: "High-quality metal keychain featuring Thor and Loki designs" },
@@ -1221,21 +1218,21 @@
         };
 
 
-         // --- Coupon Data (Code: { type: 'percentage_discount' | 'fixed_discount' | 'percentage_increase', value: number }) (Kept from original code) ---
+         // --- Coupon Data (Code: { type: 'percentage_discount' | 'fixed_discount' | 'percentage_increase', value: number }) ---
          const coupons = {
              "JIANSPECIAL": { type: "percentage_increase", value: 20 }, // 20% increase
              "NSL10": { type: "percentage_discount", value: 10 } // 10% discount
          };
 
 
-        // --- State Variables (Kept from original code) ---
+        // --- State Variables ---
         let currentModalProduct = null; // { category: string, index: number, id: string }
         let currentCategoryFilter = 'all';
         let orderItems = {}; // Stores product ID and quantity: { "productId": quantity, ... }
         let siteLoaded = false; // Flag to track if the main site content has been loaded
 
 
-        // --- Utility Functions (Kept from original code) ---
+        // --- Utility Functions ---
         function escapeHtml(unsafe) {
             if (typeof unsafe !== 'string') return unsafe;
             return unsafe
@@ -1389,7 +1386,7 @@
             const card = document.createElement("div");
             card.id = `product-${product.id}`; // Add ID for easy lookup
             card.className = "product-card reveal"; // Add reveal class
-            card.setAttribute('data-product-id', product.id); // CORRECTED: Use product.id
+            card.setAttribute('data-product-id', product.id); // Use product.id
              card.setAttribute('data-index', index); // Add data-index
 
             const productNameSafe = escapeHtml(product.name);
@@ -1419,12 +1416,12 @@
                 </div>
                 <div class="product-card-controls mt-auto">
                     ${quantity === 0
-                        ? `<button type="button" class="btn btn-primary btn-add w-full" data-product-id="${product.id}">Add</button>` // CORRECTED: Use product.id
+                        ? `<button type="button" class="btn btn-primary btn-add w-full" data-product-id="${product.id}">Add</button>`
                         : `
-                            <div class="product-quantity-controls" data-product-id="${product.id}"> // CORRECTED: Use product.id
-                                <button type="button" class="btn btn-secondary btn-small btn-decrease" data-product-id="${product.id}" aria-label="Decrease quantity">-</button> // CORRECTED: Use product.id
+                            <div class="product-quantity-controls" data-product-id="${product.id}">
+                                <button type="button" class="btn btn-secondary btn-small btn-decrease" data-product-id="${product.id}" aria-label="Decrease quantity">-</button>
                                 <span class="product-quantity">${quantity}</span>
-                                <button type="button" class="btn btn-secondary btn-small btn-increase" data-product-id="${product.id}" aria-label="Increase quantity">+</button> // CORRECTED: Use product.id
+                                <button type="button" class="btn btn-secondary btn-small btn-increase" data-product-id="${product.id}" aria-label="Increase quantity">+</button>
                             </div>
                         `
                     }
@@ -1442,7 +1439,7 @@
             return card;
         }
 
-        // --- Order Management Functions (Kept from original code) ---
+        // --- Order Management Functions ---
         function addItemToOrder(productId) {
             const product = findProduct(productId);
             if (!product) {
@@ -1647,7 +1644,7 @@
              hiddenSummaryInput.value = hiddenText;
         }
 
-        // --- User Details Management (using localStorage) (Kept from original code) ---
+        // --- User Details Management (using localStorage) ---
         function loadUserDetails() {
             const userDetails = localStorage.getItem(USER_DETAILS_STORAGE_KEY);
             const nameInput = document.getElementById('orderName');
@@ -1727,7 +1724,7 @@
         }
 
 
-        // --- UI Interaction Functions (Kept from original code, adapted for new styling) ---
+        // --- UI Interaction Functions ---
 
         function showModal(productId) {
            try {
@@ -1846,7 +1843,7 @@
         }
 
 
-        // --- Scroll Animation Observer (Kept from original code) ---
+        // --- Scroll Animation Observer ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -2071,8 +2068,8 @@
                          // Set the status message based on payment method
                          if (selectedPaymentMethod === 'UPI') {
                              submissionStatusMessageP.textContent = "Your order details have been sent. Please ensure you have completed the UPI payment using the details provided above. We will manually verify your payment and contact you regarding order confirmation.";
-                              orderSuccessMessageDiv.style.backgroundColor = 'var(--secondary-accent)'; // Gold color for UPI success
-                              orderSuccessMessageDiv.style.borderColor = 'var(--primary-accent)';
+                              orderSuccessMessageDiv.style.backgroundColor = 'var(--secondary-accent)'; // Pink background for UPI success
+                              orderSuccessMessageDiv.style.borderColor = 'var(--primary-accent)'; // Teal border
 
                          } else { // COD
                               submissionStatusMessageP.textContent = "You selected Cash on Delivery. We will contact you to confirm your order.";
