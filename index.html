@@ -782,6 +782,44 @@
          }
 
 
+         /* Added Styles for Order Submission Messages/Instructions */
+          #orderSuccessMessage.hidden,
+          #upiPaymentInstructions.hidden {
+              display: none;
+          }
+          #orderSuccessMessage,
+          #upiPaymentInstructions {
+               margin-top: 1.5rem;
+               padding: 1.5rem;
+               border-radius: 5px;
+               box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+          }
+           #orderSuccessMessage {
+                background-color: var(--success-color); /* Default green for success */
+                border: 1px solid darkgreen;
+                color: #111; /* Dark text on light background */
+           }
+           #orderSuccessMessage h3, #orderSuccessMessage p {
+               color: #111; /* Ensure text inside is dark */
+           }
+
+           #upiPaymentInstructions {
+               background-color: var(--card-bg);
+               border: 1px solid var(--border-color);
+               color: var(--text-main);
+           }
+           #upiPaymentInstructions p, #upiPaymentInstructions span {
+                color: var(--text-secondary);
+           }
+           #upiPaymentInstructions .text-primary-accent {
+               color: var(--primary-accent);
+           }
+            #upiPaymentInstructions .text-secondary-accent {
+                color: var(--secondary-accent);
+                font-weight: 600;
+            }
+
+
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -832,7 +870,7 @@
 
             <h3>5. Content and Intellectual Property</h3>
             <p>The content on this Website, including text, graphics, images, and other materials, is provided for informational and experimental purposes only.</p>
-            <p class="text-gray-400 italic">Disclaimer Regarding Intellectual Property: Please be advised that no licenses (including copyright or trademark licenses) have been purchased or formally obtained for the content used on this Website. While efforts are made to respect existing rights, the legal status of much of the content in terms of copyright and usage permissions has not been formally verified or licensed. You should assume that content on this site is not licensed for your reuse.</p>
+             <p class="text-gray-400 italic">Disclaimer Regarding Intellectual Property: Please be advised that no licenses (including copyright or trademark licenses) have been purchased or formally obtained for the content used on this Website. While efforts are made to respect existing rights, the legal status of much of the content in terms of copyright and usage permissions has not been formally verified or licensed. You should assume that content on this site is not licensed for your reuse.</p>
             <p>A significant portion of the content and underlying code of this Website has been generated with the assistance of artificial intelligence. We do not guarantee the accuracy, completeness, or originality of AI-generated content.</p>
             <p>You may view and use the content for your personal, non-commercial use related to the experimental nature of this Website. You must not reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any of the material on our Website for commercial purposes or without acknowledging the experimental nature and the intellectual property disclaimer mentioned herein.</p>
 
@@ -1023,6 +1061,33 @@
 
                     <button type="submit" class="btn btn-primary w-full" id="placeOrderBtn">Place Order</button>
                 </form>
+
+                <div id="orderSuccessMessage" class="hidden mt-6 p-6 bg-green-800 text-white border border-green-600 rounded-md text-center">
+                    <h3 class="text-2xl font-bold mb-3">Order Received Successfully!</h3>
+                    <p id="submissionStatusMessage" class="text-lg"></p>
+                     <p class="text-sm mt-4">Thank you for your order!</p>
+                </div>
+
+                <div id="upiPaymentInstructions" class="hidden mt-6 p-6 bg-card-bg border border-border-color rounded-md text-center">
+                    <h4 class="text-xl font-bold mb-4 text-primary-accent">Complete Your UPI Payment</h4>
+                     <p class="text-gray-300 mb-4">Your order has been recorded. Please complete the payment using the details below.</p>
+
+                    <div class="space-y-3 mb-6">
+                         <p><span class="font-semibold text-gray-400">UPI ID (VPA):</span> <span class="text-secondary-accent break-all">-9328337760@fam</span></p>
+                         <img src="-IMG_20250505_125804_715.jpg" alt="Your UPI QR Code" class="mx-auto w-48 h-48 object-contain border border-gray-700 p-2 rounded" loading="lazy">
+                    </div>
+
+                     <p class="text-sm text-gray-400 italic">
+                         <i class="fas fa-info-circle mr-1"></i> Your order is pending until we manually verify the payment in our account. Please allow some time for confirmation.
+                     </p>
+                     <p class="text-sm text-gray-400 italic mt-2">
+                          For faster processing, you can mention your Name or Order date in the payment reference, or email us a screenshot of the payment.
+                     </p>
+                     <p class="text-sm text-gray-400 italic mt-2">
+                          You will receive confirmation via email/phone once payment is verified and your order is ready for processing.
+                     </p>
+                </div>
+
             </div>
         </div>
     </section>
@@ -1907,31 +1972,125 @@
 
              // --- Order Form Submission Listener ---
              const orderForm = document.getElementById('orderForm');
-             if (orderForm) {
+             const placeOrderBtn = document.getElementById('placeOrderBtn'); // Get the button
+             const orderFormContainer = document.getElementById('orderFormContainer'); // Get the container
+             const orderSuccessMessageDiv = document.getElementById('orderSuccessMessage');
+             const submissionStatusMessageP = document.getElementById('submissionStatusMessage');
+             const upiPaymentInstructionsDiv = document.getElementById('upiPaymentInstructions');
+             const orderPaymentSelect = document.getElementById('orderPayment'); // Get the payment select
+
+
+             if (orderForm && placeOrderBtn && orderFormContainer && orderSuccessMessageDiv && submissionStatusMessageP && upiPaymentInstructionsDiv && orderPaymentSelect) {
+
                  orderForm.addEventListener('submit', function(event) {
+                     event.preventDefault(); // Prevent the default form submission/page redirect
+
                      // Basic validation: Check if any items are in the order
                      if (Object.keys(orderItems).length === 0) {
                           alert("Your order list is empty. Please add items from the collection before placing an order.");
-                          event.preventDefault(); // Prevent form submission
                           return; // Stop here if order is empty
                      }
 
-                      // Save user details before submitting
+                     // Save user details before submitting
                      saveUserDetails();
 
-                     // Ensure the hidden order summary is populated just before submitting
-                     // This also re-calculates based on the final coupon input value
-                     renderOrderSummary();
+                     // Disable the submit button and change text
+                     placeOrderBtn.disabled = true;
+                     placeOrderBtn.textContent = 'Sending Order...';
 
-                     // Optional: Disable the submit button to prevent double clicks
-                     const submitButton = orderForm.querySelector('button[type="submit]');
-                     if(submitButton) {
-                         submitButton.disabled = true;
-                         submitButton.textContent = 'Placing Order...';
-                     }
-                     // FormSubmit.co handles the actual AJAX submission or page redirect
+                     // Ensure the hidden order summary is populated just before submitting
+                     renderOrderSummary(); // This updates #hiddenOrderSummary
+
+                     // Gather form data
+                     const formData = new FormData(orderForm);
+
+                     // Get selected payment method
+                     const selectedPaymentMethod = orderPaymentSelect.value;
+                     formData.append('Payment Method', selectedPaymentMethod); // Add payment method to form data
+
+                     // Add FormSubmit AJAX parameter
+                     formData.append('_ajax', 'true');
+
+                     // Use fetch API to send the form data
+                     fetch(orderForm.action, {
+                         method: 'POST',
+                         body: formData,
+                         headers: {
+                             'Accept': 'application/json' // FormSubmit requires this for AJAX response
+                         }
+                     })
+                     .then(response => {
+                         // FormSubmit returns a JSON response for AJAX
+                         if (response.ok) { // Check if response status is 2xx
+                             return response.json(); // Parse JSON response
+                         } else {
+                             // Handle HTTP errors (e.g., 400, 500)
+                             return response.json().then(data => {
+                                  throw new Error(data.message || `Form submission failed with status: ${response.status}`);
+                             }).catch(() => {
+                                  throw new Error(`Form submission failed with status: ${response.status}`);
+                             });
+                         }
+                     })
+                     .then(data => {
+                         // Success response from FormSubmit
+                         console.log('FormSubmit Success:', data);
+
+                         // Clear cart and user details *after* successful submission
+                         orderItems = {}; // Clear the order state
+                         saveCart(); // Save empty cart to local storage
+                         clearUserDetails(); // Clear user details (clears input fields and storage)
+
+                         // Hide the form and show the success message
+                         orderForm.classList.add('hidden'); // Hide the form itself
+                         // Optionally hide the whole container div or just the form content
+                         // orderFormContainer.classList.add('hidden'); // Or hide the parent container if needed
+
+                         orderSuccessMessageDiv.classList.remove('hidden');
+
+                         // Set the status message based on payment method
+                         if (selectedPaymentMethod === 'UPI') {
+                             submissionStatusMessageP.textContent = "Please complete your UPI payment using the instructions below.";
+                             upiPaymentInstructionsDiv.classList.remove('hidden'); // Show UPI instructions
+                              orderSuccessMessageDiv.style.backgroundColor = 'var(--secondary-accent)'; // Gold color for UPI success
+                              orderSuccessMessageDiv.style.borderColor = 'var(--primary-accent)';
+
+                         } else { // COD
+                              submissionStatusMessageP.textContent = "You selected Cash on Delivery. We will contact you to confirm your order.";
+                              upiPaymentInstructionsDiv.classList.add('hidden'); // Ensure UPI instructions are hidden
+                              orderSuccessMessageDiv.style.backgroundColor = 'var(--success-color)'; // Green color for COD success
+                               orderSuccessMessageDiv.style.borderColor = 'darkgreen';
+
+                         }
+
+                          // Scroll to the success message/instructions area
+                          orderSuccessMessageDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+
+                     })
+                     .catch(error => {
+                         // Handle any errors during the fetch or FormSubmit processing
+                         console.error('Form submission error:', error);
+
+                         // Show an error message to the user
+                         alert("Sorry, there was an error submitting your order: " + error.message + "\nPlease try again.");
+
+                         // Re-enable the button and reset text
+                         placeOrderBtn.disabled = false;
+                         placeOrderBtn.textContent = 'Place Order';
+                          // Re-load user details in case they were cleared on a perceived 'success' that failed late
+                         loadUserDetails();
+                         // Re-render order summary to reflect current cart state (which wasn't cleared)
+                         renderOrderSummary();
+
+                     });
                  });
-             } else { console.error("Order form not found."); }
+
+                 // Add event listener to the payment select to update summary message
+                 orderPaymentSelect.addEventListener('change', renderOrderSummary); // Although renderSummary doesn't do much for this, it's good practice if it were expanded.
+
+             } else { console.error("Order form, button, or other required elements not found for submission handling."); }
+
 
               // --- Forget My Details Button Listener ---
               const forgetButton = document.getElementById('forgetMyDetailsBtn');
